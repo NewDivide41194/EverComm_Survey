@@ -1,5 +1,4 @@
-import React from "react";
-import LoginContainer from "../pages/login/container/LoginContainer";
+
 import QuestionContainer from "../pages/Question/container/QuestionContainer";
 
 export const RouteName = {
@@ -9,7 +8,6 @@ export const RouteName = {
 
 export default {
   routes: {
-    [RouteName.routeFirstPage]: { component: LoginContainer },
     [RouteName.routeQuestionPage]:{component:QuestionContainer}
   },
   default:RouteName.routeFirstPage

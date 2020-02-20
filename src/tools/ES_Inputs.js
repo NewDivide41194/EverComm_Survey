@@ -10,7 +10,8 @@ export const ES_Input = props => {
     type,
     id,
     height,
-    width
+    width,
+    onChange
   } = props;
 
   const defaultStyle = {
@@ -24,6 +25,7 @@ export const ES_Input = props => {
   return (
     <input
       id={id}
+      onChange={onChange}
       style={{
         ...defaultStyle,
         ...userStyle,

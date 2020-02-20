@@ -1,25 +1,26 @@
 import * as API from "./url";
 
-export const QuestionFetch =() => {
-    fetch(API.QuestionAPI, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "*/*",
+export const QuestionFetch = (token, callback) => {
+  fetch(API.QuestionAPI)
+    .then(res => res.json())
+    .then(data => callback(null, data))
+    .catch(err => console.log(err));
+};
 
-      },
-      cache: "no-cache"
-    })
-      .then(response => {
-        if (response.status === 200) {
-          // console.log(response);
-          return response.json();
-        }
-
-      })
-      .then((data) => {
-        console.log(data);
-        callback(null, data);
-      })
-      .catch(err => console.log(err));
-  };
+export const UserFetch = ({userName,token}, callback) => {
+  fetch(API.UserAPI, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "*/*",
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      name:userName
+    }),
+    cache: "no-cache"
+  })
+    .then(res => res.json())
+    .then(data => callback(null, data))
+    .catch(err => console.log(err));
+};

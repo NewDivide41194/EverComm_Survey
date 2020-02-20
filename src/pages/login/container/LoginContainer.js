@@ -1,15 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import Login from "../components/UserLogin";
+import { UserFetch } from "../../../api/FetchQuestions";
 
 const LoginContainer = props => {
+  const [userName, setUserName] = useState("");
+  const token = 123;
+
   const _handleSubmit = () => {
+    UserFetch({ userName, token }, (err, data) => {
+      localStorage.setItem("userData", JSON.stringify(data.payload[0]));
+    });
     props.history.push("/question");
-    // history.location.pathname='/questions'
   };
+  const _handleChange = e => {
+    setUserName(e.target.value);
+  };
+
   return (
-    <div>
-      <Login handleSubmit={_handleSubmit} />
-    </div>
+      <Login
+        handleSubmit={_handleSubmit}
+        userName={userName}
+        handleChange={_handleChange}
+      />
   );
 };
 

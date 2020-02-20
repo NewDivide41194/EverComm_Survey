@@ -6,7 +6,6 @@ export const ES_Button = props => {
     text,
     onClick,
     type,
-    round,
     style,
     small,
     theme,
@@ -14,27 +13,23 @@ export const ES_Button = props => {
     disabled,
     id
   } = props;
-  const defaultStyle = {
-    outline: "none",
-    boxShadow: "none",
+  const [isHover, setIsHover] = useState(true);
+
+  const defaultStyle1 = {
     color: "#ffffff",
-    border: "none",
-    borderRadius: round === undefined ? 5 : 16,
     minWidth: 160,
     background: `${Color.PrimaryColor}`
   };
   const hoverStyle = {
-    outline: "none",
-    boxShadow: "none",
-    color: "#ffffff",
-    border: "none",
-    borderRadius: round === undefined ? 5 : 16,
+    color: `${Color.PrimaryColor}`,
+    border:`2px solid ${Color.PrimaryColor}`,
     minWidth: 160,
     background: `${Color.SecondaryColor}`
   };
 
+  const defaultStyle = isHover ? defaultStyle1 : hoverStyle;
 
-const userStyle = style === undefined ? {} : style;
+  const userStyle = style === undefined ? {} : style;
 
   return (
     <button
@@ -42,13 +37,14 @@ const userStyle = style === undefined ? {} : style;
       id={id}
       onClick={onClick}
       type={type === undefined ? "button" : type}
-      className={`btn btn-block ${
+      className={`btn btn-block font-weight-bold rounded${
         selectTheme === undefined
           ? `submit-btn-${theme}`
           : `submit-btn-${selectTheme}`
       }  ${small === undefined ? "p-3" : "px-3"}`}
       style={{ ...defaultStyle, ...userStyle }}
-
+      onMouseOver={() => setIsHover(false)}
+      onMouseLeave={() => setIsHover(true)}
     >
       {text}
     </button>
