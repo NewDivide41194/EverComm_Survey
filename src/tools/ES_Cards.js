@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { ES_CheckBox } from "./ES_CheckBox";
 import { ES_Radio } from "./ES_Radio";
+import { ES_DropDown } from "./ES_DropDown";
+
 import * as Color from "../config/Color.config";
 
 const QuestionCard = props => {
-  const { categories,pageno,cvalue,handleCheckChange,rvalue,handleRadioChange } = props;
+  const {
+    categories,
+    pageno,
+    cvalue,
+    handleCheckChange,
+    handleRadioChange,
+    userId
+  } = props;
 
   return (
     <div>
@@ -26,10 +35,17 @@ const QuestionCard = props => {
           ) : ques.qtype_id === 2 ? (
             <ES_Radio
               value={ques.possible_answers}
+              pageNo={pageno}
+              cvalue={categories}
               handleRadioChange={handleRadioChange}
               quesId={ques.id}
-              rvalue={rvalue}              
+              userId={userId}
             />
+          ) : ques.qtype_id === 6 ? (
+            <ES_DropDown 
+            quesId={ques.id}
+            value={ques.possible_answers}
+            handleChange={handleCheckChange}/>
           ) : null}
         </div>
       ))}

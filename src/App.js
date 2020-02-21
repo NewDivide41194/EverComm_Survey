@@ -6,18 +6,22 @@ import NavBar from "./features/app/NavBar";
 
 const App = () => {
   return (
-    <Switch>
-      <Route exact path="/" component={LoginContainer} />
+    <div>
+      <NavBar />
+      <Switch>
+        <Route exact path="/" component={LoginContainer} />
 
-      {Object.keys(routes.routes).map((v, k) => (
-        <div key={k}>
-          <NavBar />
-          <Route path={`/${v}`} component={routes.routes[v].component} />
-        </div>
-      ))}
+        {Object.keys(routes.routes).map((v, k) => (
+          <Route
+            key={k}
+            path={`/${v}`}
+            component={routes.routes[v].component}
+          />
+        ))}
 
-      <Redirect to={routes.default} />
-    </Switch>
+        <Redirect to={routes.default} />
+      </Switch>
+    </div>
   );
 };
 
