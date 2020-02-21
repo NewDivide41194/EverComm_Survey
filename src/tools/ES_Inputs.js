@@ -25,6 +25,7 @@ export const ES_Input = props => {
   return (
     <input
       id={id}
+      required
       onChange={onChange}
       style={{
         ...defaultStyle,

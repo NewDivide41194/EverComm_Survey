@@ -6,7 +6,7 @@ export const ES_CheckBox = props => {
 
   return value.map((ans, k3) => (
     <div className="flex-col w-50" key={k3}>
-      <Checkbox id={ans.id} value={ans.id} onChange={e=>handleChange(quesId,ans.id)}/>
+      <Checkbox color="primary" id={ans.id} value={ans.id} onChange={()=>handleChange(quesId,ans.id)}/>
       <label>{ans.name}</label>
     </div>
   ));

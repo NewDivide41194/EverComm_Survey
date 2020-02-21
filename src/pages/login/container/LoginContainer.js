@@ -7,21 +7,25 @@ const LoginContainer = props => {
   const token = 123;
 
   const _handleSubmit = () => {
-    UserFetch({ userName, token }, (err, data) => {
-      localStorage.setItem("userData", JSON.stringify(data.payload[0]));
-    });
-    props.history.push("/question");
+    if (userName === "") {
+      return
+    } else {
+      UserFetch({ userName, token }, (err, data) => {
+        localStorage.setItem("userData", JSON.stringify(data.payload[0]));
+      });
+      props.history.push("/question");
+    }
   };
   const _handleChange = e => {
     setUserName(e.target.value);
   };
 
   return (
-      <Login
-        handleSubmit={_handleSubmit}
-        userName={userName}
-        handleChange={_handleChange}
-      />
+    <Login
+      handleSubmit={_handleSubmit}
+      userName={userName}
+      handleChange={_handleChange}
+    />
   );
 };
 
