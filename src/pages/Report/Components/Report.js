@@ -11,7 +11,7 @@ const Report = props => {
       <h1>{surveyTitle}</h1>
       {ReportData.length && ReportData[0].categories.map((v, k) => (
         <div>{v.name}
-        <span>{pageNo}</span>
+        
         </div>
       ))}
     </div>
