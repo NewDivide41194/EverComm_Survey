@@ -3,7 +3,6 @@ import Radio from "@material-ui/core/Radio";
 export const ES_Radio = props => {
   const { value, userId, quesId, cvalue, pageNo } = props;
   const [rvalue, setRvalue] = useState("");
-  console.log("11111111111", props);
 
   const handleRadioChange = (ansId, quesId) => {
     let questions = cvalue[pageNo].questions;

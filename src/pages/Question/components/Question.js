@@ -17,7 +17,6 @@ const Question = props => {
     PostAnswer(surveyData[0],(err,data)=>{
       
     })
-    console.log('surveyData is=>',surveyData);
   }
 
   useEffect(() => {
@@ -37,7 +36,6 @@ const Question = props => {
       surveyData[0].categories[pageno].questions[index].possible_answers[ind2].users.splice(ind3,1);
      }
    }
-   console.log('sruverdata is=>',surveyData)
   };
   return (
     surveyData.length && (

@@ -4,7 +4,6 @@ const Report = props => {
   const { ReportData } = props;
   const surveyTitle = ReportData.length && ReportData[0].survery_title;
   const pageNo=ReportData.length &&ReportData[0].categories.length
-  console.log("PGNO",pageNo);
 
   return (
     <div className="py-5">

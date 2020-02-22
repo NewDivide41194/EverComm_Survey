@@ -5,7 +5,6 @@ export const ES_DropDown = props => {
   const [svalue, setSvalue] = useState("");
 
 
-  console.log("Value------>", value);
 
   const handleSelect = (quesId) => {
     let ansId = document.getElementById("Select").value
@@ -15,7 +14,6 @@ export const ES_DropDown = props => {
     let ind = cvalue[pageNo].questions[quesIndex].possible_answers.findIndex(
       data => data.id === ansId
     );
-    console.log("INDEX ==>", ind);
 
     cvalue[pageNo].questions[quesIndex].possible_answers.map((ans, k) => {
       let i = ans.users.findIndex(userid => userid == userId);
@@ -31,7 +29,6 @@ export const ES_DropDown = props => {
         userId
       );
     }
-    console.log("ANS Id",ansId);
     
   };
 
