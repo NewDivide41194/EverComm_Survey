@@ -46,7 +46,7 @@ const Question = props => {
             categories={surveyData[0].categories}
             pageno={pageno}
             handleCheckChange={handleCheckChange}
-            userId={userData._id}
+            userId={userData&&userData._id?userData.id:1}
           />
         )}
         {
