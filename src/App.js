@@ -9,7 +9,7 @@ const App = () => {
     <div>
       <NavBar />
       <Switch>
-        <Route exact path="/" component={LoginContainer} />
+        <Route exact path="/login" component={LoginContainer} />
 
         {Object.keys(routes.routes).map((v, k) => (
           <Route

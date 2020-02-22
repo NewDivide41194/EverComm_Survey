@@ -9,7 +9,6 @@ const QuestionCard = props => {
   const {
     categories,
     pageno,
-    cvalue,
     handleCheckChange,
     handleRadioChange,
     userId
@@ -44,8 +43,12 @@ const QuestionCard = props => {
           ) : ques.qtype_id === 6 ? (
             <ES_DropDown 
             quesId={ques.id}
+            pageNo={pageno}
+
+            cvalue={categories}
             value={ques.possible_answers}
-            handleChange={handleCheckChange}/>
+            handleChange={handleCheckChange}
+            userId={userId}/>
           ) : null}
         </div>
       ))}

@@ -4,9 +4,6 @@ export const ES_Radio = props => {
   const { value, userId, quesId, cvalue, pageNo } = props;
   const [rvalue, setRvalue] = useState("");
   console.log("11111111111", props);
-  let isUser = cvalue.findIndex(data => data.user_id === userId);
-
-  // console.log(cvalue[0].questions[1].possible_answers[0].users.push(userId));
 
   const handleRadioChange = (ansId, quesId) => {
     let questions = cvalue[pageNo].questions;
@@ -14,14 +11,14 @@ export const ES_Radio = props => {
 
     setRvalue(ansId);
     let ind = cvalue[pageNo].questions[index].possible_answers.findIndex(data => data.id === ansId);
-    console.log("User===>", ind);
-
-    let isUser = cvalue.findIndex(data => data.user_id === userId);
-
-    if (ind > 0 ) {
-      cvalue[pageNo].questions[index].possible_answers[ind].users.push(
-        userId
-      );
+    cvalue[pageNo].questions[index].possible_answers.map((ans,k)=> {
+      let i = ans.users.findIndex(userid=> userid == userId);
+      if(i >= 0){
+        cvalue[pageNo].questions[index].possible_answers[k].users.splice(i,1);
+      }
+    });
+    if (ind >= 0 ) {
+      cvalue[pageNo].questions[index].possible_answers[ind].users.push(userId);
     } 
   };
 
