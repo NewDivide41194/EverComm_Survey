@@ -21,6 +21,7 @@ const Question = props => {
 
   useEffect(() => {
     setUserData(JSON.parse(localStorage.getItem("userData")));
+    
   }, []);
 
   const handleCheckChange = (quesId, answerId) => {
@@ -42,11 +43,11 @@ const Question = props => {
       <div className="container">
         <h3 className="card-title">{surveyData[0].survery_title}</h3>
         {surveyData[0].categories.length && (
-          <QuestionCard
+         <QuestionCard
             categories={surveyData[0].categories}
             pageno={pageno}
             handleCheckChange={handleCheckChange}
-            userId={userData&&userData._id?userData.id:1}
+            userId={userData}
           />
         )}
         {
