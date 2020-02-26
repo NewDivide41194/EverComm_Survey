@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as Color from "../config/Color.config";
 
-export const ES_Button = props => {
+export const ESButton = props => {
   const {
     text,
     onClick,
@@ -11,6 +11,8 @@ export const ES_Button = props => {
     theme,
     selectTheme,
     disabled,
+    leftIcon,
+    rightIcon,
     id
   } = props;
   const [isHover, setIsHover] = useState(true);
@@ -22,9 +24,9 @@ export const ES_Button = props => {
   };
   const hoverStyle = {
     color: `${Color.PrimaryColor}`,
-    border:`2px solid ${Color.PrimaryColor}`,
-    minWidth: 160,
-    background: `${Color.SecondaryColor}`
+    background: `${Color.SecondaryColor}`,
+    boxShadow: "5px 5px 15px gray",
+    minWidth: 160
   };
 
   const defaultStyle = isHover ? defaultStyle1 : hoverStyle;
@@ -46,7 +48,9 @@ export const ES_Button = props => {
       onMouseOver={() => setIsHover(false)}
       onMouseLeave={() => setIsHover(true)}
     >
+      {leftIcon?leftIcon:null}
       {text}
+      {rightIcon ? rightIcon : null}
     </button>
   );
 };

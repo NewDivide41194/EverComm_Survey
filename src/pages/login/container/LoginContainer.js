@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Login from "../components/UserLogin";
 import { UserFetch } from "../../../api/FetchQuestions";
 
@@ -8,8 +8,8 @@ const LoginContainer = props => {
 
   const _handleSubmit = (e) => {
     e.preventDefault()
-    if (userName === "") {
-      return
+    if (userName ===  "") {
+      alert('Fill User Name')
     } else {
       UserFetch({ userName, token }, (err, data) => {
         localStorage.setItem("userData", JSON.stringify(data.payload[0]));

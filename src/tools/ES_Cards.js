@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { ES_CheckBox } from "./ES_CheckBox";
-import { ES_Radio } from "./ES_Radio";
-import { ES_DropDown } from "./ES_DropDown";
+import React from "react";
+import ESCheckBox from "./ES_CheckBox";
+import { ESRadio } from "./ES_Radio";
+import { ESDropDown } from "./ES_DropDown";
 
 import * as Color from "../config/Color.config";
+import { withMedia } from "react-media-query-hoc";
 
 const QuestionCard = props => {
   const {
@@ -11,28 +12,38 @@ const QuestionCard = props => {
     pageno,
     handleCheckChange,
     handleRadioChange,
-    userId
+    userId,
+    media
   } = props;
+
+  console.log(categories, pageno);
 
   return (
     <div>
-      <div className="mb-3" style={{ color: `${Color.PrimaryColor}` }}>
-        <h3 className="card-title">{categories[0].name}</h3>
-      </div>
       {// cat && cat.length && cat.questions && cat.questions.length &&
       categories[pageno].questions.map((ques, k2) => (
-        <div className="d-flex  flex-row flex-fill flex-wrap w-100 bg-light p-2 my-2 rounded">
-          <div className="d-flex flex-row flex-wrap w-100" key={k2}>
-            {k2 + 1}. {ques.name}
+        <div
+          className="d-flex  flex-row flex-fill flex-wrap w-100 bg-light p-3 my-3 rounded"
+          key={k2}
+          style={{ fontSize: media.mobile ? "12px" : "15px" }}
+        >
+          <div
+            className="d-flex flex-row flex-wrap w-100"
+            key={k2}
+            style={{ fontSize: media.mobile ? "15px" : "18px" }}
+          >
+            <span className="pb-4">
+              {k2 + 1}. {ques.name}
+            </span>
           </div>
           {ques.qtype_id === 1 ? (
-            <ES_CheckBox
+            <ESCheckBox
               quesId={ques.id}
               value={ques.possible_answers}
               handleChange={handleCheckChange}
             />
           ) : ques.qtype_id === 2 ? (
-            <ES_Radio
+            <ESRadio
               value={ques.possible_answers}
               pageNo={pageno}
               cvalue={categories}
@@ -41,14 +52,14 @@ const QuestionCard = props => {
               userId={userId}
             />
           ) : ques.qtype_id === 6 ? (
-            <ES_DropDown 
-            quesId={ques.id}
-            pageNo={pageno}
-
-            cvalue={categories}
-            value={ques.possible_answers}
-            handleChange={handleCheckChange}
-            userId={userId}/>
+            <ESDropDown
+              quesId={ques.id}
+              pageNo={pageno}
+              cvalue={categories}
+              value={ques.possible_answers}
+              handleChange={handleCheckChange}
+              userId={userId}
+            />
           ) : null}
         </div>
       ))}
@@ -56,4 +67,4 @@ const QuestionCard = props => {
   );
 };
 
-export default QuestionCard;
+export default withMedia(QuestionCard);

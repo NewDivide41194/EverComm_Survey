@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
-import { ES_Button } from "../../../tools/ES_Button";
-import { ES_Input } from "../../../tools/ES_Inputs";
+import React from "react";
+import { ESButton } from "../../../tools/ES_Button";
+import { ESInput } from "../../../tools/ES_Inputs";
 
 const Login = props => {
   const { handleSubmit, userName, handleChange } = props;
 
   return (
-    <div className="container">
       <div className="row justify-content-center">
         <form
           className="col-lg-3"
@@ -20,7 +19,7 @@ const Login = props => {
           <div className="form-group">
             <h3>Enter your Name</h3>
             <div className="py-4">
-              <ES_Input
+              <ESInput
                 required={true}
                 id={"UserName"}
                 placeHolder={"UserName"}
@@ -29,7 +28,7 @@ const Login = props => {
               />
             </div>
 
-            <ES_Button
+            <ESButton
               text={"Start Survey"}
               type={"submit"}
               small
@@ -39,7 +38,6 @@ const Login = props => {
           </div>
         </form>
       </div>
-    </div>
   );
 };
 
