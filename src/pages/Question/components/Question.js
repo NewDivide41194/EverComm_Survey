@@ -3,7 +3,8 @@ import QuestionCard from "../../../tools/ES_Cards";
 import { ESButton } from "../../../tools/ES_Button";
 import { PostAnswer } from "../../../api/PostAnswer";
 import { withMedia } from "react-media-query-hoc";
-import * as Color from '../../../config/Color.config'
+import * as Color from "../../../config/Color.config";
+import ESProgress from "../../../tools/ES_Progress";
 
 const Question = props => {
   const { surveyData, media } = props;
@@ -47,35 +48,36 @@ const Question = props => {
     }
   };
 
-// console.log("QQQQ",surveyData.length&& surveyData[0].categories[pageno].questions.length);
+  // console.log("QQQQ",surveyData.length&& surveyData[0].categories[pageno].questions.length);
 
   return (
     surveyData.length && (
-      <div className='w-100'>
-         <div className={`progress ${media.mobile?'w-75':'w-25'}`}>
+      <div className="container pt-5">
+                  {/* <ESProgress /> */}
+
+        <div className="d-flex flex-row justify-content-between">
+        <div className=''>
+        <div
+            style={{
+              fontSize: media.mobile ? "20px" : "25px",
+              fontWeight: "bold"
+            }}
+          >
+            {surveyData[0].survery_title}
+          </div>
           <div
-            className="progress-bar"
-            role="progressbar"
-            aria-valuenow="40"
-            aria-valuemin="0"
-            aria-valuemax="100"
-            style={{ width: "75%",background: Color.PrimaryColor}}
-          ></div>
+            className="my-2"
+            style={{ fontSize: media.mobile ? "18px" : "20px" }}
+          >
+            {surveyData[0].categories[pageno].name}
+          </div>
+            
+          </div>
+          {/* <ESProgress /> */}
+
+          
         </div>
-        <div
-          style={{
-            fontSize: media.mobile ? "20px" : "25px",
-            fontWeight: "bold"
-          }}
-        >
-          {surveyData[0].survery_title}
-        </div>
-        <div
-          className="my-2"
-          style={{ fontSize: media.mobile ? "18px" : "20px" }}
-        >
-          {surveyData[0].categories[pageno].name}
-        </div>
+
         <div className="my-2 scrollbar w-100" id="style-1">
           <div className="force-overflow">
             {surveyData[0].categories.length && (
@@ -88,24 +90,32 @@ const Question = props => {
             )}
           </div>
         </div>
-        <div className='row'>
-            <div className='w-50 pr-2'>
-          {surveyData.length && surveyData[0].categories.length > pageno + 1 ? (
-null
-) : (
-          <ESButton text={"PREVIOUS"} onClick={_handlePrevious} leftIcon={<i class="fa fa-caret-left pr-2"/>}/>
-        )}
+        <div className="row justify-content-end">
+          <div className="col-lg-2 p-2">
+            {surveyData.length &&
+            surveyData[0].categories.length > pageno + 1 ? null : (
+              <ESButton
+                text={"PREVIOUS"}
+                onClick={_handlePrevious}
+                small
+                leftIcon={<i class="fa fa-caret-left pr-2" />}
+              />
+            )}
+          </div>
+          <div className="col-lg-2 p-2">
+            {surveyData.length &&
+            surveyData[0].categories.length === pageno + 1 ? (
+              <ESButton text={"DONE"} small onClick={_handleSubmit} />
+            ) : (
+              <ESButton
+                text={"NEXT"}
+                onClick={_handleNext}
+                small
+                rightIcon={<i class="fa fa-caret-right pl-2" />}
+              />
+            )}
+          </div>
         </div>
-        <div className='w-50 pl-2'>
-          {surveyData.length && surveyData[0].categories.length === pageno + 1 ? (
-          <ESButton text={"DONE"} onClick={_handleSubmit} />
-        ) : (
-          <ESButton text={"NEXT"} onClick={_handleNext} rightIcon={<i class="fa fa-caret-right pl-2"/>} />
-        )}
-        </div>
-        </div>
-      
-       
       </div>
     )
   );

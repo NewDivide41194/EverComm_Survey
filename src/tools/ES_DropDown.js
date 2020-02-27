@@ -3,9 +3,6 @@ import React, { useState } from "react";
 export const ESDropDown = props => {
   const { value, pageNo, cvalue, quesId, userId } = props;
   const [svalue, setSvalue] = useState("");
-
-
-
   const handleSelect = (quesId) => {
     let ansId = document.getElementById("Select").value
     let questions = cvalue[pageNo].questions;
@@ -37,6 +34,7 @@ export const ESDropDown = props => {
       id="Select"
       className="form-control"
       onChange={e => handleSelect(quesId)}
+      style={{boxShadow:'none'}}
     >
       {value.map((x, y) => (
         <option key={y} id={x.id} value={x.id}>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Question from "../components/Question";
 import { QuestionFetch } from "../../../api/FetchQuestions";
+import ES_Progress from "../../../tools/ES_Progress";
 
 const QuestionContainer = () => {
   const token = 123;
@@ -11,7 +12,9 @@ const QuestionContainer = () => {
     });
   }, []);
   return (
-    <div className="container pt-4">
+    <div className="">
+      <ES_Progress/>
+  <span>{`444 of 1000 Answered`}</span>
       <Question surveyData={surveyData} />
       
     </div>

@@ -19,14 +19,12 @@ export const ESButton = props => {
 
   const defaultStyle1 = {
     color: "#ffffff",
-    minWidth: 160,
     background: `${Color.PrimaryColor}`
   };
   const hoverStyle = {
     color: `${Color.PrimaryColor}`,
     background: `${Color.SecondaryColor}`,
-    boxShadow: "5px 5px 15px gray",
-    minWidth: 160
+    boxShadow: "5px 5px 15px gray"
   };
 
   const defaultStyle = isHover ? defaultStyle1 : hoverStyle;
@@ -44,11 +42,17 @@ export const ESButton = props => {
           ? `submit-btn-${theme}`
           : `submit-btn-${selectTheme}`
       }  ${small === undefined ? "p-3" : "px-3"}`}
-      style={{ ...defaultStyle, ...userStyle }}
+      style={{
+        ...defaultStyle,
+        ...userStyle,
+        shape: "none",
+        minWidth: 160,
+        transition: ".5s"
+      }}
       onMouseOver={() => setIsHover(false)}
       onMouseLeave={() => setIsHover(true)}
     >
-      {leftIcon?leftIcon:null}
+      {leftIcon ? leftIcon : null}
       {text}
       {rightIcon ? rightIcon : null}
     </button>

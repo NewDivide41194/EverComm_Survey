@@ -22,8 +22,8 @@ code {
 
 #style-1::-webkit-scrollbar
 {
-	width: 8px;
-	background-color: #F5F5F5;
+	width: 4px;
+	background-color: #f9f9f9;
 }
 
 #style-1::-webkit-scrollbar-thumb
@@ -31,7 +31,6 @@ code {
 	border-radius: 5px;
 	background-color: #077cb2;
 }
-
 
 .scrollbar
 { scroll-behavior: smooth;
@@ -43,4 +42,14 @@ code {
 .force-overflow
 {
   min-height: 450px;
+}
+
+select{
+
+  color: green;
+}
+select option { color: black; }
+
+select option:hover{
+  background-color: #07b22c !important;  
 }
