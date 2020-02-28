@@ -11,12 +11,13 @@ const QuestionContainer = () => {
       setSurveyData(data.payload);
     });
   }, []);
+  // console.log(surveyData.length&&surveyData[0].survey_sections);
+console.log(surveyData);
+  
   return (
     <div className="">
-      <ES_Progress/>
-  <span>{`444 of 1000 Answered`}</span>
+      <ES_Progress />
       <Question surveyData={surveyData} />
-      
     </div>
   );
 };

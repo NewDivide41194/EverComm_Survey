@@ -8,7 +8,7 @@ import { withMedia } from "react-media-query-hoc";
 
 const QuestionCard = props => {
   const {
-    categories,
+    survey_sections,
     pageno,
     handleCheckChange,
     handleRadioChange,
@@ -16,12 +16,11 @@ const QuestionCard = props => {
     media
   } = props;
 
-  console.log(categories, pageno);
 
   return (
     <div>
       {// cat && cat.length && cat.questions && cat.questions.length &&
-      categories[pageno].questions.map((ques, k2) => (
+      survey_sections[pageno].questions.map((ques, k2) => (
         <div
           className="d-flex  flex-row flex-fill flex-wrap w-100 bg-light p-3 my-3 rounded"
           key={k2}
@@ -33,30 +32,30 @@ const QuestionCard = props => {
             style={{ fontSize: media.mobile ? "15px" : "18px" }}
           >
             <span className="pb-4">
-              {k2 + 1}. {ques.name}
+              {k2 + 1}. {ques.question_name}
             </span>
           </div>
-          {ques.qtype_id === 1 ? (
+          {ques.input_type_id === 1 ? (
             <ESCheckBox
               quesId={ques.id}
-              value={ques.possible_answers}
+              value={ques.option_choices}
               handleChange={handleCheckChange}
             />
-          ) : ques.qtype_id === 2 ? (
+          ) : ques.input_type_id === 2 ? (
             <ESRadio
-              value={ques.possible_answers}
+              value={ques.option_choices}
               pageNo={pageno}
-              cvalue={categories}
+              cvalue={survey_sections}
               handleRadioChange={handleRadioChange}
               quesId={ques.id}
               userId={userId}
             />
-          ) : ques.qtype_id === 6 ? (
+          ) : ques.input_type_id === 5 ? (
             <ESDropDown
               quesId={ques.id}
               pageNo={pageno}
-              cvalue={categories}
-              value={ques.possible_answers}
+              cvalue={survey_sections}
+              value={ques.option_choices}
               handleChange={handleCheckChange}
               userId={userId}
             />

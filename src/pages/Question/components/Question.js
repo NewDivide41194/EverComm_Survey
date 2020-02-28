@@ -3,8 +3,7 @@ import QuestionCard from "../../../tools/ES_Cards";
 import { ESButton } from "../../../tools/ES_Button";
 import { PostAnswer } from "../../../api/PostAnswer";
 import { withMedia } from "react-media-query-hoc";
-import * as Color from "../../../config/Color.config";
-import ESProgress from "../../../tools/ES_Progress";
+
 
 const Question = props => {
   const { surveyData, media } = props;
@@ -12,14 +11,16 @@ const Question = props => {
   const [userData, setUserData] = useState({});
 
   const _handleNext = () => {
-    setPageno(+1);
+   setPageno(pageno+1)
   };
+  
   const _handlePrevious = () => {
-    setPageno(0);
+    setPageno(pageno-1)
   };
 
   const _handleSubmit = () => {
     PostAnswer(surveyData[0], (err, data) => {});
+    alert('Report!')
   };
 
   useEffect(() => {
@@ -27,62 +28,58 @@ const Question = props => {
   }, []);
 
   const handleCheckChange = (quesId, answerId) => {
-    let questions = surveyData[0].categories[pageno].questions;
-    let index = questions.findIndex(q => q.id === quesId);
+    let questions = surveyData[0].survey_sections[pageno].questions;
+    console.log(questions);
+
+    let index = questions.findIndex(q => q.question_id === quesId);
     if (index >= 0) {
       let ind2 = questions[index].possible_answers.findIndex(
         ans => ans.id === answerId
       );
-      let ind3 = surveyData[0].categories[pageno].questions[
+      let ind3 = surveyData[0].survey_sections[pageno].questions[
         index
       ].possible_answers[ind2].users.findIndex(user => user === userData._id);
       if (ind3 < 0) {
-        surveyData[0].categories[pageno].questions[index].possible_answers[
+        surveyData[0].survey_sections[pageno].questions[index].possible_answers[
           ind2
         ].users.push(userData._id);
       } else {
-        surveyData[0].categories[pageno].questions[index].possible_answers[
+        surveyData[0].survey_sections[pageno].questions[index].possible_answers[
           ind2
         ].users.splice(ind3, 1);
       }
     }
   };
 
-  // console.log("QQQQ",surveyData.length&& surveyData[0].categories[pageno].questions.length);
 
   return (
     surveyData.length && (
-      <div className="container pt-5">
-                  {/* <ESProgress /> */}
+      <div className="container">
+        <div className="text-light row justify-content-center pt-4">
+          <div className="bg-secondary px-4" style={{borderRadius:'20px'}}>{`5 of ${surveyData[0].question_count} Answered`}</div>
+        </div>
 
-        <div className="d-flex flex-row justify-content-between">
-        <div className=''>
         <div
-            style={{
-              fontSize: media.mobile ? "20px" : "25px",
-              fontWeight: "bold"
-            }}
-          >
-            {surveyData[0].survery_title}
-          </div>
-          <div
-            className="my-2"
-            style={{ fontSize: media.mobile ? "18px" : "20px" }}
-          >
-            {surveyData[0].categories[pageno].name}
-          </div>
-            
-          </div>
-          {/* <ESProgress /> */}
-
-          
+          style={{
+            fontSize: media.mobile ? "20px" : "25px",
+            fontWeight: "bold"
+          }}
+          className='pt-4'
+        >
+          {surveyData[0].survey_name}
+        </div>
+        <div
+          className="my-2"
+          style={{ fontSize: media.mobile ? "18px" : "20px" }}
+        >
+          {surveyData[0].survey_sections[pageno].section_name}
         </div>
 
         <div className="my-2 scrollbar w-100" id="style-1">
           <div className="force-overflow">
-            {surveyData[0].categories.length && (
+            {surveyData[0].survey_sections.length && (
               <QuestionCard
-                categories={surveyData[0].categories}
+                survey_sections={surveyData[0].survey_sections}
                 pageno={pageno}
                 handleCheckChange={handleCheckChange}
                 userId={userData}
@@ -93,25 +90,25 @@ const Question = props => {
         <div className="row justify-content-end">
           <div className="col-lg-2 p-2">
             {surveyData.length &&
-            surveyData[0].categories.length > pageno + 1 ? null : (
+            pageno>0 ?  (
               <ESButton
                 text={"PREVIOUS"}
                 onClick={_handlePrevious}
                 small
-                leftIcon={<i class="fa fa-caret-left pr-2" />}
+                leftIcon={<i className="fa fa-caret-left pr-2" />}
               />
-            )}
+            ):null}
           </div>
           <div className="col-lg-2 p-2">
             {surveyData.length &&
-            surveyData[0].categories.length === pageno + 1 ? (
+            surveyData[0].survey_sections.length === pageno + 1 ? (
               <ESButton text={"DONE"} small onClick={_handleSubmit} />
             ) : (
               <ESButton
                 text={"NEXT"}
                 onClick={_handleNext}
                 small
-                rightIcon={<i class="fa fa-caret-right pl-2" />}
+                rightIcon={<i className="fa fa-caret-right pl-2" />}
               />
             )}
           </div>
