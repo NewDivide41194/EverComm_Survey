@@ -37,7 +37,7 @@ export const ESButton = props => {
       id={id}
       onClick={onClick}
       type={type === undefined ? "button" : type}
-      className={`btn btn-block font-weight-bold rounded${
+      className={`btn btn-block font-weight-bold rounded py-2 ${
         selectTheme === undefined
           ? `submit-btn-${theme}`
           : `submit-btn-${selectTheme}`
@@ -46,7 +46,6 @@ export const ESButton = props => {
         ...defaultStyle,
         ...userStyle,
         shape: "none",
-        minWidth: 160,
         transition: ".5s"
       }}
       onMouseOver={() => setIsHover(false)}

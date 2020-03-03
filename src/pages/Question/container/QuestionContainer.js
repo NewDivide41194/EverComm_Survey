@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Question from "../components/Question";
 import { QuestionFetch } from "../../../api/FetchQuestions";
-import ES_Progress from "../../../tools/ES_Progress";
+import ESProgress from "../../../tools/ES_Progress";
 
 const QuestionContainer = () => {
   const token = 123;
@@ -15,8 +15,8 @@ const QuestionContainer = () => {
 console.log(surveyData);
   
   return (
-    <div className="">
-      <ES_Progress />
+    <div>
+      <ESProgress />
       <Question surveyData={surveyData} />
     </div>
   );
