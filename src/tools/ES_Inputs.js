@@ -20,6 +20,7 @@ export const ESInput = props => {
     fontSize: 14,
     height: `${height}`,
     boxShadow: "none",
+    shapeOutline:'none',
     outline: "none",
     border: `2px solid ${Color.SecondaryColor}`,
     background: `${Color.SecondaryColor}`,

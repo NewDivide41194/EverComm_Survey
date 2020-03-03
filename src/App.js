@@ -24,7 +24,6 @@ const App = () => {
             component={routes.routes[v].component}
           />
         ))}
-
         <Redirect to={routes.default} />
       </Switch>
     </MediaQueryProvider>
