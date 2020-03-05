@@ -77,6 +77,7 @@ const Question = props => {
           {surveyData[0].categories[pageno].name}
         </div>
         <div className="my-2 scrollbar w-100" id="style-1">
+          {/* <div className='bg-light w-100 h-100' style={{visibility:'hidden'}}></div> */}
           <div className="force-overflow">
             {surveyData[0].categories.length && (
               <QuestionCard
