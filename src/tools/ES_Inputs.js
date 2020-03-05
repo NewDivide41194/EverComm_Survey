@@ -36,8 +36,6 @@ export const ESInput = props => {
     document.getElementById(
       id
     ).style.border = `2px solid ${Color.PrimaryColor}`;
-    console.log(value);
-    console.log("ID_____>", id);
   };
   const handleInputChange = (e, quesId) => {
     setValue(e.target.value);

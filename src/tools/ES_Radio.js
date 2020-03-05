@@ -6,7 +6,6 @@ export const ESRadio = props => {
 
   const handleRadioChange = (ansId, quesId) => {
     const isQuesId = AnswerData.filter(e => e.questionId === quesId);
-    console.log(isQuesId);
     const isQuesIdIndex=AnswerData.findIndex(e=>e.questionId===quesId)
     const Ans = {
       other: "",
@@ -21,7 +20,6 @@ export const ESRadio = props => {
 
     }
 
-    console.log("Ans=====>", AnswerData);
     let questions = cvalue[pageNo].questions;
     let index = questions.findIndex(q => q.question_id === quesId);
     setRvalue(ansId);

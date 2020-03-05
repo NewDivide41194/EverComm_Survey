@@ -9,7 +9,6 @@ export const ESDropDown = props => {
     setSvalue(ansId);
 
     const isQuesId = AnswerData.filter(e => e.questionId === quesId);
-    console.log(isQuesId);
     const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
     const Ans = {
       other: "",

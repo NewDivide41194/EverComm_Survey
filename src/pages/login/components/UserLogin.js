@@ -4,8 +4,6 @@ import { ESInput } from "../../../tools/ES_Inputs";
 
 const Login = props => {
   const { handleSubmit, userName, handleChange,IsLoading } = props;
-console.log(IsLoading);
-
   return (
       <div className="row justify-content-center">
         {IsLoading&&<div className='bg-dark w-100'>Loading...</div>}

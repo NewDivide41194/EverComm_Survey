@@ -23,7 +23,7 @@ const Question = props => {
   const AnswerCountLength = AnswerCount.length;
 
   const _handleSubmit = () => {
-    PostAnswer({ data: AnswerData }, (err, data) => {window.alert(`${AnswerCountLength===0?"There is No Answer":AnswerCountLength}  Inserted!`)});
+    PostAnswer({ data: AnswerData }, (err, data) => {window.alert(`${AnswerCountLength===0?"There is No Answer":JSON.stringify(AnswerData)}  Inserted!`)});
   };
 
   useEffect(() => {

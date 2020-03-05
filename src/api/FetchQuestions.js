@@ -8,8 +8,6 @@ export const QuestionFetch = (token, callback) => {
 };
 
 export const UserFetch = ({ userName, token }, callback) => {
-  console.log(userName);
-
   fetch(API.UserAPI, {
     method: "POST",
     headers: {

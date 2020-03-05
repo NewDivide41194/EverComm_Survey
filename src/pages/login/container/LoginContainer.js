@@ -13,17 +13,14 @@ const LoginContainer = props => {
     if (userName ===  "") {
       alert('Fill User Name')
     } else {
-      setIsLoading(true)
       UserFetch({ userName, token }, (err, data) => {               
         localStorage.setItem("userData", JSON.stringify({userId: data.payload.insertId,username: userName}));
-        props.history.push("/question");        
+        props.history.push("/question");  
       })
-      setIsLoading(false)
       ;
     }
   };
   const _handleChange = e => {
-    console.log('.....e is>',e.target.value)
        setUserName(e.target.value);
   };
  
