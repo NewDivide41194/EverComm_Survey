@@ -6,35 +6,38 @@ export const ESInput = props => {
     style,
     className,
     placeHolder,
+    required,
     type,
     id,
     height,
     width,
     quesId,
     userId,
+    onChange,
+    value,
     AnswerData
   } = props;
   const defaultStyle = {
-    width: width ===  undefined ? "100%" : width,
+    width: width === undefined ? "100%" : width,
     padding: 20,
     fontSize: 14,
     height: `${height}`,
     boxShadow: "none",
-    shapeOutline:'none',
+    shapeOutline: "none",
     outline: "none",
     border: `2px solid ${Color.SecondaryColor}`,
     background: `${Color.SecondaryColor}`,
     borderRadius: 5
   };
-const [value,setValue]=useState('')
-  const userStyle = style ===  undefined ? {} : style;
+  const [Value, setValue] = useState("");
+  const userStyle = style === undefined ? {} : style;
 
   const _handleFocus = () => {
     document.getElementById(
       id
     ).style.border = `2px solid ${Color.PrimaryColor}`;
     console.log(value);
-    console.log(id);
+    console.log("ID_____>", id);
   };
   const handleInputChange = (e, quesId) => {
     setValue(e.target.value);
@@ -57,8 +60,8 @@ const [value,setValue]=useState('')
       autoComplete="off"
       spellCheck="false"
       id={id}
-      required
-      onChange={(e)=>handleInputChange(e,quesId)}
+      required={required}
+      onChange={e => (AnswerData ? handleInputChange(e, quesId) : onChange(e))}
       style={{
         ...defaultStyle,
         ...userStyle
@@ -66,8 +69,8 @@ const [value,setValue]=useState('')
       placeholder={placeHolder}
       className={`form-control form-rounded ${className}`}
       onFocus={_handleFocus}
-      type={type ===  undefined ? "text" : `${type}`}
-      value={value}
+      type={type === undefined ? "text" : `${type}`}
+      value={AnswerData? Value : value}
     />
   );
 };

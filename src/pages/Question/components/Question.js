@@ -9,7 +9,6 @@ const Question = props => {
   const [pageno, setPageno] = useState(0);
   const [userData, setUserData] = useState({});
   const [AnswerData, setAnswerData] = useState([]);
-  const [Value, setValue] = useState("");
   const _handleNext = () => {
     setPageno(pageno + 1);
   };
@@ -24,7 +23,7 @@ const Question = props => {
   const AnswerCountLength = AnswerCount.length;
 
   const _handleSubmit = () => {
-    PostAnswer({ data: AnswerData }, (err, data) => {});
+    PostAnswer({ data: AnswerData }, (err, data) => {window.alert(`${AnswerCountLength===0?"There is No Answer":AnswerCountLength}  Inserted!`)});
   };
 
   useEffect(() => {
@@ -54,22 +53,7 @@ const Question = props => {
     }
   };
 
-  const handleInputChange = (e, quesId) => {
-    setValue(e.target.value);
-    const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
-    const isQuesId = AnswerData.filter(e => e.questionId === quesId);
-    const Ans = {
-      other: e.target.value,
-      optionChoiceId: null,
-      userId: userData.userId,
-      questionId: quesId
-    };
-    if (isQuesId.length >= 1) {
-      AnswerData.splice(isQuesIdIndex, 1, Ans);
-    } else {
-      AnswerData.push(Ans);
-    }
-  };
+  
   return (
     surveyData.length && (
       <div className="container">
@@ -77,7 +61,7 @@ const Question = props => {
           <div
             className="px-4 position-fixed"
             style={{ borderRadius: "20px", background: "rgba(0,0,0,0.5)" }}
-          >{`${AnswerCountLength} of ${surveyData[0].question_count} Answered`}</div>
+          >{`${AnswerCountLength||0} of ${surveyData[0].question_count} Answered`}</div>
         </div>
 
         <div
@@ -103,7 +87,6 @@ const Question = props => {
                 survey_sections={surveyData[0].survey_sections}
                 pageno={pageno}
                 handleCheckChange={handleCheckChange}
-                handleInputChange={handleInputChange}
                 userId={userData.userId}
                 AnswerData={AnswerData}
               />

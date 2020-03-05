@@ -3,10 +3,12 @@ import { ESButton } from "../../../tools/ES_Button";
 import { ESInput } from "../../../tools/ES_Inputs";
 
 const Login = props => {
-  const { handleSubmit, userName, handleChange } = props;
+  const { handleSubmit, userName, handleChange,IsLoading } = props;
+console.log(IsLoading);
 
   return (
       <div className="row justify-content-center">
+        {IsLoading&&<div className='bg-dark w-100'>Loading...</div>}
         <form
           className="col-lg-3"
           style={{
@@ -23,7 +25,7 @@ const Login = props => {
                 required={true}
                 id={"UserName"}
                 placeHolder={"UserName"}
-                value={userName}
+                value={userName}                
                 onChange={e => handleChange(e)}
               />
             </div>
