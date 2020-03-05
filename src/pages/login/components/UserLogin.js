@@ -30,7 +30,6 @@ const Login = props => {
 
             <ESButton
               text={"Start Survey"}
-              className={'py-5'}
               type={"submit"}
               small
               id={"Start Survey"}

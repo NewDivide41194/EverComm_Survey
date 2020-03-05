@@ -11,8 +11,8 @@ const LoginContainer = props => {
     if (userName ===  "") {
       alert('Fill User Name')
     } else {
-      UserFetch({ userName, token }, (err, data) => {
-        localStorage.setItem("userData", JSON.stringify(data.payload[0]));
+      UserFetch({ userName, token }, (err, data) => {       
+        localStorage.setItem("userData", JSON.stringify({userId: data.payload.insertId,username: userName}));
         props.history.push("/question");
       });
     }

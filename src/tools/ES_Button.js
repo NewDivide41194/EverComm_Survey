@@ -18,13 +18,11 @@ export const ESButton = props => {
   const [isHover, setIsHover] = useState(true);
 
   const defaultStyle1 = {
-    color: "#ffffff",
     background: `${Color.PrimaryColor}`
   };
   const hoverStyle = {
-    color: `${Color.PrimaryColor}`,
-    background: `${Color.SecondaryColor}`,
-    boxShadow: "5px 5px 15px gray"
+    background: '#008ccc',    
+    boxShadow: "5px 5px 15px gray",
   };
 
   const defaultStyle = isHover ? defaultStyle1 : hoverStyle;
@@ -37,7 +35,7 @@ export const ESButton = props => {
       id={id}
       onClick={onClick}
       type={type === undefined ? "button" : type}
-      className={`btn btn-block font-weight-bold rounded py-2 ${
+      className={`btn btn-block rounded py-2 ${
         selectTheme === undefined
           ? `submit-btn-${theme}`
           : `submit-btn-${selectTheme}`
@@ -45,7 +43,8 @@ export const ESButton = props => {
       style={{
         ...defaultStyle,
         ...userStyle,
-        shape: "none",
+        outline:'none',
+        color: `${Color.SecondaryColor}`,
         transition: ".5s"
       }}
       onMouseOver={() => setIsHover(false)}

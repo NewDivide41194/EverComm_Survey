@@ -36,7 +36,7 @@ code {
 { scroll-behavior: smooth;
 	float: left;
 	overflow-y: scroll;
-  height: 60vh;
+  height: 70vh;
 }
 
 .force-overflow
@@ -52,4 +52,15 @@ select option { color: black; }
 
 select option:hover{
   background-color: #07b22c !important;  
+}
+
+#myProgress {
+  width: 100%;
+  background-color: #ddd;
+}
+
+#myBar {
+  width: 1%;
+  height: 10px;
+  background-color: #077cb2;
 }

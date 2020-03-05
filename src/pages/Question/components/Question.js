@@ -4,23 +4,27 @@ import { ESButton } from "../../../tools/ES_Button";
 import { PostAnswer } from "../../../api/PostAnswer";
 import { withMedia } from "react-media-query-hoc";
 
-
 const Question = props => {
   const { surveyData, media } = props;
   const [pageno, setPageno] = useState(0);
   const [userData, setUserData] = useState({});
-
+  const [AnswerData, setAnswerData] = useState([]);
+  const [Value, setValue] = useState("");
   const _handleNext = () => {
-   setPageno(pageno+1)
+    setPageno(pageno + 1);
   };
-  
+
   const _handlePrevious = () => {
-    setPageno(pageno-1)
+    setPageno(pageno - 1);
   };
+
+  const AnswerCount =
+    AnswerData.length &&
+    AnswerData.filter((v, k) => v.questionId === v.questionId);
+  const AnswerCountLength = AnswerCount.length;
 
   const _handleSubmit = () => {
-    PostAnswer(surveyData[0], (err, data) => {});
-    alert('Report!')
+    PostAnswer({ data: AnswerData }, (err, data) => {});
   };
 
   useEffect(() => {
@@ -28,35 +32,52 @@ const Question = props => {
   }, []);
 
   const handleCheckChange = (quesId, answerId) => {
-    let questions = surveyData[0].survey_sections[pageno].questions;
-    console.log(questions);
-
-    let index = questions.findIndex(q => q.question_id === quesId);
-    if (index >= 0) {
-      let ind2 = questions[index].possible_answers.findIndex(
-        ans => ans.id === answerId
+    const isQuesId =
+      AnswerData.length &&
+      AnswerData.filter(
+        e => e.questionId === quesId && e.optionChoiceId === answerId
       );
-      let ind3 = surveyData[0].survey_sections[pageno].questions[
-        index
-      ].possible_answers[ind2].users.findIndex(user => user === userData._id);
-      if (ind3 < 0) {
-        surveyData[0].survey_sections[pageno].questions[index].possible_answers[
-          ind2
-        ].users.push(userData._id);
-      } else {
-        surveyData[0].survey_sections[pageno].questions[index].possible_answers[
-          ind2
-        ].users.splice(ind3, 1);
-      }
+    console.log(isQuesId.length);
+    const isQuesIdIndex = AnswerData.findIndex(
+      e => e.optionChoiceId === answerId
+    );
+    const Ans = {
+      other: "",
+      optionChoiceId: answerId,
+      userId: userData.userId,
+      questionId: quesId
+    };
+    if (isQuesId.length >= 1) {
+      AnswerData.splice(isQuesIdIndex, 1);
+    } else {
+      AnswerData.push(Ans);
     }
   };
 
-
+  const handleInputChange = (e, quesId) => {
+    setValue(e.target.value);
+    const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
+    const isQuesId = AnswerData.filter(e => e.questionId === quesId);
+    const Ans = {
+      other: e.target.value,
+      optionChoiceId: null,
+      userId: userData.userId,
+      questionId: quesId
+    };
+    if (isQuesId.length >= 1) {
+      AnswerData.splice(isQuesIdIndex, 1, Ans);
+    } else {
+      AnswerData.push(Ans);
+    }
+  };
   return (
     surveyData.length && (
       <div className="container">
-        <div className="text-light row justify-content-center pt-4">
-          <div className="bg-secondary px-4" style={{borderRadius:'20px'}}>{`5 of ${surveyData[0].question_count} Answered`}</div>
+        <div className="text-light row justify-content-center pt-3">
+          <div
+            className="px-4 position-fixed"
+            style={{ borderRadius: "20px", background: "rgba(0,0,0,0.5)" }}
+          >{`${AnswerCountLength} of ${surveyData[0].question_count} Answered`}</div>
         </div>
 
         <div
@@ -64,7 +85,7 @@ const Question = props => {
             fontSize: media.mobile ? "20px" : "25px",
             fontWeight: "bold"
           }}
-          className='pt-4'
+          className="position-relative pt-3"
         >
           {surveyData[0].survey_name}
         </div>
@@ -82,24 +103,25 @@ const Question = props => {
                 survey_sections={surveyData[0].survey_sections}
                 pageno={pageno}
                 handleCheckChange={handleCheckChange}
-                userId={userData}
+                handleInputChange={handleInputChange}
+                userId={userData.userId}
+                AnswerData={AnswerData}
               />
             )}
           </div>
         </div>
         <div className="row justify-content-end">
-          <div className="col-lg-2 p-2">
-            {surveyData.length &&
-            pageno>0 ?  (
+          <div className="col-lg-2 col-6 p-2">
+            {surveyData.length && pageno > 0 ? (
               <ESButton
                 text={"PREVIOUS"}
                 onClick={_handlePrevious}
                 small
                 leftIcon={<i className="fa fa-caret-left pr-2" />}
               />
-            ):null}
+            ) : null}
           </div>
-          <div className="col-lg-2 p-2">
+          <div className="col-lg-2 col-6 p-2">
             {surveyData.length &&
             surveyData[0].survey_sections.length === pageno + 1 ? (
               <ESButton text={"DONE"} small onClick={_handleSubmit} />

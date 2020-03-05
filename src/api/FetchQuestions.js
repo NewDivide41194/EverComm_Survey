@@ -8,6 +8,8 @@ export const QuestionFetch = (token, callback) => {
 };
 
 export const UserFetch = ({userName,token}, callback) => {
+  console.log(userName);
+  
   fetch(API.UserAPI, {
     method: "POST",
     headers: {
@@ -18,7 +20,7 @@ export const UserFetch = ({userName,token}, callback) => {
     body: JSON.stringify({
       name:userName
     }),
-    cache: "no-cache"
+    caAnswerData: "no-caAnswerData"
   })
     .then(res => res.json())
     .then(data => callback(null, data))

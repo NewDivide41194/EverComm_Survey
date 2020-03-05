@@ -5,17 +5,20 @@ import { ESDropDown } from "./ES_DropDown";
 
 import * as Color from "../config/Color.config";
 import { withMedia } from "react-media-query-hoc";
+import { ESInput } from "./ES_Inputs";
 
 const QuestionCard = props => {
   const {
     survey_sections,
     pageno,
-    handleCheckChange,
     handleRadioChange,
+    handleCheckChange,
+    handleInputChange,
     userId,
-    media
+    media,
+    AnswerData,
+    checked
   } = props;
-
 
   return (
     <div>
@@ -37,9 +40,10 @@ const QuestionCard = props => {
           </div>
           {ques.input_type_id === 1 ? (
             <ESCheckBox
-              quesId={ques.id}
+              quesId={ques.question_id}
               value={ques.option_choices}
               handleChange={handleCheckChange}
+              checked={checked}
             />
           ) : ques.input_type_id === 2 ? (
             <ESRadio
@@ -47,17 +51,28 @@ const QuestionCard = props => {
               pageNo={pageno}
               cvalue={survey_sections}
               handleRadioChange={handleRadioChange}
-              quesId={ques.id}
+              quesId={ques.question_id}
               userId={userId}
+              AnswerData={AnswerData}
             />
           ) : ques.input_type_id === 5 ? (
             <ESDropDown
-              quesId={ques.id}
+              quesId={ques.question_id}
               pageNo={pageno}
               cvalue={survey_sections}
               value={ques.option_choices}
-              handleChange={handleCheckChange}
+              handleChange={handleRadioChange}
               userId={userId}
+              AnswerData={AnswerData}
+
+            />
+          ) : ques.input_type_id === 4 ? (
+            <ESInput
+              id={ques.question_id}
+              quesId={ques.question_id}
+              userId={userId}
+              AnswerData={AnswerData}
+              onChange={handleInputChange}
             />
           ) : null}
         </div>
