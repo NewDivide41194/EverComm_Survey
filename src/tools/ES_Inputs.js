@@ -37,6 +37,11 @@ export const ESInput = props => {
       id
     ).style.border = `2px solid ${Color.PrimaryColor}`;
   };
+  const _handleBlur = () => {
+    document.getElementById(
+      id
+    ).style.border = `2px solid ${Color.SecondaryColor}`;
+  };
   const handleInputChange = (e, quesId) => {
     setValue(e.target.value);
     const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
@@ -53,6 +58,8 @@ export const ESInput = props => {
       AnswerData.push(Ans);
     }
   };
+  console.log(id);
+  
   return (
     <input
       autoComplete="off"
@@ -67,6 +74,7 @@ export const ESInput = props => {
       placeholder={placeHolder}
       className={`form-control form-rounded ${className}`}
       onFocus={_handleFocus}
+      onBlur={_handleBlur}
       type={type === undefined ? "text" : `${type}`}
       value={AnswerData? Value : value}
     />

@@ -21,6 +21,7 @@ export const ESDropDown = props => {
     } else {
       AnswerData.push(Ans);
     }
+   console.log(quesId);
    
   };
 

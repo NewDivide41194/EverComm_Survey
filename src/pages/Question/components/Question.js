@@ -11,10 +11,13 @@ const Question = props => {
   const [AnswerData, setAnswerData] = useState([]);
   const _handleNext = () => {
     setPageno(pageno + 1);
+    document.getElementById('style-1').scrollTop=0
   };
 
   const _handlePrevious = () => {
     setPageno(pageno - 1);
+    document.getElementById('style-1').scrollTop=0
+
   };
 
   const AnswerCount =
