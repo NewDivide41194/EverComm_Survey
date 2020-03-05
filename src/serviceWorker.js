@@ -4,7 +4,7 @@
 // This lets the app load faster on subsequent visits in production, and gives
 // it offline capabilities. However, it also means that developers (and users)
 // will only see deployed updates on subsequent visits to a page, after all the
-// existing tabs open on the page have been closed, since previously cached
+// existing tabs open on the page have been closed, since previously caAnswerDatad
 // resources are updated in the background.
 
 // To learn more about the benefits of this model and instructions on how to
@@ -35,14 +35,14 @@ export function register(config) {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
 
       if (isLocalhost) {
-        // This is running on localhost. Let's check if a service worker still exists or not.
-        checkValidServiceWorker(swUrl, config);
+        // This is running on localhost. Let's AnswerDatack if a service worker still exists or not.
+        CheckServiceWorker(swUrl, config);
 
         // Add some additional logging to localhost, pointing developers to the
         // service worker/PWA documentation.
         navigator.serviceWorker.ready.then(() => {
           console.log(
-            'This web app is being served cache-first by a service ' +
+            'This web app is being served caAnswerData-first by a service ' +
               'worker. To learn more, visit https://bit.ly/CRA-PWA'
           );
         });
@@ -66,7 +66,7 @@ function registerValidSW(swUrl, config) {
         installingWorker.onstatechange = () => {
           if (installingWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {
-              // At this point, the updated precached content has been fetched,
+              // At this point, the updated precaAnswerDatad content has been fetAnswerDatad,
               // but the previous service worker will still serve the older
               // content until all client tabs are closed.
               console.log(
@@ -79,10 +79,10 @@ function registerValidSW(swUrl, config) {
                 config.onUpdate(registration);
               }
             } else {
-              // At this point, everything has been precached.
+              // At this point, everything has been precaAnswerDatad.
               // It's the perfect time to display a
-              // "Content is cached for offline use." message.
-              console.log('Content is cached for offline use.');
+              // "Content is caAnswerDatad for offline use." message.
+              console.log('Content is caAnswerDatad for offline use.');
 
               // Execute callback
               if (config && config.onSuccess) {
@@ -98,8 +98,8 @@ function registerValidSW(swUrl, config) {
     });
 }
 
-function checkValidServiceWorker(swUrl, config) {
-  // Check if the service worker can be found. If it can't reload the page.
+function CheckServiceWorker(swUrl, config) {
+  // AnswerDatack if the service worker can be found. If it can't reload the page.
   fetch(swUrl, {
     headers: { 'Service-Worker': 'script' }
   })

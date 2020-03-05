@@ -15,7 +15,7 @@ const App = () => {
     <MediaQueryProvider queries={Media}>
       <NavBar />
       <Switch>
-          <Route exact path="/login" component={LoginContainer} />
+        <Route exact path="/login" component={LoginContainer} />
 
         {Object.keys(routes.routes).map((v, k) => (
           <Route
@@ -24,9 +24,7 @@ const App = () => {
             component={routes.routes[v].component}
           />
         ))}
-
         <Redirect to={routes.default} />
-        
       </Switch>
     </MediaQueryProvider>
   );

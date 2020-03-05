@@ -5,23 +5,25 @@ import { ESDropDown } from "./ES_DropDown";
 
 import * as Color from "../config/Color.config";
 import { withMedia } from "react-media-query-hoc";
+import { ESInput } from "./ES_Inputs";
 
 const QuestionCard = props => {
   const {
-    categories,
+    survey_sections,
     pageno,
-    handleCheckChange,
     handleRadioChange,
+    handleCheckChange,
+    handleInputChange,
     userId,
-    media
+    media,
+    AnswerData,
+    checked
   } = props;
-
-  console.log(categories, pageno);
 
   return (
     <div>
       {// cat && cat.length && cat.questions && cat.questions.length &&
-      categories[pageno].questions.map((ques, k2) => (
+      survey_sections[pageno].questions.map((ques, k2) => (
         <div
           className="d-flex  flex-row flex-fill flex-wrap w-100 bg-light p-3 my-3 rounded"
           key={k2}
@@ -33,32 +35,44 @@ const QuestionCard = props => {
             style={{ fontSize: media.mobile ? "15px" : "18px" }}
           >
             <span className="pb-4">
-              {k2 + 1}. {ques.name}
+              {k2 + 1}. {ques.question_name}
             </span>
           </div>
-          {ques.qtype_id === 1 ? (
+          {ques.input_type_id === 1 ? (
             <ESCheckBox
-              quesId={ques.id}
-              value={ques.possible_answers}
+              quesId={ques.question_id}
+              value={ques.option_choices}
               handleChange={handleCheckChange}
+              checked={checked}
             />
-          ) : ques.qtype_id === 2 ? (
+          ) : ques.input_type_id === 2 ? (
             <ESRadio
-              value={ques.possible_answers}
+              value={ques.option_choices}
               pageNo={pageno}
-              cvalue={categories}
+              cvalue={survey_sections}
               handleRadioChange={handleRadioChange}
-              quesId={ques.id}
+              quesId={ques.question_id}
               userId={userId}
+              AnswerData={AnswerData}
             />
-          ) : ques.qtype_id === 6 ? (
+          ) : ques.input_type_id === 5 ? (
             <ESDropDown
-              quesId={ques.id}
+              quesId={ques.question_id}
               pageNo={pageno}
-              cvalue={categories}
-              value={ques.possible_answers}
-              handleChange={handleCheckChange}
+              cvalue={survey_sections}
+              value={ques.option_choices}
+              handleChange={handleRadioChange}
               userId={userId}
+              AnswerData={AnswerData}
+
+            />
+          ) : ques.input_type_id === 4 ? (
+            <ESInput
+              id={ques.question_id}
+              quesId={ques.question_id}
+              userId={userId}
+              AnswerData={AnswerData}
+              onChange={handleInputChange}
             />
           ) : null}
         </div>

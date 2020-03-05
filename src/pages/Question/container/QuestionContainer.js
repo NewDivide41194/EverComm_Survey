@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Question from "../components/Question";
 import { QuestionFetch } from "../../../api/FetchQuestions";
+import ESProgress from "../../../tools/ES_Progress";
 
 const QuestionContainer = () => {
   const token = 123;
@@ -10,10 +11,11 @@ const QuestionContainer = () => {
       setSurveyData(data.payload);
     });
   }, []);
+  
   return (
-    <div className="container pt-4">
+    <div>
+      <ESProgress />
       <Question surveyData={surveyData} />
-      
     </div>
   );
 };

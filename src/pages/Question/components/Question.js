@@ -3,22 +3,27 @@ import QuestionCard from "../../../tools/ES_Cards";
 import { ESButton } from "../../../tools/ES_Button";
 import { PostAnswer } from "../../../api/PostAnswer";
 import { withMedia } from "react-media-query-hoc";
-import * as Color from '../../../config/Color.config'
 
 const Question = props => {
   const { surveyData, media } = props;
   const [pageno, setPageno] = useState(0);
   const [userData, setUserData] = useState({});
-
+  const [AnswerData, setAnswerData] = useState([]);
   const _handleNext = () => {
-    setPageno(+1);
+    setPageno(pageno + 1);
   };
+
   const _handlePrevious = () => {
-    setPageno(0);
+    setPageno(pageno - 1);
   };
+
+  const AnswerCount =
+    AnswerData.length &&
+    AnswerData.filter((v, k) => v.questionId === v.questionId);
+  const AnswerCountLength = AnswerCount.length;
 
   const _handleSubmit = () => {
-    PostAnswer(surveyData[0], (err, data) => {});
+    PostAnswer({ data: AnswerData }, (err, data) => {window.alert(`${AnswerCountLength===0?"There is No Answer":JSON.stringify(AnswerData)}  Inserted!`)});
   };
 
   useEffect(() => {
@@ -26,87 +31,94 @@ const Question = props => {
   }, []);
 
   const handleCheckChange = (quesId, answerId) => {
-    let questions = surveyData[0].categories[pageno].questions;
-    let index = questions.findIndex(q => q.id === quesId);
-    if (index >= 0) {
-      let ind2 = questions[index].possible_answers.findIndex(
-        ans => ans.id === answerId
+    const isQuesId =
+      AnswerData.length &&
+      AnswerData.filter(
+        e => e.questionId === quesId && e.optionChoiceId === answerId
       );
-      let ind3 = surveyData[0].categories[pageno].questions[
-        index
-      ].possible_answers[ind2].users.findIndex(user => user === userData._id);
-      if (ind3 < 0) {
-        surveyData[0].categories[pageno].questions[index].possible_answers[
-          ind2
-        ].users.push(userData._id);
-      } else {
-        surveyData[0].categories[pageno].questions[index].possible_answers[
-          ind2
-        ].users.splice(ind3, 1);
-      }
+    console.log(isQuesId.length);
+    const isQuesIdIndex = AnswerData.findIndex(
+      e => e.optionChoiceId === answerId
+    );
+    const Ans = {
+      other: "",
+      optionChoiceId: answerId,
+      userId: userData.userId,
+      questionId: quesId
+    };
+    if (isQuesId.length >= 1) {
+      AnswerData.splice(isQuesIdIndex, 1);
+    } else {
+      AnswerData.push(Ans);
     }
   };
 
-// console.log("QQQQ",surveyData.length&& surveyData[0].categories[pageno].questions.length);
-
+  
   return (
     surveyData.length && (
-      <div className='w-100'>
-         <div className={`progress ${media.mobile?'w-75':'w-25'}`}>
+      <div className="container">
+        <div className="text-light row justify-content-center pt-3">
           <div
-            className="progress-bar"
-            role="progressbar"
-            aria-valuenow="40"
-            aria-valuemin="0"
-            aria-valuemax="100"
-            style={{ width: "75%",background: Color.PrimaryColor}}
-          ></div>
+            className="px-4 position-fixed"
+            style={{ borderRadius: "20px", background: "rgba(0,0,0,0.5)" }}
+          >{`${AnswerCountLength||0} of ${surveyData[0].question_count} Answered`}</div>
         </div>
+
         <div
           style={{
             fontSize: media.mobile ? "20px" : "25px",
             fontWeight: "bold"
           }}
+          className="position-relative pt-3"
         >
-          {surveyData[0].survery_title}
+          {surveyData[0].survey_name}
         </div>
         <div
           className="my-2"
           style={{ fontSize: media.mobile ? "18px" : "20px" }}
         >
-          {surveyData[0].categories[pageno].name}
+          {surveyData[0].survey_sections[pageno].section_name}
         </div>
+
         <div className="my-2 scrollbar w-100" id="style-1">
           {/* <div className='bg-light w-100 h-100' style={{visibility:'hidden'}}></div> */}
           <div className="force-overflow">
-            {surveyData[0].categories.length && (
+            {surveyData[0].survey_sections.length && (
               <QuestionCard
-                categories={surveyData[0].categories}
+                survey_sections={surveyData[0].survey_sections}
                 pageno={pageno}
                 handleCheckChange={handleCheckChange}
-                userId={userData}
+                userId={userData.userId}
+                AnswerData={AnswerData}
               />
             )}
           </div>
         </div>
-        <div className='row'>
-            <div className='w-50 pr-2'>
-          {surveyData.length && surveyData[0].categories.length > pageno + 1 ? (
-null
-) : (
-          <ESButton text={"PREVIOUS"} onClick={_handlePrevious} leftIcon={<i class="fa fa-caret-left pr-2"/>}/>
-        )}
+        <div className="row justify-content-end">
+          <div className="col-lg-2 col-6 p-2">
+            {surveyData.length && pageno > 0 ? (
+              <ESButton
+                text={"PREVIOUS"}
+                onClick={_handlePrevious}
+                small
+                leftIcon={<i className="fa fa-caret-left pr-2" />}
+              />
+            ) : null}
+          </div>
+          <div className="col-lg-2 col-6 p-2">
+            {surveyData.length &&
+            surveyData[0].survey_sections.length === pageno + 1 ? (
+              <ESButton text={"DONE"} small onClick={_handleSubmit} />
+            ) : (
+              <ESButton
+                text={"NEXT"}
+                onClick={_handleNext}
+                small
+                rightIcon={<i className="fa fa-caret-right pl-2" />}
+              />
+            )}
+          </div>
         </div>
-        <div className='w-50 pl-2'>
-          {surveyData.length && surveyData[0].categories.length === pageno + 1 ? (
-          <ESButton text={"DONE"} onClick={_handleSubmit} />
-        ) : (
-          <ESButton text={"NEXT"} onClick={_handleNext} rightIcon={<i class="fa fa-caret-right pl-2"/>} />
-        )}
-        </div>
-        </div>
-      
-       
       </div>
     )
   );

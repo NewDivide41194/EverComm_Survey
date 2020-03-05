@@ -1,35 +1,27 @@
 import React, { useState } from "react";
 
 export const ESDropDown = props => {
-  const { value, pageNo, cvalue, quesId, userId } = props;
-  const [svalue, setSvalue] = useState("");
+  const { value, pageNo, cvalue, quesId, userId, AnswerData } = props;
+  const [svalue, setSvalue] = useState();
+  const handleSelect = quesId => {
+    let ansId = document.getElementById("Select").value;
 
-
-
-  const handleSelect = (quesId) => {
-    let ansId = document.getElementById("Select").value
-    let questions = cvalue[pageNo].questions;
-    let quesIndex = questions.findIndex(q => q.id ===  quesId);
     setSvalue(ansId);
-    let ind = cvalue[pageNo].questions[quesIndex].possible_answers.findIndex(
-      data => data.id ===  ansId
-    );
 
-    cvalue[pageNo].questions[quesIndex].possible_answers.map((ans, k) => {
-      let i = ans.users.findIndex(userid => userid === userId);
-      if (i >= 0) {
-        cvalue[pageNo].questions[quesIndex].possible_answers[k].users.splice(
-          i,
-          1
-        );
-      }
-    });
-    if (ind >= 0) {
-      cvalue[pageNo].questions[quesIndex].possible_answers[ind].users.push(
-        userId
-      );
+    const isQuesId = AnswerData.filter(e => e.questionId === quesId);
+    const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
+    const Ans = {
+      other: "",
+      optionChoiceId: parseInt(ansId),
+      userId: userId,
+      questionId: quesId
+    };
+    if (isQuesId.length >= 1) {
+      AnswerData.splice(isQuesIdIndex, 1, Ans);
+    } else {
+      AnswerData.push(Ans);
     }
-    
+   
   };
 
   return (
@@ -37,10 +29,11 @@ export const ESDropDown = props => {
       id="Select"
       className="form-control"
       onChange={e => handleSelect(quesId)}
+      style={{ boxShadow: "none" }}
     >
       {value.map((x, y) => (
-        <option key={y} id={x.id} value={x.id}>
-          {x.name}
+        <option key={y} id={x.option_choice_id} value={x.option_choice_id}>
+          {x.option_choice_name}
         </option>
       ))}
     </select>
