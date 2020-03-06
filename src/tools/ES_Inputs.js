@@ -12,10 +12,8 @@ export const ESInput = props => {
     height,
     width,
     quesId,
-    userId,
     onChange,
-    value,
-    AnswerData
+    value
   } = props;
   const defaultStyle = {
     width: width === undefined ? "100%" : width,
@@ -29,7 +27,6 @@ export const ESInput = props => {
     background: `${Color.SecondaryColor}`,
     borderRadius: 5
   };
-  const [Value, setValue] = useState("");
   const userStyle = style === undefined ? {} : style;
 
   const _handleFocus = () => {
@@ -37,38 +34,27 @@ export const ESInput = props => {
       id
     ).style.border = `2px solid ${Color.PrimaryColor}`;
   };
-  const handleInputChange = (e, quesId) => {
-    setValue(e.target.value);
-    const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
-    const isQuesId = AnswerData.filter(e => e.questionId === quesId);
-    const Ans = {
-      other: e.target.value,
-      optionChoiceId: null,
-      userId: userId,
-      questionId: quesId
-    };
-    if (isQuesId.length >= 1) {
-      AnswerData.splice(isQuesIdIndex, 1, Ans);
-    } else {
-      AnswerData.push(Ans);
-    }
+  const _handleBlur = () => {
+    document.getElementById(
+      id
+    ).style.border = `2px solid ${Color.SecondaryColor}`;
   };
-  return (
-    <input
-      autoComplete="off"
-      spellCheck="false"
-      id={id}
-      required={required}
-      onChange={e => (AnswerData ? handleInputChange(e, quesId) : onChange(e))}
-      style={{
-        ...defaultStyle,
-        ...userStyle
-      }}
-      placeholder={placeHolder}
-      className={`form-control form-rounded ${className}`}
-      onFocus={_handleFocus}
-      type={type === undefined ? "text" : `${type}`}
-      value={AnswerData? Value : value}
-    />
-  );
+
+  return  ( <input
+    autoComplete="off"
+    spellCheck="false"
+    id={id}
+    required={required}
+    onChange={e =>onChange(e,quesId)}
+    style={{
+      ...defaultStyle,
+      ...userStyle
+    }}
+    placeholder={placeHolder}
+    className={`form-control form-rounded ${className}`}
+    onFocus={_handleFocus}
+    onBlur={_handleBlur}
+    type={type === undefined ? "text" : `${type}`}
+    value={value}
+  />)
 };

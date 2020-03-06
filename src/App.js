@@ -7,7 +7,7 @@ import NavBar from "./features/app/NavBar";
 
 const App = () => {
   const Media = {
-    mobile: "screen and  (max-width:767px)",
+    mobile: "screen and  (max-width:571px)",
     tablet: "screen and (min-width:768px) and (max-width: 1024px)",
     desktop: "screen and (min-width:1025px) and (min-width: 1441px)"
   };

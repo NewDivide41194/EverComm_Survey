@@ -22,5 +22,6 @@ export const UserFetch = ({ userName, token }, callback) => {
   })
     .then(res => res.json())
     .then(data => callback(null, data))
-    .catch(err => window.alert(err));
+    .catch(err => console.log(err)
+    );
 };

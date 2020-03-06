@@ -17,7 +17,6 @@ export const ESRadio = props => {
       AnswerData.splice(isQuesIdIndex,1,Ans);
     }else{
       AnswerData.push(Ans);
-
     }
 
     let questions = cvalue[pageNo].questions;

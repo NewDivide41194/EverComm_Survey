@@ -15,7 +15,7 @@ const LoginContainer = props => {
     } else {
       UserFetch({ userName, token }, (err, data) => {               
         localStorage.setItem("userData", JSON.stringify({userId: data.payload.insertId,username: userName}));
-        props.history.push("/question");  
+        props.history.push("/question");        
       })
       ;
     }
@@ -23,6 +23,7 @@ const LoginContainer = props => {
   const _handleChange = e => {
        setUserName(e.target.value);
   };
+ console.log(IsLoading);
  
 
   return (
@@ -30,7 +31,6 @@ const LoginContainer = props => {
       handleSubmit={(d)=>_handleSubmit(d)}
       userName={userName}
       handleChange={_handleChange}
-      IsLoading={IsLoading}
     />
   );
 };

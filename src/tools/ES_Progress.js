@@ -3,7 +3,7 @@ import * as Color from "../config/Color.config";
 import withMedia from "react-media-query-hoc/dist/with-media";
 
 const ESProgress = props => {
-  const { media } = props;
+  const { media,Percent } = props;
   return (
     <div
       className='progress'
@@ -12,10 +12,10 @@ const ESProgress = props => {
       <div
         className="progress-bar"
         role="progressbar"
-        aria-valuenow="40"
+        aria-valuenow={Percent}
         aria-valuemin="0"
         aria-valuemax="100"
-        style={{ width: "75%", background: Color.PrimaryColor }}
+        style={{ width: `${Percent}%`, background: Color.PrimaryColor }}
       ></div>
     </div>
   );

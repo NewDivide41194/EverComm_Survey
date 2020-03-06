@@ -17,7 +17,8 @@ const QuestionCard = props => {
     userId,
     media,
     AnswerData,
-    checked
+    checked,
+    TextValue
   } = props;
 
   return (
@@ -28,7 +29,7 @@ const QuestionCard = props => {
           className="d-flex  flex-row flex-fill flex-wrap w-100 bg-light p-3 my-3 rounded"
           key={k2}
           style={{ fontSize: media.mobile ? "12px" : "15px" }}
-        >
+        >        
           <div
             className="d-flex flex-row flex-wrap w-100"
             key={k2}
@@ -72,6 +73,8 @@ const QuestionCard = props => {
               quesId={ques.question_id}
               userId={userId}
               AnswerData={AnswerData}
+              value={TextValue}
+
               onChange={handleInputChange}
             />
           ) : null}
