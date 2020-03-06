@@ -17,11 +17,6 @@ const QuestionContainer = () => {
     });
   }, []);
 
-  var obtained = 475;
-  var total = 500;
-  var percent = (obtained * 100) / total;
-  console.log("Percent",percent); // 95.0
-
   return IsLoading ? (
     <div
       className="w-100 text-light text-center position-absolute"

@@ -42,17 +42,9 @@ code {
 .force-overflow
 {
   min-height: 450px;
+  transition: 2s;
 }
 
-select{
-
-  color: green;
-}
-select option { color: black; }
-
-select option:hover{
-  background-color: #07b22c !important;  
-}
 
 #myProgress {
   width: 100%;

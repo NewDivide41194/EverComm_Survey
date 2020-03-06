@@ -23,7 +23,6 @@ const LoginContainer = props => {
   const _handleChange = e => {
        setUserName(e.target.value);
   };
- console.log(IsLoading);
  
 
   return (

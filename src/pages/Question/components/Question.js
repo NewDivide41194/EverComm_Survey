@@ -28,7 +28,6 @@ const Question = props => {
     AnswerData.length &&
     AnswerData.filter((v, k) => v.questionId === v.questionId);
   const AnswerCountLength = AnswerCount.length;
-  console.log(AnswerData);
 
   const _handleSubmit = () => {
     PostAnswer({ data: AnswerData }, (err, data) => {
@@ -89,7 +88,6 @@ const Question = props => {
   const obtained = AnswerCountLength;
   const total = surveyData.length && surveyData[0].question_count;
   const percent = (obtained * 100) / total;
-  console.log("Percent", percent); // 95.0
   return (
     surveyData.length && (
       <div className="container">
