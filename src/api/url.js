@@ -6,4 +6,3 @@ export const QuestionAPI=`${serverURL}/api/v1/survey/questions/1/1`
 export const UserAPI=`${serverURL}/api/v1/user/user`
 
 export const User_AnswerApi = `${serverURL}/api/v1/survey/answers`
-

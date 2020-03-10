@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import * as Color from "../config/Color.config";
 
 export const ESInput = props => {
@@ -13,7 +13,8 @@ export const ESInput = props => {
     width,
     quesId,
     onChange,
-    value
+    value,
+    ValueData
   } = props;
   const defaultStyle = {
     width: width === undefined ? "100%" : width,
@@ -25,7 +26,7 @@ export const ESInput = props => {
     outline: "none",
     border: `2px solid ${Color.SecondaryColor}`,
     background: `${Color.SecondaryColor}`,
-    borderRadius: 5
+    borderRadius: 5,
   };
   const userStyle = style === undefined ? {} : style;
 
@@ -40,21 +41,23 @@ export const ESInput = props => {
     ).style.border = `2px solid ${Color.SecondaryColor}`;
   };
 
-  return  ( <input
-    autoComplete="off"
-    spellCheck="false"
-    id={id}
-    required={required}
-    onChange={e =>onChange(e,quesId)}
-    style={{
-      ...defaultStyle,
-      ...userStyle
-    }}
-    placeholder={placeHolder}
-    className={`form-control form-rounded ${className}`}
-    onFocus={_handleFocus}
-    onBlur={_handleBlur}
-    type={type === undefined ? "text" : `${type}`}
-    value={value}
-  />)
+  return (
+    <input
+      autoComplete="off"
+      spellCheck="false"
+      id={id}
+      required={required}
+      onChange={e => onChange(e, quesId)}
+      style={{
+        ...defaultStyle,
+        ...userStyle
+      }}
+      placeholder={placeHolder}
+      className={`form-control form-rounded ${className}`}
+      onFocus={_handleFocus}
+      onBlur={_handleBlur}
+      type={type === undefined ? "text" : `${type}`}
+      value={value}
+    />
+  );
 };

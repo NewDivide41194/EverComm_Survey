@@ -11,7 +11,9 @@ const Question = props => {
   const [pageno, setPageno] = useState(0);
   const [userData, setUserData] = useState({});
   const [AnswerData, setAnswerData] = useState([]);
-  const [value, setValue] = useState(AnswerData.other);
+  const [value, setValue] = useState("");
+  const [TextValues, setCompoundValue] = useState([]);
+  // console.log("value 1",value1);
 
   const _handleNext = () => {
     setPageno(pageno + 1);
@@ -22,6 +24,7 @@ const Question = props => {
   const _handlePrevious = () => {
     setPageno(pageno - 1);
     document.getElementById("style-1").scrollTop = 0;
+    setValue("");
   };
 
   const AnswerCount =
@@ -91,7 +94,7 @@ const Question = props => {
   return (
     surveyData.length && (
       <div className="container">
-        <ESProgress Percent={percent}/>
+        <ESProgress Percent={percent} />
         <div
           className={`text-light row justify-content-end ${media.mobile ||
             "pt-3 justify-content-center"}`}

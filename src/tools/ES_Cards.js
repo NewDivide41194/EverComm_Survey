@@ -17,7 +17,6 @@ const QuestionCard = props => {
     userId,
     media,
     AnswerData,
-    checked,
     TextValue
   } = props;
 
@@ -29,7 +28,7 @@ const QuestionCard = props => {
           className="d-flex  flex-row flex-fill flex-wrap w-100 bg-light p-3 my-3 rounded"
           key={k2}
           style={{ fontSize: media.mobile ? "12px" : "15px" }}
-        >        
+        >
           <div
             className="d-flex flex-row flex-wrap w-100"
             key={k2}
@@ -44,7 +43,6 @@ const QuestionCard = props => {
               quesId={ques.question_id}
               value={ques.option_choices}
               handleChange={handleCheckChange}
-              checked={checked}
             />
           ) : ques.input_type_id === 2 ? (
             <ESRadio
@@ -62,10 +60,9 @@ const QuestionCard = props => {
               pageNo={pageno}
               cvalue={survey_sections}
               value={ques.option_choices}
-              handleChange={handleRadioChange}
+              handleChange={handleCheckChange}
               userId={userId}
               AnswerData={AnswerData}
-
             />
           ) : ques.input_type_id === 4 ? (
             <ESInput
@@ -74,7 +71,6 @@ const QuestionCard = props => {
               userId={userId}
               AnswerData={AnswerData}
               value={TextValue}
-
               onChange={handleInputChange}
             />
           ) : null}

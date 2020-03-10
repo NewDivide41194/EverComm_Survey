@@ -7,7 +7,9 @@ export const QuestionFetch = (token, callback) => {
     .catch(err => console.log(err));
 };
 
-export const UserFetch = ({ userName, token }, callback) => {
+export const UserFetch = ({ userName,password, token }, callback) => {
+  console.log(userName,password);
+  
   fetch(API.UserAPI, {
     method: "POST",
     headers: {
@@ -16,7 +18,8 @@ export const UserFetch = ({ userName, token }, callback) => {
       Authorization: `Bearer ${token}`
     },
     body: JSON.stringify({
-      name: userName
+      name: userName,
+      password:password
     }),
     caAnswerData: "no-caAnswerData"
   })

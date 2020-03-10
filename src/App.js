@@ -4,6 +4,7 @@ import { MediaQueryProvider } from "react-media-query-hoc";
 import routes from "./routes";
 import LoginContainer from "./pages/login/container/LoginContainer";
 import NavBar from "./features/app/NavBar";
+import UserLogin from "./pages/login/components/AdminLogin";
 
 const App = () => {
   const Media = {
@@ -15,7 +16,8 @@ const App = () => {
     <MediaQueryProvider queries={Media}>
       <NavBar />
       <Switch>
-        <Route exact path="/login" component={LoginContainer} />
+        {/* <Route exact path="/login" component={LoginContainer} /> */}
+        <Route exact path="/admin/login" component={UserLogin} />
 
         {Object.keys(routes.routes).map((v, k) => (
           <Route
