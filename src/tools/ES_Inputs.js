@@ -14,7 +14,8 @@ export const ESInput = props => {
     quesId,
     onChange,
     value,
-    ValueData
+    ValueData,
+    maxLength
   } = props;
   const defaultStyle = {
     width: width === undefined ? "100%" : width,
@@ -54,10 +55,12 @@ export const ESInput = props => {
       }}
       placeholder={placeHolder}
       className={`form-control form-rounded ${className}`}
+      name={id}
       onFocus={_handleFocus}
       onBlur={_handleBlur}
       type={type === undefined ? "text" : `${type}`}
       value={value}
+      maxlength={maxLength}
     />
   );
 };

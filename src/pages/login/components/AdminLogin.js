@@ -23,7 +23,7 @@ const UserLogin = props => {
           margin: 0,
           position: "absolute",
           top: "50%",
-          transform: "translateY(-121px)"
+          transform: "translateY(-135px)"
         }}
       >
         <div className="form-group text-center">
@@ -31,6 +31,7 @@ const UserLogin = props => {
           <div className="py-4">
             <ESInput
               required={true}
+              type={'email'}
               id={"Email"}
               placeHolder={"Email"}
               value={eMail}
@@ -73,7 +74,7 @@ const UserLogin = props => {
             onClick={handleSubmit}
           />
           <div className='pt-2'>
-          Don't have an Account? <Link to={'/hh'}>Register</Link>
+          Don't have an Account? <Link to={'/register'}>Register</Link>
           </div>
         </div>
         

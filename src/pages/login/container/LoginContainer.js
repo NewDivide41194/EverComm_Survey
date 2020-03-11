@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Login from "../components/UserLogin";
 import { UserFetch } from "../../../api/FetchQuestions";
 import UserLogin from "../components/AdminLogin";
+import { useAlert } from 'react-alert'
 
 const LoginContainer = props => {
   const [userName, setUserName] = useState("");
@@ -11,18 +12,25 @@ const LoginContainer = props => {
   const [IsLoading, setIsLoading] = useState(false);
 
   const token = 123;
-
+  const alert=useAlert()
   const _handleSubmit = e => {
     e.preventDefault();
-    if (userName === "") {
-      alert("Fill User Name");
+    if (eMail === "") {
+      alert.info("Fill Email");
     } else {
-      UserFetch({ userName, password, token }, (err, data) => {
+      UserFetch({ eMail, password, token }, (err, data) => {
+        data.success === false
+          ? alert("Something Wrong")
+          : data.payload[0].user_level_id === 1
+          ? alert("It is Admin Account")
+          : props.history.push("/question");
         localStorage.setItem(
           "userData",
-          JSON.stringify({ userId: data.payload.insertId, username: userName })
+          JSON.stringify({
+            userId: data.payload[0].login_user_id,
+            username: data.payload[0].user_name
+          })
         );
-        props.history.push("/question");
       });
     }
   };
