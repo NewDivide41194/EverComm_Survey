@@ -59,7 +59,7 @@ export const ESInput = props => {
       onFocus={_handleFocus}
       onBlur={_handleBlur}
       type={type === undefined ? "text" : `${type}`}
-      value={value}
+      // value={value}
       maxlength={maxLength}
     />
   );

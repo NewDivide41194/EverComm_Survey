@@ -23,6 +23,7 @@ export const ESRadio = props => {
     let index = questions.findIndex(q => q.question_id === quesId);
     setRvalue(ansId);
   };
+console.log(value);
 
   return value.map((ans, k3) => (
     <div className="flex-col w-50" key={k3}>

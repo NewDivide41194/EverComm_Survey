@@ -4,7 +4,7 @@ export const ESDropDown = props => {
   const { value, pageNo, cvalue, quesId, userId, AnswerData } = props;
   const [svalue, setSvalue] = useState();
   const handleSelect = quesId => {
-    let ansId = document.getElementById("Select").value;
+    let ansId = document.getElementById(quesId).value;
 
     setSvalue(ansId);
 
@@ -21,12 +21,12 @@ export const ESDropDown = props => {
     } else {
       AnswerData.push(Ans);
     }
-   
   };
+console.log(quesId);
 
   return (
     <select
-      id="Select"
+      id={quesId}
       className="form-control"
       onChange={e => handleSelect(quesId)}
       style={{ boxShadow: "none" }}

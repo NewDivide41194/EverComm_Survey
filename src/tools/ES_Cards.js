@@ -43,6 +43,7 @@ const QuestionCard = props => {
               quesId={ques.question_id}
               value={ques.option_choices}
               handleChange={handleCheckChange}
+              AnswerData={AnswerData}
             />
           ) : ques.input_type_id === 2 ? (
             <ESRadio

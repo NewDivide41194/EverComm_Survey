@@ -53,7 +53,7 @@ const RegisterContainer = props => {
   };
   const _success=()=>{
     props.history.push("/login")
-    alert.show('Oh look, an alert!')
+    alert.success('Account Created Successfuly!')
   }
   useEffect(() => {
     setUserName(firstName === null ? null : `${firstName} ` + lastName);

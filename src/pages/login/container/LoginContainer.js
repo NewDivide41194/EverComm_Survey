@@ -20,9 +20,9 @@ const LoginContainer = props => {
     } else {
       UserFetch({ eMail, password, token }, (err, data) => {
         data.success === false
-          ? alert("Something Wrong")
+          ? alert.error("Something Wrong")
           : data.payload[0].user_level_id === 1
-          ? alert("It is Admin Account")
+          ? alert.info("It is Admin Account")
           : props.history.push("/question");
         localStorage.setItem(
           "userData",
