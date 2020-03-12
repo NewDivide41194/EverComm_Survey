@@ -12,8 +12,17 @@ const Question = props => {
   const [userData, setUserData] = useState({});
   const [AnswerData, setAnswerData] = useState([]);
   const [value, setValue] = useState("");
-  const [TextValues, setCompoundValue] = useState([]);
-  // console.log("value 1",value1);
+  const [cValue,setCvalue]=useState('')
+  const [sValue,setSvalue]=useState('')
+
+  const AnswerCount =
+    AnswerData.length &&
+    AnswerData.filter((v, k) => v.questionId === v.questionId);
+  const AnswerCountLength = AnswerCount.length;
+
+  const obtained = AnswerCountLength;
+  const total = surveyData.length && surveyData[0].question_count;
+  const percent = (obtained * 100) / total;
 
   const _handleNext = () => {
     setPageno(pageno + 1);
@@ -26,11 +35,6 @@ const Question = props => {
     document.getElementById("style-1").scrollTop = 0;
     setValue("");
   };
-
-  const AnswerCount =
-    AnswerData.length &&
-    AnswerData.filter((v, k) => v.questionId === v.questionId);
-  const AnswerCountLength = AnswerCount.length;
 
   const _handleSubmit = () => {
     PostAnswer({ data: AnswerData }, (err, data) => {
@@ -46,9 +50,10 @@ const Question = props => {
 
   useEffect(() => {
     setUserData(JSON.parse(localStorage.getItem("userData")));
-  }, []);
+ }, []);
 
   const handleCheckChange = (quesId, answerId) => {
+    setCvalue(answerId)
     const isQuesId =
       AnswerData.length &&
       AnswerData.filter(
@@ -88,9 +93,26 @@ const Question = props => {
     }
   };
 
-  const obtained = AnswerCountLength;
-  const total = surveyData.length && surveyData[0].question_count;
-  const percent = (obtained * 100) / total;
+  const handleSelect = quesId => {
+    let ansId = document.getElementById(quesId).value;
+    setSvalue(ansId)
+    const isQuesId = AnswerData.filter(e => e.questionId === quesId);
+    const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
+    const Ans = {
+      other: "",
+      optionChoiceId: parseInt(ansId),
+      userId: userData.userId,
+      questionId: quesId
+    };
+    if (isQuesId.length >= 1) {
+      AnswerData.splice(isQuesIdIndex, 1, Ans);
+    } else {
+      AnswerData.push(Ans);
+    }
+    console.log(AnswerData);
+    
+  };
+
   return (
     surveyData.length && (
       <div className="container">
@@ -132,9 +154,11 @@ const Question = props => {
                 pageno={pageno}
                 handleCheckChange={handleCheckChange}
                 handleInputChange={handleInputChange}
+                handleSelect={handleSelect}
                 userId={userData.userId}
                 TextValue={value}
                 AnswerData={AnswerData}
+                cValue={cValue}
               />
             )}
           </div>

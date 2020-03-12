@@ -3,8 +3,8 @@ import Checkbox from "@material-ui/core/Checkbox";
 import withMedia from "react-media-query-hoc/dist/with-media";
 
 const ESCheckbox = props => {
-  const { value, handleChange, quesId, media,AnswerData } = props;
-
+  const { value, handleChange, quesId, media, AnswerData, cvalue } = props;
+ 
   return value.map((ans, k3) => (
     <div className={`flex-col ${media.mobile ? "w-100" : "w-50"}`} key={k3}>
       <Checkbox

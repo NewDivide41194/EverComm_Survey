@@ -6,6 +6,7 @@ import { ESDropDown } from "./ES_DropDown";
 import * as Color from "../config/Color.config";
 import { withMedia } from "react-media-query-hoc";
 import { ESInput } from "./ES_Inputs";
+import ESDatePicker from "./ES_DatePicker";
 
 const QuestionCard = props => {
   const {
@@ -14,10 +15,12 @@ const QuestionCard = props => {
     handleRadioChange,
     handleCheckChange,
     handleInputChange,
+    handleSelect,
     userId,
     media,
     AnswerData,
-    TextValue
+    TextValue,
+    cValue,
   } = props;
 
   return (
@@ -44,6 +47,7 @@ const QuestionCard = props => {
               value={ques.option_choices}
               handleChange={handleCheckChange}
               AnswerData={AnswerData}
+              cvalue={cValue}
             />
           ) : ques.input_type_id === 2 ? (
             <ESRadio
@@ -61,7 +65,7 @@ const QuestionCard = props => {
               pageNo={pageno}
               cvalue={survey_sections}
               value={ques.option_choices}
-              handleChange={handleCheckChange}
+              handleSelect={handleSelect}
               userId={userId}
               AnswerData={AnswerData}
             />
@@ -74,6 +78,8 @@ const QuestionCard = props => {
               value={TextValue}
               onChange={handleInputChange}
             />
+          ) : ques.input_type_id === 6 ? (
+            <ESDatePicker/>
           ) : null}
         </div>
       ))}

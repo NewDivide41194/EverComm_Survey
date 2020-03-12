@@ -41,7 +41,6 @@ export const ESInput = props => {
       id
     ).style.border = `2px solid ${Color.SecondaryColor}`;
   };
-
   return (
     <input
       autoComplete="off"
@@ -55,12 +54,11 @@ export const ESInput = props => {
       }}
       placeholder={placeHolder}
       className={`form-control form-rounded ${className}`}
-      name={id}
       onFocus={_handleFocus}
       onBlur={_handleBlur}
       type={type === undefined ? "text" : `${type}`}
-      // value={value}
-      maxlength={maxLength}
+      value={value}
+      maxLength={maxLength}
     />
   );
 };

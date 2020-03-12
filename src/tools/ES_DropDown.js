@@ -1,34 +1,13 @@
 import React, { useState } from "react";
 
 export const ESDropDown = props => {
-  const { value, pageNo, cvalue, quesId, userId, AnswerData } = props;
-  const [svalue, setSvalue] = useState();
-  const handleSelect = quesId => {
-    let ansId = document.getElementById(quesId).value;
-
-    setSvalue(ansId);
-
-    const isQuesId = AnswerData.filter(e => e.questionId === quesId);
-    const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
-    const Ans = {
-      other: "",
-      optionChoiceId: parseInt(ansId),
-      userId: userId,
-      questionId: quesId
-    };
-    if (isQuesId.length >= 1) {
-      AnswerData.splice(isQuesIdIndex, 1, Ans);
-    } else {
-      AnswerData.push(Ans);
-    }
-  };
-console.log(quesId);
-
+  const { value, quesId, handleSelect } = props;
+  
   return (
     <select
       id={quesId}
       className="form-control"
-      onChange={e => handleSelect(quesId)}
+      onChange={e => handleSelect(quesId)}   
       style={{ boxShadow: "none" }}
     >
       {value.map((x, y) => (
