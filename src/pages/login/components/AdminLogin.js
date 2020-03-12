@@ -12,8 +12,15 @@ const UserLogin = props => {
     handlePwdChange,
     handleEmailChange,
     handleView,
-    visible
+    visible,
+    err
   } = props;
+  const errStyle = {
+    color: "red",
+    fontSize: 12,
+    position: "absolute",
+    marginTop: "-15px"
+  };
   return (
     <div className="row justify-content-center">
       {/* {IsLoading&&<div className='bg-dark w-100'>Loading...</div>} */}
@@ -29,15 +36,20 @@ const UserLogin = props => {
         <div className="form-group text-center">
           <h4>Login Your Account</h4>
           <div className="py-4">
+          {err.eMailErr ===undefined ? null : (
+              <div style={{ ...errStyle }}>{`*${err.eMailErr}`}</div>
+            )}
             <ESInput
               required={true}
-              type={'email'}
               id={"Email"}
               placeHolder={"Email"}
               value={eMail}
               onChange={e => handleEmailChange(e)}
             />
             <div className="pt-2">
+            {err.passwordErr===undefined? null : (
+              <div style={{ ...errStyle }}>{`*${err.passwordErr}`}</div>
+            )}
               <ESInput
                 required={true}
                 id={"password"}

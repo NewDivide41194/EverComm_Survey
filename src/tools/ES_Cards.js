@@ -21,6 +21,7 @@ const QuestionCard = props => {
     AnswerData,
     TextValue,
     cValue,
+    svalue
   } = props;
 
   return (
@@ -65,9 +66,10 @@ const QuestionCard = props => {
               pageNo={pageno}
               cvalue={survey_sections}
               value={ques.option_choices}
-              handleSelect={handleSelect}
+              handlesele={handleSelect}
               userId={userId}
               AnswerData={AnswerData}
+              svalue={svalue}
             />
           ) : ques.input_type_id === 4 ? (
             <ESInput

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Login from "../components/UserLogin";
 import { UserFetch } from "../../../api/FetchQuestions";
 import UserLogin from "../components/AdminLogin";
-import { useAlert } from 'react-alert'
+import { useAlert } from "react-alert";
 
 const LoginContainer = props => {
   const [userName, setUserName] = useState("");
@@ -10,17 +10,29 @@ const LoginContainer = props => {
   const [password, setpassword] = useState("");
   const [visible, setVisible] = useState(false);
   const [IsLoading, setIsLoading] = useState(false);
-
+  const [err, setErr] = useState({});
   const token = 123;
-  const alert=useAlert()
+  const alert = useAlert();
   const _handleSubmit = e => {
     e.preventDefault();
     if (eMail === "") {
-      alert.info("Fill Email");
+     setErr({eMailErr:"Fill Email Address!"})
+      return;
+    } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(eMail)) {
+      setErr({
+        eMailErr: "Invalid Email Address"
+      });
+      return;
+    } else if (password === "") {
+      setErr({
+        passwordErr: "Fill Password"
+      });
+      return;
     } else {
+      setErr({})
       UserFetch({ eMail, password, token }, (err, data) => {
         data.success === false
-          ? alert.error("Something Wrong")
+          ? alert.error("Account does not exit!")
           : data.payload[0].user_level_id === 1
           ? alert.info("It is Admin Account")
           : props.history.push("/question");
@@ -58,6 +70,7 @@ const LoginContainer = props => {
       handlePwdChange={_handlePwdChange}
       handleView={_handleView}
       visible={visible}
+      err={err}
     />
   );
 };
