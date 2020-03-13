@@ -16,10 +16,17 @@ const Question = props => {
   const [sValue, setSvalue] = useState("");
   const [testValue, setTestValue] = useState({});
 
-  const AnswerCount =
-    AnswerData.length &&
-    AnswerData.filter((v, k) => v.questionId === v.questionId);
-  const AnswerCountLength = AnswerCount.length;
+  const AnswerCount =[...AnswerData.reduce( (mp, o) => {
+    if (!mp.has(o.questionId)) mp.set(o.questionId, { ...o, count: 0 });
+    mp.get(o.questionId).count++;
+    return mp;
+}, new Map).values()];
+const AnswerCountLength=AnswerCount.length
+
+console.log('Here is AnswerCount------->',AnswerCount);
+// console.log(AnswerCount);
+
+// console.log("HHHHHHHH",AnsC1);
 
   const obtained = AnswerCountLength;
   const total = surveyData.length && surveyData[0].question_count;
@@ -48,6 +55,7 @@ const Question = props => {
       );
       AnswerData.length = 0;
       setPageno(0);
+      setTestValue({})
     });
   };
 

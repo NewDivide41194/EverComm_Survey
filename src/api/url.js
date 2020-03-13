@@ -7,5 +7,4 @@ export const RegisterAPI=`${serverURL}/api/v1/user/adduser`
 
 export const LoginAPI=`${serverURL}/api/v1/login/userlogin`
 
-
 export const User_AnswerApi = `${serverURL}/api/v1/survey/answers`
