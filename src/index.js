@@ -18,7 +18,7 @@ const options = {
 
 ReactDOM.render(
   <BrowserRouter>
-    <AlertProvider template={AlertTemplate} {...options}>
+    <AlertProvider template={AlertTemplate} {...options} className='mt-5'>
       <App />
     </AlertProvider>
   </BrowserRouter>,

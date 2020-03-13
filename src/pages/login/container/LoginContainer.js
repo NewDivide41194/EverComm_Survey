@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Login from "../components/UserLogin";
 import { UserFetch } from "../../../api/FetchQuestions";
 import UserLogin from "../components/AdminLogin";
 import { useAlert } from "react-alert";
@@ -9,7 +8,6 @@ const LoginContainer = props => {
   const [eMail, setEmail] = useState("");
   const [password, setpassword] = useState("");
   const [visible, setVisible] = useState(false);
-  const [IsLoading, setIsLoading] = useState(false);
   const [err, setErr] = useState({});
   const token = 123;
   const alert = useAlert();

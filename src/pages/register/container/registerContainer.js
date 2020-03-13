@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Login from "../components/register";
-import { UserFetch } from "../../../api/FetchQuestions";
 import Register from "../components/register";
 import { RegisterFetch } from "../../../api/FetchRegisteration";
 import { useAlert } from 'react-alert'
 
 const RegisterContainer = props => {
-  const [RegisterData, setRegisterData] = useState([]);
   const [visible, setVisible] = useState(false);
-  const [IsLoading, setIsLoading] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [userName, setUserName] = useState("");

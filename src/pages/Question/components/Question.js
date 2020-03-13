@@ -12,18 +12,25 @@ const Question = props => {
   const [userData, setUserData] = useState({});
   const [AnswerData, setAnswerData] = useState([]);
   const [value, setValue] = useState("");
-  const [cValue,setCvalue]=useState('')
-  const [sValue,setSvalue]=useState('')
-  const [arrayText,setArrayText]=useState([])
+  const [cValue, setCvalue] = useState("");
+  const [sValue, setSvalue] = useState("");
+  const [testValue, setTestValue] = useState({});
+  const [rvalue, setRvalue] = useState("");
 
-  const AnswerCount =
-    AnswerData.length &&
-    AnswerData.filter((v, k) => v.questionId === v.questionId);
+  const AnswerCount = [
+    ...AnswerData.reduce((mp, o) => {
+      if (!mp.has(o.questionId)) mp.set(o.questionId, { ...o, count: 0 });
+      mp.get(o.questionId).count++;
+      return mp;
+    }, new Map()).values()
+  ];
   const AnswerCountLength = AnswerCount.length;
 
   const obtained = AnswerCountLength;
   const total = surveyData.length && surveyData[0].question_count;
   const percent = (obtained * 100) / total;
+
+  const isAnswer=AnswerData.map((v,k)=>v.optionChoiceId)
 
   const _handleNext = () => {
     setPageno(pageno + 1);
@@ -46,20 +53,35 @@ const Question = props => {
             : JSON.stringify(AnswerData)
         }  Inserted!`
       );
+      AnswerData.length = 0;
+      setPageno(0);
+      setTestValue({});
     });
   };
 
   useEffect(() => {
     setUserData(JSON.parse(localStorage.getItem("userData")));
-    
-    //  arrayText.push({QuestionID:quesId,Text:''})
-    // console.log(arrayText);
+  }, []);
 
- }, []);
+  const handleRadioChange = (ansId, quesId) => {
+    const isQuesId = AnswerData.filter(e => e.questionId === quesId);
+    const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
+    const Ans = {
+      other: "",
+      optionChoiceId: ansId,
+      userId: userData.userId,
+      questionId: quesId
+    };
+    if (isQuesId.length >= 1) {
+      AnswerData.splice(isQuesIdIndex, 1, Ans);
+    } else {
+      AnswerData.push(Ans);
+    }
+    setRvalue(ansId)
+  };
 
   const handleCheckChange = (quesId, answerId) => {
-    setCvalue(answerId)
-
+    setCvalue(answerId);
     const isQuesId =
       AnswerData.length &&
       AnswerData.filter(
@@ -83,7 +105,9 @@ const Question = props => {
 
   const handleInputChange = (e, quesId) => {
     setValue(e.target.value);
-    console.log("HERE",surveyData.length &&surveyData[0].survey_sections[pageno].questions.filter((v,k)=>v.input_type_id===4));
+    console.log(e.target.value, quesId);
+    testValue[quesId] = e.target.value;
+    setTestValue(testValue);
 
     const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
     const isQuesId = AnswerData.filter(e => e.questionId === quesId);
@@ -102,7 +126,7 @@ const Question = props => {
 
   const handleSelect = quesId => {
     let ansId = document.getElementById(quesId).value;
-    setSvalue(ansId)
+    setSvalue(ansId);
     const isQuesId = AnswerData.filter(e => e.questionId === quesId);
     const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
     const Ans = {
@@ -117,90 +141,96 @@ const Question = props => {
       AnswerData.push(Ans);
     }
     console.log(AnswerData);
-    
   };
+
 
   return (
     surveyData.length && (
-      <div className="container">
+      <div>
         <ESProgress Percent={percent} />
-        <div
-          className={`text-light row justify-content-end ${media.mobile ||
-            "pt-3 justify-content-center"}`}
-        >
+        <div className="container">
           <div
-            className="px-4 position-fixed"
-            style={{
-              borderRadius: media.mobile ? "20px 0px 0 20px" : "20px",
-              background: "rgba(0,0,0,0.5)"
-            }}
-          >{`${AnswerCountLength || 0} of ${total} Answered`}</div>
-        </div>
-
-        <div
-          style={{
-            fontSize: media.mobile ? "20px" : "25px",
-            fontWeight: "bold"
-          }}
-          className="position-relative pt-3"
-        >
-          {surveyData[0].survey_name}
-        </div>
-        <div
-          className="my-2"
-          style={{ fontSize: media.mobile ? "18px" : "20px" }}
-        >
-          {surveyData[0].survey_sections[pageno].section_name}
-        </div>
-
-        <div className="my-2 scrollbar w-100" id="style-1">
-          <div className="force-overflow">
-            {surveyData[0].survey_sections.length && (
-              <QuestionCard
-                survey_sections={surveyData[0].survey_sections}
-                pageno={pageno}
-                handleCheckChange={handleCheckChange}
-                handleInputChange={handleInputChange}
-                handleSelect={handleSelect}
-                userId={userData.userId}
-                TextValue={value}
-                AnswerData={AnswerData}
-                cValue={cValue}
-              />
-            )}
+            className={`text-light row justify-content-end ${media.mobile ||
+              "pt-3 justify-content-center"}`}
+          >
+            <div
+              className="px-4 position-fixed"
+              style={{
+                borderRadius: media.mobile ? "20px 0px 0 20px" : "20px",
+                background: "rgba(0,0,0,0.5)"
+              }}
+            >{`${AnswerCountLength || 0} of ${total} Answered`}</div>
           </div>
-        </div>
-        <div className="row justify-content-between">
+
           <div
-            className="col-lg-6 align-self-center font-weight-bold"
-            style={{ color: `${Color.PrimaryColor}` }}
-          >{`Page - ${pageno + 1} of ${
-            surveyData[0].survey_sections.length
-          }`}</div>
-          <div className="col-lg-6">
-            <div className="row justify-content-end">
-              <div className="col-lg-4 col-6 p-2">
-                {surveyData.length && pageno > 0 ? (
-                  <ESButton
-                    text={"PREVIOUS"}
-                    onClick={_handlePrevious}
-                    small
-                    leftIcon={<i className="fa fa-caret-left pr-2" />}
-                  />
-                ) : null}
-              </div>
-              <div className="col-lg-4 col-6 p-2">
-                {surveyData.length &&
-                surveyData[0].survey_sections.length === pageno + 1 ? (
-                  <ESButton text={"DONE"} small onClick={_handleSubmit} />
-                ) : (
-                  <ESButton
-                    text={"NEXT"}
-                    onClick={_handleNext}
-                    small
-                    rightIcon={<i className="fa fa-caret-right pl-2" />}
-                  />
-                )}
+            style={{
+              fontSize: media.mobile ? "20px" : "25px",
+              fontWeight: "bold"
+            }}
+            className="position-relative pt-3"
+          >
+            {surveyData[0].survey_name}
+          </div>
+          <div
+            className="my-2"
+            style={{ fontSize: media.mobile ? "18px" : "20px" }}
+          >
+            {surveyData[0].survey_sections[pageno].section_name}
+          </div>
+
+          <div className="my-2 scrollbar w-100" id="style-1">
+            <div className="force-overflow">
+              {surveyData[0].survey_sections.length && (
+                <QuestionCard
+                  survey_sections={surveyData[0].survey_sections}
+                  pageno={pageno}
+                  handleCheckChange={handleCheckChange}
+                  handleRadioChange={handleRadioChange}
+                  handleInputChange={handleInputChange}
+                  handleSelect={handleSelect}
+                  userId={userData.userId}
+                  TextValue={value}
+                  AnswerData={AnswerData}
+                  cValue={cValue}
+                  rValue={rvalue}
+                  testValue={testValue}
+                  isAnswer={isAnswer}
+                />
+              )}
+            </div>
+          </div>
+          <div className="row justify-content-between">
+            <div
+              className="col-lg-6 align-self-center font-weight-bold"
+              style={{ color: `${Color.PrimaryColor}` }}
+            >{`Page - ${pageno + 1} of ${
+              surveyData[0].survey_sections.length
+            }`}</div>
+            <div className="col-lg-6">
+              <div className="row justify-content-end">
+                <div className="col-lg-4 col-6 p-2">
+                  {surveyData.length && pageno > 0 ? (
+                    <ESButton
+                      text={"PREVIOUS"}
+                      onClick={_handlePrevious}
+                      small
+                      leftIcon={<i className="fa fa-caret-left pr-2" />}
+                    />
+                  ) : null}
+                </div>
+                <div className="col-lg-4 col-6 p-2">
+                  {surveyData.length &&
+                  surveyData[0].survey_sections.length === pageno + 1 ? (
+                    <ESButton text={"DONE"} small onClick={_handleSubmit} />
+                  ) : (
+                    <ESButton
+                      text={"NEXT"}
+                      onClick={_handleNext}
+                      small
+                      rightIcon={<i className="fa fa-caret-right pl-2" />}
+                    />
+                  )}
+                </div>
               </div>
             </div>
           </div>
