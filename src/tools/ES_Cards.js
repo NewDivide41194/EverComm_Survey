@@ -21,6 +21,7 @@ const QuestionCard = props => {
     AnswerData,
     TextValue,
     cValue,
+    rValue,
     svalue,
     testValue
   } = props;
@@ -54,6 +55,7 @@ const QuestionCard = props => {
           ) : ques.input_type_id === 2 ? (
             <ESRadio
               value={ques.option_choices}
+              rValue={rValue}
               pageNo={pageno}
               cvalue={survey_sections}
               handleRadioChange={handleRadioChange}
