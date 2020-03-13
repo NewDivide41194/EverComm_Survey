@@ -14,6 +14,7 @@ const Question = props => {
   const [value, setValue] = useState("");
   const [cValue,setCvalue]=useState('')
   const [sValue,setSvalue]=useState('')
+  const [testValue,setTestValue] = useState({});
 
   const AnswerCount =
     AnswerData.length &&
@@ -45,6 +46,8 @@ const Question = props => {
             : JSON.stringify(AnswerData)
         }  Inserted!`
       );
+      AnswerData.length=0
+      setPageno(0)
     });
   };
 
@@ -77,6 +80,11 @@ const Question = props => {
 
   const handleInputChange = (e, quesId) => {
     setValue(e.target.value);
+    console.log(e.target.value,quesId)
+    testValue[quesId] = e.target.value;
+  console.log(testValue)
+    //  testValue.push(quesId:e.target.value})
+    setTestValue(testValue)
 
     const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
     const isQuesId = AnswerData.filter(e => e.questionId === quesId);
@@ -159,6 +167,7 @@ const Question = props => {
                 TextValue={value}
                 AnswerData={AnswerData}
                 cValue={cValue}
+                testValue ={testValue}
               />
             )}
           </div>

@@ -47,7 +47,7 @@ export const ESInput = props => {
       spellCheck="false"
       id={id}
       required={required}
-      onChange={e => onChange(e, quesId)}
+      onChange={onChange/*e => onChange(e, quesId)*/}
       style={{
         ...defaultStyle,
         ...userStyle

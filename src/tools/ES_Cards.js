@@ -21,7 +21,8 @@ const QuestionCard = props => {
     AnswerData,
     TextValue,
     cValue,
-    svalue
+    svalue,
+    testValue
   } = props;
 
   return (
@@ -66,7 +67,7 @@ const QuestionCard = props => {
               pageNo={pageno}
               cvalue={survey_sections}
               value={ques.option_choices}
-              handlesele={handleSelect}
+              handleSelect={handleSelect}
               userId={userId}
               AnswerData={AnswerData}
               svalue={svalue}
@@ -77,8 +78,9 @@ const QuestionCard = props => {
               quesId={ques.question_id}
               userId={userId}
               AnswerData={AnswerData}
-              value={TextValue}
-              onChange={handleInputChange}
+              // value={TextValue}
+              value={testValue[ques.question_id]?testValue[ques.question_id]:""}
+              onChange={(e)=>{handleInputChange(e,ques.question_id)}}
             />
           ) : ques.input_type_id === 6 ? (
             <ESDatePicker/>
