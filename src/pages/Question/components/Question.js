@@ -120,7 +120,7 @@ const Question = props => {
     console.log(AnswerData);
   };
 
-  return surveyData.length ? (
+  return surveyData.length && (
     <div className="container">
       <ESProgress Percent={percent} />
       <div
@@ -206,9 +206,7 @@ const Question = props => {
         </div>
       </div>
     </div>
-  ) : (
-    alert("Database Error")
-  );
+  ) 
 };
 
 export default withMedia(Question);
