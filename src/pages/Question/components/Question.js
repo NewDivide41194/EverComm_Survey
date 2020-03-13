@@ -14,6 +14,7 @@ const Question = props => {
   const [value, setValue] = useState("");
   const [cValue,setCvalue]=useState('')
   const [sValue,setSvalue]=useState('')
+  const [arrayText,setArrayText]=useState([])
 
   const AnswerCount =
     AnswerData.length &&
@@ -50,10 +51,15 @@ const Question = props => {
 
   useEffect(() => {
     setUserData(JSON.parse(localStorage.getItem("userData")));
+    
+    //  arrayText.push({QuestionID:quesId,Text:''})
+    // console.log(arrayText);
+
  }, []);
 
   const handleCheckChange = (quesId, answerId) => {
     setCvalue(answerId)
+
     const isQuesId =
       AnswerData.length &&
       AnswerData.filter(
@@ -77,6 +83,7 @@ const Question = props => {
 
   const handleInputChange = (e, quesId) => {
     setValue(e.target.value);
+    console.log("HERE",surveyData.length &&surveyData[0].survey_sections[pageno].questions.filter((v,k)=>v.input_type_id===4));
 
     const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
     const isQuesId = AnswerData.filter(e => e.questionId === quesId);

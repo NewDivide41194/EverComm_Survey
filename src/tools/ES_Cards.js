@@ -23,7 +23,6 @@ const QuestionCard = props => {
     cValue,
     svalue
   } = props;
-
   return (
     <div>
       {// cat && cat.length && cat.questions && cat.questions.length &&
