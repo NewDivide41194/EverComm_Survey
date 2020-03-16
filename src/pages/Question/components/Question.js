@@ -148,8 +148,8 @@ const Question = props => {
 
     const Ans = {
       other: 
-       [{ "Year of Manufacturing": `"${moment(date).format("DD/MM/YYYY")}"`,
-        "Year of Installation": `"${moment(endDate).format("DD/MM/YYYY")}"`}]
+      JSON.stringify( [{ "Year of Manufacturing": moment(date).format("DD/MM/YYYY"),
+        "Year of Installation": moment(endDate).format("DD/MM/YYYY")}])
       ,
       optionChoiceId: null,
       userId: userData.userId,
@@ -168,10 +168,10 @@ const Question = props => {
     const isQuesId = AnswerData.filter(e => e.questionId === quesId);
     const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
     const Ans = {
-      other: {
-        "Year of Manufacturing": `${moment(startDate).format("DD/MM/YYYY")}`,
-        "Year of Installation": `${moment(date).format("DD/MM/YYYY")}`
-      },
+      other: JSON.stringify({
+        "Year of Manufacturing": moment(startDate).format("DD/MM/YYYY"),
+        "Year of Installation": moment(date).format("DD/MM/YYYY")
+      }),
       optionChoiceId: null,
       userId: userData.userId,
       questionId: quesId
