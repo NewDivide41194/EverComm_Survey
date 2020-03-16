@@ -39,6 +39,7 @@ export const ESInput = props => {
       id
     ).style.border = `2px solid ${Color.SecondaryColor}`;
   };
+  
   return (
     <input
       autoComplete="off"

@@ -5,6 +5,7 @@ import { PostAnswer } from "../../../api/PostAnswer";
 import { withMedia } from "react-media-query-hoc";
 import ESProgress from "../../../tools/ES_Progress";
 import * as Color from "../../../config/Color.config";
+import moment from "moment";
 
 const Question = props => {
   const { surveyData, media } = props;
@@ -12,11 +13,12 @@ const Question = props => {
   const [userData, setUserData] = useState({});
   const [AnswerData, setAnswerData] = useState([]);
   const [value, setValue] = useState("");
-  const [cValue, setCvalue] = useState("");
-  const [sValue, setSvalue] = useState("");
   const [testValue, setTestValue] = useState({});
-  const [rvalue, setRvalue] = useState("");
-
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [isAnswer, setIsAnswer] = useState(
+    AnswerData.map((v, k) => v.optionChoiceId)
+  );
   const AnswerCount = [
     ...AnswerData.reduce((mp, o) => {
       if (!mp.has(o.questionId)) mp.set(o.questionId, { ...o, count: 0 });
@@ -29,8 +31,6 @@ const Question = props => {
   const obtained = AnswerCountLength;
   const total = surveyData.length && surveyData[0].question_count;
   const percent = (obtained * 100) / total;
-
-  const isAnswer=AnswerData.map((v,k)=>v.optionChoiceId)
 
   const _handleNext = () => {
     setPageno(pageno + 1);
@@ -77,11 +77,10 @@ const Question = props => {
     } else {
       AnswerData.push(Ans);
     }
-    setRvalue(ansId)
+    setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
   };
 
   const handleCheckChange = (quesId, answerId) => {
-    setCvalue(answerId);
     const isQuesId =
       AnswerData.length &&
       AnswerData.filter(
@@ -101,6 +100,7 @@ const Question = props => {
     } else {
       AnswerData.push(Ans);
     }
+    setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
   };
 
   const handleInputChange = (e, quesId) => {
@@ -126,7 +126,6 @@ const Question = props => {
 
   const handleSelect = quesId => {
     let ansId = document.getElementById(quesId).value;
-    setSvalue(ansId);
     const isQuesId = AnswerData.filter(e => e.questionId === quesId);
     const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
     const Ans = {
@@ -140,9 +139,50 @@ const Question = props => {
     } else {
       AnswerData.push(Ans);
     }
-    console.log(AnswerData);
   };
 
+  const handleStartChange = (date, quesId) => {
+    setStartDate(date);
+    const isQuesId = AnswerData.filter(e => e.questionId === quesId);
+    const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
+
+    const Ans = {
+      other: 
+       [{ "Year of Manufacturing": `"${moment(date).format("DD/MM/YYYY")}"`,
+        "Year of Installation": `"${moment(endDate).format("DD/MM/YYYY")}"`}]
+      ,
+      optionChoiceId: null,
+      userId: userData.userId,
+      questionId: quesId
+    };
+    if (isQuesId.length >= 1) {
+      AnswerData.splice(isQuesIdIndex, 1, Ans);
+    } else {
+      AnswerData.push(Ans);
+    }
+    setAnswerData(AnswerData);
+  };
+
+  const handleEndChange = (date, quesId) => {
+    setEndDate(date);
+    const isQuesId = AnswerData.filter(e => e.questionId === quesId);
+    const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
+    const Ans = {
+      other: {
+        "Year of Manufacturing": `${moment(startDate).format("DD/MM/YYYY")}`,
+        "Year of Installation": `${moment(date).format("DD/MM/YYYY")}`
+      },
+      optionChoiceId: null,
+      userId: userData.userId,
+      questionId: quesId
+    };
+    if (isQuesId.length >= 1) {
+      AnswerData.splice(isQuesIdIndex, 1, Ans);
+    } else {
+      AnswerData.push(Ans);
+    }
+  };
+  console.log(AnswerData);
 
   return (
     surveyData.length && (
@@ -188,11 +228,13 @@ const Question = props => {
                   handleRadioChange={handleRadioChange}
                   handleInputChange={handleInputChange}
                   handleSelect={handleSelect}
+                  handleStartChange={handleStartChange}
+                  handleEndChange={handleEndChange}
                   userId={userData.userId}
                   TextValue={value}
                   AnswerData={AnswerData}
-                  cValue={cValue}
-                  rValue={rvalue}
+                  startDate={startDate}
+                  endDate={endDate}
                   testValue={testValue}
                   isAnswer={isAnswer}
                 />
@@ -221,7 +263,12 @@ const Question = props => {
                 <div className="col-lg-4 col-6 p-2">
                   {surveyData.length &&
                   surveyData[0].survey_sections.length === pageno + 1 ? (
-                    <ESButton text={"DONE"} small onClick={_handleSubmit} />
+                    <ESButton
+                      text={"DONE"}
+                      small
+                      onClick={_handleSubmit}
+                      disabled={AnswerData.length === 0 ? true : false}
+                    />
                   ) : (
                     <ESButton
                       text={"NEXT"}

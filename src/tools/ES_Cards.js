@@ -13,10 +13,13 @@ const QuestionCard = props => {
     handleRadioChange,
     handleCheckChange,
     handleInputChange,
+    handleStartChange,
     handleSelect,
+    handleEndChange,
     media,
     testValue,
-    isAnswer
+    isAnswer,
+    startDate,endDate
   } = props;
   return (
     <div>
@@ -64,7 +67,12 @@ const QuestionCard = props => {
               onChange={(e)=>{handleInputChange(e,ques.question_id)}}
             />
           ) : ques.input_type_id === 6 ? (
-            <ESDatePicker/>
+            <ESDatePicker
+            quesId={ques.question_id}
+            startDate={startDate}
+            endDate={endDate}
+            handleEndChange={handleEndChange}
+            handleStartChange={handleStartChange}/>
           ) : null}
         </div>
       ))}
