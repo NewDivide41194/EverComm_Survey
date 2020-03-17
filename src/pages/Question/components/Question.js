@@ -54,8 +54,6 @@ const Question = props => {
         }  Inserted!`
       );
       AnswerData.length = 0;
-      setPageno(0);
-      setTestValue({});
     });
   };
 
