@@ -1,21 +1,42 @@
 import React, { useState, useEffect } from "react";
 import MainMenu from "../component/MainMenu";
-
+import { UserFetch } from "../../../api/FetchQuestions";
 const MenuContainer = props => {
-
+  const [menuData, setMenuData] = useState([]);
   const _handleChoose = () => {
     props.history.push("/question");
   };
-  return (
-    <div className="container">
-        <h2>{'Select Survey Name'}</h2>
-      <MainMenu handleChoose={_handleChoose} id={"1"} />
-      <MainMenu handleChoose={_handleChoose} id={"2"}/>
-      <MainMenu handleChoose={_handleChoose} id={"3"}/>
-      <MainMenu handleChoose={_handleChoose} id={"4"}/>
+  useEffect(() => {
+    setMenuData(JSON.parse(localStorage.getItem("userData")).survey_info);
+  }, []);
+  console.log(menuData);
 
+  return (
+    <div className="row justify-content-center">
+      <div
+        className="container"
+        style={{
+          margin: 0,
+          position: "absolute",
+          top: "50%",
+          transform: "translateY(-190px)"
+        }}
+      >
+        <h2>{"Select Survey Name"}</h2>
+        {menuData.map((v, k) => 
+          <MainMenu
+            key={k}
+            handleChoose={_handleChoose}
+            header={v.survey_header_name}
+            progress={v.questions===v.answers?'Completed':`${v.answers} of ${v.questions} Answered`}
+            id={v.survey_header_id}
+          />
+        )}
+      </div>
     </div>
   );
 };
 
 export default MenuContainer;
+
+

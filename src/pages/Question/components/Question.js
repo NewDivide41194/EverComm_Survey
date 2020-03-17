@@ -59,6 +59,7 @@ const Question = props => {
 
   useEffect(() => {
     setUserData(JSON.parse(localStorage.getItem("userData")));
+    
   }, []);
 
   const handleRadioChange = (ansId, quesId) => {
@@ -137,6 +138,7 @@ const Question = props => {
     } else {
       AnswerData.push(Ans);
     }
+    setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
   };
 
   const handleStartChange = (date, quesId) => {
@@ -145,10 +147,12 @@ const Question = props => {
     const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
 
     const Ans = {
-      other: 
-      JSON.stringify( [{ "Year of Manufacturing": moment(date).format("DD/MM/YYYY"),
-        "Year of Installation": moment(endDate).format("DD/MM/YYYY")}])
-      ,
+      other: JSON.stringify([
+        {
+          "Year of Manufacturing": moment(date).format("DD/MM/YYYY"),
+          "Year of Installation": moment(endDate).format("DD/MM/YYYY")
+        }
+      ]),
       optionChoiceId: null,
       userId: userData.userId,
       questionId: quesId
@@ -163,24 +167,30 @@ const Question = props => {
 
   const handleEndChange = (date, quesId) => {
     setEndDate(date);
-    const isQuesId = AnswerData.filter(e => e.questionId === quesId);
-    const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
-    const Ans = {
-      other: JSON.stringify({
-        "Year of Manufacturing": moment(startDate).format("DD/MM/YYYY"),
-        "Year of Installation": moment(date).format("DD/MM/YYYY")
-      }),
-      optionChoiceId: null,
-      userId: userData.userId,
-      questionId: quesId
-    };
-    if (isQuesId.length >= 1) {
-      AnswerData.splice(isQuesIdIndex, 1, Ans);
+    if (startDate > endDate) {
+      console.log("Start is Greater");
+      return
     } else {
-      AnswerData.push(Ans);
+      const isQuesId = AnswerData.filter(e => e.questionId === quesId);
+      const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
+      const Ans = {
+        other: JSON.stringify({
+          "Year of Manufacturing": moment(startDate).format("DD/MM/YYYY"),
+          "Year of Installation": moment(date).format("DD/MM/YYYY")
+        }),
+        optionChoiceId: null,
+        userId: userData.userId,
+        questionId: quesId
+      };
+      if (isQuesId.length >= 1) {
+        AnswerData.splice(isQuesIdIndex, 1, Ans);
+      } else {
+        AnswerData.push(Ans);
+      }
     }
   };
-  console.log(AnswerData);
+  console.log(AnswerData.payload.user_info[0].user_level_id);
+  console.log(userData);
 
   return (
     surveyData.length && (

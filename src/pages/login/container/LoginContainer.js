@@ -14,7 +14,7 @@ const LoginContainer = props => {
   const _handleSubmit = e => {
     e.preventDefault();
     if (eMail === "") {
-     setErr({eMailErr:"Fill Email Address!"})
+      setErr({ eMailErr: "Fill Email Address!" });
       return;
     } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(eMail)) {
       setErr({
@@ -27,20 +27,20 @@ const LoginContainer = props => {
       });
       return;
     } else {
-      setErr({})
+      setErr({});
       UserFetch({ eMail, password, token }, (err, data) => {
+        console.log(data);     
         data.success === false
-          ? alert.error("Account does not exit!")
-          : data.payload[0].user_level_id === 1
-          ? props.history.push("/admin")
-          : props.history.push("/menu");
-        localStorage.setItem(
-          "userData",
-          JSON.stringify({
-            userId: data.payload[0].login_user_id,
-            username: data.payload[0].user_name
-          })
-        );
+          // ? alert.error("Account does not exit!")
+          // : data.payload.user_info[0].user_level_id === 1
+          // ? props.history.push("/admin")
+          || props.history.push("/menu");
+          localStorage.setItem(
+            "userData",
+            JSON.stringify(
+              data.payload
+            )
+          );
       });
     }
   };
