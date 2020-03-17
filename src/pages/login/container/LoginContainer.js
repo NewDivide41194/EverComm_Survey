@@ -32,8 +32,8 @@ const LoginContainer = props => {
         data.success === false
           ? alert.error("Account does not exit!")
           : data.payload[0].user_level_id === 1
-          ? alert.info("It is Admin Account")
-          : props.history.push("/question");
+          ? props.history.push("/admin")
+          : props.history.push("/menu");
         localStorage.setItem(
           "userData",
           JSON.stringify({
