@@ -25,7 +25,7 @@ const UserLogin = props => {
     <div className="row justify-content-center">
       {/* {IsLoading&&<div className='bg-dark w-100'>Loading...</div>} */}
       <form
-        className="col-lg-3"
+        className="col-lg-3 col-md-8"
         style={{
           margin: 0,
           position: "absolute",

@@ -3,13 +3,16 @@ import MainMenu from "../component/MainMenu";
 import { UserFetch } from "../../../api/FetchQuestions";
 const MenuContainer = props => {
   const [menuData, setMenuData] = useState([]);
-  const _handleChoose = () => {
+  const _handleChoose = e => {
+    console.log("id----->", e.target.id);
+
     props.history.push("/question");
+    localStorage.setItem("SurveyHeaderId", e.target.id);
   };
+
   useEffect(() => {
     setMenuData(JSON.parse(localStorage.getItem("userData")).survey_info);
   }, []);
-  console.log(menuData);
 
   return (
     <div className="row justify-content-center">
@@ -23,20 +26,22 @@ const MenuContainer = props => {
         }}
       >
         <h2>{"Select Survey Name"}</h2>
-        {menuData.map((v, k) => 
+        {menuData.map((v, k) => (
           <MainMenu
             key={k}
             handleChoose={_handleChoose}
             header={v.survey_header_name}
-            progress={v.questions===v.answers?'Completed':`${v.answers} of ${v.questions} Answered`}
+            progress={
+              v.questions === v.answers
+                ? "Completed"
+                : `${v.answers} of ${v.questions} Answered`
+            }
             id={v.survey_header_id}
           />
-        )}
+        ))}
       </div>
     </div>
   );
 };
 
 export default MenuContainer;
-
-

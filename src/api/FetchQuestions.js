@@ -1,7 +1,7 @@
 import * as API from "./url";
 
-export const QuestionFetch = (token, callback) => {
-  fetch(API.QuestionAPI)
+export const QuestionFetch = (userId,questionId, callback) => {
+  fetch(API.QuestionAPI(userId,questionId))
     .then(res => res.json())
     .then(data => callback(null, data))
     .catch(err => console.log(err));

@@ -1,7 +1,7 @@
-const serverURL='http://192.168.100.15:7878'
+const serverURL='http://192.168.100.112:7878'
 // const serverURL='http://172.105.123.57:7878'
 
-export const QuestionAPI=`${serverURL}/api/v1/survey/questions/1/1`
+export const QuestionAPI=(userId,surveyHeaderId)=>`${serverURL}/api/v1/survey/questions/${userId}/${surveyHeaderId}`
 
 export const RegisterAPI=`${serverURL}/api/v1/user/adduser`
 

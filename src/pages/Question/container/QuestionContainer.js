@@ -7,16 +7,23 @@ const QuestionContainer = () => {
   const token = 123;
   const [surveyData, setSurveyData] = useState([]);
   const [IsLoading, setIsLoading] = useState(false);
-
+  const userId=JSON.parse(localStorage.getItem("userData")).user_info[0].login_user_id
+  const surveyHeaderId=JSON.parse(localStorage.getItem("SurveyHeaderId"))
+  const [answers,setAnswers]=useState([])
   useEffect(() => {
     setIsLoading(true);
+    console.log("USER_ID",userId);
+    
+    console.log("Sur",surveyHeaderId);
 
-    QuestionFetch(token, (err, data) => {
+    QuestionFetch(userId,surveyHeaderId, (err, data) => {
       setSurveyData(data.payload);
+      setAnswers(data.payload[0].answers)
       setIsLoading(false);
     });
   }, []);
-
+  console.log("ANS-->",answers);
+  
   return IsLoading ? (
     <div
       className="w-100 text-light text-center position-absolute"
@@ -32,7 +39,7 @@ const QuestionContainer = () => {
       <div className="w-100">Loading...</div>
     </div>
   ) : (
-    <Question surveyData={surveyData} />
+    <Question surveyData={surveyData} answers={answers} userId={userId}/>
   );
 };
 

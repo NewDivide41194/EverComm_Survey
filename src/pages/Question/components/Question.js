@@ -8,10 +8,10 @@ import * as Color from "../../../config/Color.config";
 import moment from "moment";
 
 const Question = props => {
-  const { surveyData, media } = props;
+  const { surveyData, media, answers, userId } = props;
   const [pageno, setPageno] = useState(0);
   const [userData, setUserData] = useState({});
-  const [AnswerData, setAnswerData] = useState([]);
+  const [AnswerData, setAnswerData] = useState([...answers]);
   const [value, setValue] = useState("");
   const [testValue, setTestValue] = useState({});
   const [startDate, setStartDate] = useState(new Date());
@@ -19,6 +19,8 @@ const Question = props => {
   const [isAnswer, setIsAnswer] = useState(
     AnswerData.map((v, k) => v.optionChoiceId)
   );
+  console.log("ANS------->",AnswerData);
+
   const AnswerCount = [
     ...AnswerData.reduce((mp, o) => {
       if (!mp.has(o.questionId)) mp.set(o.questionId, { ...o, count: 0 });
@@ -59,7 +61,6 @@ const Question = props => {
 
   useEffect(() => {
     setUserData(JSON.parse(localStorage.getItem("userData")));
-    
   }, []);
 
   const handleRadioChange = (ansId, quesId) => {
@@ -68,7 +69,7 @@ const Question = props => {
     const Ans = {
       other: "",
       optionChoiceId: ansId,
-      userId: userData.userId,
+      userId: userId,
       questionId: quesId
     };
     if (isQuesId.length >= 1) {
@@ -91,7 +92,7 @@ const Question = props => {
     const Ans = {
       other: "",
       optionChoiceId: answerId,
-      userId: userData.userId,
+      userId: userId,
       questionId: quesId
     };
     if (isQuesId.length >= 1) {
@@ -113,7 +114,7 @@ const Question = props => {
     const Ans = {
       other: e.target.value,
       optionChoiceId: null,
-      userId: userData.userId,
+      userId: userId,
       questionId: quesId
     };
     if (isQuesId.length >= 1) {
@@ -130,7 +131,7 @@ const Question = props => {
     const Ans = {
       other: "",
       optionChoiceId: parseInt(ansId),
-      userId: userData.userId,
+      userId: userId,
       questionId: quesId
     };
     if (isQuesId.length >= 1) {
@@ -154,7 +155,7 @@ const Question = props => {
         }
       ]),
       optionChoiceId: null,
-      userId: userData.userId,
+      userId: userId,
       questionId: quesId
     };
     if (isQuesId.length >= 1) {
@@ -169,7 +170,7 @@ const Question = props => {
     setEndDate(date);
     if (startDate > endDate) {
       console.log("Start is Greater");
-      return
+      return;
     } else {
       const isQuesId = AnswerData.filter(e => e.questionId === quesId);
       const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
@@ -179,7 +180,7 @@ const Question = props => {
           "Year of Installation": moment(date).format("DD/MM/YYYY")
         }),
         optionChoiceId: null,
-        userId: userData.userId,
+        userId: userId,
         questionId: quesId
       };
       if (isQuesId.length >= 1) {
@@ -189,8 +190,6 @@ const Question = props => {
       }
     }
   };
-  console.log(AnswerData.payload.user_info[0].user_level_id);
-  console.log(userData);
 
   return (
     surveyData.length && (
@@ -225,7 +224,6 @@ const Question = props => {
           >
             {surveyData[0].survey_sections[pageno].section_name}
           </div>
-
           <div className="my-2 scrollbar w-100" id="style-1">
             <div className="force-overflow">
               {surveyData[0].survey_sections.length && (
@@ -238,7 +236,7 @@ const Question = props => {
                   handleSelect={handleSelect}
                   handleStartChange={handleStartChange}
                   handleEndChange={handleEndChange}
-                  userId={userData.userId}
+                  userId={userId}
                   TextValue={value}
                   AnswerData={AnswerData}
                   startDate={startDate}
@@ -276,6 +274,10 @@ const Question = props => {
                       small
                       onClick={_handleSubmit}
                       disabled={AnswerData.length === 0 ? true : false}
+                      style={{
+                        cursor:
+                          AnswerData.length === 0 ? "not-allowed" : "pointer"
+                      }}
                     />
                   ) : (
                     <ESButton
