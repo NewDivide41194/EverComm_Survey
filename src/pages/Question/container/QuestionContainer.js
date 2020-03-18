@@ -39,7 +39,7 @@ const QuestionContainer = () => {
       <div className="w-100">Loading...</div>
     </div>
   ) : (
-    <Question surveyData={surveyData} answers={answers} userId={userId}/>
+    <Question surveyData={surveyData} answers={answers} userId={userId} surveyHeaderId={surveyHeaderId}/>
   );
 };
 

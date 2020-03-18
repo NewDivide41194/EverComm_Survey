@@ -6,9 +6,10 @@ import { withMedia } from "react-media-query-hoc";
 import ESProgress from "../../../tools/ES_Progress";
 import * as Color from "../../../config/Color.config";
 import moment from "moment";
+import { withRouter } from "react-router-dom";
 
 const Question = props => {
-  const { surveyData, media, answers, userId } = props;
+  const { surveyData, media, answers, userId,surveyHeaderId,history } = props;
   const [pageno, setPageno] = useState(0);
   const [userData, setUserData] = useState({});
   const [AnswerData, setAnswerData] = useState([...answers]);
@@ -48,16 +49,8 @@ const Question = props => {
 
   const _handleSubmit = () => {
     PostAnswer({ data: AnswerData }, (err, data) => {
-      window.alert(
-        `${
-          AnswerData.length === 0
-            ? "There is No Answer"
-            : JSON.stringify(AnswerData)
-        }  Inserted!`
-      );
-      AnswerData.length = 0;
-    });
-  };
+    history.push("/report")
+    })}
 
   useEffect(() => {
     setUserData(JSON.parse(localStorage.getItem("userData")));
@@ -70,7 +63,8 @@ const Question = props => {
       other: "",
       optionChoiceId: ansId,
       userId: userId,
-      questionId: quesId
+      questionId: quesId,
+      survey_headers_id:surveyHeaderId
     };
     if (isQuesId.length >= 1) {
       AnswerData.splice(isQuesIdIndex, 1, Ans);
@@ -93,7 +87,9 @@ const Question = props => {
       other: "",
       optionChoiceId: answerId,
       userId: userId,
-      questionId: quesId
+      questionId: quesId,
+      survey_headers_id:surveyHeaderId
+
     };
     if (isQuesId.length >= 1) {
       AnswerData.splice(isQuesIdIndex, 1);
@@ -115,7 +111,8 @@ const Question = props => {
       other: e.target.value,
       optionChoiceId: null,
       userId: userId,
-      questionId: quesId
+      questionId: quesId,
+      survey_headers_id:surveyHeaderId
     };
     if (isQuesId.length >= 1) {
       AnswerData.splice(isQuesIdIndex, 1, Ans);
@@ -132,7 +129,8 @@ const Question = props => {
       other: "",
       optionChoiceId: parseInt(ansId),
       userId: userId,
-      questionId: quesId
+      questionId: quesId,
+      survey_headers_id:surveyHeaderId
     };
     if (isQuesId.length >= 1) {
       AnswerData.splice(isQuesIdIndex, 1, Ans);
@@ -156,7 +154,8 @@ const Question = props => {
       ]),
       optionChoiceId: null,
       userId: userId,
-      questionId: quesId
+      questionId: quesId,
+      survey_headers_id:surveyHeaderId
     };
     if (isQuesId.length >= 1) {
       AnswerData.splice(isQuesIdIndex, 1, Ans);
@@ -181,7 +180,8 @@ const Question = props => {
         }),
         optionChoiceId: null,
         userId: userId,
-        questionId: quesId
+        questionId: quesId,
+        survey_headers_id:surveyHeaderId
       };
       if (isQuesId.length >= 1) {
         AnswerData.splice(isQuesIdIndex, 1, Ans);
@@ -190,6 +190,7 @@ const Question = props => {
       }
     }
   };
+console.log("PROP---->",props);
 
   return (
     surveyData.length && (
@@ -297,4 +298,4 @@ const Question = props => {
   );
 };
 
-export default withMedia(Question);
+export default withRouter(withMedia(Question));
