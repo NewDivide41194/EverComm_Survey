@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import MainMenu from "../component/MainMenu";
-import { UserFetch } from "../../../api/FetchQuestions";
+import { MenuInfoFetch } from "../../../api/FetchMenuInfo";
 const MenuContainer = props => {
   const [menuData, setMenuData] = useState([]);
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem("userData"))
+  );
   const _handleChoose = e => {
     console.log("id----->", e.target.id);
 
@@ -11,7 +14,14 @@ const MenuContainer = props => {
   };
 
   useEffect(() => {
-    setMenuData(JSON.parse(localStorage.getItem("userData")).survey_info);
+    const email=userData[0].email
+    MenuInfoFetch({email},(err,data)=>{
+console.log('FetchDATA---->',data.payload);
+setMenuData(data.payload)
+console.log('Email=====>',email);
+
+    })
+
   }, []);
 
   return (

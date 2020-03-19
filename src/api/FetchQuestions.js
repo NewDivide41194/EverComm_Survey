@@ -8,7 +8,7 @@ export const QuestionFetch = (userId,questionId, callback) => {
 };
 
 export const UserFetch = ({ eMail,password, token }, callback) => {
-  console.log(eMail,password);
+  console.log("555555555 ",eMail,password);
   
   fetch(API.LoginAPI, {
     method: "POST",

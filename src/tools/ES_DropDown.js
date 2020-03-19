@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 export const ESDropDown = props => {
-  const { value, quesId, handleSelect,isAnswer } = props;
-    
+  const { value, quesId, handleSelect, isAnswer } = props;
+
   return (
     <select
       id={quesId}
@@ -10,8 +10,16 @@ export const ESDropDown = props => {
       onChange={e => handleSelect(quesId)}
       style={{ boxShadow: "none" }}
     >
+      <option value="none" selected disabled hidden>
+        Select an Option ...
+      </option>
       {value.map((x, y) => (
-        <option key={y} id={x.option_choice_id} value={x.option_choice_id} selected={isAnswer.filter(d=>d===x.option_choice_id)>0||null}>
+        <option
+          key={y}
+          id={x.option_choice_id}
+          value={x.option_choice_id}
+          selected={isAnswer.filter(d => d === x.option_choice_id) > 0 || null}
+        >
           {x.option_choice_name}
         </option>
       ))}

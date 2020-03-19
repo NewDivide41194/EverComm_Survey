@@ -19,16 +19,23 @@ const QuestionCard = props => {
     media,
     testValue,
     isAnswer,
-    startDate,endDate
+    AnswerData,
+    startDate,
+    endDate
   } = props;
+  const isAnswerText = AnswerData.filter(d => d.questionId === 2);
+
   return (
     <div>
       {// cat && cat.length && cat.questions && cat.questions.length &&
       survey_sections[pageno].questions.map((ques, k2) => (
         <div
-          className="d-flex  flex-row flex-fill flex-wrap w-100 bg-light p-3 py-3 mb-3 rounded"
+          className="d-flex  flex-row flex-fill flex-wrap w-100 p-3 py-3 mb-3 rounded"
           key={k2}
-          style={{ fontSize: media.mobile ? "12px" : "15px" }}
+          style={{
+            fontSize: media.mobile ? "12px" : "15px",
+            background: "#f0f0f0"
+          }}
         >
           <div
             className="d-flex flex-row flex-wrap w-100"
@@ -63,16 +70,22 @@ const QuestionCard = props => {
           ) : ques.input_type_id === 4 ? (
             <ESInput
               id={ques.question_id}
-              value={testValue[ques.question_id]?testValue[ques.question_id]:""}
-              onChange={(e)=>{handleInputChange(e,ques.question_id)}}
+              value={
+                testValue[ques.question_id] ? testValue[ques.question_id] : ""
+              }
+              // value={AnswerData.filter(d=>d.questionId===ques.question_id)[0].other}
+              onChange={e => {
+                handleInputChange(e, ques.question_id);
+              }}
             />
           ) : ques.input_type_id === 6 ? (
             <ESDatePicker
-            quesId={ques.question_id}
-            startDate={startDate}
-            endDate={endDate}
-            handleEndChange={handleEndChange}
-            handleStartChange={handleStartChange}/>
+              quesId={ques.question_id}
+              startDate={startDate}
+              endDate={endDate}
+              handleEndChange={handleEndChange}
+              handleStartChange={handleStartChange}
+            />
           ) : null}
         </div>
       ))}

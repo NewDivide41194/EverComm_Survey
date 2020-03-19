@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { UserFetch } from "../../../api/FetchQuestions";
 import UserLogin from "../components/AdminLogin";
 import { useAlert } from "react-alert";
@@ -11,6 +11,7 @@ const LoginContainer = props => {
   const [err, setErr] = useState({});
   const token = 123;
   const alert = useAlert();
+  useEffect(()=>{localStorage.removeItem("userData")},[])
   const _handleSubmit = e => {
     e.preventDefault();
     if (eMail === "") {
@@ -29,18 +30,18 @@ const LoginContainer = props => {
     } else {
       setErr({});
       UserFetch({ eMail, password, token }, (err, data) => {
-        console.log(data);     
         data.success === false
           // ? alert.error("Account does not exit!")
           // : data.payload.user_info[0].user_level_id === 1
           // ? props.history.push("/admin")
-          || props.history.push("/menu");
-          localStorage.setItem(
+          ||localStorage.setItem(
             "userData",
             JSON.stringify(
               data.payload
             )
-          );
+          ); 
+          props.history.push("/menu");
+          window.location.reload()
       });
     }
   };

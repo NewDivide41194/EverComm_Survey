@@ -7,7 +7,7 @@ const QuestionContainer = () => {
   const token = 123;
   const [surveyData, setSurveyData] = useState([]);
   const [IsLoading, setIsLoading] = useState(false);
-  const userId=JSON.parse(localStorage.getItem("userData")).user_info[0].login_user_id
+  const userId=JSON.parse(localStorage.getItem("userData"))[0].login_user_id
   const surveyHeaderId=JSON.parse(localStorage.getItem("SurveyHeaderId"))
   const [answers,setAnswers]=useState([])
   useEffect(() => {
