@@ -14,12 +14,9 @@ const MenuContainer = props => {
   };
 
   useEffect(() => {
-    const email=userData[0].email
-    MenuInfoFetch({email},(err,data)=>{
-console.log('FetchDATA---->',data.payload);
+    const userId=userData[0].login_user_id
+    MenuInfoFetch({userId},(err,data)=>{
 setMenuData(data.payload)
-console.log('Email=====>',email);
-
     })
 
   }, []);
