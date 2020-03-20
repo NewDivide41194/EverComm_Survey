@@ -11,7 +11,9 @@ const LoginContainer = props => {
   const [err, setErr] = useState({});
   const token = 123;
   const alert = useAlert();
-  useEffect(()=>{localStorage.removeItem("userData")},[])
+  useEffect(() => {
+    localStorage.removeItem("userData");
+  }, []);
   const _handleSubmit = e => {
     e.preventDefault();
     if (eMail === "") {
@@ -30,18 +32,16 @@ const LoginContainer = props => {
     } else {
       setErr({});
       UserFetch({ eMail, password, token }, (err, data) => {
-        data.success === false
-          // ? alert.error("Account does not exit!")
-          // : data.payload.user_info[0].user_level_id === 1
-          // ? props.history.push("/admin")
-          ||localStorage.setItem(
-            "userData",
-            JSON.stringify(
-              data.payload
-            )
-          ); 
+        if (data.success === false) {
+          alert.error("Account does not exit!");
+        }
+        // : data.payload.user_info[0].user_level_id === 1
+        // ? props.history.push("/admin")
+        else {
+          localStorage.setItem("userData", JSON.stringify(data.payload));
           props.history.push("/menu");
-          window.location.reload()
+          window.location.reload();
+        }
       });
     }
   };

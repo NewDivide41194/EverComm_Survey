@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Logo from "../../assets/images/Logo.jpg";
 import { withRouter } from "react-router-dom";
+import withMedia from "react-media-query-hoc/dist/with-media";
 
 const NavBar = props => {
   const [userData, setUserData] = useState([]);
-
+  const {media}=props
   // console.log(
   //   userData === null || userData.length == 0 ? null : userData[0].email
   // );
@@ -22,13 +23,12 @@ const NavBar = props => {
     localStorage.removeItem("userData")
     window.location.reload()
   };
-  console.log(userData);
   return (
-    <div className="d-flex flex-row py-3 px-4 sticky-top bg-light justify-content-between">
-      <img src={Logo} style={{ width: "150px", height: "30px" }} alt="logo" />
-      <div class="dropdown">
+    <div className="d-flex flex-row flex-wrap py-3 px-4 sticky-top bg-light justify-content-between">
+      <img src={Logo} style={{ height: "30px" }} alt="logo" />
+      <div className='dropdown'>
         {props.location.pathname!=="/login"&&<button
-          class="btn dropdown-toggle"
+          className="btn dropdown-toggle"
           style={{ boxShadow: "none" }}
           type="button"
           id="dropdownMenuButton"
@@ -40,12 +40,12 @@ const NavBar = props => {
             <span>{userData[0].email}</span>
           )}
         </button>}
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <button class="dropdown-item">
+        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <button className="dropdown-item">
             Account Setting
           </button>
           <div className="dropdown-divider"></div>
-          <button class="dropdown-item" onClick={_handleSignOut}>
+          <button className="dropdown-item" onClick={_handleSignOut}>
             Sign Out
           </button>
         </div>
@@ -54,4 +54,4 @@ const NavBar = props => {
   );
 };
 
-export default withRouter(NavBar);
+export default withRouter(withMedia(NavBar));

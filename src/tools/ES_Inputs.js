@@ -15,6 +15,9 @@ export const ESInput = props => {
     value,
     maxLength
   } = props;
+  console.log("TEXT ------->",value);
+  console.log(id);
+  
   const defaultStyle = {
     width: width === undefined ? "100%" : width,
     padding: 20,

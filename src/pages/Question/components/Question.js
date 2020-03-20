@@ -20,7 +20,6 @@ const Question = props => {
   const [isAnswer, setIsAnswer] = useState(
     AnswerData.map((v, k) => v.optionChoiceId)
   );
-  console.log("ANS------->",AnswerData);
 
   const AnswerCount = [
     ...AnswerData.reduce((mp, o) => {
@@ -101,7 +100,6 @@ const Question = props => {
 
   const handleInputChange = (e, quesId) => {
     setValue(e.target.value);
-    console.log(e.target.value, quesId);
     testValue[quesId] = e.target.value;
     setTestValue(testValue);
 
@@ -190,7 +188,7 @@ const Question = props => {
       }
     }
   };
-console.log("PROP---->",props);
+console.log(surveyHeaderId);
 
   return (
     surveyData.length && (

@@ -1,7 +1,7 @@
 import * as API from "./url";
 
 export const PostAnswer = (SurveyData, callback) => {
-    console.log(SurveyData);
+    console.log("Final POost",SurveyData);
     
   fetch(API.User_AnswerApi,
     {
