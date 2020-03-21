@@ -23,8 +23,8 @@ const QuestionCard = props => {
     startDate,
     endDate
   } = props;
-  const isAnswerText = AnswerData.filter(d => d.questionId === 45);
-  console.log("ANSTEXT----->", isAnswerText, "Testvalue------>", testValue);
+  const isAnswerText = AnswerData.filter(d => d.questionId === 2);
+  console.log("isAnswer----->", isAnswerText, "Testvalue------>", testValue);
   console.log("ANS---->", AnswerData);
 
   return (
@@ -73,11 +73,11 @@ const QuestionCard = props => {
             <ESInput
               id={ques.question_id}
               value={
-                testValue[ques.question_id]
-                  ? testValue[ques.question_id]
-                  : AnswerData.filter(d => d.questionId === ques.question_id)
-                  ? AnswerData.filter(d => d.questionId === ques.question_id)
-                      .other
+                // testValue[ques.question_id]
+                //   ? testValue[ques.question_id]
+                   AnswerData.filter(d => d.questionId === ques.question_id)
+                  ? AnswerData.filter(d => d.questionId === ques.question_id).map((v,k)=>v.other)
+                     
                   : ""
               }
               // value={AnswerData.filter(d=>d.questionId===ques.question_id)[0].other}
