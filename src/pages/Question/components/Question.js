@@ -9,14 +9,14 @@ import moment from "moment";
 import { withRouter } from "react-router-dom";
 
 const Question = props => {
-  const { surveyData, media, answers, userId,surveyHeaderId,history } = props;
+  const { surveyData, media, answers, userId, surveyHeaderId, history } = props;
   const [pageno, setPageno] = useState(0);
   const [userData, setUserData] = useState({});
   const [AnswerData, setAnswerData] = useState([...answers]);
   const [value, setValue] = useState("");
   const [testValue, setTestValue] = useState({});
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [isAnswer, setIsAnswer] = useState(
     AnswerData.map((v, k) => v.optionChoiceId)
   );
@@ -48,8 +48,9 @@ const Question = props => {
 
   const _handleSubmit = () => {
     PostAnswer({ data: AnswerData }, (err, data) => {
-    history.push("/report")
-    })}
+      history.push("/report");
+    });
+  };
 
   useEffect(() => {
     setUserData(JSON.parse(localStorage.getItem("userData")));
@@ -63,7 +64,7 @@ const Question = props => {
       optionChoiceId: ansId,
       userId: userId,
       questionId: quesId,
-      survey_headers_id:surveyHeaderId
+      survey_headers_id: surveyHeaderId
     };
     if (isQuesId.length >= 1) {
       AnswerData.splice(isQuesIdIndex, 1, Ans);
@@ -87,8 +88,7 @@ const Question = props => {
       optionChoiceId: answerId,
       userId: userId,
       questionId: quesId,
-      survey_headers_id:surveyHeaderId
-
+      survey_headers_id: surveyHeaderId
     };
     if (isQuesId.length >= 1) {
       AnswerData.splice(isQuesIdIndex, 1);
@@ -110,7 +110,7 @@ const Question = props => {
       optionChoiceId: null,
       userId: userId,
       questionId: quesId,
-      survey_headers_id:surveyHeaderId
+      survey_headers_id: surveyHeaderId
     };
     if (isQuesId.length >= 1) {
       AnswerData.splice(isQuesIdIndex, 1, Ans);
@@ -128,7 +128,7 @@ const Question = props => {
       optionChoiceId: parseInt(ansId),
       userId: userId,
       questionId: quesId,
-      survey_headers_id:surveyHeaderId
+      survey_headers_id: surveyHeaderId
     };
     if (isQuesId.length >= 1) {
       AnswerData.splice(isQuesIdIndex, 1, Ans);
@@ -139,21 +139,20 @@ const Question = props => {
   };
 
   const handleStartChange = (date, quesId) => {
+    console.log("S---Date------>", date);
     setStartDate(date);
     const isQuesId = AnswerData.filter(e => e.questionId === quesId);
     const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
 
     const Ans = {
-      other: JSON.stringify([
-        {
-          "Year of Manufacturing": moment(date).format("DD/MM/YYYY"),
-          "Year of Installation": moment(endDate).format("DD/MM/YYYY")
-        }
-      ]),
+      other: JSON.stringify({
+        YearOfManufacturing: String(date),
+        YearOfInstallation: endDate
+      }),
       optionChoiceId: null,
       userId: userId,
       questionId: quesId,
-      survey_headers_id:surveyHeaderId
+      survey_headers_id: surveyHeaderId
     };
     if (isQuesId.length >= 1) {
       AnswerData.splice(isQuesIdIndex, 1, Ans);
@@ -165,30 +164,26 @@ const Question = props => {
 
   const handleEndChange = (date, quesId) => {
     setEndDate(date);
-    if (startDate > endDate) {
-      console.log("Start is Greater");
-      return;
+
+    const isQuesId = AnswerData.filter(e => e.questionId === quesId);
+    const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
+    const Ans = {
+      other: JSON.stringify({
+        YearOfManufacturing: startDate,
+        YearOfInstallation: String(date)
+      }),
+      optionChoiceId: null,
+      userId: userId,
+      questionId: quesId,
+      survey_headers_id: surveyHeaderId
+    };
+    if (isQuesId.length >= 1) {
+      AnswerData.splice(isQuesIdIndex, 1, Ans);
     } else {
-      const isQuesId = AnswerData.filter(e => e.questionId === quesId);
-      const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
-      const Ans = {
-        other: JSON.stringify({
-          "Year of Manufacturing": moment(startDate).format("DD/MM/YYYY"),
-          "Year of Installation": moment(date).format("DD/MM/YYYY")
-        }),
-        optionChoiceId: null,
-        userId: userId,
-        questionId: quesId,
-        survey_headers_id:surveyHeaderId
-      };
-      if (isQuesId.length >= 1) {
-        AnswerData.splice(isQuesIdIndex, 1, Ans);
-      } else {
-        AnswerData.push(Ans);
-      }
+      AnswerData.push(Ans);
     }
   };
-console.log(surveyHeaderId);
+console.log(startDate);
 
   return (
     surveyData.length && (
@@ -238,8 +233,8 @@ console.log(surveyHeaderId);
                   userId={userId}
                   TextValue={value}
                   AnswerData={AnswerData}
-                  startDate={startDate}
-                  endDate={endDate}
+                  // startDate={startDate}
+                  // endDate={endDate}
                   testValue={testValue}
                   isAnswer={isAnswer}
                 />
