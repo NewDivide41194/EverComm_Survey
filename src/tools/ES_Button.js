@@ -13,7 +13,8 @@ export const ESButton = props => {
     disabled,
     leftIcon,
     rightIcon,
-    id
+    id,
+    noHover
   } = props;
   const [isHover, setIsHover] = useState(true);
 
@@ -21,8 +22,8 @@ export const ESButton = props => {
     background: `${Color.PrimaryColor}`
   };
   const hoverStyle = {
-    background: '#008ccc',    
-    boxShadow: "5px 5px 15px gray",
+    background: "#008ccc",
+    boxShadow: "5px 5px 15px #2B2B2B"
   };
 
   const defaultStyle = isHover ? defaultStyle1 : hoverStyle;
@@ -43,7 +44,7 @@ export const ESButton = props => {
       style={{
         ...defaultStyle,
         ...userStyle,
-        outline:'none',
+        outline: "none",
         color: `${Color.SecondaryColor}`,
         transition: ".5s"
       }}

@@ -24,30 +24,11 @@ const QuestionCard = props => {
     startDate,
     endDate
   } = props;
-  const isAnswerText = AnswerData.filter(d => d.questionId === 8);
-
-  console.log(
-    "isAnswer----->",
-    isAnswerText.length &&
-      JSON.parse(isAnswerText[0].other).YearOfManufacturing
-  );
-  console.log(AnswerData);
- 
-
-  var ddd = AnswerData.filter(d => d.questionId === 8) &&
-  AnswerData.length
-    ? AnswerData.filter(
-        d => d.questionId === 8
-      ).map((v, k) => 
-         JSON.parse(v.other.YearOfManufacturing)
-      ) : "hello ...";
-
-    console.log("ddd is=>",ddd);
-    
 
   return (
     <div>
       {// cat && cat.length && cat.questions && cat.questions.length &&
+
       survey_sections[pageno].questions.map((ques, k2) => (
         <div
           className="d-flex flex-row flex-fill flex-wrap w-100 p-3 py-3 mb-3 rounded"
@@ -91,40 +72,44 @@ const QuestionCard = props => {
             <ESInput
               id={ques.question_id}
               value={
-                // testValue[ques.question_id]
-                //   ? testValue[ques.question_id]
                 AnswerData.filter(d => d.questionId === ques.question_id)
                   ? AnswerData.filter(
                       d => d.questionId === ques.question_id
                     ).map((v, k) => v.other)
                   : ""
               }
-              // value={AnswerData.filter(d=>d.questionId===ques.question_id)[0].other}
               onChange={e => {
                 handleInputChange(e, ques.question_id);
               }}
             />
-          ) : 
-          ques.input_type_id === 6 ? (
+          ) : ques.input_type_id === 6 ? (
             <ESDatePicker
               quesId={ques.question_id}
               startDate={
-                AnswerData.filter(d => d.questionId === ques.question_id) &&AnswerData.length
-                ? AnswerData.filter(
+                AnswerData.filter(d => d.questionId === ques.question_id)
+                  .length && AnswerData.length
+                  ? AnswerData.filter(
                       d => d.questionId === ques.question_id
-                    ).map((v, k) => 
-                    {console.log("4444444444--------->",moment(JSON.parse(v.other).YearOfManufacturing).toDate())}
-                    )
-                  : 
-                startDate
+                    ).map(
+                      (v, k) =>
+                        new Date(JSON.parse(v.other).YearOfManufacturing)
+                    )[0]
+                  : startDate
               }
-              endDate={endDate}
+              endDate={
+                AnswerData.filter(d => d.questionId === ques.question_id)
+                  .length && AnswerData.length
+                  ? AnswerData.filter(
+                      d => d.questionId === ques.question_id
+                    ).map(
+                      (v, k) => new Date(JSON.parse(v.other).YearOfInstallation)
+                    )[0]
+                  : endDate
+              }
               handleEndChange={handleEndChange}
               handleStartChange={handleStartChange}
             />
-          ) :
-           null
-          }
+          ) : null}
         </div>
       ))}
     </div>

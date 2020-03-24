@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment";
 
 const ESDatePicker = (props) => {
   const {handleStartChange,handleEndChange,startDate,endDate,quesId}=props
 
   console.log("START-------->",startDate);
   console.log("End---------->",endDate);
-  console.log(quesId);
-  
-  
 
   return (
     <div className="d-flex flex-row flex-wrap">
@@ -22,7 +20,6 @@ const ESDatePicker = (props) => {
           selectsStart
           startDate={startDate}
           endDate={endDate}
-          // dateFormat ="DD/MM/YYYY"
         />
       </div>
       <div className="flex-column px-2">
@@ -35,7 +32,6 @@ const ESDatePicker = (props) => {
           selectsEnd
           startDate={startDate}
           endDate={endDate}
-          // dateFormat ="DD/MM/YYYY"
         />
         </div>
     </div>

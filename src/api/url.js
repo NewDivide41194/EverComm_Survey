@@ -11,3 +11,5 @@ export const LoginAPI = `${serverURL}/api/v1/login/userlogin`;
 export const User_AnswerApi = `${serverURL}/api/v1/survey/answers`;
 
 export const Menu_Info = `${serverURL}/api/v1/survey/menu/`;
+
+export const Trancate_Answers = `${serverURL}/api/v1/survey/delete/`;

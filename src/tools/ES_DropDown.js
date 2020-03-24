@@ -2,7 +2,11 @@ import React, { useState } from "react";
 
 export const ESDropDown = props => {
   const { value, quesId, handleSelect, isAnswer } = props;
+  console.log("\\\\\\\\",isAnswer);
+  
+  console.log("++++++++>",isAnswer.filter(d => d === 19));
 
+  
   return (
     <select
       id={quesId}
@@ -18,7 +22,7 @@ export const ESDropDown = props => {
           key={y}
           id={x.option_choice_id}
           value={x.option_choice_id}
-          selected={isAnswer.filter(d => d === x.option_choice_id) > 0 || null}
+          selected={isAnswer.filter(d => d === x.option_choice_id) > 0 }
         >
           {x.option_choice_name}
         </option>

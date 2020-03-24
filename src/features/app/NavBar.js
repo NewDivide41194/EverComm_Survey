@@ -29,6 +29,11 @@ const NavBar = props => {
     window.location.reload()
   };
 
+  const _handleMenu=()=>{
+    props.history.push("/Menu")
+
+  }
+
   return (
     <div className="d-flex flex-row flex-wrap py-3 px-4 sticky-top bg-light justify-content-between">
       <img src={Logo} style={{ height: "30px" }} alt="logo" />
@@ -49,6 +54,9 @@ const NavBar = props => {
         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <button className="dropdown-item" onClick={_handleAccount}>
             Account Setting
+          </button>
+          <button className="dropdown-item" onClick={_handleMenu}>
+            Back to Menu
           </button>
           <div className="dropdown-divider"></div>
           <button className="dropdown-item" onClick={_handleSignOut}>

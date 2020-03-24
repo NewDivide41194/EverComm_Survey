@@ -5,7 +5,6 @@ import { PostAnswer } from "../../../api/PostAnswer";
 import { withMedia } from "react-media-query-hoc";
 import ESProgress from "../../../tools/ES_Progress";
 import * as Color from "../../../config/Color.config";
-import moment from "moment";
 import { withRouter } from "react-router-dom";
 
 const Question = props => {
@@ -139,7 +138,6 @@ const Question = props => {
   };
 
   const handleStartChange = (date, quesId) => {
-    console.log("S---Date------>", date);
     setStartDate(date);
     const isQuesId = AnswerData.filter(e => e.questionId === quesId);
     const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
@@ -170,7 +168,7 @@ const Question = props => {
     const Ans = {
       other: JSON.stringify({
         YearOfManufacturing: startDate,
-        YearOfInstallation: String(date)
+        YearOfInstallation: date
       }),
       optionChoiceId: null,
       userId: userId,
@@ -183,7 +181,6 @@ const Question = props => {
       AnswerData.push(Ans);
     }
   };
-console.log(startDate);
 
   return (
     surveyData.length && (
