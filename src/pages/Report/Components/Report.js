@@ -20,11 +20,10 @@ const Report = props => {
       <img style={{width:'50%'}} src={HMT}/>
       <div className='row justify-content-center'>
         <div className='col-md-4 col-sm-12 py-2'>
-      <ESButton text={"Review Your Survey"} onClick={() => _handleReview()} style={{background:'#9945C0',minWidth:177}}/>
-
+        <ESButton text={"Review Your Survey"} onClick={() => _handleReview()} style={{background:'#9945C0',minWidth:177}}/>
         </div>
         <div className='col-md-4 col-sm-12 py-2'>
-      <ESButton text={"Back to Menu"} onClick={() => _handleMenu()} style={{minWidth:177}} />
+        <ESButton text={"Back to Menu"} onClick={() => _handleMenu()} style={{minWidth:177}} />
 
         </div>
       </div>
