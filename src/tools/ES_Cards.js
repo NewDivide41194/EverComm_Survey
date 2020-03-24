@@ -25,6 +25,7 @@ const QuestionCard = props => {
     endDate
   } = props;
   const isAnswerText = AnswerData.filter(d => d.questionId === 8);
+
   console.log(
     "isAnswer----->",
     isAnswerText.length &&
@@ -112,12 +113,12 @@ const QuestionCard = props => {
                 ? AnswerData.filter(
                       d => d.questionId === ques.question_id
                     ).map((v, k) => 
-                       JSON.parse(v.other).YearOfManufacturing                         
+                    {console.log("4444444444--------->",moment(JSON.parse(v.other).YearOfManufacturing).toDate())}
                     )
                   : 
-                new Date()
+                startDate
               }
-              endDate={new Date()}
+              endDate={endDate}
               handleEndChange={handleEndChange}
               handleStartChange={handleStartChange}
             />

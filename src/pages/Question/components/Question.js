@@ -15,8 +15,8 @@ const Question = props => {
   const [AnswerData, setAnswerData] = useState([...answers]);
   const [value, setValue] = useState("");
   const [testValue, setTestValue] = useState({});
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
   const [isAnswer, setIsAnswer] = useState(
     AnswerData.map((v, k) => v.optionChoiceId)
   );
@@ -233,8 +233,8 @@ console.log(startDate);
                   userId={userId}
                   TextValue={value}
                   AnswerData={AnswerData}
-                  // startDate={startDate}
-                  // endDate={endDate}
+                  startDate={startDate}
+                  endDate={endDate}
                   testValue={testValue}
                   isAnswer={isAnswer}
                 />
