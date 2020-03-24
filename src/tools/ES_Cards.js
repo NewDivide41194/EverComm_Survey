@@ -32,7 +32,7 @@ const QuestionCard = props => {
       {// cat && cat.length && cat.questions && cat.questions.length &&
       survey_sections[pageno].questions.map((ques, k2) => (
         <div
-          className="d-flex  flex-row flex-fill flex-wrap w-100 p-3 py-3 mb-3 rounded"
+          className="d-flex flex-row flex-fill flex-wrap w-100 p-3 py-3 mb-3 rounded"
           key={k2}
           style={{
             fontSize: media.mobile ? "12px" : "15px",
