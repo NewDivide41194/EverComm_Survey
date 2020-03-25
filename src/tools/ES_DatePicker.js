@@ -17,9 +17,11 @@ const ESDatePicker = (props) => {
           className="form-control"
           selected={startDate}
           onChange={date => handleStartChange(date,quesId)}
-          selectsStart
+          // selectsStart
           startDate={startDate}
           endDate={endDate}
+          placeholderText="Select a date between today and 5 days in the future"
+
         />
       </div>
       <div className="flex-column px-2">

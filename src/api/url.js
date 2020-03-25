@@ -4,7 +4,7 @@ const serverURL = "http://172.105.123.57:7878";
 export const QuestionAPI = (userId, surveyHeaderId) =>
   `${serverURL}/api/v1/survey/questions/${userId}/${surveyHeaderId}`;
 
-export const RegisterAPI = `${serverURL}/api/v1/user/adduser`;
+export const RegisterAPI = `${serverURL}/api/v1/user`;
 
 export const LoginAPI = `${serverURL}/api/v1/login/userlogin`;
 

@@ -18,7 +18,6 @@ const QuestionCard = props => {
     handleSelect,
     handleEndChange,
     media,
-    testValue,
     isAnswer,
     AnswerData,
     startDate,
