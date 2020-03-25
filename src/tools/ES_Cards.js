@@ -22,14 +22,17 @@ const QuestionCard = props => {
     isAnswer,
     AnswerData,
     startDate,
-    endDate
+    endDate    
   } = props;
-
+  
   return (
     <div>
       {// cat && cat.length && cat.questions && cat.questions.length &&
 
       survey_sections[pageno].questions.map((ques, k2) => (
+        
+       console.log('Select Value-------->',ques.option_choices.map((v,k)=>({value:v.option_choice_id,label:v.option_choice_name}))),
+
         <div
           className="d-flex flex-row flex-fill flex-wrap w-100 p-3 py-3 mb-3 rounded"
           key={k2}
@@ -65,11 +68,13 @@ const QuestionCard = props => {
             <ESDropDown
               quesId={ques.question_id}
               value={ques.option_choices}
+              // value={ques.option_choices.map((v,k)=>({value:v.option_choice_id,label:v.option_choice_name}))}
               handleSelect={handleSelect}
               isAnswer={isAnswer}
             />
           ) : ques.input_type_id === 4 ? (
             <ESInput
+            placeHolder={"Fill Your Answer"}
               id={ques.question_id}
               value={
                 AnswerData.filter(d => d.questionId === ques.question_id)
@@ -110,8 +115,8 @@ const QuestionCard = props => {
               handleStartChange={handleStartChange}
             />
           ) : null}
-        </div>
-      ))}
+        </div>)
+      )}
     </div>
   );
 };
