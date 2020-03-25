@@ -138,52 +138,59 @@ const Question = props => {
   };
 
   const handleStartChange = (date, quesId) => {
-    console.log("startDate------>",startDate);
-    if(startDate>endDate){ console.log("Compare------>");}
+    console.log("startDate------>", startDate);
 
-    setStartDate(date);
-    const isQuesId = AnswerData.filter(e => e.questionId === quesId);
-    const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
-
-    const Ans = {
-      other: JSON.stringify({
-        YearOfManufacturing: String(date),
-        YearOfInstallation: endDate
-      }),
-      optionChoiceId: null,
-      userId: userId,
-      questionId: quesId,
-      survey_headers_id: surveyHeaderId
-    };
-    if (isQuesId.length >= 1) {
-      AnswerData.splice(isQuesIdIndex, 1, Ans);
+    if (date > endDate) {
+      alert("Year of Installation is Older Than Year of Manufacturing");
     } else {
-      AnswerData.push(Ans);
+      setStartDate(date);
+
+      const isQuesId = AnswerData.filter(e => e.questionId === quesId);
+      const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
+
+      const Ans = {
+        other: JSON.stringify({
+          YearOfManufacturing: date,
+          YearOfInstallation: endDate
+        }),
+        optionChoiceId: null,
+        userId: userId,
+        questionId: quesId,
+        survey_headers_id: surveyHeaderId
+      };
+      if (isQuesId.length >= 1) {
+        AnswerData.splice(isQuesIdIndex, 1, Ans);
+      } else {
+        AnswerData.push(Ans);
+      }
+      setAnswerData(AnswerData);
     }
-    setAnswerData(AnswerData);
   };
 
   const handleEndChange = (date, quesId) => {
-    console.log("endDate------>",endDate);
-    if(startDate>endDate){ console.log("Compare------>");}
-    setEndDate(date);
-
-    const isQuesId = AnswerData.filter(e => e.questionId === quesId);
-    const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
-    const Ans = {
-      other: JSON.stringify({
-        YearOfManufacturing: startDate,
-        YearOfInstallation: date
-      }),
-      optionChoiceId: null,
-      userId: userId,
-      questionId: quesId,
-      survey_headers_id: surveyHeaderId
-    };
-    if (isQuesId.length >= 1) {
-      AnswerData.splice(isQuesIdIndex, 1, Ans);
+    console.log("endDate------>", endDate);
+    if (startDate > date) {
+      alert("Year of Installation is Older Than Year of Manufacturing");
+      return null;
     } else {
-      AnswerData.push(Ans);
+      setEndDate(date);
+      const isQuesId = AnswerData.filter(e => e.questionId === quesId);
+      const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
+      const Ans = {
+        other: JSON.stringify({
+          YearOfManufacturing: startDate,
+          YearOfInstallation: date
+        }),
+        optionChoiceId: null,
+        userId: userId,
+        questionId: quesId,
+        survey_headers_id: surveyHeaderId
+      };
+      if (isQuesId.length >= 1) {
+        AnswerData.splice(isQuesIdIndex, 1, Ans);
+      } else {
+        AnswerData.push(Ans);
+      }
     }
   };
 

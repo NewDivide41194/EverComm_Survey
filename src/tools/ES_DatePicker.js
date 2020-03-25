@@ -6,9 +6,6 @@ import moment from "moment";
 const ESDatePicker = (props) => {
   const {handleStartChange,handleEndChange,startDate,endDate,quesId}=props
 
-  console.log("START-------->",startDate);
-  console.log("End---------->",endDate);
-
   return (
     <div className="d-flex flex-row flex-wrap">
       <div className="flex-column px-2">
@@ -17,11 +14,10 @@ const ESDatePicker = (props) => {
           className="form-control"
           selected={startDate}
           onChange={date => handleStartChange(date,quesId)}
-          // selectsStart
+          selectsStart
           startDate={startDate}
           endDate={endDate}
-          placeholderText="Select a date between today and 5 days in the future"
-
+          placeholderText="Manufacturing Date"
         />
       </div>
       <div className="flex-column px-2">
@@ -34,6 +30,7 @@ const ESDatePicker = (props) => {
           selectsEnd
           startDate={startDate}
           endDate={endDate}
+          placeholderText="Installing Date"
         />
         </div>
     </div>

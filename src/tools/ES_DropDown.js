@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 export const ESDropDown = props => {
   const { value, quesId, handleSelect, isAnswer } = props;
-  console.log("\\\\\\\\", isAnswer);
+ 
 
   console.log(
     "++++++++>",
@@ -16,7 +16,7 @@ export const ESDropDown = props => {
       onChange={e => handleSelect(quesId)}
       style={{ boxShadow: "none" }}
     >
-      <option value="none" selected disabled>
+      <option value="" selected disabled>
         Select an Option ...
       </option>
       {value.map((x, y) => (
@@ -24,8 +24,8 @@ export const ESDropDown = props => {
           key={y}
           id={x.option_choice_id}
           value={x.option_choice_id}
-          selected={isAnswer.filter(d => d === x.option_choice_id) > 0||false}
-        >
+          selected={isAnswer.filter(d => d === x.option_choice_id)>0}
+          >
           {x.option_choice_name}
         </option>
       ))}
