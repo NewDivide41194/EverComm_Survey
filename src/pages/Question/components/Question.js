@@ -138,6 +138,9 @@ const Question = props => {
   };
 
   const handleStartChange = (date, quesId) => {
+    console.log("startDate------>",startDate);
+    if(startDate>endDate){ console.log("Compare------>");}
+
     setStartDate(date);
     const isQuesId = AnswerData.filter(e => e.questionId === quesId);
     const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
@@ -161,6 +164,8 @@ const Question = props => {
   };
 
   const handleEndChange = (date, quesId) => {
+    console.log("endDate------>",endDate);
+    if(startDate>endDate){ console.log("Compare------>");}
     setEndDate(date);
 
     const isQuesId = AnswerData.filter(e => e.questionId === quesId);

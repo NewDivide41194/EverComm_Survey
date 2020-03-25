@@ -53,14 +53,14 @@ const NavBar = props => {
         </button>}
         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <button className="dropdown-item" onClick={_handleAccount}>
-            Account Setting
+          <i className="fa fa-user pr-2"/> Account Setting
           </button>
           <button className="dropdown-item" onClick={_handleMenu}>
-            Back to Menu
+           <i className="fa fa-bars pr-2"/> Menu
           </button>
           <div className="dropdown-divider"></div>
           <button className="dropdown-item" onClick={_handleSignOut}>
-            Sign Out
+          <i className="fa fa-sign-out pr-2"/> Sign Out
           </button>
         </div>
       </div>
