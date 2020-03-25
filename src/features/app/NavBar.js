@@ -23,11 +23,22 @@ const NavBar = props => {
     localStorage.removeItem("userData")
     window.location.reload()
   };
+
+  const _handleAccount=()=> {
+    props.history.push("/user/account")
+    window.location.reload()
+  };
+
+  const _handleMenu=()=>{
+    props.history.push("/Menu")
+
+  }
+
   return (
     <div className="d-flex flex-row flex-wrap py-3 px-4 sticky-top bg-light justify-content-between">
       <img src={Logo} style={{ height: "30px" }} alt="logo" />
       <div className='dropdown'>
-        {props.location.pathname!=="/login"&&<button
+        {props.location.pathname!=="/login" && props.location.pathname!=="/register" && <button
           className="btn dropdown-toggle"
           style={{ boxShadow: "none" }}
           type="button"
@@ -41,12 +52,15 @@ const NavBar = props => {
           )}
         </button>}
         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <button className="dropdown-item">
-            Account Setting
+          <button className="dropdown-item" onClick={_handleAccount}>
+          <i className="fa fa-user pr-2"/> Account Setting
+          </button>
+          <button className="dropdown-item" onClick={_handleMenu}>
+           <i className="fa fa-bars pr-2"/> Menu
           </button>
           <div className="dropdown-divider"></div>
           <button className="dropdown-item" onClick={_handleSignOut}>
-            Sign Out
+          <i className="fa fa-sign-out pr-2"/> Sign Out
           </button>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MainMenu from "../component/MainMenu";
 import { MenuInfoFetch } from "../../../api/FetchMenuInfo";
+import { TrancateAns } from "../../../api/FetchTrancate";
 const MenuContainer = props => {
   const [menuData, setMenuData] = useState([]);
   const [userData, setUserData] = useState(
@@ -12,14 +13,19 @@ const MenuContainer = props => {
     props.history.push("/question");
     localStorage.setItem("SurveyHeaderId", e.target.id);
   };
+  const userId = userData[0].login_user_id;
 
   useEffect(() => {
-    const userId=userData[0].login_user_id
-    MenuInfoFetch({userId},(err,data)=>{
-setMenuData(data.payload)
-    })
-
+    MenuInfoFetch({ userId }, (err, data) => {
+      setMenuData(data.payload);
+    });
   }, []);
+  const _handleReset = survey_header_id => {
+
+    TrancateAns({ userId, survey_header_id }, (err, data) => {
+      window.location.reload()
+    });
+  };
 
   return (
     <div className="row justify-content-center">
@@ -38,6 +44,7 @@ setMenuData(data.payload)
             key={k}
             handleChoose={_handleChoose}
             header={v.survey_header_name}
+            handleReset={_handleReset}
             progress={
               v.questions === v.answers
                 ? "Completed"

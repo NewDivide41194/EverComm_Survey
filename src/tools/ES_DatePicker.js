@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment";
 
 const ESDatePicker = (props) => {
   const {handleStartChange,handleEndChange,startDate,endDate,quesId}=props
@@ -16,6 +17,7 @@ const ESDatePicker = (props) => {
           selectsStart
           startDate={startDate}
           endDate={endDate}
+          placeholderText="Manufacturing Date"
         />
       </div>
       <div className="flex-column px-2">
@@ -25,9 +27,10 @@ const ESDatePicker = (props) => {
           className="form-control"
           selected={endDate}
           onChange={date => handleEndChange(date,quesId)}
-          selectsStart
+          selectsEnd
           startDate={startDate}
           endDate={endDate}
+          placeholderText="Installing Date"
         />
         </div>
     </div>

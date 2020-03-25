@@ -5,6 +5,7 @@ import { ESDropDown } from "./ES_DropDown";
 import { withMedia } from "react-media-query-hoc";
 import { ESInput } from "./ES_Inputs";
 import ESDatePicker from "./ES_DatePicker";
+import moment from "moment";
 
 const QuestionCard = props => {
   const {
@@ -21,18 +22,19 @@ const QuestionCard = props => {
     isAnswer,
     AnswerData,
     startDate,
-    endDate
+    endDate    
   } = props;
-  const isAnswerText = AnswerData.filter(d => d.questionId === 2);
-  console.log("isAnswer----->", isAnswerText, "Testvalue------>", testValue);
-  console.log("ANS---->", AnswerData);
-
+  
   return (
     <div>
       {// cat && cat.length && cat.questions && cat.questions.length &&
+
       survey_sections[pageno].questions.map((ques, k2) => (
+        
+       console.log('Select Value-------->',ques.option_choices.map((v,k)=>({value:v.option_choice_id,label:v.option_choice_name}))),
+
         <div
-          className="d-flex  flex-row flex-fill flex-wrap w-100 p-3 py-3 mb-3 rounded"
+          className="d-flex flex-row flex-fill flex-wrap w-100 p-3 py-3 mb-3 rounded"
           key={k2}
           style={{
             fontSize: media.mobile ? "12px" : "15px",
@@ -66,21 +68,21 @@ const QuestionCard = props => {
             <ESDropDown
               quesId={ques.question_id}
               value={ques.option_choices}
+              // value={ques.option_choices.map((v,k)=>({value:v.option_choice_id,label:v.option_choice_name}))}
               handleSelect={handleSelect}
               isAnswer={isAnswer}
             />
           ) : ques.input_type_id === 4 ? (
             <ESInput
+            placeHolder={"Fill Your Answer"}
               id={ques.question_id}
               value={
-                // testValue[ques.question_id]
-                //   ? testValue[ques.question_id]
-                   AnswerData.filter(d => d.questionId === ques.question_id)
-                  ? AnswerData.filter(d => d.questionId === ques.question_id).map((v,k)=>v.other)
-                     
+                AnswerData.filter(d => d.questionId === ques.question_id)
+                  ? AnswerData.filter(
+                      d => d.questionId === ques.question_id
+                    ).map((v, k) => v.other)
                   : ""
               }
-              // value={AnswerData.filter(d=>d.questionId===ques.question_id)[0].other}
               onChange={e => {
                 handleInputChange(e, ques.question_id);
               }}
@@ -88,14 +90,33 @@ const QuestionCard = props => {
           ) : ques.input_type_id === 6 ? (
             <ESDatePicker
               quesId={ques.question_id}
-              startDate={startDate}
-              endDate={endDate}
+              startDate={
+                AnswerData.filter(d => d.questionId === ques.question_id)
+                  .length && AnswerData.length
+                  ? AnswerData.filter(
+                      d => d.questionId === ques.question_id
+                    ).map(
+                      (v, k) =>
+                        new Date(JSON.parse(v.other).YearOfManufacturing)
+                    )[0]
+                  : startDate
+              }
+              endDate={
+                AnswerData.filter(d => d.questionId === ques.question_id)
+                  .length && AnswerData.length
+                  ? AnswerData.filter(
+                      d => d.questionId === ques.question_id
+                    ).map(
+                      (v, k) => new Date(JSON.parse(v.other).YearOfInstallation)
+                    )[0]
+                  : endDate
+              }
               handleEndChange={handleEndChange}
               handleStartChange={handleStartChange}
             />
           ) : null}
-        </div>
-      ))}
+        </div>)
+      )}
     </div>
   );
 };

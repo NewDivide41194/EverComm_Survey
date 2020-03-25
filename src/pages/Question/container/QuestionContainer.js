@@ -12,7 +12,6 @@ const QuestionContainer = () => {
   const [answers,setAnswers]=useState([])
   useEffect(() => {
     setIsLoading(true);
-
     QuestionFetch(userId,surveyHeaderId, (err, data) => {
       setSurveyData(data.payload);
       setAnswers(data.payload[0].answers)
