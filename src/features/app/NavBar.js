@@ -9,7 +9,6 @@ const NavBar = props => {
   // console.log(
   //   userData === null || userData.length == 0 ? null : userData[0].email
   // );
-  console.log(props.location.pathname);
   
   useEffect(() => {
     setUserData(

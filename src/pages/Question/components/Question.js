@@ -119,16 +119,16 @@ const Question = props => {
     }
   };
 
-  const handleSelect =( selectedOption) => {
-    setSelectedOption(selectedOption)
-    console.log("---------------->",quesId);    
-    let ansId =selectedOption.value
+  const handleSelect =( quesId,e) => {
+    setSelectedOption(e)
+    console.log("---------------->",e);    
+    let ansId =e.value
     const isQuesId = AnswerData.filter(e => e.questionId === quesId);
     const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
     const Ans = {
       other: "",
       optionChoiceId: parseInt(ansId),
-      userId: userId,
+      userId: userId, 
       questionId: quesId,
       survey_headers_id: surveyHeaderId
     };
@@ -196,6 +196,7 @@ const Question = props => {
       }
     }
   };
+console.log("Answer Data--------->",AnswerData);
 
   return (
     surveyData.length && (

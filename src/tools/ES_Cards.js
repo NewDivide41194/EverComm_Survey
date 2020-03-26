@@ -23,10 +23,10 @@ const QuestionCard = props => {
     isAnswer,
     AnswerData,
     startDate,
-    endDate    
+    endDate
   } = props;
-  console.log("ANSDATE->",AnswerData);
-  
+  console.log("ANSDATE->", AnswerData);
+
   return (
     <div>
       {// cat && cat.length && cat.questions && cat.questions.length &&
@@ -69,12 +69,20 @@ const QuestionCard = props => {
               value={ques.option_choices}
               // value={ques.option_choices.map((v,k)=>({value:v.option_choice_id,label:v.option_choice_name}))}
               handleSelect={handleSelect}
-              selectedOption={selectedOption}
+              selectedOption={
+                AnswerData.filter(d => d.questionId === ques.question_id)
+                  ? AnswerData.filter(
+                      d => d.questionId === ques.question_id
+                    ).map((v, k) => (
+                      ques.option_choices.filter((x,y)=>x.option_choice_id===v.optionChoiceId)[0]
+                    ))
+                  : selectedOption
+              }
               isAnswer={isAnswer}
             />
           ) : ques.input_type_id === 4 ? (
             <ESInput
-            placeHolder={"Fill Your Answer"}
+              placeHolder={"Fill Your Answer"}
               id={ques.question_id}
               value={
                 AnswerData.filter(d => d.questionId === ques.question_id)
@@ -115,8 +123,8 @@ const QuestionCard = props => {
               handleStartChange={handleStartChange}
             />
           ) : null}
-        </div>)
-      )}
+        </div>
+      ))}
     </div>
   );
 };

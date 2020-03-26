@@ -15,8 +15,7 @@ export const ESInput = props => {
     value,
     maxLength
   } = props;
-  console.log("TEXT ------->", value);
-  console.log(id);
+
 
   const defaultStyle = {
     width: width === undefined ? "100%" : width,
@@ -26,7 +25,7 @@ export const ESInput = props => {
     boxShadow: "none",
     shapeOutline: "none",
     outline: "none",
-    border: value.length&&value[0]==="" ? `2px solid ${Color.PrimaryColor}` : `1px solid gray`,
+    border: `1px solid gray`,
     // background: `${Color.SecondaryColor}`,
     borderRadius: 5
   };
@@ -38,7 +37,7 @@ export const ESInput = props => {
     ).style.border = `1px solid ${Color.PrimaryColor}`;
   };
   const _handleBlur = () => {
-    document.getElementById(id).style.border = value.length&&value[0]!=="" ? `2px solid ${Color.PrimaryColor}` : `1px solid gray`;
+    document.getElementById(id).style.border = `1px solid gray`;
   };
 
   return (
