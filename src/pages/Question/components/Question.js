@@ -19,7 +19,8 @@ const Question = props => {
   const [isAnswer, setIsAnswer] = useState(
     AnswerData.map((v, k) => v.optionChoiceId)
   );
-
+  const [selectedOption,setSelectedOption]=useState(null)
+  
   const AnswerCount = [
     ...AnswerData.reduce((mp, o) => {
       if (!mp.has(o.questionId)) mp.set(o.questionId, { ...o, count: 0 });
@@ -118,8 +119,10 @@ const Question = props => {
     }
   };
 
-  const handleSelect = quesId => {
-    let ansId = document.getElementById(quesId).value;
+  const handleSelect =( selectedOption) => {
+    setSelectedOption(selectedOption)
+    console.log("---------------->",quesId);    
+    let ansId =selectedOption.value
     const isQuesId = AnswerData.filter(e => e.questionId === quesId);
     const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
     const Ans = {
@@ -241,6 +244,7 @@ const Question = props => {
                   handleEndChange={handleEndChange}
                   userId={userId}
                   TextValue={value}
+                  selectedOption={selectedOption}
                   AnswerData={AnswerData}
                   startDate={startDate}
                   endDate={endDate}

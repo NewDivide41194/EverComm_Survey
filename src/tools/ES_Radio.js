@@ -2,6 +2,7 @@ import React from "react";
 import Radio from "@material-ui/core/Radio";
 export const ESRadio = props => {
   const { value, quesId, handleRadioChange, isAnswer } = props; 
+  console.log(isAnswer);
   
   return value.map((ans, k3) => (
     <div className="flex-col w-50" key={k3}>

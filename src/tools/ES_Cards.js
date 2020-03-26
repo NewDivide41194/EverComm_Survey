@@ -19,20 +19,19 @@ const QuestionCard = props => {
     handleEndChange,
     media,
     testValue,
+    selectedOption,
     isAnswer,
     AnswerData,
     startDate,
     endDate    
   } = props;
+  console.log("ANSDATE->",AnswerData);
   
   return (
     <div>
       {// cat && cat.length && cat.questions && cat.questions.length &&
 
       survey_sections[pageno].questions.map((ques, k2) => (
-        
-       console.log('Select Value-------->',ques.option_choices.map((v,k)=>({value:v.option_choice_id,label:v.option_choice_name}))),
-
         <div
           className="d-flex flex-row flex-fill flex-wrap w-100 p-3 py-3 mb-3 rounded"
           key={k2}
@@ -70,6 +69,7 @@ const QuestionCard = props => {
               value={ques.option_choices}
               // value={ques.option_choices.map((v,k)=>({value:v.option_choice_id,label:v.option_choice_name}))}
               handleSelect={handleSelect}
+              selectedOption={selectedOption}
               isAnswer={isAnswer}
             />
           ) : ques.input_type_id === 4 ? (

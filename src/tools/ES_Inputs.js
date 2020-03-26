@@ -26,7 +26,7 @@ export const ESInput = props => {
     boxShadow: "none",
     shapeOutline: "none",
     outline: "none",
-    border: value.length&&value[0]!=="" ? `2px solid ${Color.PrimaryColor}` : `1px solid gray`,
+    border: value.length&&value[0]==="" ? `2px solid ${Color.PrimaryColor}` : `1px solid gray`,
     // background: `${Color.SecondaryColor}`,
     borderRadius: 5
   };
