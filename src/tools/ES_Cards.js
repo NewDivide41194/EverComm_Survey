@@ -25,8 +25,10 @@ const QuestionCard = props => {
     startDate,
     endDate
   } = props;
-  console.log("ANSDATE->", AnswerData);
-
+  console.log("Answers--->",AnswerData);
+  console.log("Filter---->",AnswerData.filter(f=>f.questionId===6)[0].questionId);
+  
+  
   return (
     <div>
       {// cat && cat.length && cat.questions && cat.questions.length &&
@@ -45,9 +47,19 @@ const QuestionCard = props => {
             key={k2}
             style={{ fontSize: media.mobile ? "15px" : "18px" }}
           >
-            <span className="pb-4">
-              {k2 + 1}. {ques.question_name}
-            </span>
+            <div className="d-flex flex-row pb-3 w-100  justify-content-between">
+             <div className=''>
+             {k2 + 1}. {ques.question_name}
+               </div>
+              { AnswerData.filter(f=>f.questionId===6)[0].questionId===ques.question_id?
+               <div>
+                 <i className='fa fa-check text-success'/>
+                 </div>:
+                 <div>
+                 <i className='fa fa-exclamation'/>
+                 </div>
+                 }
+            </div>
           </div>
           {ques.input_type_id === 1 ? (
             <ESCheckBox

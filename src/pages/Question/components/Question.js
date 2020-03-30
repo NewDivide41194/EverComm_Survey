@@ -196,7 +196,6 @@ const Question = props => {
       }
     }
   };
-console.log("Answer Data--------->",AnswerData);
 
   return (
     surveyData.length && (
