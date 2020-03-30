@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ESCheckBox from "./ES_CheckBox";
 import { ESRadio } from "./ES_Radio";
 import { ESDropDown } from "./ES_DropDown";
@@ -25,16 +25,15 @@ const QuestionCard = props => {
     startDate,
     endDate
   } = props;
-  console.log("ANSDATE->", AnswerData);
+  console.log("ANSDATA->", AnswerData);
 
   return (
-    <div>
-      {// cat && cat.length && cat.questions && cat.questions.length &&
-
       survey_sections[pageno].questions.map((ques, k2) => (
+        
         <div
           className="d-flex flex-row flex-fill flex-wrap w-100 p-3 py-3 mb-3 rounded"
           key={k2}
+          id={ques.questionId}
           style={{
             fontSize: media.mobile ? "12px" : "15px",
             background: "#f0f0f0"
@@ -124,8 +123,7 @@ const QuestionCard = props => {
             />
           ) : null}
         </div>
-      ))}
-    </div>
+      ))
   );
 };
 
