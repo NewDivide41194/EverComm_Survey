@@ -5,6 +5,7 @@ import RegisterContainer from "../pages/register/container/registerContainer";
 import LoginContainer from "../pages/login/container/LoginContainer";
 import AdminContainer from "../pages/admin/container/AdminContainer"
 import MenuContainer from "../pages/Menu/constainer/MenuContainer"
+import BuildingContainer from "../pages/building/container/BuildingContainer"
 import AccountContainer from "../pages/user/account/container/AccountContainer"
 
 export const RouteName = {
@@ -16,6 +17,8 @@ export const RouteName = {
 
   routeAdminPage: "admin",
   routeMenuPage: "menu",
+
+  routeBuildingPage: "building",
 
   routeAccountPage: "user/account"
   
@@ -30,7 +33,8 @@ export default {
     [RouteName.routeRegisterPage]:{component:RegisterContainer},
     [RouteName.routeAdminPage]:{component:AdminContainer},
     [RouteName.routeMenuPage]:{component:MenuContainer},
-    [RouteName.routeAccountPage]:{component:AccountContainer}
+    [RouteName.routeAccountPage]:{component:AccountContainer},
+    [RouteName.routeBuildingPage]:{component:BuildingContainer}
   },
   default:RouteName.routeFirstPage
 };
