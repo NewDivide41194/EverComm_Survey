@@ -15,7 +15,7 @@ const Report = props => {
     props.history.push("/question");
   };
   return (
-    <div className="container py-5 text-center text-success">
+    <div className="container py-4 text-center text-success">
       <h3>*Your Answers are Posted!</h3>
       <img style={{width:'50%'}} src={HMT}/>
       <div className='row justify-content-center'>

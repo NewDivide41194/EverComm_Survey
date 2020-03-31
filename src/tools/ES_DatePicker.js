@@ -17,7 +17,6 @@ const ESDatePicker = (props) => {
           selectsStart
           startDate={startDate}
           endDate={endDate}
-          placeholderText="Manufacturing Date"
         />
       </div>
       <div className="flex-column px-2">
@@ -30,7 +29,6 @@ const ESDatePicker = (props) => {
           selectsEnd
           startDate={startDate}
           endDate={endDate}
-          placeholderText="Installing Date"
         />
         </div>
     </div>

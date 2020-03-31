@@ -6,6 +6,8 @@ import { withMedia } from "react-media-query-hoc";
 import ESProgress from "../../../tools/ES_Progress";
 import * as Color from "../../../config/Color.config";
 import { withRouter } from "react-router-dom";
+import { confirmAlert } from "react-confirm-alert"; // Import
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 const Question = props => {
   const { surveyData, media, answers, userId, surveyHeaderId, history } = props;
@@ -19,8 +21,8 @@ const Question = props => {
   const [isAnswer, setIsAnswer] = useState(
     AnswerData.map((v, k) => v.optionChoiceId)
   );
-  const [selectedOption,setSelectedOption]=useState(null)
-  
+  const [selectedOption, setSelectedOption] = useState(null);
+
   const AnswerCount = [
     ...AnswerData.reduce((mp, o) => {
       if (!mp.has(o.questionId)) mp.set(o.questionId, { ...o, count: 0 });
@@ -37,6 +39,11 @@ const Question = props => {
   const _handleNext = () => {
     setPageno(pageno + 1);
     document.getElementById("style-1").scrollTop = 0;
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth"
+    });
     setValue("");
   };
 
@@ -47,8 +54,22 @@ const Question = props => {
   };
 
   const _handleSubmit = () => {
-    PostAnswer({ data: AnswerData }, (err, data) => {
-      history.push("/report");
+    confirmAlert({
+      title: "Confirm to submit",
+      message: `${total-obtained} Questions are Remaining!`,
+      buttons: [
+        {
+          label: "Submit",
+          onClick: () =>
+           { PostAnswer({ data: AnswerData }, (err, data) => {
+              history.push("/report");
+            })}
+        },
+        {
+          label: "Back to Questions",
+          onClick: () => {return}
+        }
+      ]
     });
   };
 
@@ -119,16 +140,16 @@ const Question = props => {
     }
   };
 
-  const handleSelect =( quesId,e) => {
-    setSelectedOption(e)
-    console.log("---------------->",e);    
-    let ansId =e.value
+  const handleSelect = (quesId, e) => {
+    setSelectedOption(e);
+    console.log("---------------->", e);
+    let ansId = e.value;
     const isQuesId = AnswerData.filter(e => e.questionId === quesId);
     const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
     const Ans = {
       other: "",
       optionChoiceId: parseInt(ansId),
-      userId: userId, 
+      userId: userId,
       questionId: quesId,
       survey_headers_id: surveyHeaderId
     };
@@ -196,7 +217,6 @@ const Question = props => {
       }
     }
   };
-console.log("Answer Data--------->",AnswerData);
 
   return (
     surveyData.length && (
@@ -221,7 +241,7 @@ console.log("Answer Data--------->",AnswerData);
               fontSize: media.mobile ? "20px" : "25px",
               fontWeight: "bold"
             }}
-            className="position-relative pt-3"
+            className="position-relative pt-2"
           >
             {surveyData[0].survey_name}
           </div>
