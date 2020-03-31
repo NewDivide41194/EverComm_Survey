@@ -18,7 +18,6 @@ const QuestionContainer = () => {
       setIsLoading(false);
     });
   }, []);
-  console.log("ANS-->",answers);
   
   return IsLoading ? (
     <div

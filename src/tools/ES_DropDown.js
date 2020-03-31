@@ -14,7 +14,6 @@ export const ESDropDown = props => {
   label: v.option_choice_name})
   )
 
-  console.log("Select Option---------->",selectedOption);  
 
   return (
     <Select
