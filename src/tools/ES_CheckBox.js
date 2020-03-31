@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Checkbox from "@material-ui/core/Checkbox";
 import withMedia from "react-media-query-hoc/dist/with-media";
 

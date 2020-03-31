@@ -36,7 +36,7 @@ code {
 { scroll-behavior: smooth;
 	float: left;
 	overflow-y: scroll;
-  height: 70vh;
+  max-height: 70vh;
 }
 
 .force-overflow
