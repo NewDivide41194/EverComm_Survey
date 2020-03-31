@@ -2,7 +2,6 @@ import React from "react";
 import Radio from "@material-ui/core/Radio";
 export const ESRadio = props => {
   const { value, quesId, handleRadioChange, isAnswer } = props;
-  const _handelHover = () => {};
   return value.map((ans, k3) => (
     <label
       id={`${ans.option_choice_id} div`}

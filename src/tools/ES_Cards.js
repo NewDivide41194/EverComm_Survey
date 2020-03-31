@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ESCheckBox from "./ES_CheckBox";
 import { ESRadio } from "./ES_Radio";
 import { ESDropDown } from "./ES_DropDown";
 import { withMedia } from "react-media-query-hoc";
 import { ESInput } from "./ES_Inputs";
 import ESDatePicker from "./ES_DatePicker";
-import moment from "moment";
 
 const QuestionCard = props => {
   const {
@@ -60,11 +59,11 @@ const QuestionCard = props => {
             <div>
               {media.mobile || (
                 <span style={{ fontSize: 10 }} className="text-secondary pr-1">
-                  Remaining
+                  Pending
                 </span>
               )}
 
-              <i className="fa fa-exclamation text-danger" title="Blank Answer!"/>
+              <i className="fa fa-exclamation text-warning" title="Blank Answer!"/>
             </div>
           )}
         </div>

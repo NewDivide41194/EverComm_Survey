@@ -13,8 +13,7 @@ export const ESButton = props => {
     disabled,
     leftIcon,
     rightIcon,
-    id,
-    noHover
+    id    
   } = props;
   const [isHover, setIsHover] = useState(true);
 

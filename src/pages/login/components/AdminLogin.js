@@ -7,7 +7,6 @@ const UserLogin = props => {
   const {
     handleSubmit,
     eMail,
-    handleChange,
     password,
     handlePwdChange,
     handleEmailChange,

@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import { MediaQueryProvider } from "react-media-query-hoc";
 import routes from "./routes";
-import LoginContainer from "./pages/login/container/LoginContainer";
 import NavBar from "./features/app/NavBar";
 import UserLogin from "./pages/login/components/AdminLogin";
 

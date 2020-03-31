@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import Select from "react-select";
 
 export const ESDropDown = props => {
-  const { value, quesId, handleSelect, isAnswer, selectedOption } = props;
+  const { value, quesId, handleSelect, selectedOption } = props;
 
   
   const Options = value.map((v, k) => ({

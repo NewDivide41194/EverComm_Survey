@@ -123,7 +123,8 @@ const Question = props => {
     setValue(e.target.value);
     testValue[quesId] = e.target.value;
     setTestValue(testValue);
-
+    // if (e.target.value===""){}
+    
     const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
     const isQuesId = AnswerData.filter(e => e.questionId === quesId);
     const Ans = {
@@ -133,11 +134,18 @@ const Question = props => {
       questionId: quesId,
       survey_headers_id: surveyHeaderId
     };
-    if (isQuesId.length >= 1) {
+    if (e.target.value.trim()===""){AnswerData.splice(isQuesIdIndex,1)}
+
+    else if (isQuesId.length >= 1) {
       AnswerData.splice(isQuesIdIndex, 1, Ans);
-    } else {
+    }    
+    else {
       AnswerData.push(Ans);
     }
+    console.log("--------->",AnswerData);
+    console.log(isQuesId);
+    
+    
   };
 
   const handleSelect = (quesId, e) => {
