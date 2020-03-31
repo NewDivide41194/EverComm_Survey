@@ -9,6 +9,7 @@ const RegisterContainer = props => {
   const [lastName, setLastName] = useState("");
   const [userName, setUserName] = useState("");
   const [eMail, setEmail] = useState("");
+  const [company,setCompany]=useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState({});
   const alert = useAlert()
@@ -30,6 +31,12 @@ const RegisterContainer = props => {
         eMailErr: "Fill Email Address"
       });
       return;
+    }else if (company==""){
+      setErr({
+        companyErr: "Fill Company description"
+      });
+      return;
+    
     } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(eMail)) {
       setErr({
         eMailErr: "Invalid Email Address"
@@ -41,7 +48,7 @@ const RegisterContainer = props => {
       return;
     } else {
       setErr({});
-      RegisterFetch({ userName, eMail, password }, (err, data) => {
+      RegisterFetch({ userName, eMail, password,company }, (err, data) => {
         data.success ? _success()
         : alert.error(data.message);
       });
@@ -64,6 +71,9 @@ const RegisterContainer = props => {
   const _handleEmailChange = e => {
     setEmail(e.target.value);
   };
+  const _handleCompanyChange = e => {
+    setCompany(e.target.value);
+  };
   const _handlePwdChange = e => {
     setPassword(e.target.value);
   };
@@ -82,6 +92,7 @@ const RegisterContainer = props => {
       handleView={_handleView}
       handleSubmit={_handleSubmit}
       handleEmailChange={_handleEmailChange}
+      handleCompanyChange={_handleCompanyChange}
       handleFirstNameChange={_handleFirstNameChange}
       handleLastNameChange={_handleLastNameChange}
       handlePwdChange={_handlePwdChange}

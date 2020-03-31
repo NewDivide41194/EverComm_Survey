@@ -29,13 +29,20 @@ const NavBar = props => {
   };
 
   const _handleMenu=()=>{
-    props.history.push("/Menu")
+    if(userData){
+      props.history.push("/Menu");
+    }else{
+      props.history.push("/login");
+    }
+   
 
   }
 
   return (
     <div className="d-flex flex-row flex-wrap py-3 px-4 sticky-top bg-light justify-content-between">
-      <img src={Logo} style={{ height: "30px" }} alt="logo" />
+        <img src={Logo} style={{ height: "30px",cursor:'pointer' }} alt="logo"
+        onClick={_handleMenu}
+        />     
       <div className='dropdown'>
         {props.location.pathname!=="/login" && props.location.pathname!=="/register" && <button
           className="btn dropdown-toggle"
@@ -68,3 +75,4 @@ const NavBar = props => {
 };
 
 export default withRouter(withMedia(NavBar));
+ 

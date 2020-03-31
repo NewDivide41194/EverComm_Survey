@@ -13,7 +13,6 @@ const MainMenu = props => {
       "d-flex flex-row bg-light text-dark p-3 rounded justify-content-between my-3";
   };
 
-
   return (
     <div
       id={id}

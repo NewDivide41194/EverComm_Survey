@@ -11,9 +11,11 @@ const Register = props => {
     lastName,
     eMail,
     password,
+    company,
     handleFirstNameChange,
     handleLastNameChange,
     handleEmailChange,
+    handleCompanyChange,
     handlePwdChange,
     handleView,
     visible,
@@ -77,6 +79,18 @@ const Register = props => {
               value={lastName}
               onChange={e => handleLastNameChange(e)}
             />
+          </div> 
+          <div className="py-2 col-12">
+          {err.companyErr===undefined ? null : (
+              <div style={{ ...errStyle }}>{`*${err.companyErr}`}</div>
+            )}
+            <ESInput
+              id={"Company"}
+              type={"Company"}
+              placeHolder={"Company decription"}
+              value={company}
+              onChange={e => handleCompanyChange(e)}
+            />
           </div>
           <div className="py-2 col-12">
           {err.eMailErr===undefined ? null : (
@@ -118,7 +132,8 @@ const Register = props => {
                 <i className="fa fa-eye py-4 text-secondary" />
               )}
             </span>
-          </div>
+          </div>         
+         
           <div className="py-2 col-12">
             <ESButton
               text={"REGISTER"}
