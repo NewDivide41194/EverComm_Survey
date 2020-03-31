@@ -283,7 +283,7 @@ const Question = props => {
               )}
             </div>
           </div>
-          <footer className="row justify-content-between">
+          <div className="row justify-content-between">
             <div
               className="col-lg-6 align-self-center font-weight-bold"
               style={{ color: `${Color.PrimaryColor}` }}
@@ -326,7 +326,7 @@ const Question = props => {
                 </div>
               </div>
             </div>
-          </footer>
+          </div>
         </div>
       </div>
     )
