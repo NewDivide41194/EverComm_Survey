@@ -9,6 +9,7 @@ export const ESTextfield =props=>{
         required,
         type,
         id,
+<<<<<<< HEAD
         width,
         onChange,
         value,
@@ -41,10 +42,36 @@ export const ESTextfield =props=>{
     
       return (
         <textarea 
+=======
+        height,
+        width,
+        onChange,
+        value,
+        maxLength
+    }=props;
+
+    const defaultStyle={
+        width: width ===undefined ? "100%"
+    };
+
+    const userStyle=style ===undefined ? {} :style;
+
+    const_handleFocus =()=>{
+        document.getElementById(
+            id
+        ).style.border= `1px solid $`
+    }
+
+    return(
+        <input 
+        autoComplete="off"
+        spellCheck="false"
+>>>>>>> 56db5c56efd9dbecb7aec7c024896ccbe2afb33f
         id={id}
         required={required}
         onChange={onChange}
         style={{
+<<<<<<< HEAD
             ...defaultStyle,
                 ...userStyle
             }}
@@ -60,6 +87,20 @@ export const ESTextfield =props=>{
       );
     };
     
+=======
+
+        }}  
+        placeholder={placeHolder}
+        className={`form-control form-rounded ${className}`}
+        onFocus={_handleFocus}
+        onBlur={_handleBlur}
+        type={type ===undefined ? "text" `${type}`}
+        value={value}
+        maxLength={maxLength}      
+        />
+    );
+};
+>>>>>>> 56db5c56efd9dbecb7aec7c024896ccbe2afb33f
 
 
 
