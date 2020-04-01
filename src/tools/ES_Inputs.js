@@ -6,6 +6,7 @@ export const ESInput = props => {
     style,
     className,
     placeHolder,
+    disabled,
     required,
     type,
     id,
@@ -45,6 +46,7 @@ export const ESInput = props => {
       autoComplete="off"
       spellCheck="false"
       id={id}
+      disabled={disabled}
       required={required}
       onChange={onChange}
       style={{

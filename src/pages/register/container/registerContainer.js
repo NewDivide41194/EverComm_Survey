@@ -31,7 +31,7 @@ const RegisterContainer = props => {
         eMailErr: "Fill Email Address"
       });
       return;
-    }else if (company==""){
+    }else if (company===""){
       setErr({
         companyErr: "Fill Company description"
       });

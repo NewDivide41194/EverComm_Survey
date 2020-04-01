@@ -4,8 +4,12 @@ import { ESInput } from "../../../tools/ES_Inputs";
 import { ESDropDown } from "../../../tools/ES_DropDown";
 import { Link } from "react-router-dom";
 import * as Colors from "../../../config/Color.config";
+import { ESTextfield } from "../../../tools/ES_TextField";
 
 const Building = props => {
+  const {Companies,Buildings,handleSelect,SelectBuilding,value,handlePostalChange}=props
+  console.log(value);
+  
   return (
     <div className="container">
       <div className="row justify-content-center px-4">
@@ -13,7 +17,8 @@ const Building = props => {
           style={{
             margin: 0,
             position: "absolute",
-            top: "30%"
+            top: "50%",
+            transform: "translateY(-209.665px)"
           }}
         >
           <div className="col-12 px-4">
@@ -23,30 +28,30 @@ const Building = props => {
             <div className="row form-group">
               <div className="w-100">Building Name:</div>
               <div className="w-100">
-                <ESDropDown id={"buildingName"} />
+                <ESDropDown id={"buildingName"} value={value} options={SelectBuilding} handleSelect={handleSelect}/>
               </div>
             </div>
             <div className="row form-group">
               <div className="w-100">Postal:</div>
               <div className="w-100">
-                <ESInput id={"postal"} />
+                <ESInput id={"postal"} onChange={handlePostalChange}/>
               </div>
             </div>
             <div className="row form-group">
               <div className="w-100">Address:</div>
               <div className="w-100">
-                <ESInput id={"address"} />
+                <ESInput id={"address"} disabled/>
               </div>
             </div>
             <div className="row form-group">
               <div className="w-100">Comment:</div>
               <div className="w-100">
-                <ESInput id={"comment"} />
+                <ESTextfield id={"comment"} />
               </div>
             </div>
             <div className="row form-group justify-content-end">
               <div className="w-50">
-                <ESButton text={"Next"} small/>
+                <ESButton text={"Next"} small />
               </div>
             </div>
           </div>
@@ -56,38 +61,3 @@ const Building = props => {
   );
 };
 export default Building;
-
-const Compannies= [
-    {
-        company_id: 1,
-        company_name: "Kumo",
-        buildings: [
-                   {
-                building_id: 1,
-                building_name: "Kumo Chiller",
-                address: "64*105 Mandalay"
-                },
-                  {
-                building_id: 2,
-                building_name: "Kumo Thitsar",
-                address: "62*30 Mandalay"
-                }
-               ]
-    },
-    {
-        company_id: 1,
-        company_name: "Evercomm",
-        buildings: [
-                   {
-                building_id: 3,
-                building_name: "Evercomm Chiller",
-                address: "Singapore"
-                },
-                  {
-                building_id: 4,
-                building_name: "Evercomm Thitsar",
-                address: "Singapore"
-                }
-               ]
-    }
-    ]
