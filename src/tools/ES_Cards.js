@@ -53,7 +53,7 @@ const QuestionCard = props => {
                   Answered
                 </span>
               )}
-              <i className="fa fa-check text-success" title="Answered"/>
+              <i className="fa fa-check text-success" title="Answered" />
             </div>
           ) : (
             <div>
@@ -63,7 +63,10 @@ const QuestionCard = props => {
                 </span>
               )}
 
-              <i className="fa fa-exclamation text-warning" title="Blank Answer!"/>
+              <i
+                className="fa fa-exclamation text-warning"
+                title="Blank Answer!"
+              />
             </div>
           )}
         </div>
@@ -86,16 +89,21 @@ const QuestionCard = props => {
       ) : ques.input_type_id === 5 ? (
         <ESDropDown
           quesId={ques.question_id}
-          value={ques.option_choices}
+          options={ques.option_choices.map((v, k) => ({
+            value: v.option_choice_id,
+            label: v.option_choice_name
+          }))}
           // value={ques.option_choices.map((v,k)=>({value:v.option_choice_id,label:v.option_choice_name}))}
           handleSelect={handleSelect}
           selectedOption={
             AnswerData.filter(d => d.questionId === ques.question_id)
-              ? AnswerData.filter(d => d.questionId === ques.question_id).map(
-                  (v, k) =>
-                    ques.option_choices.filter(
+              ? AnswerData.filter(
+                  d => d.questionId === ques.question_id
+                ).map((v, k) =>
+                  ques.option_choices
+                    .filter(
                       (x, y) => x.option_choice_id === v.optionChoiceId
-                    )[0]
+                    )[0]            
                 )
               : selectedOption
           }
