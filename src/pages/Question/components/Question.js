@@ -283,7 +283,7 @@ const Question = props => {
               )}
             </div>
           </div>
-          <div className="row justify-content-between">
+          <div className="w-100 row justify-content-between">
             <div
               className="col-lg-6 align-self-center font-weight-bold"
               style={{ color: `${Color.PrimaryColor}` }}

@@ -13,7 +13,7 @@ export const RegisterFetch = ({ userName,eMail,password,company,token }, callbac
         userName:userName,
         email: eMail,
         password:password,
-        company: company
+        companyName: company
       }),
       caAnswerData: "no-caAnswerData"
     })
