@@ -86,7 +86,7 @@ const Register = props => {
             )}
             <ESInput
               id={"Company"}
-              type={"Company"}
+              type={"text"}
               placeHolder={"Company Name"}
               value={company}
               onChange={e => handleCompanyChange(e)}

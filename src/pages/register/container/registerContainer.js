@@ -31,7 +31,7 @@ const RegisterContainer = props => {
         eMailErr: "Fill Email Address"
       });
       return;
-    }else if (company==""){
+    }else if (company===""){
       setErr({
         companyErr: "Fill Company description"
       });
@@ -49,8 +49,10 @@ const RegisterContainer = props => {
     } else {
       setErr({});
       RegisterFetch({ userName, eMail, password,company }, (err, data) => {
-        data.success ? _success()
-        : alert.error(data.message);
+        console.log("--------",data);
+        
+        data.success===true ? _success()
+        : alert.error("something worng!");
       });
     }
   };
