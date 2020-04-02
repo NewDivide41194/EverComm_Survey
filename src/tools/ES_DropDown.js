@@ -4,9 +4,6 @@ import Select from "react-select";
 export const ESDropDown = props => {
   const { options, quesId, handleSelect, selectedOption } = props;
   
-console.log("*******>",selectedOption);
-
-
   const AnsSelected=selectedOption&&selectedOption.map((v,k)=>({value: v.option_choice_id,
   label: v.option_choice_name})
   )

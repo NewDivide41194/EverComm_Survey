@@ -7,9 +7,16 @@ import * as Colors from "../../../config/Color.config";
 import { ESTextfield } from "../../../tools/ES_TextField";
 
 const Building = props => {
-  const {Companies,Buildings,handleSelect,SelectBuilding,value,handlePostalChange}=props
-  console.log(value);
-  
+  const {
+    Companies,
+    Buildings,
+    handleSelect,
+    SelectBuilding,
+    selectIndex,
+    selectValue,
+    handlePostalChange
+  } = props;
+
   return (
     <div className="container">
       <div className="row justify-content-center px-4">
@@ -28,19 +35,28 @@ const Building = props => {
             <div className="row form-group">
               <div className="w-100">Building Name:</div>
               <div className="w-100">
-                <ESDropDown id={"buildingName"} value={value} options={SelectBuilding} handleSelect={handleSelect}/>
+                <ESDropDown
+                  id={"buildingName"}
+                  value={selectValue}
+                  options={SelectBuilding}
+                  handleSelect={handleSelect}
+                />
               </div>
             </div>
             <div className="row form-group">
               <div className="w-100">Postal:</div>
               <div className="w-100">
-                <ESInput id={"postal"} onChange={handlePostalChange}/>
+                <ESInput id={"postal"} onChange={handlePostalChange} />
               </div>
             </div>
             <div className="row form-group">
               <div className="w-100">Address:</div>
               <div className="w-100">
-                <ESInput id={"address"} disabled/>
+                <ESInput
+                  id={"address"}
+                  value={selectValue ? Buildings.map((v, k) => v.address)[selectIndex] : ""}
+                  disabled
+                />
               </div>
             </div>
             <div className="row form-group">
