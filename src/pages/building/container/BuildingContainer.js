@@ -2,36 +2,42 @@ import React, { useState, useEffect } from "react";
 import Building from "../components/Building.js";
 
 const BuildingContainer = () => {
-  const SelectBuildings = Companies.map((v, k) => v.buildings).map((v, k) => ({
-    value: v[0].building_id,
-    label: v[0].building_name
-  }));
-  const Buildings = Companies.map((v, k) => v.buildings)[0];
-  const [value, setValue] = useState(null);
+  const [selectValue, setSelectValue] = useState(null);
   const [postal, setPostal] = useState("");
-  const _handleSelect = (e) => {
-    setValue(value);
-    console.log("888888888888",e);
-    
+  const [selectIndex,setSelectIndex]=useState(null)
+
+
+  
+  const Buildings = Companies.map((v, k) => v.buildings)[0];
+
+  const SelectBuildings = Buildings.map((v, k) => ({
+    value: v.building_id,
+    label: v.building_name
+  }
+  ));
+  const _handleSelect = (quesId,e) => {    
+    setSelectValue(e);
+    setSelectIndex(Buildings.findIndex(I=>I.building_id===e.value))
   };
   const _handlePostalChange = e => {
     setPostal(e.target.value);
   };
-
-  console.log(value);
+  console.log("888888888888",Buildings.map((v,k)=>v.address)[selectIndex]);    
+  console.log(Buildings);
+  
+console.log(selectIndex);
 
   return (
-    <div>
       <Building
         handlePostalChange={_handlePostalChange}
         postal={postal}
         Companies={Companies}
-        value={value}
+        selectValue={selectValue}
         SelectBuilding={SelectBuildings}
         handleSelect={_handleSelect}
         Buildings={Buildings}
+        selectIndex={selectIndex}
       />
-    </div>
   );
 };
 export default BuildingContainer;

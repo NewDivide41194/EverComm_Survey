@@ -54,7 +54,6 @@ export const ESTextfield =props=>{
             onBlur={_handleBlur}
             type={type === undefined ? "text" : `${type}`}
             value={value}
-            maxHeight={maxHeight}
         >
         </textarea>
       );
