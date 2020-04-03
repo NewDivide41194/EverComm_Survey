@@ -8,12 +8,7 @@ import { ESTextfield } from "../../../tools/ES_TextField";
 
 const Building = props => {
   const {
-    Buildings,
-    handleSelect,
-    SelectBuilding,
     handleSelectCountry,
-    selectIndex,
-    selectValue,
     handlePostalChange
   } = props;
 
@@ -21,7 +16,11 @@ const Building = props => {
     <div className="container">
       <div className="row justify-content-center px-4">
         <form
+<<<<<<< HEAD
         className="col-md-6 col-sm-8 "
+=======
+          className="col-md-6 col-sm-8"
+>>>>>>> 6477c9cbc213599f638eba15669832d654f4dabd
           style={{
             margin: 0,
             position: "absolute",
@@ -29,56 +28,53 @@ const Building = props => {
             transform: "translateY(-209.665px)"
           }}
         >
-            <div className="font-weight-bold pb-2" style={{ fontSize: "25px" }}>
-              Select Building for Survey
+          <div className="font-weight-bold pb-2" style={{ fontSize: "25px" }}>
+            Select Building for Survey
+          </div>
+          <div className="row py-1">
+            <label className="col-12">Building Name:</label>
+            <div className="col-12">
+              <ESInput
+                id={"buildingName"}
+               
+              />
             </div>
-            <div className="row py-1">
-              <label className="col-12">Building Name:</label>
-              <div className="col-12">
-                <ESDropDown
-                  id={"buildingName"}
-                  value={selectValue}
-                  options={SelectBuilding}
-                  handleSelect={handleSelect}
-                />
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-sm-12 col-lg-6 py-1">
+          </div>
+          <div className="row">
+            <div className="col-sm-12 col-lg-6 py-1">
               <label className="">Country:</label>
 
-                <ESDropDown id={"Country"} onChange={handleSelectCountry} />
-                
-              </div>
-              
-              <div className="col-sm-12 col-lg-6 py-1">
+              <ESDropDown id={"Country"} onChange={handleSelectCountry} />
+            </div>
+
+            <div className="col-sm-12 col-lg-6 py-1">
               <label className="">Postal:</label>
 
-                <ESInput id={"postal"} onChange={handlePostalChange} />
-                
-              </div>
+              <ESInput id={"postal"} onChange={handlePostalChange} />
             </div>
-            <div className="row py-1">
-              <label className="col-12">Address:</label>
-              <div className="col-12">
-                <ESInput
-                  id={"address"}
-                  value={selectValue ? Buildings.map((v, k) => v.address)[selectIndex] : ""}
-                  disabled
-                />
-              </div>
+          </div>
+          <div className="row py-1">
+            <label className="col-12">Address:</label>
+            <div className="col-12">
+              <ESInput
+                id={"address"}
+                value={
+                  ""
+                }
+              />
             </div>
-            <div className="row py-2">
-              <label className="col-12">Comment:</label>
-              <div className="col-12">
-                <ESTextfield id={"comment"} />
-              </div>
+          </div>
+          <div className="row py-2">
+            <label className="col-12">Comment:</label>
+            <div className="col-12">
+              <ESTextfield id={"comment"} />
             </div>
-            <div className="row py-2 justify-content-end">
-              <div className="col-6">
-                <ESButton text={"Next"} small />
-              </div>
+          </div>
+          <div className="row py-2 justify-content-end">
+            <div className="col-6">
+              <ESButton text={"Next"} small />
             </div>
+          </div>
         </form>
       </div>
     </div>
