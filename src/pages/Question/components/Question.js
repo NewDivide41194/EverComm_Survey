@@ -78,7 +78,7 @@ const Question = props => {
     }else if(fullQuestion){
       confirmAlert({
         title: "Confirm to submit",
-        message:`All Question is filled`, 
+        message:`All Question are filled`, 
         buttons: [
           {
             label: "Submit",
