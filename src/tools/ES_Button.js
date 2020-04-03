@@ -13,7 +13,7 @@ export const ESButton = props => {
     disabled,
     leftIcon,
     rightIcon,
-    id    
+    id
   } = props;
   const [isHover, setIsHover] = useState(true);
 
@@ -44,7 +44,7 @@ export const ESButton = props => {
         ...defaultStyle,
         ...userStyle,
         outline: "none",
-        color: `${Color.SecondaryColor}`,
+        color: "white",
         transition: ".5s"
       }}
       onMouseOver={() => setIsHover(false)}

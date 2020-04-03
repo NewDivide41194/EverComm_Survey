@@ -29,11 +29,11 @@ const Building = props => {
             transform: "translateY(-209.665px)"
           }}
         >
-            <div className="font-weight-bold pb-3" style={{ fontSize: "25px" }}>
+            <div className="font-weight-bold pb-2" style={{ fontSize: "25px" }}>
               Select Building for Survey
             </div>
-            <div className="row form-group">
-              <div className="col-12">Building Name:</div>
+            <div className="row py-1">
+              <label className="col-12">Building Name:</label>
               <div className="col-12">
                 <ESDropDown
                   id={"buildingName"}
@@ -44,22 +44,22 @@ const Building = props => {
               </div>
             </div>
             <div className="row">
-              <div className="col-sm-12 col-lg-6 form-group">
-              <div className="">Country:</div>
+              <div className="col-sm-12 col-lg-6 py-1">
+              <label className="">Country:</label>
 
                 <ESDropDown id={"Country"} onChange={handleSelectCountry} />
                 
               </div>
               
-              <div className="col-sm-12 col-lg-6 form-group">
-              <div className="">Postal:</div>
+              <div className="col-sm-12 col-lg-6 py-1">
+              <label className="">Postal:</label>
 
                 <ESInput id={"postal"} onChange={handlePostalChange} />
                 
               </div>
             </div>
-            <div className="row form-group">
-              <div className="col-12">Address:</div>
+            <div className="row py-1">
+              <label className="col-12">Address:</label>
               <div className="col-12">
                 <ESInput
                   id={"address"}
@@ -68,13 +68,13 @@ const Building = props => {
                 />
               </div>
             </div>
-            <div className="row form-group">
-              <div className="col-12">Comment:</div>
+            <div className="row py-2">
+              <label className="col-12">Comment:</label>
               <div className="col-12">
                 <ESTextfield id={"comment"} />
               </div>
             </div>
-            <div className="row form-group justify-content-end">
+            <div className="row py-2 justify-content-end">
               <div className="col-6">
                 <ESButton text={"Next"} small />
               </div>

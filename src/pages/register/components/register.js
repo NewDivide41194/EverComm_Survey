@@ -29,7 +29,6 @@ const Register = props => {
   
   return (
     <div className="row justify-content-center">
-      {/* {IsLoading&&<div className='bg-dark w-100'>Loading...</div>} */}
       <form
         className="col-lg-4 col-md-8 text-center"
         style={{
@@ -83,13 +82,7 @@ const Register = props => {
           <div className="py-2 col-12 text-left">
             {err.companyErr === undefined ? null : (
               <div style={{ ...errStyle }}>{`*${err.companyErr}`}</div>
-            )}
-            {/* <ESInput
-              id={"Company"-}
-              placeHolder={"Company decription"}
-              value={company}
-              onChange={e => handleCompanyChange(e)}
-            /> */}
+            )}           
             <ESDropDown
               id={"Company"}
               value={selectValue}

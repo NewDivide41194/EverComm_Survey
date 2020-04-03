@@ -6,8 +6,9 @@ import { withMedia } from "react-media-query-hoc";
 import ESProgress from "../../../tools/ES_Progress";
 import * as Color from "../../../config/Color.config";
 import { withRouter } from "react-router-dom";
-import { confirmAlert } from "react-confirm-alert"; // Import
+import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+
 
 const Question = props => {
   const { surveyData, media, answers, userId, surveyHeaderId, history } = props;
@@ -35,6 +36,8 @@ const Question = props => {
   const obtained = AnswerCountLength;
   const total = surveyData.length && surveyData[0].question_count;
   const percent = (obtained * 100) / total;
+  const oneQuestion=total-obtained===1;
+  const fullQuestion=total-obtained===0;
 
   const _handleNext = () => {
     setPageno(pageno + 1);
@@ -54,23 +57,63 @@ const Question = props => {
   };
 
   const _handleSubmit = () => {
-    confirmAlert({
-      title: "Confirm to submit",
-      message: `${total-obtained} Questions are Remaining!`,
-      buttons: [
-        {
-          label: "Submit",
-          onClick: () =>
-           { PostAnswer({ data: AnswerData }, (err, data) => {
-              history.push("/report");
-            })}
-        },
-        {
-          label: "Back to Questions",
-          onClick: () => {return}
-        }
-      ]
-    });
+    if(oneQuestion){
+      confirmAlert({
+        title: "Confirm to submit",
+        message: `One question is Remaining!`, 
+        buttons: [
+          {
+            label: "Submit",
+            onClick: () =>
+             { PostAnswer({ data: AnswerData }, (err, data) => {
+                history.push("/report");
+              })}
+          },
+          {
+            label: "Back to Question",
+            onClick: () => {return}
+          }
+        ]
+      });
+    }else if(fullQuestion){
+      confirmAlert({
+        title: "Confirm to submit",
+        message:`All Question is filled`, 
+        buttons: [
+          {
+            label: "Submit",
+            onClick: () =>
+             { PostAnswer({ data: AnswerData }, (err, data) => {
+                history.push("/report");
+              })}
+          },
+          {
+            label: "Back to Questions",
+            onClick: () => {return}
+          }
+        ]
+      });
+   
+    }else {
+      confirmAlert({
+        title: "Confirm to submit",
+        message:`${total-obtained} Questions are Remaining!`, 
+        buttons: [
+          {
+            label: "Submit",
+            onClick: () =>
+             { PostAnswer({ data: AnswerData }, (err, data) => {
+                history.push("/report");
+              })}
+          },
+          {
+            label: "Back to Questions",
+            onClick: () => {return}
+          }
+        ]
+      });
+    }
+
   };
 
   useEffect(() => {

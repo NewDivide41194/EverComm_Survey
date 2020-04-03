@@ -61,9 +61,11 @@ const RegisterContainer = props => {
       return;
     } else {
       setErr({});
-      RegisterFetch({ userName, eMail, password,companyId }, (err, data) => {
-        data.success ? _success()
-        : alert.error(data.message);
+      RegisterFetch({ firstName,lastName, eMail, password,companyId }, (err, data) => {
+        console.log("--------",data);
+        
+        data.success===true ? _success()
+        : alert.error("something worng!");
       });
     }
   };
@@ -95,7 +97,6 @@ const RegisterContainer = props => {
   const _handleView = () => {
     setVisible(!visible);
   };
-  console.log(userName);
 
   return (
     <Register

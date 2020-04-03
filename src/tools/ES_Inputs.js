@@ -26,7 +26,7 @@ export const ESInput = props => {
     boxShadow: "none",
     shapeOutline: "none",
     outline: "none",
-    border: `1px solid gray`,
+    border: `1px solid ${Color.SecondaryColor}`,
     // background: `${Color.SecondaryColor}`,
     borderRadius: 5
   };
@@ -38,7 +38,7 @@ export const ESInput = props => {
     ).style.border = `1px solid ${Color.PrimaryColor}`;
   };
   const _handleBlur = () => {
-    document.getElementById(id).style.border = `1px solid gray`;
+    document.getElementById(id).style.border = `1px solid ${Color.SecondaryColor}`;
   };
 
   return (

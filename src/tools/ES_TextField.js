@@ -24,7 +24,7 @@ export const ESTextfield =props=>{
         boxShadow: "none",
         shapeOutline: "none",
         outline: "none",
-        border: `1px solid gray`,
+        border: `1px solid ${Color.SecondaryColor}`,
         // background: `${Color.SecondaryColor}`,
         borderRadius: 5
       };

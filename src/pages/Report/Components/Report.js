@@ -24,8 +24,8 @@ const Report = props => {
         </div>
         <div className='col-md-4 col-sm-12 py-2'>
         <ESButton text={"Back to Menu"} onClick={() => _handleMenu()} style={{minWidth:177}} />
-
         </div>
+        
       </div>
     </div>
   );

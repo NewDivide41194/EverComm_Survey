@@ -39,7 +39,7 @@ const LoginContainer = props => {
         // ? props.history.push("/admin")
         else {
           localStorage.setItem("userData", JSON.stringify(data.payload));
-          props.history.push("/menu");
+          props.history.push("/building");
           window.location.reload();
         }
       });
