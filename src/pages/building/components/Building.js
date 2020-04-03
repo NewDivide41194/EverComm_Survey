@@ -21,7 +21,7 @@ const Building = props => {
     <div className="container">
       <div className="row justify-content-center px-4">
         <form
-        className="col-md-6 col-sm-8"
+        className="col-md-6 col-sm-8 "
           style={{
             margin: 0,
             position: "absolute",

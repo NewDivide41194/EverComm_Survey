@@ -19,7 +19,9 @@ const RegisterContainer = props => {
     color: "red",
     fontSize: 12,
     position: "absolute",
-    marginTop: "-15px"
+    marginTop: "-23px",
+    marginRight: "0px"
+    
   };
 
   const selectCompany=companies.length&&companies.map((v,k)=>({value:v.company_id,label:v.company_name}))
