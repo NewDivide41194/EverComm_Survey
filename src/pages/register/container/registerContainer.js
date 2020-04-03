@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Register from "../components/register";
-import { RegisterFetch } from "../../../api/FetchRegisteration";
+import { RegisterFetch, CompanyFetch } from "../../../api/FetchRegisteration";
 import { useAlert } from 'react-alert'
 
 const RegisterContainer = props => {
@@ -9,10 +9,23 @@ const RegisterContainer = props => {
   const [lastName, setLastName] = useState("");
   const [userName, setUserName] = useState("");
   const [eMail, setEmail] = useState("");
-  const [company,setCompany]=useState("");
+  const [companyId,setCompanyId]=useState(0);
   const [password, setPassword] = useState("");
   const [err, setErr] = useState({});
+  const [companies,setCompanies]=useState([])
   const alert = useAlert()
+  const [selectValue,setSelectValue]=useState(null)
+  const errStyle = {
+    color: "red",
+    fontSize: 12,
+    position: "absolute",
+    marginTop: "-15px"
+  };
+
+  const selectCompany=companies.length&&companies.map((v,k)=>({value:v.company_id,label:v.company_name}))
+  const handleSelect=(quesId,e)=>{setSelectValue(selectValue)
+  console.log(e);
+  }
 
   const _handleSubmit = e => {
     e.preventDefault();
@@ -31,7 +44,7 @@ const RegisterContainer = props => {
         eMailErr: "Fill Email Address"
       });
       return;
-    }else if (company===""){
+    }else if (companyId===""){
       setErr({
         companyErr: "Fill Company description"
       });
@@ -48,7 +61,7 @@ const RegisterContainer = props => {
       return;
     } else {
       setErr({});
-      RegisterFetch({ userName, eMail, password,company }, (err, data) => {
+      RegisterFetch({ userName, eMail, password,companyId }, (err, data) => {
         data.success ? _success()
         : alert.error(data.message);
       });
@@ -59,11 +72,13 @@ const RegisterContainer = props => {
     alert.success('Account Created Successfuly!')
   }
   useEffect(() => {
-    setUserName(firstName === null ? null : `${firstName} ` + lastName);
-  });
+    CompanyFetch(data=>setCompanies(data.payload))
+  },[]);
 
   const _handleFirstNameChange = e => {
     setFirstName(e.target.value);
+    ;
+    
   };
   const _handleLastNameChange = e => {
     setLastName(e.target.value);
@@ -71,8 +86,8 @@ const RegisterContainer = props => {
   const _handleEmailChange = e => {
     setEmail(e.target.value);
   };
-  const _handleCompanyChange = e => {
-    setCompany(e.target.value);
+  const _handleCompanyChange = (quesId,e )=> {
+    setCompanyId(e.value);   
   };
   const _handlePwdChange = e => {
     setPassword(e.target.value);
@@ -80,7 +95,7 @@ const RegisterContainer = props => {
   const _handleView = () => {
     setVisible(!visible);
   };
-  console.log(err);
+  console.log(userName);
 
   return (
     <Register
@@ -89,6 +104,11 @@ const RegisterContainer = props => {
       lastName={lastName}
       password={password}
       visible={visible}
+      companies={companies}
+      selectValue={selectValue}
+      selectCompany={selectCompany}
+      errStyle={errStyle}
+      handleSelect={handleSelect}
       handleView={_handleView}
       handleSubmit={_handleSubmit}
       handleEmailChange={_handleEmailChange}

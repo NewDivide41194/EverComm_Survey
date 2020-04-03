@@ -19,6 +19,10 @@ const BuildingContainer = () => {
     setSelectValue(e);
     setSelectIndex(Buildings.findIndex(I=>I.building_id===e.value))
   };
+  const _handleCountrySelect = (quesId,e) => {    
+    setSelectValue(e);
+    setSelectIndex(Buildings.findIndex(I=>I.building_id===e.value))
+  };
   const _handlePostalChange = e => {
     setPostal(e.target.value);
   };
@@ -34,6 +38,7 @@ console.log(selectIndex);
         Companies={Companies}
         selectValue={selectValue}
         SelectBuilding={SelectBuildings}
+        SelectCountry={_handleCountrySelect}
         handleSelect={_handleSelect}
         Buildings={Buildings}
         selectIndex={selectIndex}
