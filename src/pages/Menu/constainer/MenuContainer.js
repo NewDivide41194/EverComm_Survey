@@ -10,7 +10,7 @@ const MenuContainer = props => {
   const _handleChoose = e => {
     console.log("id----->", e.target.id);
 
-    props.history.push("/question");
+    props.history.push("/surveylist");
     localStorage.setItem("SurveyHeaderId", e.target.id);
   };
   const userId = userData[0].login_user_id;
