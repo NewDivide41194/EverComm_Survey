@@ -30,11 +30,11 @@ const Register = props => {
   return (
     <div className="row justify-content-center">
       <form
-        className="col-lg-4 col-md-8 text-center"
+        className="col-lg-4 col-md-8 text-center "
         style={{
           margin: 0,
           position: "absolute",
-          top: "50%",
+          top: "40%",
           transform: "translateY(-193.295px)"
         }}
       >
@@ -55,10 +55,14 @@ const Register = props => {
           </span>
         </div>
         <div className="row form-group">
-          <div className="py-2 col-6 pr-1">
-            {err.firstNameErr === undefined ? null : (
-              <div style={{ ...errStyle }}>{`*${err.firstNameErr}`}</div>
-            )}
+          <div className="py-2 col-6 text-left ">
+            <label className="col-12 ">First Name:</label>
+            <div className="text-right">
+              {err.firstNameErr === undefined ? null : (
+                <div  className="text-right col-lg-12" style={{ ...errStyle }}>{`*${err.firstNameErr}`}</div>
+              )}
+            </div>
+            
             <ESInput
               id={"FirstName"}
               placeHolder={"FirstName"}
@@ -67,10 +71,11 @@ const Register = props => {
               onChange={e => handleFirstNameChange(e)}
             />
           </div>
-          <div className="py-2 col-6 pl-1">
+          <div className="py-2 col-6 text-left">
+            <label>Last Name:</label>
             {err.lastNameErr === undefined ? null : (
-              <div style={{ ...errStyle }}>{`*${err.lastNameErr}`}</div>
-            )}
+              <div  className="text-right col-lg-12" style={{ ...errStyle }}>{`*${err.lastNameErr}`}</div>
+            )}  
             <ESInput
               id={"LastName"}
               placeHolder={"LastName"}
@@ -80,9 +85,10 @@ const Register = props => {
             />
           </div>
           <div className="py-2 col-12 text-left">
+            <label className="">Company Name:</label>   
             {err.companyErr === undefined ? null : (
               <div style={{ ...errStyle }}>{`*${err.companyErr}`}</div>
-            )}           
+            )}       
             <ESDropDown
               id={"Company"}
               value={selectValue}
@@ -90,10 +96,13 @@ const Register = props => {
               handleSelect={handleCompanyChange}
             />
           </div>
-          <div className="py-2 col-12">
+          <div className="py-2 col-12 text-left">
+            <label className="">Email:</label>
+           
             {err.eMailErr === undefined ? null : (
-              <div style={{ ...errStyle }}>{`*${err.eMailErr}`}</div>
+              <div className="text-right col-lg-12" style={{ ...errStyle }}>{`*${err.eMailErr}`}</div>
             )}
+           
             <ESInput
               id={"Email"}
               type={"email"}
@@ -102,10 +111,12 @@ const Register = props => {
               onChange={e => handleEmailChange(e)}
             />
           </div>
-          <div className="py-2 col-12">
+          <div className="py-2 col-12 text-left">
+
             {err.passwordErr === undefined ? null : (
-              <div style={{ ...errStyle }}>{`*${err.passwordErr}`}</div>
+              <div  className="text-right col-lg-12" style={{ ...errStyle }}>{`*${err.passwordErr}`}</div>
             )}
+            <label className="">Password:</label>
             <ESInput
               id={"Password"}
               type={visible ? "text" : "password"}
