@@ -1,10 +1,10 @@
 import * as API from "./url";
 export const RegisterFetch = (
-  { firstName,lastName, eMail, password, companyId, token },
+  { firstName,lastName, eMail, password, companyName, token },
   callback
 ) => {
 const userName=firstName.trim()+' '+lastName.trim()
-console.log(userName, eMail, password, companyId);
+console.log(userName, eMail, password, companyName);
 
   fetch(API.RegisterAPI, {
     method: "POST",
@@ -17,7 +17,7 @@ console.log(userName, eMail, password, companyId);
       userName: userName,
       email: eMail,
       password: password,
-      companyId: companyId
+      companyName: companyName
     }),
     caAnswerData: "no-caAnswerData"
   })

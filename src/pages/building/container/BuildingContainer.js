@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Building from "../components/Building.js";
+import Countries from "../../../assets/Countries.json"
+import { withRouter } from "react-router-dom";
 
-const BuildingContainer = () => {
+const BuildingContainer = (props) => {
   const [selectValue, setSelectValue] = useState(null);
   const [postal, setPostal] = useState("");
   
@@ -14,7 +16,15 @@ const BuildingContainer = () => {
   const _handlePostalChange = e => {
     setPostal(e.target.value);
   };
+
+  const _handleSubmit=(e)=>{
+    props.history.push("/question")
+  }
   
+  console.log(Countries.countries);
+  
+  const CountryOptions=Countries.countries.map((v,k)=>({value:v.code,label:v.name}))
+console.log("---->S",props);
 
   return (
       <Building
@@ -22,6 +32,9 @@ const BuildingContainer = () => {
         postal={postal}
         Companies={Companies}
         selectValue={selectValue}
+        handleSelectCountry={_handleCountrySelect}
+        CountryOptions={CountryOptions}
+        handleSubmit={_handleSubmit}
       />
   );
 };

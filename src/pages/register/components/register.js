@@ -12,7 +12,6 @@ const Register = props => {
     lastName,
     eMail,
     password,
-    companies,
     handleFirstNameChange,
     handleLastNameChange,
     handleEmailChange,
@@ -21,9 +20,7 @@ const Register = props => {
     handleView,
     visible,
     err,
-    selectValue,
-    selectCompany,
-    handleSelect,
+    companyName,
     errStyle
   } = props;
   
@@ -85,15 +82,16 @@ const Register = props => {
             />
           </div>
           <div className="py-2 col-12 text-left">
-            <label className="">Company Name:</label>   
+            <label className="">Your Company Name:</label>   
             {err.companyErr === undefined ? null : (
               <div style={{ ...errStyle }}>{`*${err.companyErr}`}</div>
             )}       
-            <ESDropDown
-              id={"Company"}
-              value={selectValue}
-              options={selectCompany}
-              handleSelect={handleCompanyChange}
+           <ESInput
+              id={"CompanyName"}
+              placeHolder={"Your Company"}
+              maxLength={"50"}
+              value={companyName}
+              onChange={e => handleCompanyChange(e)}
             />
           </div>
           <div className="py-2 col-12 text-left">
@@ -183,3 +181,4 @@ const YourCompany=[
     company_name:"Apple"
   }
 ]
+

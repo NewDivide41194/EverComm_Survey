@@ -26,11 +26,12 @@ const MenuContainer = props => {
       window.location.reload()
     });
   };
+console.log("Menu----->",menuData);
 
   return (
-    <div className="row justify-content-center">
+    <div className="container justify-content-center position-relative">
       <div
-        className="container"
+        className="w-100"
         style={{
           margin: 0,
           position: "absolute",
@@ -39,17 +40,18 @@ const MenuContainer = props => {
         }}
       >
         <h2>{"Select Survey Name"}</h2>
-        {menuData.map((v, k) => (
+        {Menu.map((v, k) => (
           <MainMenu
             key={k}
             handleChoose={_handleChoose}
             header={v.survey_header_name}
             handleReset={_handleReset}
-            progress={
-              v.questions === v.answers
-                ? "Completed"
-                : `${v.answers} of ${v.questions} Answered`
-            }
+            // progress={
+            //   v.questions === v.answers
+            //     ? "Completed"
+            //     : `${v.answers} of ${v.questions} Answered`
+            // }
+            amountOfSurvey={v.amount_of_survey}
             id={v.survey_header_id}
           />
         ))}
@@ -59,3 +61,51 @@ const MenuContainer = props => {
 };
 
 export default MenuContainer;
+
+const Menu=[
+  {
+     "survey_header_id":1,
+     "survey_header_name":"Cooling System",
+     "amount_of_survey":10
+  },
+  {
+    "survey_header_id":2,
+    "survey_header_name":"Basic Information",
+    "amount_of_survey":40
+ },
+ {
+  "survey_header_id":3,
+  "survey_header_name":"Carbon Emission",
+  "amount_of_survey":10
+},
+{
+  "survey_header_id":11,
+  "survey_header_name":"Cooling System",
+  "amount_of_survey":10
+},
+{
+ "survey_header_id":21,
+ "survey_header_name":"Basic Information",
+ "amount_of_survey":40
+},
+{
+"survey_header_id":31,
+"survey_header_name":"Carbon Emission",
+"amount_of_survey":10
+},
+{
+  "survey_header_id":31,
+  "survey_header_name":"Cooling System",
+  "amount_of_survey":10
+},
+{
+ "survey_header_id":23,
+ "survey_header_name":"Basic Information",
+ "amount_of_survey":40
+},
+{
+"survey_header_id":33,
+"survey_header_name":"Carbon Emission",
+"amount_of_survey":10
+}
+]

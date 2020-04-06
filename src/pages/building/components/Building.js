@@ -9,14 +9,17 @@ import { ESTextfield } from "../../../tools/ES_TextField";
 const Building = props => {
   const {
     handleSelectCountry,
-    handlePostalChange
+    handlePostalChange,
+    CountryOptions,
+    handleSubimt
   } = props;
 
   return (
     <div className="container">
       <div className="row justify-content-center px-4">
         <form
-          className="col-md-6 col-sm-8"
+        onSubmit={handleSubimt}
+        className="col-md-6 col-sm-8 "
           style={{
             margin: 0,
             position: "absolute",
@@ -40,7 +43,7 @@ const Building = props => {
             <div className="col-sm-12 col-lg-6 py-1">
               <label className="">Country:</label>
 
-              <ESDropDown id={"Country"} onChange={handleSelectCountry} />
+              <ESDropDown id={"Country"} handleSelect={handleSelectCountry} options={CountryOptions} />
             </div>
 
             <div className="col-sm-12 col-lg-6 py-1">
@@ -68,7 +71,7 @@ const Building = props => {
           </div>
           <div className="row py-2 justify-content-end">
             <div className="col-6">
-              <ESButton text={"Next"} small />
+              <ESButton text={"Next"} type={"submit"}  small  />
             </div>
           </div>
         </form>

@@ -9,7 +9,7 @@ const RegisterContainer = props => {
   const [lastName, setLastName] = useState("");
   const [userName, setUserName] = useState("");
   const [eMail, setEmail] = useState("");
-  const [companyId,setCompanyId]=useState(0);
+  const [companyName,setCompanyName]=useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState({});
   const [companies,setCompanies]=useState([])
@@ -24,9 +24,8 @@ const RegisterContainer = props => {
     
   };
 
-  const selectCompany=companies.length&&companies.map((v,k)=>({value:v.company_id,label:v.company_name}))
-  const handleSelect=(quesId,e)=>{setSelectValue(selectValue)
-  console.log(e);
+  const _handleCompanyChange=(e)=>{
+setCompanyName(e.target.value)
   }
 
   const _handleSubmit = e => {
@@ -46,7 +45,7 @@ const RegisterContainer = props => {
         eMailErr: "Fill Email Address"
       });
       return;
-    }else if (companyId===""){
+    }else if (companyName===""){
       setErr({
         companyErr: "Fill Company description"
       });
@@ -63,7 +62,7 @@ const RegisterContainer = props => {
       return;
     } else {
       setErr({});
-      RegisterFetch({ firstName,lastName, eMail, password,companyId }, (err, data) => {
+      RegisterFetch({ firstName,lastName, eMail, password,companyName }, (err, data) => {
         console.log("--------",data);
         
         data.success===true ? _success()
@@ -90,9 +89,7 @@ const RegisterContainer = props => {
   const _handleEmailChange = e => {
     setEmail(e.target.value);
   };
-  const _handleCompanyChange = (quesId,e )=> {
-    setCompanyId(e.value);   
-  };
+
   const _handlePwdChange = e => {
     setPassword(e.target.value);
   };
@@ -107,11 +104,8 @@ const RegisterContainer = props => {
       lastName={lastName}
       password={password}
       visible={visible}
-      companies={companies}
-      selectValue={selectValue}
-      selectCompany={selectCompany}
+      companyName={companyName}      
       errStyle={errStyle}
-      handleSelect={handleSelect}
       handleView={_handleView}
       handleSubmit={_handleSubmit}
       handleEmailChange={_handleEmailChange}
