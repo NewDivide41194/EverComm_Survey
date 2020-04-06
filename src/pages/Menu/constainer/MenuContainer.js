@@ -29,15 +29,14 @@ const MenuContainer = props => {
 console.log("Menu----->",menuData);
 
   return (
-    <div className="container justify-content-center position-relative">
+    <div className="row justify-content-center">
       <div
-        className="w-100"
-        style={{
-          margin: 0,
-          position: "absolute",
-          top: "50%",
-          transform: "translateY(-190px)"
-        }}
+         className="container"
+         style={{
+           margin: 0,
+           position: "relative",
+         
+         }}
       >
         <h2>{"Select Survey Name"}</h2>
         {Menu.map((v, k) => (
@@ -56,7 +55,7 @@ console.log("Menu----->",menuData);
           />
         ))}
       </div>
-    </div>
+   </div>
   );
 };
 
