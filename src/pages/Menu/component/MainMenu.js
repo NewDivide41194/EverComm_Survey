@@ -23,7 +23,7 @@ const MainMenu = props => {
         onMouseLeave={_handleMouseLeave}
         
       >
-        <div className="flex-column flex-fill" id={id} onClick={e => handleChoose(e)}>
+        <div className="flex-column flex-fill " id={id} onClick={e => handleChoose(e)}>
           <div id={id} style={{ fontSize: 25 }}>
             {header}
           </div>

@@ -273,7 +273,7 @@ const Question = props => {
     surveyData.length && (
       <div>
         <ESProgress Percent={percent} />
-        <div className="container">
+        <div className="container position-relative">
           <div
             className={`text-light row justify-content-end ${media.mobile ||
               "pt-3 justify-content-center"}`}

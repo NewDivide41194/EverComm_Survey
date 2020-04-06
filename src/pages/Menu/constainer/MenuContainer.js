@@ -28,18 +28,17 @@ const MenuContainer = props => {
   };
 
   return (
-      <div className="row justify-content-center ">
+   
+      <div className="row justify-content-center">
         <div
           className="container"
           style={{
             margin: 0,
-           
-            position: "absolute",
-            top: "50%",
-            transform: "translateY(-190px)"
+            position: "relative",
+          
           }}
         >
-          <h2>{"Select Survey Name"}</h2>
+          <h2 className="my-5">{"Select Survey Name"}</h2>
           {menuData.map((v, k) => (
             <MainMenu
               key={k}
@@ -56,7 +55,7 @@ const MenuContainer = props => {
           ))}
         </div>
       </div>
-  
+   
   );
 };
 
