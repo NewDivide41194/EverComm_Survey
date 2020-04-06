@@ -28,33 +28,35 @@ const MenuContainer = props => {
   };
 
   return (
-    <div className="row justify-content-center">
-      <div
-        className="container"
-        style={{
-          margin: 0,
-          position: "absolute",
-          top: "50%",
-          transform: "translateY(-190px)"
-        }}
-      >
-        <h2>{"Select Survey Name"}</h2>
-        {menuData.map((v, k) => (
-          <MainMenu
-            key={k}
-            handleChoose={_handleChoose}
-            header={v.survey_header_name}
-            handleReset={_handleReset}
-            progress={
-              v.questions === v.answers
-                ? "Completed"
-                : `${v.answers} of ${v.questions} Answered`
-            }
-            id={v.survey_header_id}
-          />
-        ))}
+      <div className="row justify-content-center ">
+        <div
+          className="container"
+          style={{
+            margin: 0,
+           
+            position: "absolute",
+            top: "50%",
+            transform: "translateY(-190px)"
+          }}
+        >
+          <h2>{"Select Survey Name"}</h2>
+          {menuData.map((v, k) => (
+            <MainMenu
+              key={k}
+              handleChoose={_handleChoose}
+              header={v.survey_header_name}
+              handleReset={_handleReset}
+              progress={
+                v.questions === v.answers
+                  ? "Completed"
+                  : `${v.answers} of ${v.questions} Answered`
+              }
+              id={v.survey_header_id}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+  
   );
 };
 

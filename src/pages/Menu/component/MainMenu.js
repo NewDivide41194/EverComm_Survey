@@ -15,7 +15,7 @@ const MainMenu = props => {
 
   return (
     
-        <div 
+        <div
         id={id}
         className="d-flex flex-row bg-light text-dark p-3 rounded justify-content-between my-3"
         style={{ cursor: "pointer", transition: ".5s" }}

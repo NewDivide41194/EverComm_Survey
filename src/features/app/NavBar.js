@@ -36,7 +36,7 @@ const NavBar = props => {
   return (
     <div
       style={{ zIndex: 97 }}
-      className="d-flex flex-row flex-wrap py-3 px-4 fixed-top bg-light justify-content-between"
+      className="d-flex flex-row flex-wrap py-3 px-4 sticky-top bg-light justify-content-between"
     >
       <img
         src={Logo}
