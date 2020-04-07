@@ -13,17 +13,10 @@ const SurveylistContainer=props=>{
       console.log(CompletedSurvey);
       
    return(
-<<<<<<< HEAD
-    <div className="container" >
-    <div className="d-flex flex-row flex-fill">
-                <div className="">
-                    <h2>Building List</h2>
-=======
     <div className="container">
     <div className="d-flex flex-row justify-content-between flex-fill py-3 ">
                 <div className="font-weight-bold" style={{color:Colors.PrimaryColor}}>
    <h2>{'Cooling System Survey List'}</h2>
->>>>>>> c7531ad3f70515316a3950c3bf069cded4b0a881
                 </div>
                 <div className="">
                     <ESButton

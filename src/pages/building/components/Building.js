@@ -119,11 +119,7 @@ const Building = props => {
           </div>
           <div className="row py-2 justify-content-end">
             <div className="col-6">
-<<<<<<< HEAD
               <ESButton id={"Next"} text={"Next"} type={"submit"}  onClick={handleSubmit} small  />
-=======
-              <ESButton text={"Next"} type={"submit"} small  />
->>>>>>> c7531ad3f70515316a3950c3bf069cded4b0a881
             </div>
           </div>
         </form>
