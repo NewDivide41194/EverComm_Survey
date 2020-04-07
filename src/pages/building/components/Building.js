@@ -37,6 +37,7 @@ const Building = props => {
             top: "45%",
             transform: "translateY(-209.665px)"
           }}
+          onSubmit={handleSubmit}
         >
           <div className="font-weight-bold pb-2" style={{ fontSize: "25px" }}>
             Select Building for Survey

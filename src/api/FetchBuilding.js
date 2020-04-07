@@ -1,7 +1,7 @@
 import * as API from "./url";
 
 export const BuildingFetch =
-    ({ clientCompany, buildingName, postal, address, comment, country, token },
+    ({ clientCompany, buildingName, postal, address, comment, country ,token},
         callback
     ) => {
         console.log(clientCompany, buildingName, postal, address, comment, country);
