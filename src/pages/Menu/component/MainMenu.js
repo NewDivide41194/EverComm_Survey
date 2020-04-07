@@ -1,12 +1,14 @@
 import React from "react";
 import { ESButton } from "../../../tools/ES_Button";
+import * as Colors from "../../../config/Color.config"
+
 
 const MainMenu = props => {
   const { handleChoose, id, header, amountOfSurvey,handleReset } = props;
 
   const _handleMouseOver = () => {
-    document.getElementById(id).className =
-      "d-flex flex-row bg-dark text-light p-3 rounded justify-content-between my-3";
+    document.getElementById(id).className=
+      "d-flex flex-row text-light bg-dark p-3 rounded justify-content-between my-3";
       console.log(id);
       
   };

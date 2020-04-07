@@ -16,7 +16,7 @@ const Building = props => {
 
   return (
     <div className="container">
-      <div className="row justify-content-center px-4">
+      <div className="row justify-content-center px-4 ">
         <form
         onSubmit={handleSubimt}
         className="col-md-6 col-sm-8 "
@@ -71,7 +71,7 @@ const Building = props => {
           </div>
           <div className="row py-2 justify-content-end">
             <div className="col-6">
-              <ESButton text={"Next"} type={"submit"}  small  />
+              <ESButton text={"Next"} type={"submit"} small  />
             </div>
           </div>
         </form>

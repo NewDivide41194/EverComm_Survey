@@ -29,9 +29,9 @@ const MenuContainer = props => {
 console.log("Menu----->",menuData);
 
   return (
-    <div className="row justify-content-center">
+    <div className="container justify-content-center">
       <div
-         className="container"
+         className="w-100"
          style={{
            margin: 0,
            position: "relative",

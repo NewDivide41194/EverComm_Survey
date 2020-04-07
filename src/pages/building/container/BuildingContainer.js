@@ -38,7 +38,7 @@ console.log("---->S",props);
       />
   );
 };
-export default BuildingContainer;
+export default withRouter(BuildingContainer);
 
 const Companies = [
   {
