@@ -27,7 +27,7 @@ const Building = props => {
 
   return (
     <div className="container">
-      <div className="row justify-content-center px-4">
+      <div className="row justify-content-center px-4 ">
         <form
         
         className="col-md-6 col-sm-8 "
@@ -119,7 +119,11 @@ const Building = props => {
           </div>
           <div className="row py-2 justify-content-end">
             <div className="col-6">
+<<<<<<< HEAD
               <ESButton id={"Next"} text={"Next"} type={"submit"}  onClick={handleSubmit} small  />
+=======
+              <ESButton text={"Next"} type={"submit"} small  />
+>>>>>>> c7531ad3f70515316a3950c3bf069cded4b0a881
             </div>
           </div>
         </form>

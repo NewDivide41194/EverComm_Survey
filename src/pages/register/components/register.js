@@ -141,7 +141,7 @@ const Register = props => {
             </span>
           </div>
 
-          <div className="py-2 col-12">
+          <div className="pt-2 col-12">
             <ESButton
               text={"REGISTER"}
               type={"submit"}
@@ -152,8 +152,7 @@ const Register = props => {
           </div>
         </div>
         <span>
-          Already have an account?
-          <br />
+          {'Already have an account? '}
           <Link to={"/login"}>Login</Link>
         </span>
       </form>

@@ -66,12 +66,12 @@ const RegisterContainer = props => {
         console.log("--------",data);
         
         data.success===true ? _success()
-        : alert.error("something worng!");
+        : alert.error(data.message);
       });
     }
   };
   const _success=()=>{
-    props.history.push("/login")
+    props.history.push("/")
     alert.success('Account Created Successfuly!')
   }
   useEffect(() => {

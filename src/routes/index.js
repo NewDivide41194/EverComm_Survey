@@ -9,7 +9,7 @@ import AccountContainer from "../pages/user/account/container/AccountContainer"
 import SurveylistContainer from "../pages/surveylist/container/SurveylistContainer"
 
 export const RouteName = {
-  routeFirstPage: "login",
+  routeFirstPage: "",
   routeRegisterPage: "register",
 
   routeQuestionPage: "question",
@@ -28,7 +28,7 @@ export const RouteName = {
 
 export default {
   routes: {
-    [RouteName.routeFirstPage]:{component:LoginContainer},
+    // [RouteName.routeFirstPage]:{component:LoginContainer},
 
     [RouteName.routeQuestionPage]:{component:QuestionContainer},
     [RouteName.routeReportPage]:{component:ReportContainer},

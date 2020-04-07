@@ -1,38 +1,69 @@
 import React from 'react'
 import Surveylist from "../component/Surveylist"
 import { ESButton } from '../../../tools/ES_Button';
-
+import * as Colors from "../../../config/Color.config"
 const SurveylistContainer=props=>{
     const _handleSurvey = () => {
         props.history.push("/building");
         window.location.reload();
       };
+      const CompletedSurvey=SurveyList.filter((v,k)=>v.answers===v.questions)
+      const PendingSurvey=SurveyList.filter((v,k)=>v.answers!==v.questions)
+
+      console.log(CompletedSurvey);
+      
    return(
+<<<<<<< HEAD
     <div className="container" >
     <div className="d-flex flex-row flex-fill">
                 <div className="">
                     <h2>Building List</h2>
+=======
+    <div className="container">
+    <div className="d-flex flex-row justify-content-between flex-fill py-3 ">
+                <div className="font-weight-bold" style={{color:Colors.PrimaryColor}}>
+   <h2>{'Cooling System Survey List'}</h2>
+>>>>>>> c7531ad3f70515316a3950c3bf069cded4b0a881
                 </div>
                 <div className="">
                     <ESButton
-                    text={"Create Survey"}
+x                    text={"Create Survey"}
                     onClick={_handleSurvey}
                     small   
                     />
                 </div>
             </div>
+            <div style={{borderBottom:`1px solid ${Colors.skyBlue}`,fontSize:"18px",color:`${Colors.PrimaryColor}`,fontWeight:'bold'}} className="py-2">Pending Survey</div>
         {
-           SurveyList.map((v,k)=>
+           PendingSurvey.map((v,k)=>
            <Surveylist buildingName={v.Building_Name} 
+           id={v.Building_Id}
            progress={
               v.questions === v.answers
                 ? "Completed"
                 : `${v.answers} of ${v.questions} Answered`
-            }/>
+            }
+            BgColor={Colors.PaleYellow}
+            TxtColor={Colors.PrimaryColor}/>
 
            )
         
        }   
+       <div style={{borderBottom:`1px solid ${Colors.skyBlue}`,fontSize:"18px",color:`${Colors.PrimaryColor}`,fontWeight:'bold'}} className="py-2">Completed Survey</div>
+       {
+           CompletedSurvey.map((v,k)=>
+           <Surveylist buildingName={v.Building_Name} 
+           id={v.Building_Id}
+           progress={
+              v.questions === v.answers
+                ? "Completed"
+                : `${v.answers} of ${v.questions} Answered`
+            }
+            BgColor={Colors.skyBlue}
+            TxtColor={"white"}/>
+
+            )
+       }
        </div>
        
    )
@@ -53,5 +84,12 @@ const SurveyList=[
        "Building_Name":"Man Myanmar Palaza",
        "questions":42,
        "answers":4
-    }
+    },
+    {
+        "Survey_Header_Id":1,
+        "Building_Id":12,
+        "Building_Name":"Man Myanmar Palaza",
+        "questions":42,
+        "answers":42
+     }
  ]
