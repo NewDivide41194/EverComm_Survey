@@ -18,8 +18,7 @@ console.log(userName, eMail, password, companyName);
       email: eMail,
       password: password,
       companyName: companyName
-    }),
-    caAnswerData: "no-caAnswerData"
+    })
   })
     .then(res => res.json())
     .then(data => callback(null, data))
