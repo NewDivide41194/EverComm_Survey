@@ -8,22 +8,33 @@ import { ESTextfield } from "../../../tools/ES_TextField";
 
 const Building = props => {
   const {
+    buildingName,
+    postal,
+    address,
+    clientCompany,
+    comment,
+    handleBuildingNameChange,
+    handlePostalChange ,
+    handleAddressChange,
+    handleClientCompanyChange, 
+    handleCommentChange,
     handleSelectCountry,
-    handlePostalChange,
     CountryOptions,
-    handleSubimt
+    handleSubmit,
+    err,
+    errStyle
   } = props;
 
   return (
     <div className="container">
       <div className="row justify-content-center px-4">
         <form
-        onSubmit={handleSubimt}
+        
         className="col-md-6 col-sm-8 "
           style={{
             margin: 0,
             position: "absolute",
-            top: "50%",
+            top: "45%",
             transform: "translateY(-209.665px)"
           }}
         >
@@ -32,11 +43,16 @@ const Building = props => {
           </div>
           <div className="row py-1">
             <label className="col-12">Building Name:</label>
+            { err.buildingNameErr === undefined ? null : (
+              <div className="text-right col-lg-12" style={{...errStyle}}>{`*${err.buildingNameErr }`}</div>
+            )}
             <div className="col-12">
               <ESInput
                 id={"buildingName"}
-               
-              />
+                placeHolder={"Building Name"}
+                value={buildingName}
+                onChange={e=>handleBuildingNameChange(e)}
+               />
             </div>
           </div>
           <div className="row">
@@ -48,30 +64,62 @@ const Building = props => {
 
             <div className="col-sm-12 col-lg-6 py-1">
               <label className="">Postal:</label>
-
-              <ESInput id={"postal"} onChange={handlePostalChange} />
+              { err.postalErr === undefined ? null : (
+              <div className="text-right col-lg-12" style={{...errStyle, marginTop: '-25px'}}>{`*${err.postalErr }`}</div>
+              )}
+              <ESInput 
+                id={"postal"}
+                placeHolder={"Postal"}
+                value={postal} 
+                onChange={e=> handlePostalChange (e)} 
+              />
             </div>
           </div>
           <div className="row py-1">
             <label className="col-12">Address:</label>
+            { err.addressErr === undefined ? null : (
+              <div className="text-right col-lg-12" style={{...errStyle}}>{`*${err.addressErr }`}</div>
+            )}
             <div className="col-12">
               <ESInput
                 id={"address"}
-                value={
-                  ""
-                }
+                placeHolder={"Address"}
+                value={address}
+                onChange={e=>handleAddressChange(e)}
               />
+            </div>
+          </div>
+          <div className="row py-1">
+            <label className="col-12">Client Company:</label>
+            { err.clientCompanyErr === undefined ? null : (
+              <div className="text-right col-lg-12" style={{...errStyle}}>{`*${err.clientCompanyErr }`}</div>
+            )}
+            <div className="col-12">
+                <ESInput 
+                  id={"clientCompany"} 
+                  placeHolder={"Your ClientCompany"}
+                  value={clientCompany}
+                  onChange={e=>handleClientCompanyChange(e)}
+                />
             </div>
           </div>
           <div className="row py-2">
             <label className="col-12">Comment:</label>
+            { err.commentErr === undefined ? null : (
+              <div className="text-right col-lg-12" style={{...errStyle}}>{`*${err.commentErr }`}</div>
+            )}
             <div className="col-12">
-              <ESTextfield id={"comment"} />
+              <ESTextfield 
+                id={"comment"}
+                placeHolder={"Comment"} 
+                value={comment}
+                onChange={e=>handleCommentChange(e)}  
+              />
             </div>
           </div>
           <div className="row py-2 justify-content-end">
             <div className="col-6">
-              <ESButton text={"Next"} type={"submit"}  small  />
+              <ESButton id={"Next"} text={"Next"} type={"submit"}  onClick={handleSubmit} small  />
             </div>
           </div>
         </form>

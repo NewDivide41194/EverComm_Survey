@@ -11,7 +11,7 @@ const SurveylistContainer=props=>{
     <div className="container" >
     <div className="d-flex flex-row flex-fill">
                 <div className="">
-                    <h2>Survey List</h2>
+                    <h2>Building List</h2>
                 </div>
                 <div className="">
                     <ESButton

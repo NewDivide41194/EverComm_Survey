@@ -5,20 +5,72 @@ import { withRouter } from "react-router-dom";
 
 const BuildingContainer = (props) => {
   const [selectValue, setSelectValue] = useState(null);
+  const [buildingName,setBuildingName]= useState("");
   const [postal, setPostal] = useState("");
-  
+  const [address,setAddress]= useState("");
+  const [clientCompany,setClientCompany]=useState("");
+  const [comment,setComment]=useState("");
+  const [err,setErr]= useState({})
+ 
+  const _handleBuildingNameChange= e =>{
+    setBuildingName(e.target.value);
+  }
+  const _handlePostalChange= e =>{
+    setPostal(e.target.value);
+  }
+  const _handleAddressChange= e =>{
+    setAddress(e.target.value);
+  }
+  const _handleClientCompanyChange= e =>{
+    setClientCompany(e.target.value);
+  }
+  const _handleCommentChange= e=>[
+    setComment(e.target.value)
+  ]
   const _handleSelect = (quesId,e) => {    
     setSelectValue(e);
   };
   const _handleCountrySelect = (quesId,e) => {    
     setSelectValue(e);
   };
-  const _handlePostalChange = e => {
-    setPostal(e.target.value);
+  const errStyle = {
+    color: "red",
+    fontSize: 12,
+    position: 'absolute'
+   
   };
 
-  const _handleSubmit=(e)=>{
-    props.history.push("/question")
+  const _handleSubmit = e => {
+    e.preventDefault();
+    if(buildingName===""){
+      setErr({
+        buildingNameErr: "Fill BuildingName"
+      });
+      return;
+    }else if(postal===""){
+      setErr({
+        postalErr: "Fill Postal"
+      });
+      return;
+    }else if(address===""){
+      setErr({
+        addressErr: "Fill Address"
+      });
+      return;
+    }else if(clientCompany===""){
+      setErr({
+        clientCompanyErr: "Fill Client Company"
+      });
+      return;
+    }else if(comment===""){
+      setErr({
+        commentErr: "Fill Comment"
+      });
+      return;
+    }else{
+      // alert("fill blank")
+      setErr({});
+    }
   }
   
   console.log(Countries.countries);
@@ -28,13 +80,23 @@ console.log("---->S",props);
 
   return (
       <Building
-        handlePostalChange={_handlePostalChange}
+        buildingName={buildingName}
         postal={postal}
+        address={address}
+        clientCompany={clientCompany}
+        comment={comment}
+        CountryOptions={CountryOptions}
         Companies={Companies}
         selectValue={selectValue}
-        handleSelectCountry={_handleCountrySelect}
-        CountryOptions={CountryOptions}
+        handleBuildingNameChange={_handleBuildingNameChange}
+        handlePostalChange={ _handlePostalChange }
+        handleAddressChange={_handleAddressChange}
+        handleClientCompanyChange={_handleClientCompanyChange}
+        handleCommentChange={_handleCommentChange}
+        handleSelectCountry={_handleCountrySelect}  
         handleSubmit={_handleSubmit}
+        err={err}
+        errStyle={errStyle}
       />
   );
 };
