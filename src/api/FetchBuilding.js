@@ -7,14 +7,14 @@ export const BuildingFetch =
         console.log(clientCompany, buildingName, postal, address, comment, country);
         fetch(API.Building_Insert, {
             method: "POST",
-            header: {
+            headers: {
                 "Content-Type": "application/json",
                 Accept: "*/*",
                 Authorization: `Bearer ${token}`
             },
             body: JSON.stringify({
                 buildingName: buildingName,
-                companyId: clientCompany,
+                companyName: clientCompany,
                 address: address,
                 postalCode: postal,
                 country: country,
