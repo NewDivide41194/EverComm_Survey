@@ -25,7 +25,7 @@ const RegisterContainer = props => {
   };
 
   const _handleCompanyChange=(e)=>{
-setCompanyName(e.target.value)
+      setCompanyName(e.target.value)
   }
 
   const _handleSubmit = e => {
