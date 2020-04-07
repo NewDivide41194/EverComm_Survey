@@ -15,3 +15,5 @@ export const Menu_Info = `${serverURL}/api/v1/survey/menu/`;
 export const Trancate_Answers = `${serverURL}/api/v1/survey/`;
 
 export const Company_Select = `${serverURL}/api/v1/user/companies`;
+
+export const Building_Insert=`${serverURL}/api/v1/building/addBuilding`;

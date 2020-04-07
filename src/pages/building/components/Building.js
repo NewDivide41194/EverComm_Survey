@@ -37,10 +37,26 @@ const Building = props => {
             top: "45%",
             transform: "translateY(-209.665px)"
           }}
+          onSubmit={handleSubmit}
         >
           <div className="font-weight-bold pb-2" style={{ fontSize: "25px" }}>
             Select Building for Survey
           </div>
+          <div className="row py-1">
+            <label className="col-12">Client Company:</label>
+            { err.clientCompanyErr === undefined ? null : (
+              <div className="text-right col-lg-12" style={{...errStyle}}>{`*${err.clientCompanyErr }`}</div>
+            )}
+            <div className="col-12">
+                <ESInput 
+                  id={"clientCompany"} 
+                  placeHolder={"Your ClientCompany"}
+                  value={clientCompany}
+                  onChange={e=>handleClientCompanyChange(e)}
+                />
+            </div>
+          </div>
+          
           <div className="row py-1">
             <label className="col-12">Building Name:</label>
             { err.buildingNameErr === undefined ? null : (
@@ -87,20 +103,6 @@ const Building = props => {
                 value={address}
                 onChange={e=>handleAddressChange(e)}
               />
-            </div>
-          </div>
-          <div className="row py-1">
-            <label className="col-12">Client Company:</label>
-            { err.clientCompanyErr === undefined ? null : (
-              <div className="text-right col-lg-12" style={{...errStyle}}>{`*${err.clientCompanyErr }`}</div>
-            )}
-            <div className="col-12">
-                <ESInput 
-                  id={"clientCompany"} 
-                  placeHolder={"Your ClientCompany"}
-                  value={clientCompany}
-                  onChange={e=>handleClientCompanyChange(e)}
-                />
             </div>
           </div>
           <div className="row py-2">

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Building from "../components/Building.js";
-import Countries from "../../../assets/Countries.json"
+import Countries from "../../../assets/Countries.json";
+import { BuildingFetch } from "../../../api/FetchBuilding";
 import { withRouter } from "react-router-dom";
+import { useAlert } from 'react-alert'
 
 const BuildingContainer = (props) => {
-  const [selectValue, setSelectValue] = useState(null);
+  const [country, setCountry] = useState("");
   const [buildingName,setBuildingName]= useState("");
   const [postal, setPostal] = useState("");
   const [address,setAddress]= useState("");
@@ -27,12 +29,11 @@ const BuildingContainer = (props) => {
   const _handleCommentChange= e=>[
     setComment(e.target.value)
   ]
-  const _handleSelect = (quesId,e) => {    
-    setSelectValue(e);
-  };
+
   const _handleCountrySelect = (quesId,e) => {    
-    setSelectValue(e);
+    setCountry(e.label)
   };
+  
   const errStyle = {
     color: "red",
     fontSize: 12,
@@ -68,9 +69,18 @@ const BuildingContainer = (props) => {
       });
       return;
     }else{
-      // alert("fill blank")
       setErr({});
+      BuildingFetch({ clientCompany,buildingName,postal,address,comment,country }, (err, data) => {
+        console.log("--------",data);
+
+        data.success===true ? _success()
+        : alert.error(data.message);
+      });
     }
+  };
+  const _success=()=>{
+    props.history.push("/question")
+    alert.success('submitted')
   }
   
   console.log(Countries.countries);
@@ -87,7 +97,7 @@ console.log("---->S",props);
         comment={comment}
         CountryOptions={CountryOptions}
         Companies={Companies}
-        selectValue={selectValue}
+        country={country}
         handleBuildingNameChange={_handleBuildingNameChange}
         handlePostalChange={ _handlePostalChange }
         handleAddressChange={_handleAddressChange}
