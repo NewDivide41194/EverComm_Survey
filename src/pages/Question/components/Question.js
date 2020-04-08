@@ -11,7 +11,7 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 
 
 const Question = props => {
-  const { surveyData, media, answers, userId, surveyHeaderId, history } = props;
+  const { surveyData, media, answers, userId, surveyHeaderId, history,buildingId } = props;
   const [pageno, setPageno] = useState(0);
   const [userData, setUserData] = useState({});
   const [AnswerData, setAnswerData] = useState([...answers]);
@@ -22,6 +22,8 @@ const Question = props => {
   const [isAnswer, setIsAnswer] = useState(
     AnswerData.map((v, k) => v.optionChoiceId)
   );
+  const SurveyHeaderId = localStorage.getItem("SurveyHeaderId");
+
   const [selectedOption, setSelectedOption] = useState(null);
 
   const AnswerCount = [
@@ -128,8 +130,8 @@ const Question = props => {
       optionChoiceId: ansId,
       userId: userId,
       questionId: quesId,
-      survey_headers_id: surveyHeaderId
-    };
+      survey_headers_id: surveyHeaderId,
+      building_id:buildingId    };
     if (isQuesId.length >= 1) {
       AnswerData.splice(isQuesIdIndex, 1, Ans);
     } else {
@@ -152,8 +154,8 @@ const Question = props => {
       optionChoiceId: answerId,
       userId: userId,
       questionId: quesId,
-      survey_headers_id: surveyHeaderId
-    };
+      survey_headers_id: surveyHeaderId,
+      building_id:buildingId    };
     if (isQuesId.length >= 1) {
       AnswerData.splice(isQuesIdIndex, 1);
     } else {
@@ -175,8 +177,8 @@ const Question = props => {
       optionChoiceId: null,
       userId: userId,
       questionId: quesId,
-      survey_headers_id: surveyHeaderId
-    };
+      survey_headers_id: surveyHeaderId,
+      building_id:buildingId    };
     if (e.target.value.trim()===""){AnswerData.splice(isQuesIdIndex,1)}
 
     else if (isQuesId.length >= 1) {
@@ -184,16 +186,11 @@ const Question = props => {
     }    
     else {
       AnswerData.push(Ans);
-    }
-    console.log("--------->",AnswerData);
-    console.log(isQuesId);
-    
-    
+    }        
   };
 
   const handleSelect = (quesId, e) => {
     setSelectedOption(e);
-    console.log("---------------->", e);
     let ansId = e.value;
     const isQuesId = AnswerData.filter(e => e.questionId === quesId);
     const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
@@ -202,8 +199,8 @@ const Question = props => {
       optionChoiceId: parseInt(ansId),
       userId: userId,
       questionId: quesId,
-      survey_headers_id: surveyHeaderId
-    };
+      survey_headers_id: surveyHeaderId,
+      building_id:buildingId    };
     if (isQuesId.length >= 1) {
       AnswerData.splice(isQuesIdIndex, 1, Ans);
     } else {
@@ -231,8 +228,8 @@ const Question = props => {
         optionChoiceId: null,
         userId: userId,
         questionId: quesId,
-        survey_headers_id: surveyHeaderId
-      };
+        survey_headers_id: surveyHeaderId,
+        building_id:buildingId    };
       if (isQuesId.length >= 1) {
         AnswerData.splice(isQuesIdIndex, 1, Ans);
       } else {
@@ -259,8 +256,8 @@ const Question = props => {
         optionChoiceId: null,
         userId: userId,
         questionId: quesId,
-        survey_headers_id: surveyHeaderId
-      };
+        survey_headers_id: surveyHeaderId,
+        building_id:buildingId    };
       if (isQuesId.length >= 1) {
         AnswerData.splice(isQuesIdIndex, 1, Ans);
       } else {
@@ -268,6 +265,7 @@ const Question = props => {
       }
     }
   };
+console.log(AnswerData);
 
   return (
     surveyData.length && (

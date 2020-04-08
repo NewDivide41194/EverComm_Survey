@@ -12,7 +12,6 @@ export const ESTextfield =props=>{
         width,
         onChange,
         value,
-        maxHeight
       } = props;
     
     

@@ -72,22 +72,23 @@ const BuildingContainer = (props) => {
     }else{
       setErr({});
       BuildingFetch({ clientCompany,buildingName,postal,address,comment,country }, (err, data) => {
-        console.log("--------",data);
-
+        localStorage.setItem("buildingId",data.payload.insertId)
         data.success===true ? _success()
         : alert.error(data.message);
       });
     }
   };
   const _success=()=>{
+<<<<<<< HEAD
     // props.history.push("/question")
+=======
+
+    props.history.push("/question")
+>>>>>>> 688bbdafb5c4ca046f5e406095d2a9b2f2d4f247
     alert.success('submitted')
   }
-  
-  console.log(Countries.countries);
-  
+    
   const CountryOptions=Countries.countries.map((v,k)=>({value:v.code,label:v.name}))
-console.log("---->S",props);
 
   return (
       <Building

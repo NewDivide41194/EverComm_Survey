@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Register from "../components/register";
-import { RegisterFetch, CompanyFetch } from "../../../api/FetchRegisteration";
+import { RegisterFetch } from "../../../api/FetchRegisteration";
 import { useAlert } from 'react-alert'
 
 const RegisterContainer = props => {
@@ -12,7 +12,6 @@ const RegisterContainer = props => {
   const [companyName,setCompanyName]=useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState({});
-  const [companies,setCompanies]=useState([])
   const alert = useAlert()
   const [selectValue,setSelectValue]=useState(null)
   const errStyle = {
@@ -63,9 +62,7 @@ const RegisterContainer = props => {
       return;
     } else {
       setErr({});
-      RegisterFetch({ firstName,lastName, eMail, password,companyName }, (err, data) => {
-        console.log("--------",data);
-        
+      RegisterFetch({ firstName,lastName, eMail, password,companyName }, (err, data) => {        
         data.success===true ? _success()
         : alert.error(data.message);
       });
@@ -75,9 +72,6 @@ const RegisterContainer = props => {
     props.history.push("/")
     alert.success('Account Created Successfuly!')
   }
-  useEffect(() => {
-    CompanyFetch(data=>setCompanies(data.payload))
-  },[]);
 
   const _handleFirstNameChange = e => {
     setFirstName(e.target.value);

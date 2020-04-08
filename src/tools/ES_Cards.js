@@ -70,7 +70,6 @@ const QuestionCard = props => {
             </div>
           )}
         </div>
-        {console.log(ques.question_id)}
       </div>
       {ques.input_type_id === 1 ? (
         <ESCheckBox

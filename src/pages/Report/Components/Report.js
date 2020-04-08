@@ -17,7 +17,7 @@ const Report = props => {
   return (
     <div className="container py-4 text-center text-success">
       <h3>*Your Answers are Posted!</h3>
-      <img style={{width:'50%'}} src={HMT}/>
+      <img style={{width:'50%'}} src={HMT} alt="Post"/>
       <div className='row justify-content-center'>
         <div className='col-md-4 col-sm-12 py-2'>
         <ESButton text={"Review Your Survey"} onClick={() => _handleReview()} style={{background:'#9945C0',minWidth:177}} small/>
