@@ -79,12 +79,8 @@ const BuildingContainer = (props) => {
     }
   };
   const _success=()=>{
-<<<<<<< HEAD
-    // props.history.push("/question")
-=======
 
     props.history.push("/question")
->>>>>>> 688bbdafb5c4ca046f5e406095d2a9b2f2d4f247
     alert.success('submitted')
   }
     

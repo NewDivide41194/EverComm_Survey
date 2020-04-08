@@ -20,11 +20,6 @@ const Surveylist = (props) => {
       "d-flex flex-row p-3 rounded justify-content-between my-2 shadow-sm";
     Card.style.background = HoverBgColor;
     Card.style.color = HoverTxtColor;
-<<<<<<< HEAD
-    
-    console.log(id);
-=======
->>>>>>> 688bbdafb5c4ca046f5e406095d2a9b2f2d4f247
   };
   const _handleMouseLeave = () => {
     const Card = document.getElementById(id);
@@ -48,6 +43,7 @@ const Surveylist = (props) => {
       onClick={(e)=>handleCardClick(e)}
     >
       <span
+      id={id}
         style={{
           fontSize: "22px",
           // fontWeight:"bold",
@@ -56,7 +52,7 @@ const Surveylist = (props) => {
         {buildingName}{" "}
       </span>
 
-      <span> {progress}</span>
+      <span id={id}> {progress}</span>
     </div>
   );
 };

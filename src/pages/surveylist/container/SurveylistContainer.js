@@ -17,6 +17,7 @@ const SurveylistContainer = (props) => {
 
   
   const handleCardClick = (e) => {
+    console.log("Building Id---->",e.target.id);
     
     localStorage.setItem("buildingId", e.target.id);
     props.history.push("/question");
@@ -51,11 +52,7 @@ console.log("BS---->",BuildingSurveyData);
           <h2>{"Cooling System Survey List"}</h2>
         </div>
         <div>
-<<<<<<< HEAD
-          <ESButton text={"Create Survey"} onClick={_handleSurvey} small />
-=======
           <ESButton x text={"Create Survey"} onClick={_handleNewSurvey} small />
->>>>>>> 688bbdafb5c4ca046f5e406095d2a9b2f2d4f247
         </div>
       </div>
       <div
@@ -75,7 +72,7 @@ console.log("BS---->",BuildingSurveyData);
           key={k}
           id={v.building_id}
           progress={
-            <i className="fa fa-edit">
+            <i className="fa fa-edit" id={v.building_id}>
               &nbsp;{v.answers} of {v.questions} Answered
             </i>
           }
@@ -102,7 +99,7 @@ console.log("BS---->",BuildingSurveyData);
           buildingName={v.building_name}
           key={k}
           id={v.building_id}
-          progress={<i className="fa fa-check-circle"> Completed</i>}
+          progress={<i className="fa fa-check-circle" id={v.building_id}> Completed</i>}
           BgColor={Colors.skyBlue}
           TxtColor={"white"}
           HoverBgColor={Colors.PrimaryColor}
