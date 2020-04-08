@@ -8,7 +8,6 @@ const MainMenu = (props) => {
   const _handleMouseOver = () => {
     document.getElementById(id).className =
       "d-flex flex-row text-light bg-dark p-3 rounded justify-content-between my-3";
-    console.log(id);
   };
   const _handleMouseLeave = () => {
     document.getElementById(id).className =

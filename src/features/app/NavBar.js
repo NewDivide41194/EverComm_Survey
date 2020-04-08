@@ -59,7 +59,7 @@ const NavBar = props => {
                         aria-haspopup="true"
                         aria-expanded="false">
                         {
-                        userData === null || userData.length == 0 ? null : (
+                        userData === null || userData.length === 0 ? null : (
                             <span>{
                                 userData[0].email
                             }</span>

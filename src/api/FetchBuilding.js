@@ -22,6 +22,6 @@ export const BuildingFetch =
             })
         })
             .then(res => res.json())
-            .then(data => callback(data))
+            .then(data => callback(null,data))
             .catch(err => console.log(err));
     }

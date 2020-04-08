@@ -8,11 +8,13 @@ const QuestionContainer = () => {
   const [surveyData, setSurveyData] = useState([]);
   const [IsLoading, setIsLoading] = useState(false);
   const userId=JSON.parse(localStorage.getItem("userData"))[0].login_user_id
-  const surveyHeaderId=JSON.parse(localStorage.getItem("SurveyHeaderId"))
+  const [buildingId,setBuildingId]=useState(localStorage.getItem("buildingId"))
+
+  const surveyHeaderId=localStorage.getItem("SurveyHeaderId")
   const [answers,setAnswers]=useState([])
   useEffect(() => {
     setIsLoading(true);
-    QuestionFetch(userId,surveyHeaderId, (err, data) => {
+    QuestionFetch(userId,surveyHeaderId,buildingId, (err, data) => {
       setSurveyData(data.payload);
       setAnswers(data.payload[0].answers)
       setIsLoading(false);
@@ -21,7 +23,7 @@ const QuestionContainer = () => {
   
   return IsLoading ? (
     <div
-      className="w-100 text-light text-center position-relative"
+      className="w-100 text-light text-center position-absolute"
       style={{
         background: "rgba(0,0,0,0.3)",
         height: "100%",
@@ -34,7 +36,7 @@ const QuestionContainer = () => {
       <div className="w-100">Loading...</div>
     </div>
   ) : (
-    <Question surveyData={surveyData} answers={answers} userId={userId} surveyHeaderId={surveyHeaderId}/>
+    <Question surveyData={surveyData} answers={answers} userId={userId} surveyHeaderId={surveyHeaderId} buildingId={buildingId}/>
   );
 };
 

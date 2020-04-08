@@ -7,13 +7,13 @@ const MenuContainer = props => {
   const [userData, setUserData] = useState(
     JSON.parse(localStorage.getItem("userData"))
   );
+  const userId = userData[0].login_user_id;
+
   const _handleChoose = e => {
-    console.log("id----->", e.target.id);
 
     props.history.push("/surveylist");
     localStorage.setItem("SurveyHeaderId", e.target.id);
   };
-  const userId = userData[0].login_user_id;
 
   useEffect(() => {
     MenuInfoFetch({ userId }, (err, data) => {
@@ -39,11 +39,11 @@ console.log("Menu----->",menuData);
          }}
       >
         <h2>{"Select Survey Name"}</h2>
-        {Menu.map((v, k) => (
+        {menuData.map((v, k) => (
           <MainMenu
             key={k}
             handleChoose={_handleChoose}
-            header={v.survey_header_name}
+            header={v.survey_name}
             handleReset={_handleReset}
             // progress={
             //   v.questions === v.answers

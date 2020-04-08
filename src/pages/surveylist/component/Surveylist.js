@@ -11,6 +11,7 @@ const Surveylist = (props) => {
     TxtColor,
     HoverBgColor,
     HoverTxtColor,
+    handleCardClick,
     id,
   } = props;
   const _handleMouseOver = () => {
@@ -19,8 +20,6 @@ const Surveylist = (props) => {
       "d-flex flex-row p-3 rounded justify-content-between my-2 shadow-sm";
     Card.style.background = HoverBgColor;
     Card.style.color = HoverTxtColor;
-
-    console.log(id);
   };
   const _handleMouseLeave = () => {
     const Card = document.getElementById(id);
@@ -41,6 +40,7 @@ const Surveylist = (props) => {
       }}
       onMouseOver={_handleMouseOver}
       onMouseLeave={_handleMouseLeave}
+      onClick={(e)=>handleCardClick(e)}
     >
       <span
         style={{

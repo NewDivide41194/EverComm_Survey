@@ -24,11 +24,3 @@ console.log(userName, eMail, password, companyName);
     .then(data => callback(null, data))
     .catch(err => console.log(err));
 };
-
-//GET Companies
-export const CompanyFetch = (callback) => {
-  fetch(API.Company_Select)
-    .then(res => res.json())
-    .then(data =>  callback(data))
-    .catch(err => console.log(err));
-};
