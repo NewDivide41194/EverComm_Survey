@@ -1,8 +1,8 @@
-const serverURL='http://192.168.100.163:7878'
-// const serverURL = "http://172.105.123.57:7878";
+// const serverURL='http://192.168.100.163:7878'
+const serverURL = "http://172.105.123.57:7878";
 
 export const QuestionAPI = (userId, surveyHeaderId) =>
-  `${serverURL}/api/v1/survey/questions/${userId}/${surveyHeaderId}`;
+`${serverURL}/api/v1/survey/questions/${userId}/${surveyHeaderId}`;
 
 export const RegisterAPI = `${serverURL}/api/v1/user/register`;
 

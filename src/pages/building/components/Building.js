@@ -30,12 +30,11 @@ const Building = props => {
       <div className="row justify-content-center px-4 ">
         <form
         
-        className="col-md-6 col-sm-8 "
+        className="pt-5 col-md-6 col-sm-8 "
           style={{
             margin: 0,
-            position: "absolute",
-            top: "45%",
-            transform: "translateY(-209.665px)"
+            position: "relative",
+         
           }}
           onSubmit={handleSubmit}
         >

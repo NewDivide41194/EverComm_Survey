@@ -21,7 +21,7 @@ const QuestionContainer = () => {
   
   return IsLoading ? (
     <div
-      className="w-100 text-light text-center position-relative"
+      className="w-100 text-light text-center position-absolute"
       style={{
         background: "rgba(0,0,0,0.3)",
         height: "100%",

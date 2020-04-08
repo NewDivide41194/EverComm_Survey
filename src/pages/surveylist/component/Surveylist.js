@@ -19,7 +19,7 @@ const Surveylist = (props) => {
       "d-flex flex-row p-3 rounded justify-content-between my-2 shadow-sm";
     Card.style.background = HoverBgColor;
     Card.style.color = HoverTxtColor;
-
+    
     console.log(id);
   };
   const _handleMouseLeave = () => {

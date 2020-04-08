@@ -43,7 +43,12 @@ const BuildingContainer = (props) => {
 
   const _handleSubmit = e => {
     e.preventDefault();
-    if(buildingName===""){
+
+    if(clientCompany===""){
+      setErr({
+        clientCompanyErr: "Fill Client Company"
+      });
+    }else if(buildingName===""){
       setErr({
         buildingNameErr: "Fill BuildingName"
       });
@@ -58,11 +63,7 @@ const BuildingContainer = (props) => {
         addressErr: "Fill Address"
       });
       return;
-    }else if(clientCompany===""){
-      setErr({
-        clientCompanyErr: "Fill Client Company"
-      });
-      return;
+   
     }else if(comment===""){
       setErr({
         commentErr: "Fill Comment"
@@ -79,7 +80,7 @@ const BuildingContainer = (props) => {
     }
   };
   const _success=()=>{
-    props.history.push("/question")
+    // props.history.push("/question")
     alert.success('submitted')
   }
   

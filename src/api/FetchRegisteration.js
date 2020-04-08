@@ -7,7 +7,7 @@ const userName=firstName.trim()+' '+lastName.trim()
 console.log(userName, eMail, password, companyName);
 
   fetch(API.RegisterAPI, {
-    method: "POST",
+    method: "POST", 
     headers: {
       "Content-Type": "application/json",
       Accept: "*/*",

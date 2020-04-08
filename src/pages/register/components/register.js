@@ -30,13 +30,12 @@ const Register = props => {
         className="col-lg-4 col-md-8 text-center "
         style={{
           margin: 0,
-          position: "absolute",
-          top: "40%",
-          transform: "translateY(-193.295px)"
+          position: "relative"
+        
         }}
       >
         {" "}
-        <div className="pb-4">
+        <div className="pt-5 pb-4">
           <div className="pb-2 font-weight-bold" style={{ fontSize: "25px" }}>
             ACCOUNT REGISTRATION
           </div>

@@ -30,6 +30,7 @@ const RegisterContainer = props => {
 
   const _handleSubmit = e => {
     e.preventDefault();
+
     if (firstName === "") {
       setErr({
         firstNameErr: "Fill First Name"

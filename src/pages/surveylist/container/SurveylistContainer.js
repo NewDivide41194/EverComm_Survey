@@ -24,7 +24,7 @@ const SurveylistContainer = (props) => {
           <h2>{"Cooling System Survey List"}</h2>
         </div>
         <div>
-          <ESButton x text={"Create Survey"} onClick={_handleSurvey} small />
+          <ESButton text={"Create Survey"} onClick={_handleSurvey} small />
         </div>
       </div>
       <div
