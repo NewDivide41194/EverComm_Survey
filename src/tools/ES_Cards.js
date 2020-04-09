@@ -17,7 +17,6 @@ const QuestionCard = props => {
     handleSelect,
     handleEndChange,
     media,
-    testValue,
     selectedOption,
     isAnswer,
     AnswerData,

@@ -94,7 +94,6 @@ const BuildingContainer = (props) => {
         clientCompany={clientCompany}
         comment={comment}
         CountryOptions={CountryOptions}
-        Companies={Companies}
         country={country}
         handleBuildingNameChange={_handleBuildingNameChange}
         handlePostalChange={ _handlePostalChange }
@@ -109,38 +108,3 @@ const BuildingContainer = (props) => {
   );
 };
 export default withRouter(BuildingContainer);
-
-const Companies = [
-  {
-    company_id: 1,
-    company_name: "Kumo",
-    buildings: [
-      {
-        building_id: 1,
-        building_name: "Kumo Chiller",
-        address: "64*105 Mandalay"
-      },
-      {
-        building_id: 2,
-        building_name: "Kumo Thitsar",
-        address: "62*30 Mandalay"
-      }
-    ]
-  },
-  {
-    company_id: 1,
-    company_name: "Evercomm",
-    buildings: [
-      {
-        building_id: 3,
-        building_name: "Evercomm Chiller",
-        address: "Singapore"
-      },
-      {
-        building_id: 4,
-        building_name: "Evercomm Thitsar",
-        address: "Singapore"
-      }
-    ]
-  }
-];

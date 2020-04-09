@@ -14,7 +14,6 @@ const App = props => {
         desktop: "screen and (min-width:1025px) and (min-width: 1441px)"
     };
 
-
     return (
         <MediaQueryProvider queries={Media}>
             <NavBar/>
