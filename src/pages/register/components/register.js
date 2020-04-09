@@ -27,7 +27,7 @@ const Register = props => {
   return (
     <div className="row justify-content-center">
       <form
-        className="col-lg-4 col-md-8 text-center "
+        className="col-lg-4 col-md-8 col-sm-10 text-center "
         style={{
           margin: 0,
           position: "relative"
@@ -65,6 +65,7 @@ const Register = props => {
               value={firstName}
               maxLength={"20"}
               onChange={e => handleFirstNameChange(e)}
+              
             />
           </div>
           <div className="py-2 col-6 text-left">
@@ -78,6 +79,7 @@ const Register = props => {
               maxLength={"20"}
               value={lastName}
               onChange={e => handleLastNameChange(e)}
+             
             />
           </div>
           <div className="py-2 col-12 text-left">
