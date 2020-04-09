@@ -265,9 +265,7 @@ const Question = props => {
       }
     }
   };
-console.log(AnswerData);
-
-  return (
+return (
     surveyData.length && (
       <div>
         <ESProgress Percent={percent} />
@@ -313,7 +311,6 @@ console.log(AnswerData);
                   handleStartChange={handleStartChange}
                   handleEndChange={handleEndChange}
                   userId={userId}
-                  TextValue={value}
                   selectedOption={selectedOption}
                   AnswerData={AnswerData}
                   startDate={startDate}
