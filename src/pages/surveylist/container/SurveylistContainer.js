@@ -24,9 +24,7 @@ const SurveylistContainer = (props) => {
   };
   useEffect(() => {
     SurveyListFetch(userId,SurveyHeaderId, (err, data) => {
-      setSurveyList(data.payload);
-      console.log("--------->",data);
-      
+      setSurveyList(data.payload);      
     });
   }, []);
   const BuildingSurveyData=surveyList.length&& surveyList.filter(d=>d.survey_header_id===JSON.parse(SurveyHeaderId))
@@ -36,12 +34,7 @@ const SurveylistContainer = (props) => {
   const CompletedSurvey = BuildingSurveyData.length&&BuildingSurveyData.filter(
     (v, k) => v.answers === v.questions
   );
-
-  console.log("SL---->",surveyList);
-console.log(SurveyHeaderId);
-
-console.log("BS---->",BuildingSurveyData);
-
+  const SurveyHeaderName=localStorage.getItem("SurveyHeaderName")
   return (
     <div className="container">
       <div className="d-flex flex-row justify-content-between flex-fill py-3 ">
@@ -49,7 +42,7 @@ console.log("BS---->",BuildingSurveyData);
           className="font-weight-bold"
           style={{ color: Colors.PrimaryColor }}
         >
-          <h2>{"Cooling System Survey List"}</h2>
+          <h2>{SurveyHeaderName}</h2>
         </div>
         <div>
           <ESButton x text={"Create Survey"} onClick={_handleNewSurvey} small />

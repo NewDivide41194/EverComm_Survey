@@ -18,7 +18,7 @@ const RegisterContainer = props => {
     color: "red",
     fontSize: 12,
     position: "absolute",
-    marginTop: "-23px",
+    marginTop: "-19px",
     marginRight: "0px"
     
   };
@@ -30,7 +30,7 @@ const RegisterContainer = props => {
   const _handleSubmit = e => {
     e.preventDefault();
 
-    if (firstName === "") {
+     if (firstName === "") {
       setErr({
         firstNameErr: "Fill First Name"
       });
@@ -51,13 +51,13 @@ const RegisterContainer = props => {
       });
       return;
     
-    } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(eMail)) {
+    } else if (!/^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/.test(eMail)) {
       setErr({
         eMailErr: "Invalid Email Address"
       });
-    } else if (password === "") {
+    } else if (password.length < 8) {
       setErr({
-        passwordErr: "Fill Password"
+        passwordErr: "Minimum 8 characters"
       });
       return;
     } else {
@@ -91,7 +91,7 @@ const RegisterContainer = props => {
   const _handleView = () => {
     setVisible(!visible);
   };
-
+ 
   return (
     <Register
       err={err}
@@ -99,7 +99,7 @@ const RegisterContainer = props => {
       lastName={lastName}
       password={password}
       visible={visible}
-      companyName={companyName}      
+      companyName={companyName}   
       errStyle={errStyle}
       handleView={_handleView}
       handleSubmit={_handleSubmit}

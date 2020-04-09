@@ -25,17 +25,15 @@ const Register = props => {
   } = props;
   
   return (
+    <div className="container">
+
     <div className="row justify-content-center">
       <form
-        className="col-lg-4 col-md-8 text-center "
-        style={{
-          margin: 0,
-          position: "relative"
+        className="col-lg-6 col-md-8 text-center "
         
-        }}
       >
         {" "}
-        <div className="pt-5 pb-4">
+        <div className="pb-4">
           <div className="pb-2 font-weight-bold" style={{ fontSize: "25px" }}>
             ACCOUNT REGISTRATION
           </div>
@@ -156,27 +154,9 @@ const Register = props => {
         </span>
       </form>
     </div>
+    </div>
+
   );
 };
 
 export default Register;
-
-const YourCompany=[
-  {
-    company_id:1,
-    company_name:"Kumo"
-  },
-  {
-    company_id:2,
-    company_name:"Feature Link"
-  },
-  {
-    company_id:3,
-    company_name:"EverComm"
-  },
-  {
-    company_id:4,
-    company_name:"Apple"
-  }
-]
-

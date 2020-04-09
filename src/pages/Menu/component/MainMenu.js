@@ -25,7 +25,7 @@ const MainMenu = (props) => {
       <div
         className="flex-column flex-fill "
         id={id}
-        onClick={(e) => handleChoose(e)}
+        onClick={(e) => handleChoose(e,header)}
       >
         <div id={id} style={{ fontSize: 25 }}>
           {header}

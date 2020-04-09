@@ -9,10 +9,10 @@ const MenuContainer = props => {
   );
   const userId = userData[0].login_user_id;
 
-  const _handleChoose = e => {
-
-    props.history.push("/surveylist");
+  const _handleChoose = (e,header )=> {
     localStorage.setItem("SurveyHeaderId", e.target.id);
+    localStorage.setItem("SurveyHeaderName", header);
+    props.history.push("/surveylist");
   };
 
   useEffect(() => {
