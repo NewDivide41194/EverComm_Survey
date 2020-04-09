@@ -173,7 +173,7 @@ const Question = props => {
     const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
     const isQuesId = AnswerData.filter(e => e.questionId === quesId);
     const Ans = {
-      other: e.target.value,
+      other: e.target.value.replace(/\s+/g, " "),
       optionChoiceId: null,
       userId: userId,
       questionId: quesId,
@@ -265,6 +265,7 @@ const Question = props => {
       }
     }
   };
+console.log(AnswerData);
 return (
     surveyData.length && (
       <div>

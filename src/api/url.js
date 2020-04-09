@@ -2,12 +2,12 @@
 const serverURL = "http://172.105.123.57:7878";
 
 
-export const QuestionAPI = (userId, surveyHeaderId,buildingId) =>
-  `${serverURL}/api/v1/survey/questions/${userId}/${surveyHeaderId}/`;
-  // export const QuestionAPI = (userId, surveyHeaderId,buildingId) =>
-  // `${serverURL}/api/v1/survey/questions/${userId}/${surveyHeaderId}/${buildingId}`;
+// export const QuestionAPI = (userId, surveyHeaderId,buildingId) =>
+//   `${serverURL}/api/v1/survey/questions/${userId}/${surveyHeaderId}/`;
+  export const QuestionAPI = (userId, surveyHeaderId,buildingId) =>
+  `${serverURL}/api/v1/survey/questions/${userId}/${surveyHeaderId}/${buildingId}`;
 
-export const RegisterAPI = `${serverURL}/api/v1/user/`;
+export const RegisterAPI = `${serverURL}/api/v1/user/register`;
 
 export const LoginAPI = `${serverURL}/api/v1/login/userlogin`;
 

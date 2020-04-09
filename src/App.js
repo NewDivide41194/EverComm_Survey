@@ -14,9 +14,6 @@ const App = props => {
         desktop: "screen and (min-width:1025px) and (min-width: 1441px)"
     };
 
-    const userData=JSON.parse(localStorage.getItem("userData"))
-console.log("------>",userData);
-
     return (
         <MediaQueryProvider queries={Media}>
             <NavBar/>
