@@ -41,7 +41,9 @@ const LoginContainer = props => {
                 {
                     localStorage.setItem("userData", JSON.stringify(data.payload));
                     Auth.login(() => {
-                        props.history.push("/menu");
+                        const userId=data.payload[0].login_user_id 
+                        
+                        props.history.push(`/menu/${userId}`);
                     })
                     window.location.reload();
                 }

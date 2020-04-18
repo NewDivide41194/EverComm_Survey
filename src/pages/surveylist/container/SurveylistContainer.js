@@ -5,22 +5,24 @@ import * as Colors from "../../../config/Color.config";
 import { SurveyListFetch } from "../../../api/FetchSurveyList";
 const SurveylistContainer = (props) => {
   const [surveyList, setSurveyList] = useState([]);
-  const _handleNewSurvey = () => {
-    props.history.push("/building");
-    // window.location.reload();
-  };
   const [userData, setUserData] = useState(
     JSON.parse(localStorage.getItem("userData"))
   );
+  const buildingId=localStorage.getItem("buildingId")
   const userId = userData[0].login_user_id;
   const SurveyHeaderId = localStorage.getItem("SurveyHeaderId");
 
-  
+
+  const _handleNewSurvey = () => {
+    props.history.push(`/building`);
+    // window.location.reload();
+  };
+
   const handleCardClick = (e) => {
     console.log("Building Id---->",e.target.id);
     
     localStorage.setItem("buildingId", e.target.id);
-    props.history.push("/question");
+    props.history.push(`/question/${userId}/${SurveyHeaderId}/${buildingId}`);
   };
   useEffect(() => {
     SurveyListFetch(userId,SurveyHeaderId, (err, data) => {

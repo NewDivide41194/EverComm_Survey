@@ -12,11 +12,11 @@ export const RouteName = {
   routeFirstPage: "",
   routeRegisterPage: "register",
 
-  routeQuestionPage: "question",
+  routeQuestionPage: "question/:userId/:surveyHeaderId/:buildingId",
   routeReportPage:"report",
 
   routeAdminPage: "admin",
-  routeMenuPage: "menu",
+  routeMenuPage: "menu/:userId",
 
   routeBuildingPage: "building",
 

@@ -3,108 +3,109 @@ import Building from "../components/Building.js";
 import Countries from "../../../assets/Countries.json";
 import { BuildingFetch } from "../../../api/FetchBuilding";
 import { withRouter } from "react-router-dom";
-import { useAlert } from 'react-alert'
+import { useAlert } from "react-alert";
 
 const BuildingContainer = (props) => {
   const [country, setCountry] = useState("");
-  const [buildingName,setBuildingName]= useState("");
+  const [buildingName, setBuildingName] = useState("");
   const [postal, setPostal] = useState("");
-  const [address,setAddress]= useState("");
-  const [clientCompany,setClientCompany]=useState("");
-  const [comment,setComment]=useState("");
-  const [err,setErr]= useState({})
- 
-  const _handleBuildingNameChange= e =>{
-    setBuildingName(e.target.value);
-  }
-  const _handlePostalChange= e =>{
-    setPostal(e.target.value);
-  }
-  const _handleAddressChange= e =>{
-    setAddress(e.target.value);
-  }
-  const _handleClientCompanyChange= e =>{
-    setClientCompany(e.target.value);
-  }
-  const _handleCommentChange= e=>[
-    setComment(e.target.value)
-  ]
+  const [address, setAddress] = useState("");
+  const [clientCompany, setClientCompany] = useState("");
+  const [comment, setComment] = useState("");
+  const [err, setErr] = useState({});
+  const alert = useAlert();
 
-  const _handleCountrySelect = (quesId,e) => {    
-    setCountry(e.label)
+  const _handleBuildingNameChange = (e) => {
+    setBuildingName(e.target.value);
   };
-  
+  const _handlePostalChange = (e) => {
+    setPostal(e.target.value);
+  };
+  const _handleAddressChange = (e) => {
+    setAddress(e.target.value);
+  };
+  const _handleClientCompanyChange = (e) => {
+    setClientCompany(e.target.value);
+  };
+  const _handleCommentChange = (e) => [setComment(e.target.value)];
+
+  const _handleCountrySelect = (quesId, e) => {
+    setCountry(e.label);
+  };
+
   const errStyle = {
     color: "red",
     fontSize: 12,
-    position: 'absolute'
-   
+    position: "absolute",
   };
 
-  const _handleSubmit = e => {
+  const _handleSubmit = (e) => {
     e.preventDefault();
 
-    if(clientCompany===""){
+    if (clientCompany === "") {
       setErr({
-        clientCompanyErr: "Fill Client Company"
+        clientCompanyErr: "Fill Client Company",
       });
-    }else if(buildingName===""){
+    } else if (buildingName === "") {
       setErr({
-        buildingNameErr: "Fill BuildingName"
-      });
-      return;
-    }else if(postal===""){
-      setErr({
-        postalErr: "Fill Postal"
+        buildingNameErr: "Fill BuildingName",
       });
       return;
-    }else if(address===""){
+    } else if (postal === "") {
       setErr({
-        addressErr: "Fill Address"
+        postalErr: "Fill Postal",
       });
       return;
-   
-    }else if(comment===""){
+    } else if (address === "") {
       setErr({
-        commentErr: "Fill Comment"
+        addressErr: "Fill Address",
       });
       return;
-    }else{
+    } else if (comment === "") {
+      setErr({
+        commentErr: "Fill Comment",
+      });
+      return;
+    } else {
       setErr({});
-      BuildingFetch({ clientCompany,buildingName,postal,address,comment,country }, (err, data) => {
-        localStorage.setItem("buildingId",data.payload.insertId)
-        data.success===true ? _success()
-        : alert.error(data.message);
-      });
+      BuildingFetch(
+        { clientCompany, buildingName, postal, address, comment, country },
+        (err, data) => {
+          localStorage.setItem("buildingId", data.payload.insertId);
+          data.success === true ? _success() : alert.error(data.message);
+        }
+      );
     }
   };
-  const _success=()=>{
+  const _success = () => {
+    props.history.push("/question");
+    alert.success("submitted");
+  };
 
-    props.history.push("/question")
-    alert.success('submitted')
-  }
-    
-  const CountryOptions=Countries.countries.map((v,k)=>({value:v.code,label:v.name}))
+  const CountryOptions = Countries.countries.map((v, k) => ({
+    value: v.code,
+    label: v.name,
+  }));
 
   return (
-      <Building
-        buildingName={buildingName}
-        postal={postal}
-        address={address}
-        clientCompany={clientCompany}
-        comment={comment}
-        CountryOptions={CountryOptions}
-        country={country}
-        handleBuildingNameChange={_handleBuildingNameChange}
-        handlePostalChange={ _handlePostalChange }
-        handleAddressChange={_handleAddressChange}
-        handleClientCompanyChange={_handleClientCompanyChange}
-        handleCommentChange={_handleCommentChange}
-        handleSelectCountry={_handleCountrySelect}  
-        handleSubmit={_handleSubmit}
-        err={err}
-        errStyle={errStyle}
-      />
+    <Building
+      buildingName={buildingName}
+      postal={postal}
+      address={address}
+      clientCompany={clientCompany}
+      comment={comment}
+      CountryOptions={CountryOptions}
+      country={country}
+      handleBuildingNameChange={_handleBuildingNameChange}
+      handlePostalChange={_handlePostalChange}
+      handleAddressChange={_handleAddressChange}
+      handleClientCompanyChange={_handleClientCompanyChange}
+      handleCommentChange={_handleCommentChange}
+      handleSelectCountry={_handleCountrySelect}
+      handleSubmit={_handleSubmit}
+      err={err}
+      errStyle={errStyle}
+    />
   );
 };
 export default withRouter(BuildingContainer);
