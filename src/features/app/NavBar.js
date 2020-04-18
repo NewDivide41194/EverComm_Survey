@@ -26,7 +26,7 @@ const NavBar = props => {
 
     const _handleMenu = () => {
         if (userData) {
-            props.history.push("/Menu");
+            props.history.push(`/Menu/${userData[0].login_user_id}`);
         } else {
             props.history.push("/");
         }

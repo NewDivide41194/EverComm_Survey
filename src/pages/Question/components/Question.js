@@ -179,7 +179,7 @@ const Question = props => {
       questionId: quesId,
       survey_headers_id: surveyHeaderId,
       building_id:buildingId    };
-    if (e.target.value.trim()===""){AnswerData.splice(isQuesIdIndex,1)}
+    if (e.target.value===""){AnswerData.splice(isQuesIdIndex,1)}
 
     else if (isQuesId.length >= 1) {
       AnswerData.splice(isQuesIdIndex, 1, Ans);

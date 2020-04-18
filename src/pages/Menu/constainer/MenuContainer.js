@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import MainMenu from "../component/MainMenu";
 import { MenuInfoFetch } from "../../../api/FetchMenuInfo";
 import { TrancateAns } from "../../../api/FetchTrancate";
+
 const MenuContainer = props => {
   const [menuData, setMenuData] = useState([]);
   const [userData, setUserData] = useState(
@@ -9,10 +10,10 @@ const MenuContainer = props => {
   );
   const userId = userData[0].login_user_id;
 
-  const _handleChoose = e => {
-
-    props.history.push("/surveylist");
+  const _handleChoose = (e,header )=> {
     localStorage.setItem("SurveyHeaderId", e.target.id);
+    localStorage.setItem("SurveyHeaderName", header);
+    props.history.push("/surveylist");
   };
 
   useEffect(() => {
@@ -45,11 +46,6 @@ console.log("Menu----->",menuData);
             handleChoose={_handleChoose}
             header={v.survey_name}
             handleReset={_handleReset}
-            // progress={
-            //   v.questions === v.answers
-            //     ? "Completed"
-            //     : `${v.answers} of ${v.questions} Answered`
-            // }
             amountOfSurvey={v.amount_of_survey}
             id={v.survey_header_id}
           />
@@ -60,51 +56,3 @@ console.log("Menu----->",menuData);
 };
 
 export default MenuContainer;
-
-const Menu=[
-  {
-     "survey_header_id":1,
-     "survey_header_name":"Cooling System",
-     "amount_of_survey":10
-  },
-  {
-    "survey_header_id":2,
-    "survey_header_name":"Basic Information",
-    "amount_of_survey":40
- },
- {
-  "survey_header_id":3,
-  "survey_header_name":"Carbon Emission",
-  "amount_of_survey":10
-},
-{
-  "survey_header_id":11,
-  "survey_header_name":"Cooling System",
-  "amount_of_survey":10
-},
-{
- "survey_header_id":21,
- "survey_header_name":"Basic Information",
- "amount_of_survey":40
-},
-{
-"survey_header_id":31,
-"survey_header_name":"Carbon Emission",
-"amount_of_survey":10
-},
-{
-  "survey_header_id":31,
-  "survey_header_name":"Cooling System",
-  "amount_of_survey":10
-},
-{
- "survey_header_id":23,
- "survey_header_name":"Basic Information",
- "amount_of_survey":40
-},
-{
-"survey_header_id":33,
-"survey_header_name":"Carbon Emission",
-"amount_of_survey":10
-}
-]

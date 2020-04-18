@@ -24,7 +24,7 @@ const RegisterContainer = props => {
   };
 
   const _handleCompanyChange=(e)=>{
-      setCompanyName(e.target.value)
+      setCompanyName(e.target.value.replace(/\s+/g, " "))
   }
 
   const _handleSubmit = e => {
@@ -51,7 +51,7 @@ const RegisterContainer = props => {
       });
       return;
     
-    } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(eMail)) {
+    } else if (!/^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/.test(eMail)) {
       setErr({
         eMailErr: "Invalid Email Address"
       });
@@ -74,12 +74,12 @@ const RegisterContainer = props => {
   }
 
   const _handleFirstNameChange = e => {
-    setFirstName(e.target.value);
-    ;
+    setFirstName(e.target.value.replace(/\s+/g, " "));
+ 
     
   };
   const _handleLastNameChange = e => {
-    setLastName(e.target.value);
+    setLastName(e.target.value.replace(/\s+/g, " "));
   };
   const _handleEmailChange = e => {
     setEmail(e.target.value);
