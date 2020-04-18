@@ -66,6 +66,12 @@ const BuildingContainer = (props) => {
         commentErr: "Fill Comment",
       });
       return;
+    }
+    else if (country === "") {
+      setErr({
+        commentErr: "Fill Country",
+      });
+      return;
     } else {
       setErr({});
       BuildingFetch(
@@ -86,6 +92,7 @@ const BuildingContainer = (props) => {
     value: v.code,
     label: v.name,
   }));
+  
 
   return (
     <Building

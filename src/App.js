@@ -36,7 +36,7 @@ const App = props => {
             }
                 <Route path="*"
                     component={
-                        () =>< ErrorPage ErrorInfo = {
+                        () =><ErrorPage ErrorInfo = {
                             "Page Not Found!"
                         } />
                     }/>

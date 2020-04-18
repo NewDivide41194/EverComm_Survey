@@ -81,7 +81,7 @@ const Register = props => {
           <div className="py-2 col-12 text-left">
             <label className="">Your Company Name:</label>   
             {err.companyErr === undefined ? null : (
-              <div style={{ ...errStyle }}>{`*${err.companyErr}`}</div>
+              <div className="text-right col-lg-12" style={{ ...errStyle }}>{`*${err.companyErr}`}</div>
             )}       
            <ESInput
               id={"CompanyName"}
@@ -108,10 +108,11 @@ const Register = props => {
           </div>
           <div className="py-2 col-12 text-left">
 
+            <label className="">Password:</label>
+
             {err.passwordErr === undefined ? null : (
               <div  className="text-right col-lg-12" style={{ ...errStyle }}>{`*${err.passwordErr}`}</div>
             )}
-            <label className="">Password:</label>
             <ESInput
               id={"Password"}
               type={visible ? "text" : "password"}

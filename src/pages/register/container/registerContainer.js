@@ -55,7 +55,13 @@ const RegisterContainer = props => {
       setErr({
         eMailErr: "Invalid Email Address"
       });
-    } else if (password.length < 8) {
+    } else if (password==="") {
+      setErr({
+        passwordErr: "Create Password"
+      })
+    return;
+    }
+      else if (password.length < 8) {
       setErr({
         passwordErr: "Minimum 8 characters"
       });
