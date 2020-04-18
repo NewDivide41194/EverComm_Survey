@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Register from "../components/register";
 import { RegisterFetch } from "../../../api/FetchRegisteration";
 import { useAlert } from 'react-alert'
@@ -7,13 +7,11 @@ const RegisterContainer = props => {
   const [visible, setVisible] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [userName, setUserName] = useState("");
   const [eMail, setEmail] = useState("");
   const [companyName,setCompanyName]=useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState({});
   const alert = useAlert()
-  const [selectValue,setSelectValue]=useState(null)
   const errStyle = {
     color: "red",
     fontSize: 12,
@@ -24,7 +22,7 @@ const RegisterContainer = props => {
   };
 
   const _handleCompanyChange=(e)=>{
-      setCompanyName(e.target.value)
+      setCompanyName(e.target.value.replace(/\s+/g, " "))
   }
 
   const _handleSubmit = e => {
@@ -80,12 +78,12 @@ const RegisterContainer = props => {
   }
 
   const _handleFirstNameChange = e => {
-    setFirstName(e.target.value);
-    ;
+    setFirstName(e.target.value.replace(/\s+/g, " "));
+ 
     
   };
   const _handleLastNameChange = e => {
-    setLastName(e.target.value);
+    setLastName(e.target.value.replace(/\s+/g, " "));
   };
   const _handleEmailChange = e => {
     setEmail(e.target.value);

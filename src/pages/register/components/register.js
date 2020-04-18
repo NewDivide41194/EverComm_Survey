@@ -63,6 +63,7 @@ const Register = props => {
               value={firstName}
               maxLength={"20"}
               onChange={e => handleFirstNameChange(e)}
+              
             />
           </div>
           <div className="py-2 col-6 text-left">
@@ -76,6 +77,7 @@ const Register = props => {
               maxLength={"20"}
               value={lastName}
               onChange={e => handleLastNameChange(e)}
+             
             />
           </div>
           <div className="py-2 col-12 text-left">

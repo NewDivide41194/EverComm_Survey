@@ -18,9 +18,7 @@ const SurveylistContainer = (props) => {
     // window.location.reload();
   };
 
-  const handleCardClick = (e) => {
-    console.log("Building Id---->",e.target.id);
-    
+  const handleCardClick = (e) => {    
     localStorage.setItem("buildingId", e.target.id);
     props.history.push(`/question/${userId}/${SurveyHeaderId}/${buildingId}`);
   };

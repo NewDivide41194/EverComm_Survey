@@ -13,6 +13,7 @@ const Building = props => {
     address,
     clientCompany,
     comment,
+    country,
     handleBuildingNameChange,
     handlePostalChange ,
     handleAddressChange,
@@ -72,8 +73,10 @@ const Building = props => {
           <div className="row">
             <div className="col-sm-12 col-lg-6 py-1">
               <label className="">Country:</label>
-
-              <ESDropDown id={"Country"} handleSelect={handleSelectCountry} options={CountryOptions} />
+              { err.countryErr=== undefined ? null : (
+              <div className="text-right col-lg-12" style={{...errStyle, marginTop: '-25px'}}>{`*${err.countryErr }`}</div>
+            )}
+              <ESDropDown id={"Country"} handleSelect={handleSelectCountry} options={CountryOptions} value={country} />
             </div>
 
             <div className="col-sm-12 col-lg-6 py-1">

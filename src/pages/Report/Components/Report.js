@@ -12,7 +12,10 @@ const Report = props => {
   };
 
   const _handleReview = () => {
-    props.history.push("/question");
+    const buildingId=localStorage.getItem("buildingId")
+    const userId=JSON.parse(localStorage.getItem("userData"))[0].login_user_id
+    const surveyHeaderId=localStorage.getItem("SurveyHeaderId")
+    props.history.push(`/question/${userId}/${surveyHeaderId}/${buildingId}`);
   };
   return (
     <div className="container py-4 text-center text-success">

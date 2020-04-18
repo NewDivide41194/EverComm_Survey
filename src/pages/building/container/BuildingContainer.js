@@ -16,18 +16,18 @@ const BuildingContainer = (props) => {
   const alert = useAlert();
 
   const _handleBuildingNameChange = (e) => {
-    setBuildingName(e.target.value);
+    setBuildingName(e.target.value.replace(/\s+/g, " "));
   };
   const _handlePostalChange = (e) => {
-    setPostal(e.target.value);
+    setPostal(e.target.value.replace(/\s+/g, " "));
   };
   const _handleAddressChange = (e) => {
-    setAddress(e.target.value);
+    setAddress(e.target.value.replace(/\s+/g, " "));
   };
   const _handleClientCompanyChange = (e) => {
-    setClientCompany(e.target.value);
+    setClientCompany(e.target.value.replace(/\s+/g, " "));
   };
-  const _handleCommentChange = (e) => [setComment(e.target.value)];
+  const _handleCommentChange = (e) => [setComment(e.target.value.replace(/\s+/g, " "))];
 
   const _handleCountrySelect = (quesId, e) => {
     setCountry(e.label);
@@ -50,6 +50,11 @@ const BuildingContainer = (props) => {
       setErr({
         buildingNameErr: "Fill BuildingName",
       });
+      return;
+    }else if (country===""){
+      setErr({
+        countryErr: "select country",
+      })
       return;
     } else if (postal === "") {
       setErr({
@@ -83,8 +88,13 @@ const BuildingContainer = (props) => {
       );
     }
   };
+  console.log('',country);
+  
   const _success = () => {
-    props.history.push("/question");
+    const buildingId=localStorage.getItem("buildingId")
+    const userId=JSON.parse(localStorage.getItem("userData"))[0].login_user_id
+    const surveyHeaderId=localStorage.getItem("SurveyHeaderId")
+    props.history.push(`/question/${userId}/${surveyHeaderId}/${buildingId}`);
     alert.success("submitted");
   };
 
