@@ -4,7 +4,7 @@ import Account from '../component/Account'
 
 const AccountContainer=()=>{
     return(
-    <div>
+    <div className="container">
         <Account/>
     
     </div>

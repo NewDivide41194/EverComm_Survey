@@ -7,12 +7,17 @@ const Report = props => {
   const { ReportData } = props;
   const surveyTitle = ReportData.length && ReportData[0].survery_title;
   const pageNo = ReportData.length && ReportData[0].survey_sections.length;
+  const buildingId=localStorage.getItem("buildingId")
+  const userId=JSON.parse(localStorage.getItem("userData"))[0].login_user_id
+  const surveyHeaderId=localStorage.getItem("SurveyHeaderId")
+
   const _handleMenu = () => {
-    props.history.push("/menu");
+    props.history.push(`/menu/${userId}`);
   };
 
   const _handleReview = () => {
-    props.history.push("/question");
+  
+    props.history.push(`/question/${userId}/${surveyHeaderId}/${buildingId}`);
   };
   return (
     <div className="container py-4 text-center text-success">

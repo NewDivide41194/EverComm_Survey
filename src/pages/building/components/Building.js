@@ -30,8 +30,7 @@ const Building = props => {
     <div className="container">
       <div className="row justify-content-center px-4 ">
         <form
-        
-        className="pt-5 col-lg-6 col-sm-10"
+        className="col-lg-6 col-sm-10"
           style={{
             margin: 0,
             position: "relative",

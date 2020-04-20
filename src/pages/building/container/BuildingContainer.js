@@ -71,6 +71,12 @@ const BuildingContainer = (props) => {
         commentErr: "Fill Comment",
       });
       return;
+    }
+    else if (country === "") {
+      setErr({
+        commentErr: "Fill Country",
+      });
+      return;
     } else {
       setErr({});
       BuildingFetch(
@@ -85,7 +91,10 @@ const BuildingContainer = (props) => {
   console.log('',country);
   
   const _success = () => {
-    props.history.push("/question");
+    const buildingId=localStorage.getItem("buildingId")
+    const userId=JSON.parse(localStorage.getItem("userData"))[0].login_user_id
+    const surveyHeaderId=localStorage.getItem("SurveyHeaderId")
+    props.history.push(`/question/${userId}/${surveyHeaderId}/${buildingId}`);
     alert.success("submitted");
   };
 
@@ -93,6 +102,7 @@ const BuildingContainer = (props) => {
     value: v.code,
     label: v.name,
   }));
+  
 
   return (
     <Building

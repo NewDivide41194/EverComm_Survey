@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Register from "../components/register";
 import { RegisterFetch } from "../../../api/FetchRegisteration";
 import { useAlert } from 'react-alert'
@@ -7,13 +7,11 @@ const RegisterContainer = props => {
   const [visible, setVisible] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [userName, setUserName] = useState("");
   const [eMail, setEmail] = useState("");
   const [companyName,setCompanyName]=useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState({});
   const alert = useAlert()
-  const [selectValue,setSelectValue]=useState(null)
   const errStyle = {
     color: "red",
     fontSize: 12,
@@ -55,7 +53,13 @@ const RegisterContainer = props => {
       setErr({
         eMailErr: "Invalid Email Address"
       });
-    } else if (password.length < 8) {
+    } else if (password==="") {
+      setErr({
+        passwordErr: "Create Password"
+      })
+    return;
+    }
+      else if (password.length < 8) {
       setErr({
         passwordErr: "Minimum 8 characters"
       });
