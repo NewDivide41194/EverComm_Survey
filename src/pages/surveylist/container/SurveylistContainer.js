@@ -100,23 +100,6 @@ const SurveylistContainer = (props) => {
           HoverBgColor={Colors.PrimaryColor}
           HoverTxtColor={Colors.PaleYellow}
           handleCardClick={handleCardClick}
-        />
-      )):null}
-    </div>
-  );
-};
-export default SurveylistContainer;
-
-// const SurveyList = [
-//   {
-//     Survey_Header_Id: 1,
-//     Building_Id: 1,
-//     Building_Name: "Mandalay convention Centre",
-//     questions: 42,
-//     answers: 4,
-//   },
-//   {
-//     Survey_Header_Id: 1,
 //     Building_Id: 12,
 //     Building_Name: "Man Myanmar Palaza",
 //     questions: 42,
