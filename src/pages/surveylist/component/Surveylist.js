@@ -14,7 +14,8 @@ const Surveylist = (props) => {
     handleCardClick,
     id,
   } = props;
-  const _handleMouseOver = () => {
+  const _handleMouseOver = (e) => {
+    localStorage.setItem("buildingId", e.target.id);
     const Card = document.getElementById(id);
     Card.className =
       "d-flex flex-row p-3 rounded justify-content-between my-2 shadow-sm";
@@ -23,7 +24,6 @@ const Surveylist = (props) => {
   };
   const _handleMouseLeave = () => {
     const Card = document.getElementById(id);
-
     Card.className = "d-flex flex-row p-3 rounded justify-content-between my-2";
     Card.style.background = BgColor;
     Card.style.color = TxtColor;

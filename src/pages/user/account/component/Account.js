@@ -3,77 +3,28 @@ import { ESInput } from "../../../../../src/tools/ES_Inputs.js";
 import { ESButton } from "../../../../../src/tools/ES_Button.js";
 
 const Account = (props) => {
-  const [edit, setEdit] = useState(false);
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [reenterPassword, setReenterPassword] = useState("");
-  const [err, setErr] = useState({});
   const {
-    Mobile,
-    eMail,
-    Role,
-    setName,
-    setMobile,
-    password,
+    edit,
+    handleEditProfile,
+    PasswordInput,
+    currentPassword,
+    newPassword,
+    reenterPassword,
+    setCurrentPassword,
+    setNewPassword,
+    setReenterPassword,
     Name,
-    CurrentPassword,
-    NewPassword,
-    ReenterPassword,
+    Mobile,
+    Mail,
+    Role,
+    err,
+    errStyle,
+    handleNameChange,
+    handleMobileChange,
+    handleMailChange,
+    handleRoleChange,
+    handleSubmit
   } = props;
-  const errStyle = {
-    color: "red",
-    fontSize: 12,
-    position: "absolute",
-    marginTop: "-23px",
-    marginRight: "0px",
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (Name === "") {
-      setErr({
-        NameErr: "Fill Name",
-      });
-      return;
-    } else if (Mobile === "") {
-      setErr({
-        MobileErr: "Fill Mobile No",
-      });
-      return;
-    } else if (eMail === "") {
-      setErr({
-        eMailErr: "Fill Email Address",
-      });
-      return;
-    } else if (Role === "") {
-      setErr({
-        RoleErr: "Pls Set your Roll",
-      });
-      return;
-    } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(eMail)) {
-      setErr({
-        eMailErr: "Invalid Email Address",
-      });
-    } else if (password === "") {
-      setErr({
-        passwordErr: "Fill Password",
-      });
-      return;
-    } else {
-      setErr({});
-    }
-  };
-  const handleEditProfile = () => {
-    setEdit(!edit);
-  };
-
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleMobileChange = (e) => {
-    setMobile(e.target.value);
-  };
 
   return (
     <div className="row">
@@ -89,20 +40,18 @@ const Account = (props) => {
               type={"submit"}
               onClick={handleEditProfile}
               small
-            /> 
+            />
           </div>
-               
-           
       </div>
       </div>
-         
+      {" "}
       <div className="d-flex flex-row flex-fill flex-wrap pb-4 border-bottom">
       <div className="col-lg-4 col-md-6">
           <label for="Name">Name</label>
           <br></br>
           <div className="text-right">
             {err.NameErr === undefined ? null : (
-              <div className="text-right col-lg-12" style={{ ...errStyle }}>
+              <div className="text-right col-lg-11" style={{ ...errStyle }}>
                 {`*${err.NameErr}`}
               </div>
             )}
@@ -118,14 +67,15 @@ const Account = (props) => {
           <label for="m_n">Mobile Number</label>
           <div className="text-right">
             {err.MobileErr === undefined ? null : (
-              <div className="text-right col-lg-12" style={{ ...errStyle }}>
+              <div className="text-right col-lg-11" style={{ ...errStyle }}>
                 {`*${err.MobileErr}`}
               </div>
             )}
           </div>
           <ESInput
             id={"Mobile"}
-            placeHolder="Mobile"
+            placeHolder="Mobile(Number Only)"
+            type="number"
             value={Mobile}
             onChange={(e) => handleMobileChange(e)}
           />
@@ -136,49 +86,88 @@ const Account = (props) => {
 
         <div className="col-lg-4 col-md-6">
           <label for="email">Email Address</label>
+          
+          {err.MailErr === undefined ? null : (
+              <div className="text-right col-lg-11" style={{ ...errStyle }}>
+                {`*${err.MailErr}`}
+              </div>
+            )}
+              
           <ESInput
             id={"email"}
             placeHolder="EmailAddress"
-            value={eMail}
-            onChange={""}
+            value={Mail}
+            onChange={(e)=>handleMailChange(e)}
           />
         </div>
         <div className="col-lg-4 col-md-6">
           <label for="m_n">Role</label>
+          
+          {err.RoleErr === undefined ? null : (
+              <div className="text-right col-lg-11" style={{ ...errStyle }}>
+                {`*${err.RoleErr}`}
+              </div>
+            )}
+
           <ESInput
             id={"Role"}
             placeHolder="Role"
             value={Role}
+            onChange={(e)=>handleRoleChange(e)}
           />
         </div>
       </div>
      
       {edit && (
           <div className='w-100'>
-          <div className="d-flex flex-row flex-fill pt-2 flex-wrap">
-          <h3 className="col-lg-12">Password</h3>
-
+            <h3 className="col-lg-12">Password</h3>
+          <div className="d-flex flex-row flex-fill pt-2 flex-wrap col-lg-12">
+            <div>
+           {err.currentPasswordErr === undefined ? null : (
+              <div className="text-right col-lg-4" style={{ ...errStyle }}>
+                {`*${err.currentPasswordErr}`}
+              </div>
+            )}
+            </div>
             <PasswordInput
               id="currentPassword"
-              label="Current Password:"
               placeholder="Password"
+              label={"Current Password:"}
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
             />
+            
+            <div>
+            {err.newPasswordErr === undefined ? null : (
+              <div className="text-right col-lg-4" style={{ ...errStyle }}>
+                {`*${err.newPasswordErr}`}
+              </div>
+            )}
+            </div>
             <PasswordInput
               id="newPassword"
-              label="New Password:"
               placeholder="New Password"
+              label={"New Password:"}
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
             />
+            
+            <div>
+            {err.reenterPasswordErr === undefined ? null : (
+              <div className="text-right col-lg-4" style={{ ...errStyle }}>
+                {`*${err.reenterPasswordErr}`}
+              </div>
+            )}
+            </div>
             <PasswordInput
               id="reenterPassword"
-              label="Re-enter Password:"
               placeholder="Re-Enter Password"
+              label={"Re-Enter Password"}
               value={reenterPassword}
               onChange={(e) => setReenterPassword(e.target.value)}
             />
+            
+            
             </div>
 <div className="d-flex flex-row flex-fill">
             <div className="p-3">
@@ -194,7 +183,7 @@ const Account = (props) => {
               <ESButton
                 text="Cancel"
                 type="submit"
-                onClick={handleSubmit}
+                onClick={""}
                 small
                 id=""
               />
@@ -203,37 +192,10 @@ const Account = (props) => {
           </div>
         </div>
       )}
+      
     </div>
   );
 };
 
 export default Account;
 
-const PasswordInput = (props) => {
-  const [showPassword, setShowPassword] = useState(false);
-  return (
-    <div className="col-lg-4 col-md-6">
-      <label>{props.label}</label>
-      <ESInput
-        id={"Password"}
-        type={showPassword ? "text" : "password"}
-        value={props.value}
-        onChange={props.onChange}
-        placeHolder={props.placeholder}
-      />
-
-      <i
-       style={{
-        float: "right",
-        position: "relative",
-        marginTop: "-30px",
-        fontSize: "18px",
-        marginRight: "20px",
-        cursor: "pointer"
-      }}
-        onClick={() => setShowPassword(!showPassword)}
-        className={`fa fa-eye${showPassword ? "-slash" : ""} text-secondary`}
-      ></i>
-    </div>
-  );
-};

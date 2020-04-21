@@ -5,17 +5,17 @@ import withMedia from "react-media-query-hoc/dist/with-media";
 import Auth from "../../security/auth";
 
 const NavBar = props => {
-    const [userData, setUserData] = useState([]);
+const userId = localStorage.getItem("userId");
+const email=localStorage.getItem("email")
     const {media} = props;
 
-    useEffect(() => {
-        setUserData(localStorage.getItem("userData") === null ? null : JSON.parse(localStorage.getItem("userData")));
-    }, []);
+  
     const _handleSignOut = () => {
         Auth.signout(() => {
             props.history.push("/");
         })
-        localStorage.removeItem("userData");
+        localStorage.clear()
+
         window.location.reload();
     };
 
@@ -25,8 +25,8 @@ const NavBar = props => {
     };
 
     const _handleMenu = () => {
-        if (userData) {
-            props.history.push(`/Menu/${userData[0].login_user_id}`);
+        if (userId) {
+            props.history.push(`/Menu/${userId}`);
         } else {
             props.history.push("/");
         }
@@ -59,9 +59,9 @@ const NavBar = props => {
                         aria-haspopup="true"
                         aria-expanded="false">
                         {
-                        userData === null || userData.length === 0 ? null : (
+                        email&& (
                             <span>{
-                                userData[0].email
+                               email
                             }</span>
                         )
                     } </button>
