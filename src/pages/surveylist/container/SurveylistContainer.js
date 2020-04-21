@@ -18,7 +18,9 @@ const SurveylistContainer = (props) => {
     // window.location.reload();
   };
 
-  const handleCardClick = (e) => {    
+  const handleCardClick = (e) => {
+    console.log("Building Id---->",e.target.id);
+    
     localStorage.setItem("buildingId", e.target.id);
     props.history.push(`/question/${userId}/${SurveyHeaderId}/${buildingId}`);
   };
@@ -98,6 +100,15 @@ const SurveylistContainer = (props) => {
           HoverBgColor={Colors.PrimaryColor}
           HoverTxtColor={Colors.PaleYellow}
           handleCardClick={handleCardClick}
+        />
+      )):null}
+    </div>
+  );
+};
+export default SurveylistContainer;
+
+// const SurveyList = [
+//   {G
 //     Building_Id: 12,
 //     Building_Name: "Man Myanmar Palaza",
 //     questions: 42,
