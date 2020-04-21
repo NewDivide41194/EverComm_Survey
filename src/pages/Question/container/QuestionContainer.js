@@ -7,13 +7,13 @@ const QuestionContainer = () => {
   const token = 123;
   const [surveyData, setSurveyData] = useState([]);
   const [IsLoading, setIsLoading] = useState(false);
-  const userId=JSON.parse(localStorage.getItem("userData"))[0].login_user_id
-  const [buildingId,setBuildingId]=useState(localStorage.getItem("buildingId"))
+  const userId=localStorage.getItem("userId")
+  const buildingId=localStorage.getItem("buildingId")
   const surveyHeaderId=localStorage.getItem("SurveyHeaderId")
   const [answers,setAnswers]=useState([])
   useEffect(() => {
     setIsLoading(true);
-    QuestionFetch(userId,surveyHeaderId,buildingId, (err, data) => {
+    QuestionFetch({userId,surveyHeaderId,buildingId}, (err, data) => {
       console.log('BBBBBBB',buildingId);
       
       setSurveyData(data.payload);

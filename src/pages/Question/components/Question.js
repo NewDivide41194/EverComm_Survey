@@ -13,7 +13,6 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 const Question = props => {
   const { surveyData, media, answers, userId, surveyHeaderId, history,buildingId } = props;
   const [pageno, setPageno] = useState(0);
-  const [userData, setUserData] = useState({});
   const [AnswerData, setAnswerData] = useState([...answers]);
   const [value, setValue] = useState("");
   const [testValue, setTestValue] = useState({});
@@ -118,9 +117,6 @@ const Question = props => {
 
   };
 
-  useEffect(() => {
-    setUserData(JSON.parse(localStorage.getItem("userData")));
-  }, []);
 
   const handleRadioChange = (ansId, quesId) => {
     const isQuesId = AnswerData.filter(e => e.questionId === quesId);

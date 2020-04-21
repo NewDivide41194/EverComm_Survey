@@ -1,7 +1,6 @@
 import QuestionContainer from "../pages/Question/container/QuestionContainer";
 import ReportContainer from "../pages/Report/Container/ReportContainer";
 import RegisterContainer from "../pages/register/container/registerContainer";
-import LoginContainer from "../pages/login/container/LoginContainer";
 import AdminContainer from "../pages/admin/container/AdminContainer"
 import MenuContainer from "../pages/Menu/constainer/MenuContainer"
 import BuildingContainer from "../pages/building/container/BuildingContainer"

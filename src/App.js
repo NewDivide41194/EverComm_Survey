@@ -22,7 +22,7 @@ const App = props => {
                     component={LoginContainer}/>
                 <Route path="/register"
                     component={RegisterContainer}/> {
-                localStorage.getItem("authenticated") && localStorage.getItem("userData") ? Object.keys(routes.routes).map((v, k) => (
+                localStorage.getItem("authenticated") && localStorage.getItem("userId") ? Object.keys(routes.routes).map((v, k) => (
                     <Route key={k}
                         path={
                             `/${v}`

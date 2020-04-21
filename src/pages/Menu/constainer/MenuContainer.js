@@ -5,19 +5,18 @@ import { TrancateAns } from "../../../api/FetchTrancate";
 
 const MenuContainer = props => {
   const [menuData, setMenuData] = useState([]);
-  const [userData, setUserData] = useState(
-    JSON.parse(localStorage.getItem("userData"))
-  );
-  const userId = userData[0].login_user_id;
+ 
+  const userId = localStorage.getItem("userId")
 
   const _handleChoose = (e,header )=> {
     localStorage.setItem("SurveyHeaderId", e.target.id);
     localStorage.setItem("SurveyHeaderName", header);
     props.history.push("/surveylist");
   };
+  const token=localStorage.getItem("token")
 
   useEffect(() => {
-    MenuInfoFetch({ userId }, (err, data) => {
+    MenuInfoFetch({ userId,token }, (err, data) => {
       setMenuData(data.payload);
     });
   }, []);
