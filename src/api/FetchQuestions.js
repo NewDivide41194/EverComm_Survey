@@ -1,8 +1,9 @@
 import * as API from "./url";
 
-export const QuestionFetch = ({userId,questionId,buildingId}, callback) => {
+export const QuestionFetch = ({userId,surveyHeaderId,buildingId}, callback) => {
+console.log(userId,surveyHeaderId,buildingId);
   
-  fetch(API.QuestionAPI(userId,questionId,buildingId))
+  fetch(API.QuestionAPI(userId,surveyHeaderId,buildingId))
     .then(res => res.json())
     .then(data => callback(null, data))
     .catch(err => console.log(err));

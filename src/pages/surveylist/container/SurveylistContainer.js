@@ -14,8 +14,7 @@ const SurveylistContainer = (props) => {
     // window.location.reload();
   };
 
-  const handleCardClick = (e) => {
-    localStorage.setItem("buildingId", e.target.id);
+  const handleCardClick = () => {
     props.history.push(`/question/${userId}/${SurveyHeaderId}/${buildingId}`);
   };
   useEffect(() => {
@@ -45,7 +44,7 @@ const SurveylistContainer = (props) => {
           <h2>{SurveyHeaderName}</h2>
         </div>
         <div>
-          <ESButton x text={"Create Survey"} onClick={_handleNewSurvey} small />
+          <ESButton text={"+ Create New Survey"} onClick={_handleNewSurvey} small />
         </div>
       </div>
       <div
