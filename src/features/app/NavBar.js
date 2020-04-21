@@ -71,8 +71,7 @@ const NavBar = props => {
                     <button className="dropdown-item"
                         onClick={_handleAccount}>
                         <i className="fas fa-user-cog pr-2 text-secondary"/>
-                        Account
-                                    Setting
+                        Account Setting
                     </button>
                     <button className="dropdown-item"
                         onClick={_handleMenu}>
