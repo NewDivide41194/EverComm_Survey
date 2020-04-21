@@ -13,7 +13,7 @@ const LoginContainer = props => {
     const token = 123;
     const alert = useAlert();
     useEffect(() => {
-        localStorage.removeItem("userData");
+        localStorage.clear();
     }, []);
     const _handleSubmit = e => {
         e.preventDefault();
@@ -39,9 +39,15 @@ const LoginContainer = props => {
                 // : data.payload.user_info[0].user_level_id === 1
                 // ? props.history.push("/admin") else {
                 {
-                    localStorage.setItem("userData", JSON.stringify(data.payload));
+                    localStorage.setItem("token",data.payload[0].token);
+                    localStorage.setItem("userId",data.payload[0].login_user_id);
+                    localStorage.setItem("email",data.payload[0].email);
+
+
+
                     Auth.login(() => {
                         const userId=data.payload[0].login_user_id 
+                        console.log("USER ID---------------->",userId);
                         
                         props.history.push(`/menu/${userId}`);
                     })

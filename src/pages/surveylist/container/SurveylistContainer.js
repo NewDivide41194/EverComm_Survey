@@ -5,13 +5,9 @@ import * as Colors from "../../../config/Color.config";
 import { SurveyListFetch } from "../../../api/FetchSurveyList";
 const SurveylistContainer = (props) => {
   const [surveyList, setSurveyList] = useState([]);
-  const [userData, setUserData] = useState(
-    JSON.parse(localStorage.getItem("userData"))
-  );
-  const buildingId=localStorage.getItem("buildingId")
-  const userId = userData[0].login_user_id;
+  const buildingId = localStorage.getItem("buildingId");
+  const userId = localStorage.getItem("userId");
   const SurveyHeaderId = localStorage.getItem("SurveyHeaderId");
-
 
   const _handleNewSurvey = () => {
     props.history.push(`/building`);
@@ -19,24 +15,26 @@ const SurveylistContainer = (props) => {
   };
 
   const handleCardClick = (e) => {
-    console.log("Building Id---->",e.target.id);
-    
     localStorage.setItem("buildingId", e.target.id);
     props.history.push(`/question/${userId}/${SurveyHeaderId}/${buildingId}`);
   };
   useEffect(() => {
-    SurveyListFetch(userId,SurveyHeaderId, (err, data) => {
-      setSurveyList(data.payload);      
+    SurveyListFetch(userId, SurveyHeaderId, (err, data) => {
+      setSurveyList(data.payload);
     });
   }, []);
-  const BuildingSurveyData=surveyList.length&& surveyList.filter(d=>d.survey_header_id===JSON.parse(SurveyHeaderId))
+  const BuildingSurveyData =
+    surveyList.length &&
+    surveyList.filter((d) => d.survey_header_id === JSON.parse(SurveyHeaderId));
 
-  const PendingSurvey = BuildingSurveyData.length&&BuildingSurveyData.filter((v, k) => v.answers !== v.questions);
+  const PendingSurvey =
+    BuildingSurveyData.length &&
+    BuildingSurveyData.filter((v, k) => v.answers !== v.questions);
 
-  const CompletedSurvey = BuildingSurveyData.length&&BuildingSurveyData.filter(
-    (v, k) => v.answers === v.questions
-  );
-  const SurveyHeaderName=localStorage.getItem("SurveyHeaderName")
+  const CompletedSurvey =
+    BuildingSurveyData.length &&
+    BuildingSurveyData.filter((v, k) => v.answers === v.questions);
+  const SurveyHeaderName = localStorage.getItem("SurveyHeaderName");
   return (
     <div className="container">
       <div className="d-flex flex-row justify-content-between flex-fill py-3 ">
@@ -61,23 +59,25 @@ const SurveylistContainer = (props) => {
       >
         Pending Survey
       </div>
-      {PendingSurvey?PendingSurvey.map((v, k) => (
-        <Surveylist
-          buildingName={v.building_name}
-          key={k}
-          id={v.building_id}
-          progress={
-            <i className="fa fa-edit" id={v.building_id}>
-              &nbsp;{v.answers} of {v.questions} Answered
-            </i>
-          }
-          BgColor={Colors.PaleYellow}
-          TxtColor={Colors.PrimaryColor}
-          HoverBgColor={Colors.MoonLight}
-          HoverTxtColor={Colors.PrimaryColor}
-          handleCardClick={handleCardClick}
-        />
-      )):null}
+      {PendingSurvey
+        ? PendingSurvey.map((v, k) => (
+            <Surveylist
+              buildingName={v.building_name}
+              key={k}
+              id={v.building_id}
+              progress={
+                <i className="fa fa-edit" id={v.building_id}>
+                  &nbsp;{v.answers} of {v.questions} Answered
+                </i>
+              }
+              BgColor={Colors.PaleYellow}
+              TxtColor={Colors.PrimaryColor}
+              HoverBgColor={Colors.MoonLight}
+              HoverTxtColor={Colors.PrimaryColor}
+              handleCardClick={handleCardClick}
+            />
+          ))
+        : null}
       <div
         style={{
           borderBottom: `1px solid ${Colors.skyBlue}`,
@@ -89,19 +89,26 @@ const SurveylistContainer = (props) => {
       >
         Completed Survey
       </div>
-      {CompletedSurvey?CompletedSurvey.map((v, k) => (
-        <Surveylist
-          buildingName={v.building_name}
-          key={k}
-          id={v.building_id}
-          progress={<i className="fa fa-check-circle" id={v.building_id}> Completed</i>}
-          BgColor={Colors.skyBlue}
-          TxtColor={"white"}
-          HoverBgColor={Colors.PrimaryColor}
-          HoverTxtColor={Colors.PaleYellow}
-          handleCardClick={handleCardClick}
-        />
-      )):null}
+      {CompletedSurvey
+        ? CompletedSurvey.map((v, k) => (
+            <Surveylist
+              buildingName={v.building_name}
+              key={k}
+              id={v.building_id}
+              progress={
+                <i className="fa fa-check-circle" id={v.building_id}>
+                  {" "}
+                  Completed
+                </i>
+              }
+              BgColor={Colors.skyBlue}
+              TxtColor={"white"}
+              HoverBgColor={Colors.PrimaryColor}
+              HoverTxtColor={Colors.PaleYellow}
+              handleCardClick={handleCardClick}
+            />
+          ))
+        : null}
     </div>
   );
 };

@@ -3,8 +3,9 @@ import Account from '../component/Account'
 import { useState } from "react";
 
 const AccountContainer=()=>{
-    
+    const [accountsetting,setAccountsetting]=useState(false);
     const [edit, setEdit] = useState(false);
+    const [cancel,setCancel]=useState(false);
     const [Name,setName]=useState("");
     const [Mobile,setMobile]=useState("");
     const [eMail,setEMail]=useState("");
@@ -82,8 +83,16 @@ const AccountContainer=()=>{
           setErr({});
         }
       };
+
+      const _handleCancel=()=>{
+          setEdit(false)      
+        }
+
+      const _handleAccountSetting=()=>{
+        setEdit(false)
+      }
       const _handleEditProfile = () => {
-        setEdit(!edit ) ;
+        setEdit(true) 
         
       };
     
@@ -116,6 +125,8 @@ const AccountContainer=()=>{
         <Account
         err={err}
         edit={edit}
+        cancel={cancel}
+        accountsetting={accountsetting}
         Name={Name}
         Mobile={Mobile}
         eMail={eMail}
@@ -124,6 +135,8 @@ const AccountContainer=()=>{
         newPassword={newPassword}
         ReEnterPassword={ReEnterPassword}
         errStyle={errStyle}
+        handleCancel={_handleCancel}
+        handleAccountSetting={_handleAccountSetting}
         handleSubmit={_handleSubmit}
         handleEditProfile={ _handleEditProfile}
         handleNameChange={_handleNameChange}

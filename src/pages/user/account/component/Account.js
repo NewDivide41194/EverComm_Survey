@@ -5,6 +5,7 @@ import { ESButton } from "../../../../../src/tools/ES_Button.js";
 const Account = (props) => {
   
   const {
+    accountsetting,
     edit,
     Name,
     Mobile,
@@ -23,6 +24,8 @@ const Account = (props) => {
     handleReEnterPasswordChange,
     handleSubmit,
     handleCancel,
+    cancel,
+    handleAccountSetting,
     err,
     errStyle
   } = props;
@@ -30,16 +33,28 @@ const Account = (props) => {
   const header={
     fontSize: "25px"
   }
+  const span={
+    cursor: "pointer",
+    fontSize: "15px",
+  }
+ console.log(edit);
+ 
   return (
     <div className="row">
       <div className='my-5 col-lg-12'>
+      <div className=" pb-3">
+          <span style={span} onClick={handleAccountSetting} >Account Setting and profile ></span>       
+        { 
+          edit&& !accountsetting && !cancel &&
+          <span style={span} className="font-weight-bold"> Edit profile</span>
+        }
+        </div>   
       <h2 style={header}>Account Setting And Profile</h2>
-
          <div className='d-flex flex-row flex-fill pt-2 justify-content-between'>
           <h3 style={header}>General Setting</h3>    
-         {
-           edit||
-           <div>
+          { 
+            edit|| 
+            <div>
             <ESButton
                id={"Edit"}
                text={"Edit Profile"}
@@ -48,7 +63,9 @@ const Account = (props) => {
                small
              /> 
            </div>
-         }     
+          }
+           
+            
       </div>
       </div>
          
@@ -64,7 +81,7 @@ const Account = (props) => {
             )}
           </div>
             <ESInput
-              disabled={edit}
+              disabled={!edit}
               id={"Name"}
               placeHolder="Name"
               value={Name}
@@ -81,7 +98,7 @@ const Account = (props) => {
             )}
           </div>
           <ESInput
-            disabled={edit}
+            disabled={!edit}
             id={"Mobile"}
             placeHolder="Mobile"
             value={Mobile}
@@ -95,7 +112,7 @@ const Account = (props) => {
         <div className="col-lg-4 col-md-6">
           <label>Email Address</label>
           <ESInput
-            disabled={edit}
+            disabled={!edit}
             id={"email"}
             placeHolder="EmailAddress"
             value={eMail}
@@ -105,7 +122,7 @@ const Account = (props) => {
         <div className="col-lg-4 col-md-6">
           <label >Role</label>
           <ESInput
-            disabled={edit}
+            disabled={!edit}
             id={"Role"}
             placeHolder="Role"
             value={Role}
@@ -114,7 +131,7 @@ const Account = (props) => {
         </div>
       </div>
      
-      {edit &&  (
+      {edit && !accountsetting&& !cancel &&(
           <div className='w-100'>
           <div className="d-flex flex-row flex-fill pt-2 flex-wrap">
           <h3 className="col-lg-12" style={header}>Password</h3>
@@ -151,16 +168,17 @@ const Account = (props) => {
                 id={"Save"}
               />
             </div>
-            <div className="p-3 row justify-content-end">
-              <ESButton
-                text="Cancel"
-                type="submit"
-                onClick={handleCancel}
-                small
-                id=""
-              />
-            </div>
-
+          
+             <div className="p-3 row justify-content-end">
+             <ESButton
+               text="Cancel"
+               type="submit"
+               onClick={handleCancel}
+               small
+               id=""
+             />
+           </div>
+                  
           </div>
         </div>
       )}
