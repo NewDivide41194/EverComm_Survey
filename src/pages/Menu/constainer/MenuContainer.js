@@ -16,7 +16,7 @@ const MenuContainer = props => {
   const token=localStorage.getItem("token")
 
   useEffect(() => {
-    MenuInfoFetch({ userId,token }, (err, data) => {
+    MenuInfoFetch({ userId,token }, (err, data) => {      
       setMenuData(data.payload);
     });
   }, []);

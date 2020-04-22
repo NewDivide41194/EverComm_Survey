@@ -1,14 +1,15 @@
 import * as API from "./url";
 
 export const PostAnswer = (SurveyData, callback) => {
-    console.log("Final POost",SurveyData);
+    console.log(SurveyData);
     
   fetch(API.User_AnswerApi,
     {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accept: "*/*"
+        Accept: "*/*",
+        Authorization: `Bearer ${SurveyData.token}`
       },
       body: JSON.stringify(SurveyData)
     })

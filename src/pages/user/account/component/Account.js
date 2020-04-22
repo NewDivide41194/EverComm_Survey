@@ -9,7 +9,7 @@ const Account = (props) => {
     edit,
     Name,
     Mobile,
-    Mail,
+    eMail,
     Role,
     currentPassword,
     newPassword,
@@ -69,7 +69,7 @@ const Account = (props) => {
       </div>
       </div>
       {" "}
-      <div className="d-flex flex-row flex-fill flex-wrap pb-4 border-bottom">
+      <div className="d-flex flex-row flex-fill w-100 flex-wrap pb-4 border-bottom">
       <div className="col-lg-4 col-md-6">
           <label >Name</label>
           <br></br>
@@ -173,8 +173,7 @@ const Account = (props) => {
               value={ReEnterPassword}
               onChange={e=>handleReEnterPasswordChange(e)}
             />
-            
-            
+             
             </div>
           <div className="d-flex flex-row flex-fill">
             <div className="p-3">
@@ -203,6 +202,34 @@ const Account = (props) => {
     </div>
   );
 };
+const PasswordInput = (props) => {
+  const [showPassword,setShowPassword]=useState(false)
+  return (
+    <div className="col-lg-4">
+      <label>{props.label}</label>
+      <ESInput
+        id={"Password"}
+        type={showPassword ? "text" : "password"}
+        value={props.value}
+        onChange={props.onChange}
+        placeHolder={props.placeholder}
+        
+      />
 
+      <i
+       style={{
+        float: "right",
+        position: "relative",
+        marginTop: "-30px",
+        fontSize: "18px",
+        marginRight: "20px",
+        cursor: "pointer"
+      }}
+        onClick={() => setShowPassword(!showPassword)}
+        className={`fa fa-eye${showPassword ? "-slash" : ""} text-secondary`}
+      ></i>
+    </div>
+  );
+};
 export default Account;
 

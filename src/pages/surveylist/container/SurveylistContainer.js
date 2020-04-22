@@ -8,7 +8,7 @@ const SurveylistContainer = (props) => {
   const buildingId = localStorage.getItem("buildingId");
   const userId = localStorage.getItem("userId");
   const SurveyHeaderId = localStorage.getItem("SurveyHeaderId");
-
+  const token = localStorage.getItem("token");
   const _handleNewSurvey = () => {
     props.history.push(`/building`);
     // window.location.reload();
@@ -18,10 +18,11 @@ const SurveylistContainer = (props) => {
     props.history.push(`/question/${userId}/${SurveyHeaderId}/${buildingId}`);
   };
   useEffect(() => {
-    SurveyListFetch(userId, SurveyHeaderId, (err, data) => {
+    SurveyListFetch(userId, SurveyHeaderId, token, (err, data) => {
       setSurveyList(data.payload);
     });
   }, []);
+
   const BuildingSurveyData =
     surveyList.length &&
     surveyList.filter((d) => d.survey_header_id === JSON.parse(SurveyHeaderId));
@@ -34,6 +35,7 @@ const SurveylistContainer = (props) => {
     BuildingSurveyData.length &&
     BuildingSurveyData.filter((v, k) => v.answers === v.questions);
   const SurveyHeaderName = localStorage.getItem("SurveyHeaderName");
+
   return (
     <div className="container">
       <div className="d-flex flex-row justify-content-between flex-fill py-3 ">
@@ -44,7 +46,11 @@ const SurveylistContainer = (props) => {
           <h2>{SurveyHeaderName}</h2>
         </div>
         <div>
-          <ESButton text={"+ Create New Survey"} onClick={_handleNewSurvey} small />
+          <ESButton
+            text={"+ Create New Survey"}
+            onClick={_handleNewSurvey}
+            small
+          />
         </div>
       </div>
       <div

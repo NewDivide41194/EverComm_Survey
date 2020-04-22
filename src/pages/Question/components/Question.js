@@ -9,9 +9,16 @@ import { withRouter } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
-
-const Question = props => {
-  const { surveyData, media, answers, userId, surveyHeaderId, history,buildingId } = props;
+const Question = (props) => {
+  const {
+    surveyData,
+    media,
+    answers,
+    userId,
+    surveyHeaderId,
+    history,
+    buildingId,
+  } = props;
   const [pageno, setPageno] = useState(0);
   const [AnswerData, setAnswerData] = useState([...answers]);
   const [value, setValue] = useState("");
@@ -21,6 +28,7 @@ const Question = props => {
   const [isAnswer, setIsAnswer] = useState(
     AnswerData.map((v, k) => v.optionChoiceId)
   );
+  const token = localStorage.getItem("token");
   const SurveyHeaderId = localStorage.getItem("SurveyHeaderId");
 
   const [selectedOption, setSelectedOption] = useState(null);
@@ -30,15 +38,15 @@ const Question = props => {
       if (!mp.has(o.questionId)) mp.set(o.questionId, { ...o, count: 0 });
       mp.get(o.questionId).count++;
       return mp;
-    }, new Map()).values()
+    }, new Map()).values(),
   ];
   const AnswerCountLength = AnswerCount.length;
 
   const obtained = AnswerCountLength;
   const total = surveyData.length && surveyData[0].question_count;
   const percent = (obtained * 100) / total;
-  const oneQuestion=total-obtained===1;
-  const fullQuestion=total-obtained===0;
+  const oneQuestion = total - obtained === 1;
+  const fullQuestion = total - obtained === 0;
 
   const _handleNext = () => {
     setPageno(pageno + 1);
@@ -46,7 +54,7 @@ const Question = props => {
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: "smooth"
+      behavior: "smooth",
     });
     setValue("");
   };
@@ -58,76 +66,83 @@ const Question = props => {
   };
 
   const _handleSubmit = () => {
-    if(oneQuestion){
+    if (oneQuestion) {
       confirmAlert({
         title: "Confirm to submit",
-        message: `One question is Remaining!`, 
+        message: `One question is Remaining!`,
         buttons: [
           {
             label: "Submit",
-            onClick: () =>
-             { PostAnswer({ data: AnswerData }, (err, data) => {
+            onClick: () => {
+              PostAnswer({ data: AnswerData, token }, (err, data) => {
                 history.push("/report");
-              })}
+              });
+            },
           },
           {
             label: "Back to Question",
-            onClick: () => {return}
-          }
-        ]
+            onClick: () => {
+              return;
+            },
+          },
+        ],
       });
-    }else if(fullQuestion){
+    } else if (fullQuestion) {
       confirmAlert({
         title: "Confirm to submit",
-        message:`All Question are filled`, 
+        message: `All Question are filled`,
         buttons: [
           {
             label: "Submit",
-            onClick: () =>
-             { PostAnswer({ data: AnswerData }, (err, data) => {
+            onClick: () => {
+              PostAnswer({ data: AnswerData, token }, (err, data) => {
                 history.push("/report");
-              })}
+              });
+            },
           },
           {
             label: "Back to Questions",
-            onClick: () => {return}
-          }
-        ]
+            onClick: () => {
+              return;
+            },
+          },
+        ],
       });
-   
-    }else {
+    } else {
       confirmAlert({
-        title: "Confirm to submit",
-        message:`${total-obtained} Questions are Remaining!`, 
+        title: "Confirm to Submit",
+        message: `${total - obtained} Questions are Remaining!`,
         buttons: [
           {
             label: "Submit",
-            onClick: () =>
-             { PostAnswer({ data: AnswerData }, (err, data) => {
+            onClick: () => {
+              PostAnswer({ data: AnswerData, token }, (err, data) => {
                 history.push("/report");
-              })}
+              });
+            },
           },
           {
             label: "Back to Questions",
-            onClick: () => {return}
-          }
-        ]
+            onClick: () => {
+              return;
+            },
+          },
+        ],
       });
     }
-
   };
 
-
   const handleRadioChange = (ansId, quesId) => {
-    const isQuesId = AnswerData.filter(e => e.questionId === quesId);
-    const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
+    const isQuesId = AnswerData.filter((e) => e.questionId === quesId);
+    const isQuesIdIndex = AnswerData.findIndex((e) => e.questionId === quesId);
     const Ans = {
       other: "",
       optionChoiceId: ansId,
       userId: userId,
       questionId: quesId,
       survey_headers_id: surveyHeaderId,
-      building_id:buildingId    };
+      building_id: buildingId,
+    };
     if (isQuesId.length >= 1) {
       AnswerData.splice(isQuesIdIndex, 1, Ans);
     } else {
@@ -140,10 +155,10 @@ const Question = props => {
     const isQuesId =
       AnswerData.length &&
       AnswerData.filter(
-        e => e.questionId === quesId && e.optionChoiceId === answerId
+        (e) => e.questionId === quesId && e.optionChoiceId === answerId
       );
     const isQuesIdIndex = AnswerData.findIndex(
-      e => e.optionChoiceId === answerId
+      (e) => e.optionChoiceId === answerId
     );
     const Ans = {
       other: "",
@@ -151,7 +166,8 @@ const Question = props => {
       userId: userId,
       questionId: quesId,
       survey_headers_id: surveyHeaderId,
-      building_id:buildingId    };
+      building_id: buildingId,
+    };
     if (isQuesId.length >= 1) {
       AnswerData.splice(isQuesIdIndex, 1);
     } else {
@@ -165,38 +181,39 @@ const Question = props => {
     testValue[quesId] = e.target.value;
     setTestValue(testValue);
     // if (e.target.value===""){}
-    
-    const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
-    const isQuesId = AnswerData.filter(e => e.questionId === quesId);
+
+    const isQuesIdIndex = AnswerData.findIndex((e) => e.questionId === quesId);
+    const isQuesId = AnswerData.filter((e) => e.questionId === quesId);
     const Ans = {
-      other: e.target.value.replace(/\s+/g, " "),
+      other: e.target.value.replace(/\s+/g, " ").trimStart(),
       optionChoiceId: null,
       userId: userId,
       questionId: quesId,
       survey_headers_id: surveyHeaderId,
-      building_id:buildingId    };
-    if (e.target.value===""){AnswerData.splice(isQuesIdIndex,1)}
-
-    else if (isQuesId.length >= 1) {
+      building_id: buildingId,
+    };
+    if (e.target.value.trim()=== "") {
+      AnswerData.splice(isQuesIdIndex, 1);
+    } else if (isQuesId.length >= 1) {
       AnswerData.splice(isQuesIdIndex, 1, Ans);
-    }    
-    else {
+    } else {
       AnswerData.push(Ans);
-    }        
+    }
   };
 
   const handleSelect = (quesId, e) => {
     setSelectedOption(e);
     let ansId = e.value;
-    const isQuesId = AnswerData.filter(e => e.questionId === quesId);
-    const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
+    const isQuesId = AnswerData.filter((e) => e.questionId === quesId);
+    const isQuesIdIndex = AnswerData.findIndex((e) => e.questionId === quesId);
     const Ans = {
       other: "",
       optionChoiceId: parseInt(ansId),
       userId: userId,
       questionId: quesId,
       survey_headers_id: surveyHeaderId,
-      building_id:buildingId    };
+      building_id: buildingId,
+    };
     if (isQuesId.length >= 1) {
       AnswerData.splice(isQuesIdIndex, 1, Ans);
     } else {
@@ -213,19 +230,22 @@ const Question = props => {
     } else {
       setStartDate(date);
 
-      const isQuesId = AnswerData.filter(e => e.questionId === quesId);
-      const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
+      const isQuesId = AnswerData.filter((e) => e.questionId === quesId);
+      const isQuesIdIndex = AnswerData.findIndex(
+        (e) => e.questionId === quesId
+      );
 
       const Ans = {
         other: JSON.stringify({
           YearOfManufacturing: date,
-          YearOfInstallation: endDate
+          YearOfInstallation: endDate,
         }),
         optionChoiceId: null,
         userId: userId,
         questionId: quesId,
         survey_headers_id: surveyHeaderId,
-        building_id:buildingId    };
+        building_id: buildingId,
+      };
       if (isQuesId.length >= 1) {
         AnswerData.splice(isQuesIdIndex, 1, Ans);
       } else {
@@ -242,18 +262,21 @@ const Question = props => {
       return null;
     } else {
       setEndDate(date);
-      const isQuesId = AnswerData.filter(e => e.questionId === quesId);
-      const isQuesIdIndex = AnswerData.findIndex(e => e.questionId === quesId);
+      const isQuesId = AnswerData.filter((e) => e.questionId === quesId);
+      const isQuesIdIndex = AnswerData.findIndex(
+        (e) => e.questionId === quesId
+      );
       const Ans = {
         other: JSON.stringify({
           YearOfManufacturing: startDate,
-          YearOfInstallation: date
+          YearOfInstallation: date,
         }),
         optionChoiceId: null,
         userId: userId,
         questionId: quesId,
         survey_headers_id: surveyHeaderId,
-        building_id:buildingId    };
+        building_id: buildingId,
+      };
       if (isQuesId.length >= 1) {
         AnswerData.splice(isQuesIdIndex, 1, Ans);
       } else {
@@ -261,21 +284,22 @@ const Question = props => {
       }
     }
   };
-console.log(AnswerData);
-return (
+  console.log(AnswerData);
+  return (
     surveyData.length && (
       <div>
         <ESProgress Percent={percent} />
         <div className="container">
           <div
-            className={`text-light row justify-content-end ${media.mobile ||
-              "pt-3 justify-content-center"}`}
+            className={`text-light row justify-content-end ${
+              media.mobile || "pt-3 justify-content-center"
+            }`}
           >
             <div
               className="px-4 position-fixed"
               style={{
                 borderRadius: media.mobile ? "20px 0px 0 20px" : "20px",
-                background: "rgba(0,0,0,0.5)"
+                background: "rgba(0,0,0,0.5)",
               }}
             >{`${AnswerCountLength || 0} of ${total} Answered`}</div>
           </div>
@@ -283,7 +307,7 @@ return (
           <div
             style={{
               fontSize: media.mobile ? "20px" : "25px",
-              fontWeight: "bold"
+              fontWeight: "bold",
             }}
             className="position-relative pt-2"
           >
@@ -347,7 +371,7 @@ return (
                       disabled={AnswerData.length === 0 ? true : false}
                       style={{
                         cursor:
-                          AnswerData.length === 0 ? "not-allowed" : "pointer"
+                          AnswerData.length === 0 ? "not-allowed" : "pointer",
                       }}
                     />
                   ) : (

@@ -1,6 +1,5 @@
 import React,{ useState } from 'react';
 import Account from '../component/Account'
-import { useState } from "react";
 
 const AccountContainer=()=>{
     const [accountsetting,setAccountsetting]=useState(false);
@@ -93,7 +92,6 @@ const AccountContainer=()=>{
       }
       const _handleEditProfile = () => {
         setEdit(true) 
-        
       };
     
       const _handleNameChange = (e) => {
@@ -146,9 +144,7 @@ const AccountContainer=()=>{
         handleCurrentPasswordChange={_handleCurrentPasswordChange}
         handleNewPasswordChange={_handleNewPasswordChange}
         handleReEnterPasswordChange={_handleReEnterPasswordChange}
-
         />
-    
     </div>
     );
 };

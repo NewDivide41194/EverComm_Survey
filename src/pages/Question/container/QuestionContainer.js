@@ -4,7 +4,7 @@ import { QuestionFetch } from "../../../api/FetchQuestions";
 import Loader from "../../../assets/images/loading.gif";
 
 const QuestionContainer = () => {
-  const token = 123;
+  const token = localStorage.getItem("token");
   const [surveyData, setSurveyData] = useState([]);
   const [IsLoading, setIsLoading] = useState(false);
   const userId=localStorage.getItem("userId")
@@ -14,7 +14,7 @@ const QuestionContainer = () => {
   useEffect(() => {
     setIsLoading(true);
 
-    QuestionFetch({userId,surveyHeaderId,buildingId}, (err, data) => {
+    QuestionFetch({userId,surveyHeaderId,buildingId,token}, (err, data) => {
       setSurveyData(data.payload);
       setAnswers(data.payload[0].answers)
       setIsLoading(false);
