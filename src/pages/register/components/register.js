@@ -25,7 +25,7 @@ const Register = props => {
   } = props;
   
   return (
-    <div className="container">
+    <div className="container py-4">
 
     <div className="row justify-content-center">
       <form

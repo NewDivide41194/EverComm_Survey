@@ -32,12 +32,12 @@ export const ESInput = props => {
   };
   const userStyle = style === undefined ? {} : style;
 
-  const _handleFocus = () => {
+  const __handleFocus = () => {
     document.getElementById(
       id
     ).style.border = `1px solid ${Color.PrimaryColor}`;
   };
-  const _handleBlur = () => {
+  const __handleBlur = () => {
     document.getElementById(id).style.border = `1px solid ${Color.SecondaryColor}`;
   };
 
@@ -55,8 +55,8 @@ export const ESInput = props => {
       }}
       placeholder={placeHolder}
       className={`form-control form-rounded ${className}`}
-      onFocus={_handleFocus}
-      onBlur={_handleBlur}
+      onFocus={__handleFocus}
+      onBlur={__handleBlur}
       type={type === undefined ? "text" : `${type}`}
       value={value}
       maxLength={maxLength}

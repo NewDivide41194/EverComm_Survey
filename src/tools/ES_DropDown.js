@@ -2,7 +2,7 @@ import React from "react";
 import Select from "react-select";
 
 export const ESDropDown = props => {
-  const { options, quesId, handleSelect, selectedOption } = props;
+  const { options, quesId, _handleSelect, selectedOption } = props;
 
   const AnsSelected =
     selectedOption &&
@@ -11,7 +11,6 @@ export const ESDropDown = props => {
       label: v.option_choice_name
     }));
  
-
   return (
     <Select
       id={`${quesId}`}
@@ -22,7 +21,7 @@ export const ESDropDown = props => {
           ? selectedOption
           : AnsSelected
       }
-      onChange={e => handleSelect(quesId, e)}
+      onChange={e => _handleSelect(quesId, e)}
       // value={selectedOption}
       options={options}
     />

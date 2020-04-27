@@ -44,7 +44,7 @@ const MainMenu = (props) => {
                 className="fa fa-edit  pr-2 pt-1 text-primary font-weight-bold"
               ></i>
             )}
-            <div id={id}>{amountOfSurvey} Surveys</div>
+            <div id={id}>{amountOfSurvey} {amountOfSurvey<=1?"Survey":"Surveys"} Answered</div>
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ESInput } from "../../../../../src/tools/ES_Inputs.js";
 import { ESButton } from "../../../../../src/tools/ES_Button.js";
+import {BrowserRouter as Router,Switch,Route,Link,Redirect} from "react-router-dom";
 
 const Account = (props) => {
   
@@ -42,13 +43,19 @@ const Account = (props) => {
   return (
     <div className="row">
       <div className='my-5 col-lg-12'>
-      <div className=" pb-3">
-          <span style={span} onClick={handleAccountSetting} >Account Setting and profile ></span>       
-        { 
-          edit&& !accountsetting && !cancel &&
-          <span style={span} className="font-weight-bold"> Edit profile</span>
-        }
-        </div>   
+      {/* <Router> */}
+          <div className=" pb-3">
+            <span style={span} onClick={handleAccountSetting} >Account Setting and profile ></span>       
+              { 
+                edit&& !accountsetting && !cancel &&
+                <span style={span} className="font-weight-bold">Edit profile</span>
+              }
+              {/* <Switch>
+                  <Route exact path="/account profile" />
+                  <Route path="/edit" />
+              </Switch> */}
+          </div>    
+        {/* </Router>   */}
       <h2 style={header}>Account Setting And Profile</h2>
          <div className='d-flex flex-row flex-fill pt-2 justify-content-between'>
           <h3 style={header}>General Setting</h3>    
@@ -170,6 +177,7 @@ const Account = (props) => {
             <PasswordInput
               id="reenterPassword"
               placeholder="Re-Enter Password"
+              label={"Re-Enter Password:"}
               value={ReEnterPassword}
               onChange={e=>handleReEnterPasswordChange(e)}
             />

@@ -3,7 +3,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const ESDatePicker = (props) => {
-  const {handleStartChange,handleEndChange,startDate,endDate,quesId}=props
+  const {_handleStartChange,_handleEndChange,startDate,endDate,quesId}=props
 
   return (
     <div className="d-flex flex-row flex-wrap">
@@ -12,7 +12,7 @@ const ESDatePicker = (props) => {
         <DatePicker
           className="form-control"
           selected={startDate}
-          onChange={date => handleStartChange(date,quesId)}
+          onChange={date => _handleStartChange(date,quesId)}
           selectsStart
           startDate={startDate}
           endDate={endDate}
@@ -24,7 +24,7 @@ const ESDatePicker = (props) => {
         <DatePicker
           className="form-control"
           selected={endDate}
-          onChange={date => handleEndChange(date,quesId)}
+          onChange={date => _handleEndChange(date,quesId)}
           selectsEnd
           startDate={startDate}
           endDate={endDate}

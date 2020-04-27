@@ -10,12 +10,12 @@ const QuestionCard = props => {
   const {
     survey_sections,
     pageno,
-    handleRadioChange,
-    handleCheckChange,
-    handleInputChange,
-    handleStartChange,
-    handleSelect,
-    handleEndChange,
+    _handleRadioChange,
+    _handleCheckChange,
+    _handleInputChange,
+    _handleStartChange,
+    _handleSelect,
+    _handleEndChange,
     media,
     selectedOption,
     isAnswer,
@@ -74,13 +74,13 @@ const QuestionCard = props => {
         <ESCheckBox
           quesId={ques.question_id}
           value={ques.option_choices}
-          handleChange={handleCheckChange}
+          _handleChange={_handleCheckChange}
           isAnswer={isAnswer}
         />
       ) : ques.input_type_id === 2 ? (
         <ESRadio
           value={ques.option_choices}
-          handleRadioChange={handleRadioChange}
+          _handleRadioChange={_handleRadioChange}
           quesId={ques.question_id}
           isAnswer={isAnswer}
         />
@@ -92,7 +92,7 @@ const QuestionCard = props => {
             label: v.option_choice_name
           }))}
           // value={ques.option_choices.map((v,k)=>({value:v.option_choice_id,label:v.option_choice_name}))}
-          handleSelect={handleSelect}
+          _handleSelect={_handleSelect}
           selectedOption={
             AnswerData.filter(d => d.questionId === ques.question_id)
               ? AnswerData.filter(
@@ -119,7 +119,7 @@ const QuestionCard = props => {
               : ""
           }
           onChange={e => {
-            handleInputChange(e, ques.question_id);
+            _handleInputChange(e, ques.question_id);
           }}
         />
       ) : ques.input_type_id === 6 ? (
@@ -141,8 +141,8 @@ const QuestionCard = props => {
                 )[0]
               : endDate
           }
-          handleEndChange={handleEndChange}
-          handleStartChange={handleStartChange}
+          _handleEndChange={_handleEndChange}
+          _handleStartChange={_handleStartChange}
         />
       ) : null}
     </div>

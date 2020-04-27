@@ -1,290 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React,{useState} from "react";
 import QuestionCard from "../../../tools/ES_Cards";
 import { ESButton } from "../../../tools/ES_Button";
-import { PostAnswer } from "../../../api/PostAnswer";
 import { withMedia } from "react-media-query-hoc";
 import ESProgress from "../../../tools/ES_Progress";
 import * as Color from "../../../config/Color.config";
 import { withRouter } from "react-router-dom";
-import { confirmAlert } from "react-confirm-alert";
-import "react-confirm-alert/src/react-confirm-alert.css";
 
 const Question = (props) => {
   const {
     surveyData,
     media,
-    answers,
     userId,
-    surveyHeaderId,
-    history,
-    buildingId,
+    pageno,
+    AnswerData,
+    startDate,
+    endDate,
+    selectedOption,
+    obtained,
+    total,
+    _handleNext,
+    _handlePrevious,
+    _handleSubmit,
+    _handleRadioChange,
+    _handleCheckChange,
+    _handleSelect,
+    _handleInputChange,
+    _handleStartChange,
+    _handleEndChange,
+    percent
   } = props;
-  const [pageno, setPageno] = useState(0);
-  const [AnswerData, setAnswerData] = useState([...answers]);
-  const [value, setValue] = useState("");
-  const [testValue, setTestValue] = useState({});
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const [isAnswer, setIsAnswer] = useState(
-    AnswerData.map((v, k) => v.optionChoiceId)
-  );
-  const token = localStorage.getItem("token");
-  const SurveyHeaderId = localStorage.getItem("SurveyHeaderId");
+  const isAnswer=(AnswerData.map((v, k) => v.optionChoiceId))
 
-  const [selectedOption, setSelectedOption] = useState(null);
-
-  const AnswerCount = [
-    ...AnswerData.reduce((mp, o) => {
-      if (!mp.has(o.questionId)) mp.set(o.questionId, { ...o, count: 0 });
-      mp.get(o.questionId).count++;
-      return mp;
-    }, new Map()).values(),
-  ];
-  const AnswerCountLength = AnswerCount.length;
-
-  const obtained = AnswerCountLength;
-  const total = surveyData.length && surveyData[0].question_count;
-  const percent = (obtained * 100) / total;
-  const oneQuestion = total - obtained === 1;
-  const fullQuestion = total - obtained === 0;
-
-  const _handleNext = () => {
-    setPageno(pageno + 1);
-    document.getElementById("style-1").scrollTop = 0;
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
-    setValue("");
-  };
-
-  const _handlePrevious = () => {
-    setPageno(pageno - 1);
-    document.getElementById("style-1").scrollTop = 0;
-    setValue("");
-  };
-
-  const _handleSubmit = () => {
-    if (oneQuestion) {
-      confirmAlert({
-        title: "Confirm to submit",
-        message: `One question is Remaining!`,
-        buttons: [
-          {
-            label: "Submit",
-            onClick: () => {
-              PostAnswer({ data: AnswerData, token }, (err, data) => {
-                history.push("/report");
-              });
-            },
-          },
-          {
-            label: "Back to Question",
-            onClick: () => {
-              return;
-            },
-          },
-        ],
-      });
-    } else if (fullQuestion) {
-      confirmAlert({
-        title: "Confirm to submit",
-        message: `All Question are filled`,
-        buttons: [
-          {
-            label: "Submit",
-            onClick: () => {
-              PostAnswer({ data: AnswerData, token }, (err, data) => {
-                history.push("/report");
-              });
-            },
-          },
-          {
-            label: "Back to Questions",
-            onClick: () => {
-              return;
-            },
-          },
-        ],
-      });
-    } else {
-      confirmAlert({
-        title: "Confirm to Submit",
-        message: `${total - obtained} Questions are Remaining!`,
-        buttons: [
-          {
-            label: "Submit",
-            onClick: () => {
-              PostAnswer({ data: AnswerData, token }, (err, data) => {
-                history.push("/report");
-              });
-            },
-          },
-          {
-            label: "Back to Questions",
-            onClick: () => {
-              return;
-            },
-          },
-        ],
-      });
-    }
-  };
-
-  const handleRadioChange = (ansId, quesId) => {
-    const isQuesId = AnswerData.filter((e) => e.questionId === quesId);
-    const isQuesIdIndex = AnswerData.findIndex((e) => e.questionId === quesId);
-    const Ans = {
-      other: "",
-      optionChoiceId: ansId,
-      userId: userId,
-      questionId: quesId,
-      survey_headers_id: surveyHeaderId,
-      building_id: buildingId,
-    };
-    if (isQuesId.length >= 1) {
-      AnswerData.splice(isQuesIdIndex, 1, Ans);
-    } else {
-      AnswerData.push(Ans);
-    }
-    setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
-  };
-
-  const handleCheckChange = (quesId, answerId) => {
-    const isQuesId =
-      AnswerData.length &&
-      AnswerData.filter(
-        (e) => e.questionId === quesId && e.optionChoiceId === answerId
-      );
-    const isQuesIdIndex = AnswerData.findIndex(
-      (e) => e.optionChoiceId === answerId
-    );
-    const Ans = {
-      other: "",
-      optionChoiceId: answerId,
-      userId: userId,
-      questionId: quesId,
-      survey_headers_id: surveyHeaderId,
-      building_id: buildingId,
-    };
-    if (isQuesId.length >= 1) {
-      AnswerData.splice(isQuesIdIndex, 1);
-    } else {
-      AnswerData.push(Ans);
-    }
-    setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
-  };
-
-  const handleInputChange = (e, quesId) => {
-    setValue(e.target.value);
-    testValue[quesId] = e.target.value;
-    setTestValue(testValue);
-    // if (e.target.value===""){}
-
-    const isQuesIdIndex = AnswerData.findIndex((e) => e.questionId === quesId);
-    const isQuesId = AnswerData.filter((e) => e.questionId === quesId);
-    const Ans = {
-      other: e.target.value.replace(/\s+/g, " ").trimStart(),
-      optionChoiceId: null,
-      userId: userId,
-      questionId: quesId,
-      survey_headers_id: surveyHeaderId,
-      building_id: buildingId,
-    };
-    if (e.target.value.trim()=== "") {
-      AnswerData.splice(isQuesIdIndex, 1);
-    } else if (isQuesId.length >= 1) {
-      AnswerData.splice(isQuesIdIndex, 1, Ans);
-    } else {
-      AnswerData.push(Ans);
-    }
-  };
-
-  const handleSelect = (quesId, e) => {
-    setSelectedOption(e);
-    let ansId = e.value;
-    const isQuesId = AnswerData.filter((e) => e.questionId === quesId);
-    const isQuesIdIndex = AnswerData.findIndex((e) => e.questionId === quesId);
-    const Ans = {
-      other: "",
-      optionChoiceId: parseInt(ansId),
-      userId: userId,
-      questionId: quesId,
-      survey_headers_id: surveyHeaderId,
-      building_id: buildingId,
-    };
-    if (isQuesId.length >= 1) {
-      AnswerData.splice(isQuesIdIndex, 1, Ans);
-    } else {
-      AnswerData.push(Ans);
-    }
-    setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
-  };
-
-  const handleStartChange = (date, quesId) => {
-    console.log("startDate------>", startDate);
-
-    if (date > endDate) {
-      alert("Year of Installation is Older Than Year of Manufacturing");
-    } else {
-      setStartDate(date);
-
-      const isQuesId = AnswerData.filter((e) => e.questionId === quesId);
-      const isQuesIdIndex = AnswerData.findIndex(
-        (e) => e.questionId === quesId
-      );
-
-      const Ans = {
-        other: JSON.stringify({
-          YearOfManufacturing: date,
-          YearOfInstallation: endDate,
-        }),
-        optionChoiceId: null,
-        userId: userId,
-        questionId: quesId,
-        survey_headers_id: surveyHeaderId,
-        building_id: buildingId,
-      };
-      if (isQuesId.length >= 1) {
-        AnswerData.splice(isQuesIdIndex, 1, Ans);
-      } else {
-        AnswerData.push(Ans);
-      }
-      setAnswerData(AnswerData);
-    }
-  };
-
-  const handleEndChange = (date, quesId) => {
-    console.log("endDate------>", endDate);
-    if (startDate > date) {
-      alert("Year of Installation is Older Than Year of Manufacturing");
-      return null;
-    } else {
-      setEndDate(date);
-      const isQuesId = AnswerData.filter((e) => e.questionId === quesId);
-      const isQuesIdIndex = AnswerData.findIndex(
-        (e) => e.questionId === quesId
-      );
-      const Ans = {
-        other: JSON.stringify({
-          YearOfManufacturing: startDate,
-          YearOfInstallation: date,
-        }),
-        optionChoiceId: null,
-        userId: userId,
-        questionId: quesId,
-        survey_headers_id: surveyHeaderId,
-        building_id: buildingId,
-      };
-      if (isQuesId.length >= 1) {
-        AnswerData.splice(isQuesIdIndex, 1, Ans);
-      } else {
-        AnswerData.push(Ans);
-      }
-    }
-  };
-  console.log(AnswerData);
   return (
     surveyData.length && (
       <div>
@@ -301,7 +47,7 @@ const Question = (props) => {
                 borderRadius: media.mobile ? "20px 0px 0 20px" : "20px",
                 background: "rgba(0,0,0,0.5)",
               }}
-            >{`${AnswerCountLength || 0} of ${total} Answered`}</div>
+            >{`${obtained || 0} of ${total} Answered`}</div>
           </div>
 
           <div
@@ -325,18 +71,17 @@ const Question = (props) => {
                 <QuestionCard
                   survey_sections={surveyData[0].survey_sections}
                   pageno={pageno}
-                  handleCheckChange={handleCheckChange}
-                  handleRadioChange={handleRadioChange}
-                  handleInputChange={handleInputChange}
-                  handleSelect={handleSelect}
-                  handleStartChange={handleStartChange}
-                  handleEndChange={handleEndChange}
+                  _handleCheckChange={_handleCheckChange}
+                  _handleRadioChange={_handleRadioChange}
+                  _handleInputChange={_handleInputChange}
+                  _handleSelect={_handleSelect}
+                  _handleStartChange={_handleStartChange}
+                  _handleEndChange={_handleEndChange}
                   userId={userId}
                   selectedOption={selectedOption}
                   AnswerData={AnswerData}
                   startDate={startDate}
                   endDate={endDate}
-                  testValue={testValue}
                   isAnswer={isAnswer}
                 />
               )}

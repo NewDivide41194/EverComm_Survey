@@ -1,7 +1,8 @@
 import React from "react";
 import Radio from "@material-ui/core/Radio";
 export const ESRadio = props => {
-  const { value, quesId, handleRadioChange, isAnswer } = props;
+  const { value, quesId, _handleRadioChange, isAnswer } = props;
+  
   return value.map((ans, k3) => (
     <label
       id={`${ans.option_choice_id} div`}
@@ -24,7 +25,7 @@ export const ESRadio = props => {
         className="p-1"
         name={`${quesId}`}
         checked={isAnswer.filter(d => d === ans.option_choice_id).length > 0}
-        onChange={() => handleRadioChange(ans.option_choice_id, quesId)}
+        onChange={() => _handleRadioChange(ans.option_choice_id, quesId)}
         id={`${ans.option_choice_id}`}
         value={ans.option_choice_name}
       />

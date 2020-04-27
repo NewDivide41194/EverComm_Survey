@@ -2,13 +2,19 @@ import React, { useEffect, useState } from "react";
 import Surveylist from "../component/Surveylist";
 import { ESButton } from "../../../tools/ES_Button";
 import * as Colors from "../../../config/Color.config";
-import { SurveyListFetch } from "../../../api/FetchSurveyList";
+import {
+  SurveyListFetch,
+  NewSurveyListFetch,
+} from "../../../api/FetchSurveyList";
 const SurveylistContainer = (props) => {
   const [surveyList, setSurveyList] = useState([]);
+  const [buildingList, setBuildingList] = useState([]);
+
   const buildingId = localStorage.getItem("buildingId");
   const userId = localStorage.getItem("userId");
   const SurveyHeaderId = localStorage.getItem("SurveyHeaderId");
   const token = localStorage.getItem("token");
+
   const _handleNewSurvey = () => {
     props.history.push(`/building`);
     // window.location.reload();
@@ -16,10 +22,19 @@ const SurveylistContainer = (props) => {
 
   const handleCardClick = () => {
     props.history.push(`/question/${userId}/${SurveyHeaderId}/${buildingId}`);
+    console.log(userId, SurveyHeaderId, buildingId);
   };
+
   useEffect(() => {
     SurveyListFetch(userId, SurveyHeaderId, token, (err, data) => {
-      setSurveyList(data.payload);
+      setSurveyList(data.payload.List);
+      // setBuildingList(data.payload.newList)
+      console.log(data.payload);
+    });
+    NewSurveyListFetch(userId, SurveyHeaderId, token, (err, data) => {
+      console.log(data);
+
+      setBuildingList(data.payload);
     });
   }, []);
 
@@ -36,8 +51,30 @@ const SurveylistContainer = (props) => {
     BuildingSurveyData.filter((v, k) => v.answers === v.questions);
   const SurveyHeaderName = localStorage.getItem("SurveyHeaderName");
 
+  var ReduceData = ["building_id", "building_name"];
+
+  var NewSurvey = buildingList
+    .filter(function (o1) {
+      // filter out (!) items in result2
+      return !surveyList.some(function (o2) {
+        return o1.building_id === o2.building_id; // assumes unique id
+      });
+    })
+    .map(function (o) {
+      // use reduce to make objects with only the required properties
+      // and map to apply this to the filtered array as a whole
+      return ReduceData.reduce(function (newo, building_name) {
+        newo[building_name] = o[building_name];
+        return newo;
+      }, {});
+    });
+  console.log("Filter=====>", NewSurvey);
+  console.log("surveyList---->", surveyList);
+  console.log("Building----->", buildingList);
+
   return (
-    <div className="container">
+    <div className="container"
+    >
       <div className="d-flex flex-row justify-content-between flex-fill py-3 ">
         <div
           className="font-weight-bold"
@@ -53,84 +90,101 @@ const SurveylistContainer = (props) => {
           />
         </div>
       </div>
-      <div
-        style={{
-          borderBottom: `1px solid ${Colors.skyBlue}`,
-          fontSize: "18px",
-          color: `${Colors.PrimaryColor}`,
-          fontWeight: "bold",
-        }}
-        className="py-2"
-      >
-        Pending Survey
-      </div>
-      {PendingSurvey
-        ? PendingSurvey.map((v, k) => (
-            <Surveylist
-              buildingName={v.building_name}
-              key={k}
-              id={v.building_id}
-              progress={
-                <i className="fa fa-edit" id={v.building_id}>
-                  &nbsp;{v.answers} of {v.questions} Answered
-                </i>
-              }
-              BgColor={Colors.PaleYellow}
-              TxtColor={Colors.PrimaryColor}
-              HoverBgColor={Colors.MoonLight}
-              HoverTxtColor={Colors.PrimaryColor}
-              handleCardClick={handleCardClick}
-            />
-          ))
-        : null}
-      <div
-        style={{
-          borderBottom: `1px solid ${Colors.skyBlue}`,
-          fontSize: "18px",
-          color: `${Colors.PrimaryColor}`,
-          fontWeight: "bold",
-        }}
-        className="py-2"
-      >
-        Completed Survey
-      </div>
-      {CompletedSurvey
-        ? CompletedSurvey.map((v, k) => (
-            <Surveylist
-              buildingName={v.building_name}
-              key={k}
-              id={v.building_id}
-              progress={
-                <i className="fa fa-check-circle" id={v.building_id}>
-                  {" "}
-                  Completed
-                </i>
-              }
-              BgColor={Colors.skyBlue}
-              TxtColor={"white"}
-              HoverBgColor={Colors.PrimaryColor}
-              HoverTxtColor={Colors.PaleYellow}
-              handleCardClick={handleCardClick}
-            />
-          ))
-        : null}
+      {NewSurvey ? (
+        <CollapseSurveyList
+          id={"New"}
+          SurveyData={NewSurvey}
+          surveyName={"New Survey"}
+          BgColor={Colors.PrimaryColor}
+          TxtColor={"white"}
+          HoverBgColor={Colors.skyBlue}
+          HoverTxtColor={"white"}
+          handleCardClick={handleCardClick}
+        />
+      ) : null}
+      {PendingSurvey ? (
+        <CollapseSurveyList
+          id={"Pending"}
+          SurveyData={PendingSurvey}
+          surveyName={"Pending Survey"}
+          BgColor={Colors.MoonLight}
+          TxtColor={Colors.PrimaryColor}
+          HoverBgColor={Colors.PaleYellow}
+          HoverTxtColor={Colors.PrimaryColor}
+          handleCardClick={handleCardClick}
+        />
+      ) : null}
+      {CompletedSurvey ? (
+        <CollapseSurveyList
+          id={"Completed"}
+          SurveyData={CompletedSurvey}
+          surveyName={"Completed Survey"}
+          BgColor={Colors.DarkGreen}
+          TxtColor={"white"}
+          HoverBgColor={Colors.PaleGreen}
+          HoverTxtColor={Colors.PaleYellow}
+          handleCardClick={handleCardClick}
+        />
+      ) : null}
     </div>
   );
 };
 export default SurveylistContainer;
 
-// const SurveyList = [
-//   {G
-//     Building_Id: 12,
-//     Building_Name: "Man Myanmar Palaza",
-//     questions: 42,
-//     answers: 4,
-//   },
-//   {
-//     Survey_Header_Id: 1,
-//     Building_Id: 13,
-//     Building_Name: "Man Myanmar Palaza",
-//     questions: 42,
-//     answers: 42,
-//   },
-// ];
+const CollapseSurveyList = (props) => {
+  const {
+    id,
+    SurveyData,
+    handleCardClick,
+    surveyName,
+    BgColor,
+    TxtColor,
+    HoverBgColor,
+    HoverTxtColor,
+    myInput
+  } = props;
+  const [expend,setIsExpend]=useState(false)
+  return (
+    <div className="">
+      <div
+        className="w-100 text-left py-2"
+        data-toggle="collapse"
+        href={`#${id}`}
+        aria-expanded="false"
+        aria-controls="collapseExample"
+        ref={myInput}
+        onClick={()=>setIsExpend(!expend)}
+        style={{
+          borderBottom: `1px solid ${Colors.skyBlue}`,
+          fontSize: "18px",
+          color: `${Colors.PrimaryColor}`,
+          fontWeight: "bold",
+          cursor: "pointer",
+        }}
+      >
+        {surveyName}
+        <i className={`fas fa-angle-double-${expend?"up":"down"} float-right pt-1`}></i>
+      </div>
+
+      <div className="collapse" id={id}>
+        {SurveyData.map((v, k) => (
+          <Surveylist
+            buildingName={v.building_name}
+            key={k}
+            id={v.building_id}
+            progress={
+              <i className="fa fa-edit" id={v.building_id}>
+                &nbsp;{v.answers} of {v.questions} Answered
+              </i>
+            }
+            BgColor={BgColor}
+            TxtColor={TxtColor}
+            HoverBgColor={HoverBgColor}
+            HoverTxtColor={HoverTxtColor}
+            handleCardClick={handleCardClick}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};

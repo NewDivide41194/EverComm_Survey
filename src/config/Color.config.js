@@ -7,3 +7,7 @@ export const skyBlue="#45a1e0"
 export const MoonLight="#f7c972"
 
 export const PaleYellow="#fae3b2"
+
+export const DarkGreen="#4faab1"
+
+export const PaleGreen="#59bdbe"

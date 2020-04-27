@@ -14,21 +14,24 @@ const BuildingContainer = (props) => {
   const [comment, setComment] = useState("");
   const [err, setErr] = useState({});
   const alert = useAlert();
-  const token=localStorage.getItem("token")
+  const token = localStorage.getItem("token");
+  const buildingId = localStorage.getItem("buildingId");
+  const userId = localStorage.getItem("userId");
+  const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
 
   const _handleBuildingNameChange = (e) => {
-    setBuildingName(e.target.value.replace(/\s+/g, " "));
+    setBuildingName(e.target.value.replace(/\s+/g, " ").trimStart());
   };
   const _handlePostalChange = (e) => {
-    setPostal(e.target.value.replace(/\s+/g, " "));
+    setPostal(e.target.value.replace(/\s+/g, " ").trimStart());
   };
   const _handleAddressChange = (e) => {
-    setAddress(e.target.value.replace(/\s+/g, " "));
+    setAddress(e.target.value.replace(/\s+/g, " ").trimStart());
   };
   const _handleClientCompanyChange = (e) => {
-    setClientCompany(e.target.value.replace(/\s+/g, " "));
+    setClientCompany(e.target.value.replace(/\s+/g, " ").trimStart());
   };
-  const _handleCommentChange = (e) => [setComment(e.target.value.replace(/\s+/g, " "))];
+  const _handleCommentChange = (e) => [setComment(e.target.value.replace(/\s+/g, " ").trimStart())];
 
   const _handleCountrySelect = (quesId, e) => {
     setCountry(e.label);
@@ -52,10 +55,10 @@ const BuildingContainer = (props) => {
         buildingNameErr: "Fill BuildingName",
       });
       return;
-    }else if (country===""){
+    } else if (country === "") {
       setErr({
         countryErr: "select country",
-      })
+      });
       return;
     } else if (postal === "") {
       setErr({
@@ -72,8 +75,7 @@ const BuildingContainer = (props) => {
         commentErr: "Fill Comment",
       });
       return;
-    }
-    else if (country === "") {
+    } else if (country === "") {
       setErr({
         commentErr: "Fill Country",
       });
@@ -81,7 +83,17 @@ const BuildingContainer = (props) => {
     } else {
       setErr({});
       BuildingFetch(
-        { clientCompany, buildingName, postal, address, comment, country,token },
+        {
+          clientCompany,
+          buildingName,
+          postal,
+          address,
+          comment,
+          country,
+          userId,
+          surveyHeaderId,
+          token,
+        },
         (err, data) => {
           localStorage.setItem("buildingId", data.payload.insertId);
           data.success === true ? _success() : alert.error(data.message);
@@ -91,9 +103,6 @@ const BuildingContainer = (props) => {
   };
 
   const _success = () => {
-    const buildingId=localStorage.getItem("buildingId")
-    const userId=localStorage.getItem("userId")
-    const surveyHeaderId=localStorage.getItem("SurveyHeaderId")
     props.history.push(`/question/${userId}/${surveyHeaderId}/${buildingId}`);
     alert.success("submitted");
   };
@@ -102,7 +111,6 @@ const BuildingContainer = (props) => {
     value: v.code,
     label: v.name,
   }));
-  
 
   return (
     <Building

@@ -27,7 +27,7 @@ const Building = props => {
   } = props;
 
   return (
-    <div className="container">
+    <div className="container py-4">
       <div className="row justify-content-center px-4 ">
         <form
         className="col-lg-6 col-sm-10"
@@ -38,8 +38,8 @@ const Building = props => {
           }}
           onSubmit={handleSubmit}
         >
-          <div className="font-weight-bold pb-2" style={{ fontSize: "25px" }}>
-            Select Building for Survey
+          <div className="font-weight-bold pb-2 text-center" style={{ fontSize: "25px" }}>
+            Add Building for New Survey
           </div>
           <div className="row py-1">
             <label className="col-12">Client Company:</label>
@@ -76,7 +76,7 @@ const Building = props => {
               { err.countryErr=== undefined ? null : (
               <div className="text-right col-lg-12" style={{...errStyle, marginTop: '-25px'}}>{`*${err.countryErr }`}</div>
             )}
-              <ESDropDown id={"Country"} handleSelect={handleSelectCountry} options={CountryOptions} value={country} />
+              <ESDropDown id={"Country"} _handleSelect={handleSelectCountry} options={CountryOptions} value={country} />
             </div>
 
             <div className="col-sm-12 col-lg-6 py-1">
