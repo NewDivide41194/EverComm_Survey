@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import * as Colors from "../../../config/Color.config";
 import { ESDropDown } from "../../../tools/ES_DropDown";
 
+
 const Register = props => {
   const {
     handleSubmit,
@@ -23,7 +24,7 @@ const Register = props => {
     companyName,
     errStyle
   } = props;
-  
+
   return (
     <div className="container py-4">
 
@@ -83,7 +84,7 @@ const Register = props => {
           <div className="py-2 col-12 text-left">
             <label className="">Your Company Name:</label>   
             {err.companyErr === undefined ? null : (
-              <div className="text-right col-lg-12" style={{ ...errStyle }}>{`*${err.companyErr}`}</div>
+              <div className="text-right col-lg-12" style={{ ...errStyle }} >{`*${err.companyErr}`}</div>
             )}       
            <ESInput
               id={"CompanyName"}
@@ -91,11 +92,12 @@ const Register = props => {
               maxLength={"50"}
               value={companyName}
               onChange={e => handleCompanyChange(e)}
+             
             />
           </div>
           <div className="py-2 col-12 text-left">
             <label className="">Email:</label>
-           
+
             {err.eMailErr === undefined ? null : (
               <div className="text-right col-lg-12" style={{ ...errStyle }}>{`*${err.eMailErr}`}</div>
             )}

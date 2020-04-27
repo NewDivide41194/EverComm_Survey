@@ -1,4 +1,5 @@
 import React from "react";
+import './App.css';
 import {Route, Switch, Redirect, withRouter} from "react-router-dom";
 import {MediaQueryProvider} from "react-media-query-hoc";
 import routes from "./routes";
