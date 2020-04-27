@@ -57,5 +57,14 @@ code {
   background-color: #077cb2;
 
 }
+.errorTime {
+  -webkit-animation: seconds 1.0s forwards;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-delay: 5s;
+  animation: seconds 1.0s forwards;
+  animation-iteration-count: 1;
+  animation-delay: 5s;
+  position: relative;
+}
 
 label{color:rgb(104, 104, 104)}

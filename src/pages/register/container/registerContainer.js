@@ -16,20 +16,18 @@ const RegisterContainer = (props) => {
     color: "red",
     fontSize: 12,
     position: "absolute",
-    marginTop: "-19px",
-    marginRight: "0px",
+    marginTop: "-25px",
+  };
+
+  const Timeout = () => {
+    setTimeout(() => setErr({}), 5000);
   };
   const SpecialCharacterFormat = /[`!#$%^&*()_+\-=\[\]{};:"\\|,.<>\/?~]/;
-  
   const _handleCompanyChange = (e) => {
     if (!SpecialCharacterFormat.test(e.target.value)) {
       setCompanyName(e.target.value.replace(/\s+/g, " ").trimStart());
-    } else {setErr({ companyErr: "Special Characters Not allow!" });
-    setTimeout(() => {
-      setErr({});
-    }, 8000);}
+    } else setErr({ companyErr: "Special Characters Not allow " }, Timeout());
   };
-
   const _handleSubmit = (e) => {
     e.preventDefault();
 
@@ -48,15 +46,16 @@ const RegisterContainer = (props) => {
         eMailErr: "Fill Email Address",
       });
       return;
+    } else if (!/^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/.test(eMail)) {
+      setErr({
+        eMailErr: "Invalid Email Address",
+      });
+      return;
     } else if (companyName === "") {
       setErr({
         companyErr: "Fill Company description",
       });
       return;
-    } else if (!/^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/.test(eMail)) {
-      setErr({
-        eMailErr: "Invalid Email Address",
-      });
     } else if (password === "") {
       setErr({
         passwordErr: "Create Password",
@@ -83,10 +82,15 @@ const RegisterContainer = (props) => {
   };
 
   const _handleFirstNameChange = (e) => {
-    setFirstName(e.target.value.replace(/\s+/g, " ").trimStart());
+    if (!SpecialCharacterFormat.test(e.target.value)) {
+      setFirstName(e.target.value.replace(/\s+/g, " ").trimStart());
+    } else setErr({ firstNameErr: "Special Characters Not allow " }, Timeout());
   };
+
   const _handleLastNameChange = (e) => {
-    setLastName(e.target.value.replace(/\s+/g, " ").trimStart());
+    if (!SpecialCharacterFormat.test(e.target.value)) {
+      setLastName(e.target.value.replace(/\s+/g, " ").trimStart());
+    } else setErr({ lastNameErr: "Special Characters Not allow " }, Timeout());
   };
   const _handleEmailChange = (e) => {
     setEmail(e.target.value.trimStart());

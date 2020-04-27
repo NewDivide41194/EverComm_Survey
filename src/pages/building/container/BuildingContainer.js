@@ -19,8 +19,17 @@ const BuildingContainer = (props) => {
   const userId = localStorage.getItem("userId");
   const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
 
-  const _handleBuildingNameChange = (e) => {
-    setBuildingName(e.target.value.replace(/\s+/g, " ").trimStart());
+  const Timeout=()=>{
+    setTimeout(()=>setErr({}),5000)
+  } 
+  const SpecialCharacterFormat=/[`!#$%^&*()_+\-=\[\]{};:"\\|,.<>\/?~]/
+
+  const _handleBuildingNameChange = (e) =>{
+    if (!SpecialCharacterFormat.test(e.target.value)) {
+      setBuildingName(e.target.value.replace(/\s+/g, " ").trimStart());
+    } else
+      setErr({ buildingNameErr: "Special Characters Not allow " }, Timeout());
+     
   };
   const _handlePostalChange = (e) => {
     setPostal(e.target.value.replace(/\s+/g, " ").trimStart());
@@ -29,9 +38,17 @@ const BuildingContainer = (props) => {
     setAddress(e.target.value.replace(/\s+/g, " ").trimStart());
   };
   const _handleClientCompanyChange = (e) => {
-    setClientCompany(e.target.value.replace(/\s+/g, " ").trimStart());
+    if (!SpecialCharacterFormat.test(e.target.value)) {
+      setClientCompany(e.target.value.replace(/\s+/g, " ").trimStart());
+    } else
+      setErr({ clientCompanyErr: "Special Characters Not allow " }, Timeout()); 
   };
-  const _handleCommentChange = (e) => [setComment(e.target.value.replace(/\s+/g, " ").trimStart())];
+  const _handleCommentChange = (e) => {
+    if (!SpecialCharacterFormat.test(e.target.value)) {
+      setComment(e.target.value.replace(/\s+/g, " ").trimStart());
+    } else
+      setErr({ commentErr: "Special Characters Not allow " }, Timeout()); 
+  };
 
   const _handleCountrySelect = (quesId, e) => {
     setCountry(e.label);
