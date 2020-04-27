@@ -125,7 +125,7 @@ const SurveylistContainer = (props) => {
           HoverTxtColor={Colors.PaleYellow}
           handleCardClick={handleCardClick}
         />
-      ) : null}
+      ) :null}
     </div>
   );
 };
@@ -141,7 +141,6 @@ const CollapseSurveyList = (props) => {
     TxtColor,
     HoverBgColor,
     HoverTxtColor,
-    myInput
   } = props;
   const [expend,setIsExpend]=useState(false)
   return (
@@ -152,7 +151,6 @@ const CollapseSurveyList = (props) => {
         href={`#${id}`}
         aria-expanded="false"
         aria-controls="collapseExample"
-        ref={myInput}
         onClick={()=>setIsExpend(!expend)}
         style={{
           borderBottom: `1px solid ${Colors.skyBlue}`,
@@ -174,7 +172,7 @@ const CollapseSurveyList = (props) => {
             id={v.building_id}
             progress={
               <i className="fa fa-edit" id={v.building_id}>
-                &nbsp;{v.answers} of {v.questions} Answered
+                &nbsp;{v.answers?v.answers:"0"} of {v.questions} Answered
               </i>
             }
             BgColor={BgColor}

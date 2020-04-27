@@ -1,11 +1,6 @@
 // const serverURL='http://192.168.100.164:7878'
-const serverURL = "http://172.105.123.57:7878";
-// const serverURL="http://localhost:7878"
-
-// export const QuestionAPI = (userId, surveyHeaderId,buildingId) =>
-//   `${serverURL}/api/v1/survey/questions/${userId}/${surveyHeaderId}/`;
-  export const QuestionAPI = (userId, surveyHeaderId,buildingId) =>
-  `${serverURL}/api/v1/survey/questions/${userId}/${surveyHeaderId}/${buildingId}`;
+// const serverURL = "http://172.105.123.57:7878";
+const serverURL="http://localhost:7878"
 
 export const RegisterAPI = `${serverURL}/api/v1/user/register`;
 
@@ -21,6 +16,11 @@ export const Company_Select = `${serverURL}/api/v1/user/companies`;
 
 export const Building_Insert=`${serverURL}/api/v1/building/addBuilding`;
 
+export const QuestionAPI = (userId, surveyHeaderId,buildingId) =>
+  `${serverURL}/api/v1/survey/questions/${userId}/${surveyHeaderId}/${buildingId}`;
+
 export const Survey_List=(userId,surveyHeaderId)=>`${serverURL}/api/v1/survey/surveyList/${userId}/${surveyHeaderId}`
 
 export const New_Survey_List=(userId,surveyHeaderId)=>`${serverURL}/api/v1/survey/newsurveyList/${userId}/${surveyHeaderId}`
+
+export const Report_Answers=(surveyHeaderId)=>`${serverURL}/api/v1/count/reportTotalAnswers/${surveyHeaderId}`

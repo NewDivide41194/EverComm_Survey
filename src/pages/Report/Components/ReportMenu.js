@@ -3,7 +3,7 @@ import { ESButton } from "../../../tools/ES_Button";
 import { withRouter } from "react-router-dom";
 import HMT from '../../../assets/images/HMT.gif'
 
-const Report = props => {
+const ReportMenu = props => {
   const { ReportData } = props;
   // const surveyTitle = ReportData.length && ReportData[0].survery_title;
   // const pageNo = ReportData.length && ReportData[0].survey_sections.length;
@@ -36,4 +36,4 @@ const Report = props => {
   );
 };
 
-export default withRouter(Report);
+export default withRouter(ReportMenu);

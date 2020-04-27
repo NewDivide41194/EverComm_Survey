@@ -19,19 +19,16 @@ const RegisterContainer = (props) => {
     marginTop: "-19px",
     marginRight: "0px",
   };
-const SpecialCharacterFormat=/[`!#$%^&*()_+\-=\[\]{};:"\\|,.<>\/?~]/
+  const SpecialCharacterFormat = /[`!#$%^&*()_+\-=\[\]{};:"\\|,.<>\/?~]/;
+  
   const _handleCompanyChange = (e) => {
     if (!SpecialCharacterFormat.test(e.target.value)) {
       setCompanyName(e.target.value.replace(/\s+/g, " ").trimStart());
+    } else {setErr({ companyErr: "Special Characters Not allow!" });
+    setTimeout(() => {
       setErr({});
-      console.log(e.target.value);
-      
-    } else
-      setErr({
-        companyErr: "Special Characters Not allow in Name",
-      });
+    }, 8000);}
   };
-console.log(companyName);
 
   const _handleSubmit = (e) => {
     e.preventDefault();

@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import Report from '../Components/Report'
-import { QuestionFetch } from '../../../api/FetchQuestions'
+import ReportMenu from '../Components/ReportMenu'
+import { ReportAnswers } from '../../../api/FetchReportAnswers'
 
 const ReportContainer=()=>{
     const [reportData,setReportData]=useState([])
+    const surveyHeaderId=localStorage.getItem("SurveyHeaderId")
+    const token=localStorage.getItem("token")
     useEffect(()=>{
-        const token=111
-        QuestionFetch(token,(err,data)=>{setReportData(data.payload)
-        })
+      ReportAnswers({surveyHeaderId,token},(err,data)=>{
+        setReportData(data)
+      })
     },[])
+    console.log(reportData);
+    
     return(<div>
-            <Report ReportData={reportData}/>
+            <ReportMenu ReportData={reportData}/>
     
     </div>
     )
