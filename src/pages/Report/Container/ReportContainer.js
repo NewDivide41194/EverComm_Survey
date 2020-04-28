@@ -13,10 +13,9 @@ const ReportContainer=()=>{
     },[])
     console.log(reportData);
     
-    return(<div>
+    return(
             <ReportMenu ReportData={reportData}/>
     
-    </div>
     )
 }
 
