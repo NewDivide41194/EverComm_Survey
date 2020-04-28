@@ -19,18 +19,23 @@ const ReportMenu = props => {
   
     props.history.push(`/question/${userId}/${surveyHeaderId}/${buildingId}`);
   };
+  const _ViewReport=()=>{
+    props.history.push(`/report`);
+  }
   return (
     <div className="container py-4 text-center text-success">
       <h3>*Your Answers are Posted!</h3>
       <img style={{width:'50%'}} src={HMT} alt="Post"/>
       <div className='row justify-content-center'>
-        <div className='col-md-4 col-sm-12 py-2'>
+        <div className='col-md-3 col-sm-12 py-2'>
         <ESButton text={"Review Your Survey"} onClick={() => _handleReview()} style={{background:'#9945C0',minWidth:177}} small/>
         </div>
-        <div className='col-md-4 col-sm-12 py-2'>
+        <div className='col-md-3 col-sm-12 py-2'>
         <ESButton text={"Back to Menu"} onClick={() => _handleMenu()} style={{minWidth:177}} small/>
         </div>
-        
+        <div className='col-md-3 col-sm-12 py-2'>
+        <ESButton text={"View Report"} onClick={() => _ViewReport()} style={{background:'#3a6b1b', minWidth:177}} small/>
+        </div>
       </div>
     </div>
   );
