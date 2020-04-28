@@ -73,8 +73,7 @@ const SurveylistContainer = (props) => {
   console.log("Building----->", buildingList);
 
   return (
-    <div className="container"
-    >
+    <div className="container">
       <div className="d-flex flex-row justify-content-between flex-fill py-3 ">
         <div
           className="font-weight-bold"
@@ -125,7 +124,7 @@ const SurveylistContainer = (props) => {
           HoverTxtColor={Colors.PaleYellow}
           handleCardClick={handleCardClick}
         />
-      ) :null}
+      ) : null}
     </div>
   );
 };
@@ -142,7 +141,7 @@ const CollapseSurveyList = (props) => {
     HoverBgColor,
     HoverTxtColor,
   } = props;
-  const [expend,setIsExpend]=useState(false)
+  const [expend, setIsExpend] = useState(false);
   return (
     <div className="">
       <div
@@ -151,7 +150,7 @@ const CollapseSurveyList = (props) => {
         href={`#${id}`}
         aria-expanded="false"
         aria-controls="collapseExample"
-        onClick={()=>setIsExpend(!expend)}
+        onClick={() => setIsExpend(!expend)}
         style={{
           borderBottom: `1px solid ${Colors.skyBlue}`,
           fontSize: "18px",
@@ -161,27 +160,38 @@ const CollapseSurveyList = (props) => {
         }}
       >
         {surveyName}
-        <i className={`fas fa-angle-double-${expend?"up":"down"} float-right pt-1`}></i>
+        <i
+          className={`fas fa-angle-double-${
+            expend ? "up" : "down"
+          } float-right pt-1`}
+        ></i>
       </div>
 
       <div className="collapse" id={id}>
-        {SurveyData.map((v, k) => (
-          <Surveylist
-            buildingName={v.building_name}
-            key={k}
-            id={v.building_id}
-            progress={
-              <i className="fa fa-edit" id={v.building_id}>
-                &nbsp;{v.answers?v.answers:"0"} of {v.questions} Answered
-              </i>
-            }
-            BgColor={BgColor}
-            TxtColor={TxtColor}
-            HoverBgColor={HoverBgColor}
-            HoverTxtColor={HoverTxtColor}
-            handleCardClick={handleCardClick}
-          />
-        ))}
+        {SurveyData.length !== 0 ? (
+          SurveyData.map((v, k) => (
+            <Surveylist
+              buildingName={v.building_name}
+              key={k}
+              id={v.building_id}
+              progress={
+                <i className="fa fa-edit" id={v.building_id}>
+                  &nbsp;{v.answers ? v.answers : "0"} of {v.questions} Answered
+                </i>
+              }
+              BgColor={BgColor}
+              TxtColor={TxtColor}
+              HoverBgColor={HoverBgColor}
+              HoverTxtColor={HoverTxtColor}
+              handleCardClick={handleCardClick}
+            />
+          ))
+        ) : (
+          <div className="d-flex flex-row p-3 rounded my-2 text-danger bg-light">
+            <i className="fas fa-exclamation-circle pt-1 px-2"></i>
+            No Survey Data.
+          </div>
+        )}
       </div>
     </div>
   );
