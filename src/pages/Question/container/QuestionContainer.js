@@ -80,7 +80,7 @@ const QuestionContainer = (props) => {
           label: "Submit",
           onClick: () => {
             PostAnswer({ data: AnswerData, token }, (err, data) => {
-              history.push("/report");
+              history.push("/reportMenu");
             });
           },
         },
@@ -92,50 +92,7 @@ const QuestionContainer = (props) => {
         },
       ],
     });
-    // }
-    // else if (fullQuestion) {
-    //   confirmAlert({
-    //     title: "Confirm to submit",
-    //     message: `All Question are filled`,
-    //     buttons: [
-    //       {
-    //         label: "Submit",
-    //         onClick: () => {
-    //           PostAnswer({ data: AnswerData, token }, (err, data) => {
-    //             history.push("/report");
-    //           });
-    //         },
-    //       },
-    //       {
-    //         label: "Back to Questions",
-    //         onClick: () => {
-    //           return;
-    //         },
-    //       },
-    //     ],
-    //   });
-    // } else {
-    //   confirmAlert({
-    //     title: "Confirm to Submit",
-    //     message: `${total - obtained} Questions are Remaining!`,
-    //     buttons: [
-    //       {
-    //         label: "Submit",
-    //         onClick: () => {
-    //           PostAnswer({ data: AnswerData, token }, (err, data) => {
-    //             history.push("/report");
-    //           });
-    //         },
-    //       },
-    //       {
-    //         label: "Back to Questions",
-    //         onClick: () => {
-    //           return;
-    //         },
-    //       },
-    //     ],
-    //   });
-    // }
+ 
   };
   const isQuesId = (quesId) => {
     return AnswerData.filter((e) => e.questionId === quesId);

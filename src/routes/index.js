@@ -1,18 +1,21 @@
 import QuestionContainer from "../pages/Question/container/QuestionContainer";
-import ReportContainer from "../pages/Report/Container/ReportContainer";
+import ReportMenuContainer from "../pages/ReportMenu/Container/ReportMenuContainer";
 import RegisterContainer from "../pages/register/container/registerContainer";
 import AdminContainer from "../pages/admin/container/AdminContainer"
 import MenuContainer from "../pages/Menu/constainer/MenuContainer"
 import BuildingContainer from "../pages/building/container/BuildingContainer"
 import AccountContainer from "../pages/user/account/container/AccountContainer"
 import SurveylistContainer from "../pages/surveylist/container/SurveylistContainer"
+import ReportContainer from "../pages/Report/Container/ReportContainer";
 
 export const RouteName = {
   routeFirstPage: "",
   routeRegisterPage: "register",
 
   routeQuestionPage: "question/:userId/:surveyHeaderId/:buildingId",
-  routeReportPage:"report",
+  routeReportMenuPage:"reportMenu",
+
+  routeReportPage: "report",
 
   routeAdminPage: "admin",
   routeMenuPage: "menu/:userId",
@@ -30,6 +33,7 @@ export default {
     // [RouteName.routeFirstPage]:{component:LoginContainer},
 
     [RouteName.routeQuestionPage]:{component:QuestionContainer},
+    [RouteName.routeReportMenuPage]:{component:ReportMenuContainer},
     [RouteName.routeReportPage]:{component:ReportContainer},
     [RouteName.routeRegisterPage]:{component:RegisterContainer},
     [RouteName.routeAdminPage]:{component:AdminContainer},

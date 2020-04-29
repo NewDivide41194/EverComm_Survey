@@ -18,47 +18,23 @@ const ReportMenu = (props) => {
   const _handleReview = () => {
     props.history.push(`/question/${userId}/${surveyHeaderId}/${buildingId}`);
   };
+  const _ViewReport=()=>{
+    props.history.push(`/report`);
+  }
   return (
     <div className="container py-4 text-center text-success">
       <h3>*Your Answers are Posted!</h3>
-      <img style={{ width: "50%" }} src={HMT} alt="Post" />
-      <div className="row justify-content-center">
-        <div className="col-md-4 col-sm-12 py-2">
-          <ESButton
-            text={"Review Your Survey"}
-            onClick={() => _handleReview()}
-            style={{ background: "#9945C0", minWidth: 177 }}
-            small
-          />
+      <img style={{width:'50%'}} src={HMT} alt="Post"/>
+      <div className='row justify-content-center'>
+        <div className='col-md-3 col-sm-12 py-2'>
+        <ESButton text={"Review Your Survey"} onClick={() => _handleReview()} style={{background:'#9945C0',minWidth:177}} small/>
         </div>
-        <div className="col-md-4 col-sm-12 py-2">
-          <ESButton
-            text={"Back to Menu"}
-            onClick={() => _handleMenu()}
-            style={{ minWidth: 177 }}
-            small
-          />
+        <div className='col-md-3 col-sm-12 py-2'>
+        <ESButton text={"Back to Menu"} onClick={() => _handleMenu()} style={{minWidth:177}} small/>
         </div>
-        {reportData1.map((v, k) => (
-          <div key={k} className="text-left">
-           <h2>{v.survey_name}</h2>
-            {v.survey_sections.map((v1,k1)=>(
-              <div> 
-                <h4>{v1.section_name}</h4>
-                {v1.Questions.map((v2,k2)=>(
-                  <div>
-                    {v2.question_name}
-                    {v2.Answers.map((v3,k3)=>(
-                      <div>
-                        {v3.option_choice_name}{v3.totalAns}
-                      </div>
-                    ))}
-                  </div>
-                ))}      
-                </div>
-            ))}
-          </div>
-        ))}
+        <div className='col-md-3 col-sm-12 py-2'>
+        <ESButton text={"View Report"} onClick={() => _ViewReport()} style={{background:'#3a6b1b', minWidth:177}} small/>
+        </div>
       </div>
     </div>
   );
