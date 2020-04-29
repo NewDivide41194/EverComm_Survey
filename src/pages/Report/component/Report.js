@@ -2,33 +2,35 @@ import React from 'react'
 
 const Report=()=>{
     return(
-        <div className="container py-2 ">
+        <div className="container py-2">
             { reportData1.map((v,k)=>(
                 <div key={k}>
                     <h2 className="text-center text-primary">Report for {v.survey_name}</h2>
                         {v.survey_sections.map((v1,k1)=>(
                             <div key={k1}>
                                 <h4 className="pt-2 text-primary">{v1.section_name}</h4><hr/>
+                        <div className="row">
                         {v1.Questions.map((v2,k2)=>(
-                            <div key={k2} className="pt-2 container">
+                            <div key={k2} className="col-lg-6" >
                                 <div className="row">
-                                    <h5>{v2.question_id}.</h5> &nbsp;
-                                    <h5>{v2.question_name}</h5>
+                                    <h5>{v2.question_id}</h5>. <h5>{v2.question_name}</h5>
                                 </div>               
                         {v2.Answers?v2.Answers.map((v3,k3)=>(
                             <div className="container">
                                 <div key={k3}  className="row">
-                                <div className="col-3">
+                                <div className="col-8">
                                     <p>{v3.option_choice_name}</p>
                                 </div>
-                                <div className="col-3">
+                                <div className="col-4">
                                     <p>{v3.totalAns ==null ? 0 : v3.totalAns}</p>
                                 </div>       
                             </div>
                             </div> 
-                        )):null}  
+                        )):null} 
+                        
                         </div>
                     ))}
+                        </div>
                         </div>
                     ))}   
                </div>  
