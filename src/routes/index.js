@@ -13,7 +13,7 @@ export const RouteName = {
   routeRegisterPage: "register",
 
   routeQuestionPage: "question/:userId/:surveyHeaderId/:buildingId",
-  routeReportMenuPage:"reportmenu",
+  routeReportMenuPage:"reportMenu",
 
   routeReportPage: "report",
 

@@ -48,7 +48,7 @@ const Surveylist = (props) => {
           // fontWeight:"bold",
         }}
       >
-        {buildingName}{" "}
+        {buildingName}
       </span>
 
       <span id={id}> {progress}</span>
