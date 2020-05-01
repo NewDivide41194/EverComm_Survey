@@ -6,22 +6,8 @@ const Report = (props) => {
   const TotalBuilding = reportData
     ? reportData.map((v, k) => v.building_count[0].Number_of_buildings)[0]
     : null;
-  const Percentage = (countAns) => (countAns * 100) / TotalBuilding;
-
-const TotalOption= reportData
-? reportData.map((v, k) => v.survey_sections[0].questions.map(x=>x.option_choices)[k])[0]
-: null;
-const testarray=[9,8]
-
-const reducer=(a,b)=>a+b
-  const TotalOptionAns=(AnsCounts)=>{
-      console.log("====>",AnsCounts);
-      
-    return AnsCounts.reduce(reducer)}
-//   console.log(TotalOptionAns([9,3]));
-  
-//   otalOption&&TotalOption.map(v=>AnsCounts).reduce(reducer)
-  
+  const Percentage = (countAns) => ((countAns * 100) / TotalBuilding).toFixed(2);
+  const NotAnswered = (totalAnsCount) => TotalBuilding - totalAnsCount;
   return (
     <div className="container py-2">
       {reportData
@@ -33,8 +19,11 @@ const reducer=(a,b)=>a+b
               >
                 Report for {v.survey_name}
               </h2>
+              <h4 className="text-center text-secondary">
+                From {`April-26-2020`} to {`April-30-2020`}
+              </h4>
               {v.survey_sections.map((v1, k1) => (
-                <div key={k1} className='text-dark'>
+                <div key={k1} className="text-dark">
                   <h4 className="pt-2" style={{ color: Colors.PrimaryColor }}>
                     {v1.section_name}
                   </h4>
@@ -54,17 +43,24 @@ const reducer=(a,b)=>a+b
                               ? v2.option_choices.map((v3, k3) => (
                                   <div key={k3} className="row">
                                     <div className="w-75">
-                                      {/* {TotalPercent(v3.totalAns)} */}
                                       {v3.option_choice_name}
                                     </div>
                                     <div className="W-25">
-                                      {v3.totalAns == null ?"- 0" : `- ${v3.totalAns}`}{" "}
-                                      ({Percentage(v3.totalAns).toFixed(0)}%)
+                                      {v3.totalAns == null
+                                        ? "- 0"
+                                        : `- ${v3.totalAns}`}{" "}
+                                      ({Percentage(v3.totalAns)} %)
                                     </div>
-                                    {/* {TotalOptionAns((v3.totalAns))} */}
                                   </div>
                                 ))
                               : null}
+                            <div className="row">
+                              <div className="w-75">Not Answered</div>
+                              <div className="W-25">
+                                - {NotAnswered(v2.totalAnsCount)} (
+                                {Percentage(NotAnswered(v2.totalAnsCount))} %)
+                              </div>
+                            </div>
                           </div>
                         ))
                       : null}

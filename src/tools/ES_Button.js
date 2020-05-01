@@ -25,7 +25,7 @@ export const ESButton = props => {
     boxShadow: "3px 3px 6px #2B2B2B"
   };
 
-  const defaultStyle = isHover ? defaultStyle1 : hoverStyle;
+  const defaultStyle = isHover||disabled ? defaultStyle1 : hoverStyle;
 
   const userStyle = style === undefined ? {} : style;
 

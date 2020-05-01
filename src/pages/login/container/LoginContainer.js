@@ -10,10 +10,13 @@ const LoginContainer = props => {
     const [password, setpassword] = useState("");
     const [visible, setVisible] = useState(false);
     const [err, setErr] = useState({});
+    const [isDisabled,setIsDisabled]=useState(false)
     const token = 123;
     const alert = useAlert();
     useEffect(() => {
         localStorage.clear();
+        document.getElementById("Email").focus()
+
     }, []);
     const _handleSubmit = e => {
         e.preventDefault();
@@ -28,6 +31,7 @@ const LoginContainer = props => {
             return;
         } else {
             setErr({});
+            setIsDisabled(true)
             UserFetch({
                 eMail,
                 password,
@@ -35,6 +39,7 @@ const LoginContainer = props => {
             }, (err, data) => {
                 if (data.success === false) {
                     alert.error("Account does not exit!");
+                    setIsDisabled(false)
                 } else
                 // : data.payload.user_info[0].user_level_id === 1
                 // ? props.history.push("/admin") else {
@@ -82,7 +87,8 @@ const LoginContainer = props => {
             handlePwdChange={_handlePwdChange}
             handleView={_handleView}
             visible={visible}
-            err={err}/>
+            err={err}
+            isDisabled={isDisabled}/>
     );
 };
 
