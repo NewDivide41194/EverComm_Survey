@@ -26,6 +26,9 @@ const Building = props => {
     errStyle
   } = props;
 
+  window.onload = ()=> {
+    document.getElementById("clientCompany").focus();
+  };
   return (
     <div className="container py-4">
       <div className="row justify-content-center px-4 ">

@@ -65,7 +65,6 @@ const QuestionContainer = (props) => {
   };
 
   const _handleSubmit = () => {
-    // if (oneQuestion) {
     confirmAlert({
       title: "Confirm to submit",
       message: `${

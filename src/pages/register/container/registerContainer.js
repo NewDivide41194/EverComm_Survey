@@ -83,7 +83,7 @@ const RegisterContainer = (props) => {
 
   const _handleFirstNameChange = (e) => {
     if (!SpecialCharacterFormat.test(e.target.value)) {
-      setFirstName(e.target.value.replace(/\s+/g, " ").trimStart());
+      setFirstName(e.target.value.replace(/\s+/g, " ").trimStart().focus());
     } else setErr({ firstNameErr: "Special Characters Not allow " }, Timeout());
   };
 

@@ -1,636 +1,519 @@
 import React from "react";
+import * as Colors from "../../../config/Color.config";
 
 const Report = (props) => {
- const TotalBuilding=Data.map((v,k)=>v.building_count[0].Number_of_buildings)[0]
- console.log(TotalBuilding);
-const percent=(obtain)=>(obtain *100) /TotalBuilding;
-console.log(percent());
+//   const { reportData } = props;
+  const TotalBuilding = reportData
+    ? reportData.map((v, k) => v.building_count[0].Number_of_buildings)[0]
+    : null;
+  const Percentage = (countAns) => (countAns * 100) / TotalBuilding;
+
+const TotalOption= reportData
+? reportData.map((v, k) => v.survey_sections[0].questions.map(x=>x.option_choices)[k])[0]
+: null;
+const testarray=[9,8]
+
+const reducer=(a,b)=>a+b
+  const TotalOptionAns=(AnsCounts)=>{
+      console.log("====>",AnsCounts);
+      
+    return AnsCounts.reduce(reducer)}
+//   console.log(TotalOptionAns([9,3]));
+  
+//   otalOption&&TotalOption.map(v=>AnsCounts).reduce(reducer)
 
   return (
-    <div className="container py-2 ">
-      {Data.map((v, k) => (
-        <div key={k}>
-          <h2 className="text-center text-primary">
-            Report for {v.survey_name}
-          </h2>
-          {v.survey_sections.map((v1, k1) => (
-            <div key={k1}>
-              <h4 className="pt-2 text-primary">{v1.section_name}</h4>
-              <hr />
-              <div className="d-flex flex-row flex-wrap">
-                {v1.questions.map((v2, k2) => (
-                    <div key={k2} className="col-lg-6 pb-2">
-                        <div className="row font-weight-bold">
-                        {v2.question_id}. {v2.question_name}
-                    </div>
-                    <div className="container">
-                        Total Building: {TotalBuilding}
-                    </div>
-                    {v2.option_choices? v2.option_choices.map((v3, k3) => (
-                            <div key={k3} className="container">   
-                              <div className="row">
-                                <div className="col-8">
-                                    {v3.option_choice_name}
-                                </div>
-                                <div className="col-4">
-                                    {v3.totalAns == null ? 0: v3.totalAns} ({percent(v3.totalAns).toFixed(0)}%)
-                                </div> 
-                              </div>
-                            </div> 
-                        )):null}     
+    <div className="container py-2">
+      {reportData
+        ? reportData.map((v, k) => (
+            <div key={k}>
+              <h2
+                className="text-center"
+                style={{ color: Colors.PrimaryColor }}
+              >
+                Report for {v.survey_name}
+              </h2>
+              {v.survey_sections.map((v1, k1) => (
+                <div key={k1} className='text-dark'>
+                  <h4 className="pt-2" style={{ color: Colors.PrimaryColor }}>
+                    {v1.section_name}
+                  </h4>
+                  <hr />
+                  <div className="d-flex flex-row flex-wrap">
+                    {v1.questions
+                      ? v1.questions.map((v2, k2) => (
+                          <div key={k2} className="col-lg-6 pb-4">
+                            <div className="row font-weight-bold pb-2">
+                              {v2.question_id}. {v2.question_name}  
+                            </div>
+                            <div className="row font-weight-bold">
+                              <div className="w-75">Total Buildings</div>
+                              <div className="W-25">{`- ${TotalBuilding} (100%)`}</div>
+                            </div>
+                            {v2.option_choices
+                              ? v2.option_choices.map((v3, k3) => (
+                                  <div key={k3} className="row">
+                                    <div className="w-75">
+                                      {/* {TotalPercent(v3.totalAns)} */}
+                                      {v3.option_choice_name}
+                                    </div>
+                                    <div className="W-25">
+                                      {v3.totalAns == null ?"- 0" : `- ${v3.totalAns}`}{" "}
+                                      ({Percentage(v3.totalAns).toFixed(0)}%)
+                                    </div>
+                                    {/* {TotalOptionAns((v3.totalAns))} */}
+                                  </div>
+                                ))
+                              : null}
+                          </div>
+                        ))
+                      : null}
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      ))}
+          ))
+        : null}
     </div>
   );
 };
 export default Report;
-const Data=  [
-    {
-        "survey_header_id": 1,
-        "survey_name": "Cooling System",
-        "survey_sections": [
-            {
-                "survey_section_id": 1,
-                "section_name": "Basic Information",
-                "questions": [
-                    {
-                        "question_id": 1,
-                        "question_name": "What is the type of your building?",
-                        "option_choices": [
-                            {
-                                "option_choice_name": "Office Building",
-                                "totalAns": 1
-                            },
-                            {
-                                "option_choice_name": "Hotel",
-                                "totalAns": 7
-                            },
-                            {
-                                "option_choice_name": "Shopping Mall",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Residential Building",
-                                "totalAns": 1
-                            },
-                            {
-                                "option_choice_name": "Factory",
-                                "totalAns": 2
-                            }
-                        ]
-                    },
-                    {
-                        "question_id": 3,
-                        "question_name": "What is the total area of your building?",
-                        "option_choices": [
-                            {
-                                "option_choice_name": "below 2000",
-                                "totalAns": 3
-                            },
-                            {
-                                "option_choice_name": "2000-5000",
-                                "totalAns": 5
-                            },
-                            {
-                                "option_choice_name": "5000 - 10000",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "10000 - 15000",
-                                "totalAns": 1
-                            },
-                            {
-                                "option_choice_name": "Above 15000",
-                                "totalAns": null
-                            }
-                        ]
-                    },
-                    {
-                        "question_id": 4,
-                        "question_name": "What is the age of your building?",
-                        "option_choices": [
-                            {
-                                "option_choice_name": "less than 10",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "10-20",
-                                "totalAns": 5
-                            },
-                            {
-                                "option_choice_name": "20-30",
-                                "totalAns": 1
-                            },
-                            {
-                                "option_choice_name": "30-40",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "40-50",
-                                "totalAns": 1
-                            },
-                            {
-                                "option_choice_name": "More than 50",
-                                "totalAns": null
-                            }
-                        ]
-                    },
-                    {
-                        "question_id": 5,
-                        "question_name": "Do you have building management system installed(BMS)?",
-                        "option_choices": [
-                            {
-                                "option_choice_name": "Yes",
-                                "totalAns": 3
-                            },
-                            {
-                                "option_choice_name": "No",
-                                "totalAns": 6
-                            }
-                        ]
-                    },
-                    {
-                        "question_id": 6,
-                        "question_name": "What is the brand of chiller?",
-                        "option_choices": [
-                            {
-                                "option_choice_name": "Daikin",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "York",
-                                "totalAns": 2
-                            },
-                            {
-                                "option_choice_name": "Trane",
-                                "totalAns": 3
-                            },
-                            {
-                                "option_choice_name": "Carrier",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Haier",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Mitsubishi",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Johnson Controls",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Ingersoll",
-                                "totalAns": null
-                            }
-                        ]
-                    },
-                    {
-                        "question_id": 9,
-                        "question_name": "Please select the cooling rationale of chiller #1?",
-                        "option_choices": [
-                            {
-                                "option_choice_name": "Water-cooled Chiller",
-                                "totalAns": 4
-                            },
-                            {
-                                "option_choice_name": "Air-cooled Chiller",
-                                "totalAns": 4
-                            }
-                        ]
-                    },
-                    {
-                        "question_id": 10,
-                        "question_name": "Do you have another chiller?",
-                        "option_choices": [
-                            {
-                                "option_choice_name": "Yes",
-                                "totalAns": 1
-                            },
-                            {
-                                "option_choice_name": "No",
-                                "totalAns": 5
-                            }
-                        ]
-                    },
-                    {
-                        "question_id": 11,
-                        "question_name": "What is the brand of the condenser #1?",
-                        "option_choices": [
-                            {
-                                "option_choice_name": "Daikin",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "York",
-                                "totalAns": 3
-                            },
-                            {
-                                "option_choice_name": "Trane",
-                                "totalAns": 1
-                            },
-                            {
-                                "option_choice_name": "Carrier",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Haier",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Mitsubishi",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Johnson Controls",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Ingersoll Dresser",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Grundfos",
-                                "totalAns": null
-                            }
-                        ]
-                    },
-                    {
-                        "question_id": 14,
-                        "question_name": "Please select ther cooling rationale of Condenser #1?",
-                        "option_choices": [
-                            {
-                                "option_choice_name": "Water-cooled",
-                                "totalAns": 3
-                            },
-                            {
-                                "option_choice_name": "Air-cooled",
-                                "totalAns": 2
-                            }
-                        ]
-                    },
-                    {
-                        "question_id": 15,
-                        "question_name": "Do you have VSD installed for condenser #1?",
-                        "option_choices": [
-                            {
-                                "option_choice_name": "Yes",
-                                "totalAns": 1
-                            },
-                            {
-                                "option_choice_name": "No",
-                                "totalAns": 3
-                            }
-                        ]
-                    },
-                    {
-                        "question_id": 17,
-                        "question_name": "Do you have another Condenser?",
-                        "option_choices": [
-                            {
-                                "option_choice_name": "Yes",
-                                "totalAns": 1
-                            },
-                            {
-                                "option_choice_name": "No",
-                                "totalAns": 1
-                            }
-                        ]
-                    },
-                    {
-                        "question_id": 18,
-                        "question_name": "What is the brand of Condenser #2?",
-                        "option_choices": [
-                            {
-                                "option_choice_name": "Daikin",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "York",
-                                "totalAns": 1
-                            },
-                            {
-                                "option_choice_name": "Trane",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Carrier",
-                                "totalAns": 1
-                            },
-                            {
-                                "option_choice_name": "Haier",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Mitsubishi",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Johnson Cnontrols",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Ingersoll",
-                                "totalAns": null
-                            }
-                        ]
-                    },
-                    {
-                        "question_id": 21,
-                        "question_name": "Do you have VSD installed for condenser #2?",
-                        "option_choices": [
-                            {
-                                "option_choice_name": "Water_cooled",
-                                "totalAns": 2
-                            },
-                            {
-                                "option_choice_name": "Air-cooled",
-                                "totalAns": 1
-                            }
-                        ]
-                    },
-                    {
-                        "question_id": 22,
-                        "question_name": "What is the brand of Evaporator #1?",
-                        "option_choices": [
-                            {
-                                "option_choice_name": "Daikin",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "York",
-                                "totalAns": 2
-                            },
-                            {
-                                "option_choice_name": "Trane",
-                                "totalAns": 1
-                            },
-                            {
-                                "option_choice_name": "Carrier",
-                                "totalAns": 1
-                            },
-                            {
-                                "option_choice_name": "Haier",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Mitsubishi",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Johnson Controls",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Ingersoll Dresser",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Grundfos",
-                                "totalAns": null
-                            }
-                        ]
-                    },
-                    {
-                        "question_id": 25,
-                        "question_name": "Please select the cooling rationale of Evaporator #1?",
-                        "option_choices": [
-                            {
-                                "option_choice_name": "Water-cooled",
-                                "totalAns": 2
-                            },
-                            {
-                                "option_choice_name": "Air-cooled",
-                                "totalAns": 1
-                            }
-                        ]
-                    },
-                    {
-                        "question_id": 26,
-                        "question_name": "Do you have VSD installed for Evaporator #1?",
-                        "option_choices": [
-                            {
-                                "option_choice_name": "Yes",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "No",
-                                "totalAns": 2
-                            }
-                        ]
-                    },
-                    {
-                        "question_id": 27,
-                        "question_name": "Do you have another Evaporator?",
-                        "option_choices": [
-                            {
-                                "option_choice_name": "Yes",
-                                "totalAns": 1
-                            },
-                            {
-                                "option_choice_name": "No",
-                                "totalAns": 2
-                            }
-                        ]
-                    },
-                    {
-                        "question_id": 28,
-                        "question_name": "What is the brand of Evaporator #2?",
-                        "option_choices": [
-                            {
-                                "option_choice_name": "Daikin",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "York",
-                                "totalAns": 1
-                            },
-                            {
-                                "option_choice_name": "Trane",
-                                "totalAns": 2
-                            },
-                            {
-                                "option_choice_name": "Carrier",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Haier",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Mitsubishi",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Johnson Controls",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Ingersoll Dresser",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Grundfos",
-                                "totalAns": null
-                            }
-                        ]
-                    },
-                    {
-                        "question_id": 31,
-                        "question_name": "Please select the cooling rationale of Evaporator #2?",
-                        "option_choices": [
-                            {
-                                "option_choice_name": "Water-cooled",
-                                "totalAns": 1
-                            },
-                            {
-                                "option_choice_name": "Air-Cooled",
-                                "totalAns": 1
-                            }
-                        ]
-                    },
-                    {
-                        "question_id": 32,
-                        "question_name": "Do you have VSD installed for Evaporator #2?",
-                        "option_choices": [
-                            {
-                                "option_choice_name": "Yes",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "No",
-                                "totalAns": 2
-                            }
-                        ]
-                    },
-                    {
-                        "question_id": 33,
-                        "question_name": "What is the brand of Cooling Tower #1?",
-                        "option_choices": [
-                            {
-                                "option_choice_name": "Daikin",
-                                "totalAns": 1
-                            },
-                            {
-                                "option_choice_name": "York",
-                                "totalAns": 1
-                            },
-                            {
-                                "option_choice_name": "Trane",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Carrier",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Haier",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Mitsubishi",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Johnson Controls",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Ingersoll Dresser",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Grundfos",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Marley",
-                                "totalAns": null
-                            }
-                        ]
-                    },
-                    {
-                        "question_id": 36,
-                        "question_name": "Do you have another Cooling Tower?",
-                        "option_choices": [
-                            {
-                                "option_choice_name": "Yes",
-                                "totalAns": 1
-                            },
-                            {
-                                "option_choice_name": "No",
-                                "totalAns": 1
-                            }
-                        ]
-                    },
-                    {
-                        "question_id": 37,
-                        "question_name": "What is the brand of Cooling Tower #2?",
-                        "option_choices": [
-                            {
-                                "option_choice_name": "Daikin",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "York",
-                                "totalAns": 1
-                            },
-                            {
-                                "option_choice_name": "Trane",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Carrier",
-                                "totalAns": 1
-                            },
-                            {
-                                "option_choice_name": "Haier",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Mitsubishi",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Johnson Controls",
-                                "totalAns": null
-                            },
-                            {
-                                "option_choice_name": "Ingersoll",
-                                "totalAns": null
-                            }
-                        ]
-                    },
-                    {
-                        "question_id": 40,
-                        "question_name": "Do you have another Cooling Tower?",
-                        "option_choices": [
-                            {
-                                "option_choice_name": "Yes",
-                                "totalAns": 1
-                            },
-                            {
-                                "option_choice_name": "No",
-                                "totalAns": 1
-                            }
-                        ]
-                    }
-                ]
-            }
-        ],
-        "building_count": [
-            {
-                "survey_headers_id": 1,
-                "Number_of_buildings": 13
-            }
-        ]
-    }
-]
 
+const reportData=[
+    {
+    survey_header_id: 6,
+    survey_name: "Employee ",
+    survey_sections: [
+    {
+    survey_section_id: 20,
+    section_name: "Employee Satisfaction",
+    questions: [
+    {
+    question_id: 125,
+    question_name: "How meaningful is your work?",
+    totalAnsCount: 4,
+    option_choices: [
+    {
+    option_choice_name: "Slightly meaningful",
+    totalAns: 3
+    },
+    {
+    option_choice_name: "Not all meaningful",
+    totalAns: 1
+    },
+    {
+    option_choice_name: "Moderately meaningful",
+    totalAns: null
+    },
+    {
+    option_choice_name: "Very meaningful",
+    totalAns: null
+    },
+    {
+    option_choice_name: "Extremely meaningful ",
+    totalAns: null
+    }
+    ]
+    },
+    {
+    question_id: 129,
+    question_name: "How challenging is your job?",
+    totalAnsCount: 5,
+    option_choices: [
+    {
+    option_choice_name: "Slightly challenging",
+    totalAns: 4
+    },
+    {
+    option_choice_name: "Extremely challenging",
+    totalAns: 1
+    },
+    {
+    option_choice_name: "Moderately challenging",
+    totalAns: null
+    },
+    {
+    option_choice_name: "Not all challenging",
+    totalAns: null
+    },
+    {
+    option_choice_name: "Very challenging ",
+    totalAns: null
+    }
+    ]
+    },
+    {
+    question_id: 130,
+    question_name: "In a typical week, how often do you feel stressed at work?",
+    totalAnsCount: 5,
+    option_choices: [
+    {
+    option_choice_name: "Slightly often",
+    totalAns: 4
+    },
+    {
+    option_choice_name: "Extremely often",
+    totalAns: 1
+    },
+    {
+    option_choice_name: "Moderately often",
+    totalAns: null
+    },
+    {
+    option_choice_name: "Not at all often ",
+    totalAns: null
+    },
+    {
+    option_choice_name: "Very often",
+    totalAns: null
+    }
+    ]
+    },
+    {
+    question_id: 131,
+    question_name: "How well are you paid for the work you do?",
+    totalAnsCount: 5,
+    option_choices: [
+    {
+    option_choice_name: "Slightly well",
+    totalAns: 3
+    },
+    {
+    option_choice_name: "Not at all well",
+    totalAns: 1
+    },
+    {
+    option_choice_name: "Extremely well",
+    totalAns: 1
+    },
+    {
+    option_choice_name: "Moderately well",
+    totalAns: null
+    },
+    {
+    option_choice_name: "Very well",
+    totalAns: null
+    }
+    ]
+    },
+    {
+    question_id: 132,
+    question_name: "How much do your opinions about work matter your cowokers?",
+    totalAnsCount: 5,
+    option_choices: [
+    {
+    option_choice_name: "A little",
+    totalAns: 4
+    },
+    {
+    option_choice_name: "A great deal",
+    totalAns: 1
+    },
+    {
+    option_choice_name: "A lot ",
+    totalAns: null
+    },
+    {
+    option_choice_name: "A moderate amount",
+    totalAns: null
+    },
+    {
+    option_choice_name: "None at all",
+    totalAns: null
+    }
+    ]
+    },
+    {
+    question_id: 133,
+    question_name: "How realistic are the exceptations of your supervisior?",
+    totalAnsCount: 5,
+    option_choices: [
+    {
+    option_choice_name: "Slightly realistic ",
+    totalAns: 3
+    },
+    {
+    option_choice_name: "Extremely realistic",
+    totalAns: 1
+    },
+    {
+    option_choice_name: "Not at all realistic ",
+    totalAns: 1
+    },
+    {
+    option_choice_name: "Moderately realistic",
+    totalAns: null
+    },
+    {
+    option_choice_name: "Very realistic",
+    totalAns: null
+    }
+    ]
+    },
+    {
+    question_id: 134,
+    question_name: "How often do the tasks assigned to you by your supervisior help you grow professionally?",
+    totalAnsCount: 5,
+    option_choices: [
+    {
+    option_choice_name: "Slightly often",
+    totalAns: 2
+    },
+    {
+    option_choice_name: "Not at all often",
+    totalAns: 2
+    },
+    {
+    option_choice_name: "Extremely often",
+    totalAns: 1
+    },
+    {
+    option_choice_name: "Very often",
+    totalAns: null
+    },
+    {
+    option_choice_name: "Moderately often ",
+    totalAns: null
+    }
+    ]
+    },
+    {
+    question_id: 135,
+    question_name: "How many opportunities do you have to get promoted where you work?",
+    totalAnsCount: 5,
+    option_choices: [
+    {
+    option_choice_name: "A few ",
+    totalAns: 3
+    },
+    {
+    option_choice_name: "None at all",
+    totalAns: 1
+    },
+    {
+    option_choice_name: "A great deal ",
+    totalAns: 1
+    },
+    {
+    option_choice_name: "A lot",
+    totalAns: null
+    },
+    {
+    option_choice_name: "A moderate amount",
+    totalAns: null
+    }
+    ]
+    },
+    {
+    question_id: 136,
+    question_name: "Are you supervised too much at work, supervised too little,or supervised about the right amount?",
+    totalAnsCount: 4,
+    option_choices: [
+    {
+    option_choice_name: "Somewhat too little ",
+    totalAns: 2
+    },
+    {
+    option_choice_name: "Slightly too little",
+    totalAns: 1
+    },
+    {
+    option_choice_name: "Much too much ",
+    totalAns: 1
+    },
+    {
+    option_choice_name: "Somewhat too much",
+    totalAns: null
+    },
+    {
+    option_choice_name: "Slightly too much",
+    totalAns: null
+    },
+    {
+    option_choice_name: "Much too little",
+    totalAns: null
+    },
+    {
+    option_choice_name: "About the right amount",
+    totalAns: null
+    }
+    ]
+    },
+    {
+    question_id: 137,
+    question_name: "Are you satisfied with your employee benifits, neither satisfied nor dissatisfied with them, or dissatisfied wiht them?",
+    totalAnsCount: 5,
+    option_choices: [
+    {
+    option_choice_name: "Slightly dissatisfied",
+    totalAns: 2
+    },
+    {
+    option_choice_name: "Extremely dissatisfied",
+    totalAns: 2
+    },
+    {
+    option_choice_name: "Extremely satisfied",
+    totalAns: 1
+    },
+    {
+    option_choice_name: "Moderately satisfied",
+    totalAns: null
+    },
+    {
+    option_choice_name: "Moderately dissatisfied",
+    totalAns: null
+    },
+    {
+    option_choice_name: "Slightly satisfied",
+    totalAns: null
+    },
+    {
+    option_choice_name: "Neither satisfied nor dissatisfied",
+    totalAns: null
+    }
+    ]
+    },
+    {
+    question_id: 138,
+    question_name: "Are you satisfied with your job, neither satisfied nor dissatisfied with it, or dissatisfied with it?",
+    totalAnsCount: 4,
+    option_choices: [
+    {
+    option_choice_name: "Extremely dissatisfied",
+    totalAns: 2
+    },
+    {
+    option_choice_name: "Slightly dissatisfied",
+    totalAns: 1
+    },
+    {
+    option_choice_name: "Extremely satisfied",
+    totalAns: 1
+    },
+    {
+    option_choice_name: "Neither satisfied nor dissatisfied",
+    totalAns: null
+    },
+    {
+    option_choice_name: "Slightly satisfied",
+    totalAns: null
+    },
+    {
+    option_choice_name: "Moderately dissatisfied",
+    totalAns: null
+    },
+    {
+    option_choice_name: "Moderately satisfied",
+    totalAns: null
+    }
+    ]
+    },
+    {
+    question_id: 139,
+    question_name: "How proud are you of your employer's brand?",
+    totalAnsCount: 3,
+    option_choices: [
+    {
+    option_choice_name: "Slightly dissatisfied",
+    totalAns: 1
+    },
+    {
+    option_choice_name: "Moderately dissatisfied",
+    totalAns: 1
+    },
+    {
+    option_choice_name: "Extremely dissatisfied",
+    totalAns: 1
+    },
+    {
+    option_choice_name: "Extremely satisfied",
+    totalAns: null
+    },
+    {
+    option_choice_name: "Moderately satisfied",
+    totalAns: null
+    },
+    {
+    option_choice_name: "Slightly satisfied",
+    totalAns: null
+    },
+    {
+    option_choice_name: "Neither satisfied nor dissatisfied",
+    totalAns: null
+    }
+    ]
+    },
+    {
+    question_id: 140,
+    question_name: "Do you liker your employer, neither like nor dislike them, or dislike them?",
+    totalAnsCount: 7,
+    option_choices: [
+    {
+    option_choice_name: "Not at all proud",
+    totalAns: 5
+    },
+    {
+    option_choice_name: "Extremely proud",
+    totalAns: 1
+    },
+    {
+    option_choice_name: "Slightly proud",
+    totalAns: 1
+    },
+    {
+    option_choice_name: "Very proud",
+    totalAns: null
+    },
+    {
+    option_choice_name: "Moderately proud",
+    totalAns: null
+    }
+    ]
+    },
+    {
+    question_id: 141,
+    question_name: "How likely are you to look for another job outside the company?",
+    totalAnsCount: 8,
+    option_choices: [
+    {
+    option_choice_name: "Dislike a great deal",
+    totalAns: 3
+    },
+    {
+    option_choice_name: "Dislike a little",
+    totalAns: 2
+    },
+    {
+    option_choice_name: "Dislike a moderate amount",
+    totalAns: 2
+    },
+    {
+    option_choice_name: "Like a great deal",
+    totalAns: 1
+    },
+    {
+    option_choice_name: "Neither like nor dislike",
+    totalAns: null
+    },
+    {
+    option_choice_name: "Like a moderate amount",
+    totalAns: null
+    },
+    {
+    option_choice_name: "Like a little",
+    totalAns: null
+    }
+    ]
+    }
+    ]
+    }
+    ],
+    building_count: [
+    {
+    survey_headers_id: 6,
+    Number_of_buildings: 9
+    }
+    ]
+    }
+    ]

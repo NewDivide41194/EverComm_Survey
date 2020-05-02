@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import * as Colors from "../../../config/Color.config";
 import { ESDropDown } from "../../../tools/ES_DropDown";
 
-
 const Register = props => {
   const {
     handleSubmit,
@@ -25,6 +24,9 @@ const Register = props => {
     errStyle
   } = props;
 
+  window.onload = ()=> {
+    document.getElementById("FirstName").focus();
+  };
   return (
     <div className="container py-4">
 

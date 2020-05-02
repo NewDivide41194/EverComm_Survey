@@ -20,6 +20,9 @@ const UserLogin = (props) => {
     position: "absolute",
     marginTop: "-15px",
   };
+  window.onload = ()=> {
+    document.getElementById("Email").focus();
+  };
   return (
     <div className="row justify-content-center">
       {/* {IsLoading&&<div className='bg-dark w-100'>Loading...</div>} */}
