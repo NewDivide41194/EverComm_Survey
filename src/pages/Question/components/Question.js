@@ -46,7 +46,7 @@ const Question = (props) => {
               style={{
                 borderRadius: media.mobile ? "20px 0px 0 20px" : "20px",
                 background: "rgba(0,0,0,0.5)",
-                zIndex: '3000'
+                zIndex: '1'
               }}
             >{`${obtained || 0} of ${total} Answered`}</div>
           </div>

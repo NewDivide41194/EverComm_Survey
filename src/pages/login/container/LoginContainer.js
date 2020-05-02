@@ -48,11 +48,8 @@ const LoginContainer = props => {
                     localStorage.setItem("userId",data.payload[0].login_user_id);
                     localStorage.setItem("email",data.payload[0].email);
 
-
-
                     Auth.login(() => {
                         const userId=data.payload[0].login_user_id 
-                        console.log("USER ID---------------->",userId);
                         
                         props.history.push(`/menu/${userId}`);
                     })

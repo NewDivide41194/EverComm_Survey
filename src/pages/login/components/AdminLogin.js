@@ -21,10 +21,7 @@ const UserLogin = (props) => {
     position: "absolute",
     marginTop: "-15px",
   };
-  console.log(isDisabled);
-  useEffect(()=>{
-
-  })
+ 
   return (
     <div className="row justify-content-center">
       {/* {IsLoading&&<div className='bg-dark w-100'>Loading...</div>} */}

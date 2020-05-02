@@ -2,8 +2,6 @@ import React from "react";
 import { ESButton } from "../../../tools/ES_Button";
 import { ESInput } from "../../../tools/ES_Inputs";
 import { ESDropDown } from "../../../tools/ES_DropDown";
-import { Link } from "react-router-dom";
-import * as Colors from "../../../config/Color.config";
 import { ESTextfield } from "../../../tools/ES_TextField";
 
 const Building = props => {

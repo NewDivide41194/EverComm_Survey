@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Register from "../components/register";
 import { RegisterFetch } from "../../../api/FetchRegisteration";
 import { useAlert } from "react-alert";
@@ -102,6 +102,9 @@ const RegisterContainer = (props) => {
   const _handleView = () => {
     setVisible(!visible);
   };
+  useEffect(()=>{
+    document.getElementById("FirstName").focus()
+  },[])
 
   return (
     <Register
