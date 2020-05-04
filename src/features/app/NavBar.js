@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import Logo from "../../assets/images/Logo.jpg";
+import Logo from "../../assets/images/Logo.png";
 import {withRouter} from "react-router-dom";
 import withMedia from "react-media-query-hoc/dist/with-media";
 import Auth from "../../security/auth";

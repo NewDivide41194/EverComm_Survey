@@ -78,9 +78,9 @@ const QuestionContainer = (props) => {
         {
           label: "Submit",
           onClick: () => {
-            setIsLoading(true)
+            setIsLoading(true);
             PostAnswer({ data: AnswerData, token }, (err, data) => {
-              setIsLoading(false)
+              setIsLoading(false);
               history.push("/reportMenu");
             });
           },
@@ -93,7 +93,6 @@ const QuestionContainer = (props) => {
         },
       ],
     });
- 
   };
   const isQuesId = (quesId) => {
     return AnswerData.filter((e) => e.questionId === quesId);
@@ -102,7 +101,7 @@ const QuestionContainer = (props) => {
     return AnswerData.findIndex((e) => e.questionId === quesId);
   };
 
-  const handleRadioChange = (ansId, quesId) => {
+  const handleRadioChange = (ansId, quesId,qHeight) => {
     // setValue("");
     const Ans = {
       other: "",
@@ -112,12 +111,14 @@ const QuestionContainer = (props) => {
       survey_headers_id: surveyHeaderId,
       building_id: buildingId,
     };
+
     if (isQuesId(quesId).length >= 1) {
       AnswerData.splice(isQuesIdIndex(quesId), 1, Ans);
     } else {
       AnswerData.push(Ans);
     }
     setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
+    // document.getElementById('style-1').scroll(0)
   };
 
   const handleCheckChange = (quesId, answerId) => {
@@ -147,7 +148,6 @@ const QuestionContainer = (props) => {
 
   const handleInputChange = (e, quesId) => {
     setValue(e.target.value);
-    // if (e.target.value===""){}
 
     const Ans = {
       other: e.target.value.replace(/\s+/g, " ").trimStart(),
@@ -157,9 +157,17 @@ const QuestionContainer = (props) => {
       survey_headers_id: surveyHeaderId,
       building_id: buildingId,
     };
-    if (e.target.value === " " || "") {
-      // AnswerData.splice(isQuesIdIndex, 1);
+
+    if (
+      e.target.value.replace(/\s+/g, " ").trimStart() === "" &&
+      isQuesId(quesId).length < 1
+    ) {
       return;
+    } else if (
+      e.target.value.replace(/\s+/g, " ").trimStart() === "" &&
+      isQuesId(quesId).length >= 1
+    ) {
+      AnswerData.splice(isQuesIdIndex(quesId), 1);
     } else if (isQuesId(quesId).length >= 1) {
       AnswerData.splice(isQuesIdIndex(quesId), 1, Ans);
     } else {
@@ -239,7 +247,7 @@ const QuestionContainer = (props) => {
       }
     }
   };
-console.log("ANS------>",AnswerData);
+  console.log("ANS------>", AnswerData);
 
   return IsLoading ? (
     <ESLoading />

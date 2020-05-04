@@ -153,10 +153,10 @@ const Register = props => {
             />
           </div>
         </div>
-        <span>
+        <div className="text-center">
           {'Already have an account? '}
           <Link to={"/login"}>Login</Link>
-        </span>
+        </div>
       </form>
     </div>
     </div>
