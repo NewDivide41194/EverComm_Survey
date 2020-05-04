@@ -10,25 +10,22 @@ const SurveylistContainer = (props) => {
   const [surveyList, setSurveyList] = useState([]);
   const [buildingList, setBuildingList] = useState([]);
 
-  const buildingId = localStorage.getItem("buildingId");
   const userId = localStorage.getItem("userId");
   const SurveyHeaderId = localStorage.getItem("SurveyHeaderId");
   const token = localStorage.getItem("token");
 
   const _handleNewSurvey = () => {
-    props.history.push(`/building`);
-    // window.location.reload();
+    props.history.push(`/addBuilding`);
   };
 
   const handleCardClick = () => {
+    const buildingId = localStorage.getItem("buildingId");
     props.history.push(`/question/${userId}/${SurveyHeaderId}/${buildingId}`);
-    console.log(userId, SurveyHeaderId, buildingId);
   };
 
   useEffect(() => {
     SurveyListFetch(userId, SurveyHeaderId, token, (err, data) => {
       setSurveyList(data.payload.List);
-      // setBuildingList(data.payload.newList)
       console.log(data.payload);
     });
     NewSurveyListFetch(userId, SurveyHeaderId, token, (err, data) => {

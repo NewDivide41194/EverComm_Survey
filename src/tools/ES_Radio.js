@@ -20,12 +20,13 @@ export const ESRadio = props => {
       style={{cursor:'pointer'}}
 
     >
+      
       <Radio
         color="primary"
         className="p-1"
         name={`${quesId}`}
         checked={isAnswer.filter(d => d === ans.option_choice_id).length > 0}
-        onChange={() => _handleRadioChange(ans.option_choice_id, quesId)}
+        onChange={() => _handleRadioChange(ans.option_choice_id, quesId,100)}
         id={`${ans.option_choice_id}`}
         value={ans.option_choice_name}
       />
