@@ -14,6 +14,7 @@ const ESProgress = props => {
         aria-valuemax="100"
         style={{
           width: `${Percent}%`,
+          borderRadius:"0 20px 20px 0",
           background: Color.PrimaryColor,
           transition: "width .5s"
         }}

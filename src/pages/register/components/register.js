@@ -28,11 +28,10 @@ const Register = props => {
 
     <div className="row justify-content-center">
       <form
-        className="col-lg-6 col-md-8 text-center "
+        className="col-lg-6 col-md-8"
         
       >
-        {" "}
-        <div className="pb-4">
+        <div className="pb-4  text-center ">
           <div className="pb-2 font-weight-bold" style={{ fontSize: "25px" }}>
             ACCOUNT REGISTRATION
           </div>
@@ -48,7 +47,7 @@ const Register = props => {
           </span>
         </div>
         <div className="row form-group">
-          <div className="py-2 col-6 text-left ">
+          <div className="py-2 col-6">
             <label>First Name:</label>
             <div className="text-right">
               {err.firstNameErr === undefined ? null : (
@@ -62,10 +61,9 @@ const Register = props => {
               value={firstName}
               maxLength={"20"}
               onChange={e => handleFirstNameChange(e)}
-              
             />
           </div>
-          <div className="py-2 col-6 text-left">
+          <div className="py-2 col-6">
             <label>Last Name:</label>
             {err.lastNameErr === undefined ? null : (
               <div  className="text-right col-lg-12" style={{ ...errStyle }}>{`*${err.lastNameErr}`}</div>
@@ -76,10 +74,9 @@ const Register = props => {
               maxLength={"20"}
               value={lastName}
               onChange={e => handleLastNameChange(e)}
-             
             />
           </div>
-          <div className="py-2 col-12 text-left">
+          <div className="py-2 col-12">
             <label className="">Your Company Name:</label>   
             {err.companyErr === undefined ? null : (
               <div className="text-right col-lg-12" style={{ ...errStyle }} >{`*${err.companyErr}`}</div>
@@ -90,10 +87,9 @@ const Register = props => {
               maxLength={"50"}
               value={companyName}
               onChange={e => handleCompanyChange(e)}
-             
             />
           </div>
-          <div className="py-2 col-12 text-left">
+          <div className="py-2 col-12">
             <label className="">Email:</label>
 
             {err.eMailErr === undefined ? null : (
@@ -108,7 +104,7 @@ const Register = props => {
               onChange={e => handleEmailChange(e)}
             />
           </div>
-          <div className="py-2 col-12 text-left">
+          <div className="py-2 col-12">
 
             <label className="">Password:</label>
 
