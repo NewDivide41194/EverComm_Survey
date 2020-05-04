@@ -11,6 +11,7 @@ const RegisterContainer = (props) => {
   const [companyName, setCompanyName] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState({});
+  const [isDisabled,setIsDisabled]=useState(false);
   const alert = useAlert();
   const errStyle = {
     color: "red",
@@ -68,17 +69,20 @@ const RegisterContainer = (props) => {
       return;
     } else {
       setErr({});
+      setIsDisabled(!isDisabled)
       RegisterFetch(
         { firstName, lastName, eMail, password, companyName },
         (err, data) => {
-          data.success === true ? _success() : alert.error(data.message);
+          if(data.success ===false){
+            alert.error(data.message);
+            setIsDisabled(isDisabled)
+          }else{
+            props.history.push("/");
+            alert.success("Account Created Successfuly!");
+          }   
         }
       );
     }
-  };
-  const _success = () => {
-    props.history.push("/");
-    alert.success("Account Created Successfuly!");
   };
 
   const _handleFirstNameChange = (e) => {
@@ -122,6 +126,7 @@ const RegisterContainer = (props) => {
       handleFirstNameChange={_handleFirstNameChange}
       handleLastNameChange={_handleLastNameChange}
       handlePwdChange={_handlePwdChange}
+      isDisabled={isDisabled}
     />
   );
 };

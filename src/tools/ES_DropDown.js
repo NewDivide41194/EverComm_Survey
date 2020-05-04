@@ -2,7 +2,7 @@ import React from "react";
 import Select from "react-select";
 
 export const ESDropDown = props => {
-  const { options, quesId, _handleSelect, selectedOption } = props;
+  const { options, quesId, _handleSelect, selectedOption,disabled } = props;
 
   const AnsSelected =
     selectedOption &&
@@ -13,6 +13,7 @@ export const ESDropDown = props => {
  
   return (
     <Select
+      isDisabled={disabled}
       id={`${quesId}`}
       // styles={customStyles}
       className="w-100"
