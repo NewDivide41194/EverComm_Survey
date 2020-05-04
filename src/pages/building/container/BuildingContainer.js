@@ -13,6 +13,7 @@ const BuildingContainer = (props) => {
   const [clientCompany, setClientCompany] = useState("");
   const [comment, setComment] = useState("");
   const [err, setErr] = useState({});
+  const [isDisabled,setIsDisabled]=useState(false);
   const alert = useAlert();
   const token = localStorage.getItem("token");
   const buildingId = localStorage.getItem("buildingId");
@@ -99,6 +100,7 @@ const BuildingContainer = (props) => {
       return;
     } else {
       setErr({});
+      setIsDisabled(!isDisabled)
       BuildingFetch(
         {
           clientCompany,
@@ -111,19 +113,21 @@ const BuildingContainer = (props) => {
           surveyHeaderId,
           token,
         },
-        (err, data) => {
-          localStorage.setItem("buildingId", data.payload.insertId);
-          data.success === true ? _success() : alert.error(data.message);
+        (err, data) => {  
+          if(data.success ===false){
+            alert.error(data.message);
+            setIsDisabled(isDisabled)
+          }else{
+            localStorage.setItem("buildingId", data.payload.insertId);
+            props.history.push(`/question/${userId}/${surveyHeaderId}/${buildingId}`);
+            alert.success("submitted"); 
+          }   
         }
       );
     }
   };
-
-  const _success = () => {
-    props.history.push(`/question/${userId}/${surveyHeaderId}/${buildingId}`);
-    alert.success("submitted");
-  };
-
+  console.log('disable',{isDisabled});
+      
   const CountryOptions = Countries.countries.map((v, k) => ({
     value: v.code,
     label: v.name,
@@ -150,6 +154,7 @@ const BuildingContainer = (props) => {
       handleSubmit={_handleSubmit}
       err={err}
       errStyle={errStyle}
+      isDisabled={isDisabled}
     />
   );
 };

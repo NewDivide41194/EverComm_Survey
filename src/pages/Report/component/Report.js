@@ -34,7 +34,7 @@ const Report = (props) => {
                       ? v1.questions.map((v2, k2) => (
                           <div key={k2} className="col-lg-6 pb-4">
                             <div className="row font-weight-bold pb-2">
-                              {v2.question_id}. {v2.question_name}
+                              {v2.question_id}. {v2.question_name}  
                             </div>
                             <div className="row font-weight-bold">
                               <div className="w-75">Total Buildings</div>
@@ -55,13 +55,13 @@ const Report = (props) => {
                                   </div>
                                 ))
                               : null}
-                            <div className="row">
+                           {v2.input_type_id===1|| <div className="row">
                               <div className="w-75">Not Answered</div>
                               <div className="W-25">
                                 - {NotAnswered(v2.totalAnsCount)} (
                                 {Percentage(NotAnswered(v2.totalAnsCount))} %)
                               </div>
-                            </div>
+                            </div>}
                           </div>
                         ))
                       : null}

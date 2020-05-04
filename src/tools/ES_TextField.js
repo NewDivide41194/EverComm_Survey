@@ -12,6 +12,7 @@ export const ESTextfield =props=>{
         width,
         onChange,
         value,
+        disabled,
       } = props;
     
     
@@ -39,7 +40,8 @@ export const ESTextfield =props=>{
       };
     
       return (
-        <textarea 
+        <textarea
+        disabled={disabled} 
         id={id}
         required={required}
         onChange={onChange}

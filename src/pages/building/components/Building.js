@@ -21,9 +21,9 @@ const Building = props => {
     CountryOptions,
     handleSubmit,
     err,
-    errStyle
+    errStyle,
+    isDisabled
   } = props;
-
   return (
     <div className="container py-4">
       <div className="row justify-content-center px-4 ">
@@ -45,7 +45,8 @@ const Building = props => {
               <div className="text-right col-lg-12" style={{...errStyle}}>{`*${err.clientCompanyErr }`}</div>
             )}
             <div className="col-12">
-                <ESInput 
+                <ESInput
+                  disabled={isDisabled}
                   id={"clientCompany"} 
                   placeHolder={"Your ClientCompany"}
                   value={clientCompany}
@@ -61,6 +62,7 @@ const Building = props => {
             )}
             <div className="col-12">
               <ESInput
+                disabled={isDisabled}
                 id={"buildingName"}
                 placeHolder={"Building Name"}
                 value={buildingName}
@@ -74,7 +76,7 @@ const Building = props => {
               { err.countryErr=== undefined ? null : (
               <div className="text-right col-lg-12" style={{...errStyle, marginTop: '-25px'}}>{`*${err.countryErr }`}</div>
             )}
-              <ESDropDown id={"Country"} _handleSelect={handleSelectCountry} options={CountryOptions} value={country} />
+              <ESDropDown disabled={isDisabled} id={"Country"} _handleSelect={handleSelectCountry} options={CountryOptions} value={country} />
             </div>
 
             <div className="col-sm-12 col-lg-6 py-1">
@@ -82,7 +84,8 @@ const Building = props => {
               { err.postalErr === undefined ? null : (
               <div className="text-right col-lg-12" style={{...errStyle, marginTop: '-25px'}}>{`*${err.postalErr }`}</div>
               )}
-              <ESInput 
+              <ESInput
+                disabled={isDisabled}
                 id={"postal"}
                 placeHolder={"Postal"}
                 value={postal} 
@@ -97,6 +100,7 @@ const Building = props => {
             )}
             <div className="col-12">
               <ESInput
+                disabled={isDisabled} 
                 id={"address"}
                 placeHolder={"Address"}
                 value={address}
@@ -110,7 +114,8 @@ const Building = props => {
               <div className="text-right col-lg-12" style={{...errStyle}}>{`*${err.commentErr }`}</div>
             )}
             <div className="col-12">
-              <ESTextfield 
+              <ESTextfield
+                disabled={isDisabled}
                 id={"comment"}
                 placeHolder={"Comment"} 
                 value={comment}
@@ -120,7 +125,7 @@ const Building = props => {
           </div>
           <div className="row py-2 justify-content-end">
             <div className="col-6">
-              <ESButton id={"Next"} text={"Next"} type={"submit"}  onClick={handleSubmit} small  />
+              <ESButton disabled={isDisabled} id={"Next"} text={"Next"} type={"submit"}  onClick={handleSubmit} small  />
             </div>
           </div>
         </form>

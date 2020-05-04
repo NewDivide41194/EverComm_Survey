@@ -20,9 +20,9 @@ const Register = props => {
     visible,
     err,
     companyName,
-    errStyle
+    errStyle,
+    isDisabled
   } = props;
-
   return (
     <div className="container py-4">
 
@@ -56,6 +56,7 @@ const Register = props => {
             </div>
             
             <ESInput
+              disabled={isDisabled}
               id={"FirstName"}
               placeHolder={"FirstName"}
               value={firstName}
@@ -69,6 +70,7 @@ const Register = props => {
               <div  className="text-right col-lg-12" style={{ ...errStyle }}>{`*${err.lastNameErr}`}</div>
             )}  
             <ESInput
+              disabled={isDisabled}
               id={"LastName"}
               placeHolder={"LastName"}
               maxLength={"20"}
@@ -82,6 +84,7 @@ const Register = props => {
               <div className="text-right col-lg-12" style={{ ...errStyle }} >{`*${err.companyErr}`}</div>
             )}       
            <ESInput
+              disabled={isDisabled}
               id={"CompanyName"}
               placeHolder={"Your Company"}
               maxLength={"50"}
@@ -97,6 +100,7 @@ const Register = props => {
             )}
            
             <ESInput
+              disabled={isDisabled}
               id={"Email"}
               type={"email"}
               placeHolder={"Email"}
@@ -112,6 +116,7 @@ const Register = props => {
               <div  className="text-right col-lg-12" style={{ ...errStyle }}>{`*${err.passwordErr}`}</div>
             )}
             <ESInput
+              disabled={isDisabled}
               id={"Password"}
               type={visible ? "text" : "password"}
               placeHolder={"Password"}
@@ -139,6 +144,7 @@ const Register = props => {
 
           <div className="pt-2 col-12">
             <ESButton
+              disabled={isDisabled}
               text={"REGISTER"}
               type={"submit"}
               small

@@ -19,7 +19,7 @@ const UserLogin = (props) => {
     color: "red",
     fontSize: 12,
     position: "absolute",
-    marginTop: "-15px",
+    marginTop: "-20px",
   };
  
   return (
@@ -39,13 +39,12 @@ const UserLogin = (props) => {
 
           <h4>Login Your Account</h4>
           <div className="py-3 text-left">
+            <label className="col-12">Email</label>
             {err.eMailErr === undefined ? null : (
-              <div style={{ ...errStyle }}>{`*${err.eMailErr}`}</div>
+              <div className="text-right col-lg-12" style={{ ...errStyle }}>{`*${err.eMailErr}`}</div>
             )}
-            <label>Email</label>
-
             <ESInput
-            disabled={isDisabled}
+              disabled={isDisabled}
               required={true}
               id={"Email"}
               placeHolder={"Email"}
@@ -53,11 +52,10 @@ const UserLogin = (props) => {
               onChange={(e) => handleEmailChange(e)}
             />
             <div className="pt-2">
+              <label className="col-12">Password</label>
               {err.passwordErr === undefined ? null : (
-                <div style={{ ...errStyle }}>{`*${err.passwordErr}`}</div>
+                <div className="text-right col-lg-12" style={{ ...errStyle }}>{`*${err.passwordErr}`}</div>
               )}
-              <label>Password</label>
-
               <ESInput
               disabled={isDisabled}
                 required={true}

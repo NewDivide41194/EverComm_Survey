@@ -3,7 +3,7 @@ import Report from '../component/Report'
 import { ReportAnswers } from "../../../api/FetchReportAnswers";
 
 const ReportContainer=()=>{
-    const [reportData, setReportData] = useState([]);
+  const [reportData, setReportData] = useState([]);
   const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
   const token = localStorage.getItem("token");
   useEffect(() => {

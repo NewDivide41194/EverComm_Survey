@@ -18,6 +18,7 @@ const Question = (props) => {
     selectedOption,
     obtained,
     total,
+    confirmAlert,
     _handleNext,
     _handlePrevious,
     _handleSubmit,

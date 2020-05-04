@@ -14,10 +14,11 @@ const LoginContainer = props => {
     const token = 123;
     const alert = useAlert();
     useEffect(() => {
-        localStorage.clear();
+         localStorage.clear();
         document.getElementById("Email").focus()
 
-    }, []);
+    },[]);
+   
     const _handleSubmit = e => {
         e.preventDefault();
         if (eMail === "") {
