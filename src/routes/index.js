@@ -6,7 +6,7 @@ import MenuContainer from "../pages/Menu/constainer/MenuContainer";
 import BuildingContainer from "../pages/building/container/BuildingContainer";
 import AccountContainer from "../pages/user/account/container/AccountContainer";
 import SurveylistContainer from "../pages/surveylist/container/SurveylistContainer";
-import ReportContainer from "../pages/Report/Container/ReportContainer";
+import ReportContainer from "../pages/Report/container/ReportContainer";
 
 export const RouteName = {
   routeFirstPage: "",
