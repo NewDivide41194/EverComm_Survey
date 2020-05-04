@@ -1,15 +1,18 @@
-import React from "react";
+import React,{ useState } from "react";
 import { ESButton } from "../../../tools/ES_Button";
 import * as Colors from "../../../config/Color.config";
 
 const MainMenu = (props) => {
   const { handleChoose, id, header, amountOfSurvey, handleReset } = props;
+  const [isHover,setIsHover]=useState(false);
 
   const _handleMouseOver = () => {
+    setIsHover(true);
     document.getElementById(id).className =
-      "d-flex flex-row text-light bg-dark p-3 rounded justify-content-between my-3";
+      "d-flex flex-row text-light bg-dark p-3 rounded justify-content-between my-3"; 
   };
   const _handleMouseLeave = () => {
+    setIsHover(false);
     document.getElementById(id).className =
       "d-flex flex-row bg-light text-dark p-3 rounded justify-content-between my-3";
   };
@@ -27,10 +30,14 @@ const MainMenu = (props) => {
         id={id}
         onClick={(e) => handleChoose(e,header)}
       >
-        <div id={id} style={{ fontSize: 25 }}>
-          {header}
+        <div className="d-flex flex-row flex-fill" id={id} style={{ fontSize: 25 }}>
+            {header}
         </div>
-
+        {
+            isHover&&
+              <i className="far fa-arrow-alt-circle-right" style={{float: 'right', marginTop: "-24px",
+              fontSize: "40px",}}></i> 
+        } 
         <div className="col-12" id={id}>
           <div className="row" id={id}>
             {amountOfSurvey === "Completed" ? (

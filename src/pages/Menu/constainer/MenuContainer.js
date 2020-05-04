@@ -5,9 +5,9 @@ import { TrancateAns } from "../../../api/FetchTrancate";
 
 const MenuContainer = props => {
   const [menuData, setMenuData] = useState([]);
- 
   const userId = localStorage.getItem("userId")
 
+ 
   const _handleChoose = (e,header )=> {
     localStorage.setItem("SurveyHeaderId", e.target.id);
     localStorage.setItem("SurveyHeaderName", header);
