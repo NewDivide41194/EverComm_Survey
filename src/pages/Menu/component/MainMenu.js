@@ -33,11 +33,7 @@ const MainMenu = (props) => {
         <div className="d-flex flex-row flex-fill" id={id} style={{ fontSize: 25 }}>
             {header}
         </div>
-        {
-            isHover&&
-              <i className="far fa-arrow-alt-circle-right" style={{float: 'right', marginTop: "-24px",
-              fontSize: "40px",}}></i> 
-        } 
+       
         <div className="col-12" id={id}>
           <div className="row" id={id}>
             {amountOfSurvey === "Completed" ? (
@@ -53,6 +49,11 @@ const MainMenu = (props) => {
             )}
             <div id={id}>{amountOfSurvey} {amountOfSurvey<=1?"Survey":"Surveys"} Answered</div>
           </div>
+          {
+            isHover&&
+              <i id={id} className="far fa-arrow-alt-circle-right text-secondary" style={{float: 'right', marginTop: "-50px",
+              fontSize: "40px",}}></i> 
+        } 
         </div>
       </div>
 
