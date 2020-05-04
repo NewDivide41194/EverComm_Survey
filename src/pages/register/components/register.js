@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { ESButton } from "../../../tools/ES_Button";
 import { ESInput } from "../../../tools/ES_Inputs";
 import { Link } from "react-router-dom";
 import * as Colors from "../../../config/Color.config";
-import { ESDropDown } from "../../../tools/ES_DropDown";
 
 const Register = props => {
   const {
@@ -23,10 +22,6 @@ const Register = props => {
     companyName,
     errStyle
   } = props;
-
-  window.onload = ()=> {
-    document.getElementById("FirstName").focus();
-  };
   return (
     <div className="container py-4">
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { ESButton } from "../../../tools/ES_Button";
 import { ESInput } from "../../../tools/ES_Inputs";
 import { Link } from "react-router-dom";
@@ -13,6 +13,7 @@ const UserLogin = (props) => {
     handleView,
     visible,
     err,
+    isDisabled
   } = props;
   const errStyle = {
     color: "red",
@@ -20,9 +21,7 @@ const UserLogin = (props) => {
     position: "absolute",
     marginTop: "-15px",
   };
-  window.onload = ()=> {
-    document.getElementById("Email").focus();
-  };
+ 
   return (
     <div className="row justify-content-center">
       {/* {IsLoading&&<div className='bg-dark w-100'>Loading...</div>} */}
@@ -46,6 +45,7 @@ const UserLogin = (props) => {
             <label>Email</label>
 
             <ESInput
+            disabled={isDisabled}
               required={true}
               id={"Email"}
               placeHolder={"Email"}
@@ -59,6 +59,7 @@ const UserLogin = (props) => {
               <label>Password</label>
 
               <ESInput
+              disabled={isDisabled}
                 required={true}
                 id={"password"}
                 type={visible ? "text" : "password"}
@@ -84,12 +85,13 @@ const UserLogin = (props) => {
           </div>
 
           <ESButton
+          disabled={isDisabled}
             text={"LOGIN"}
             type={"submit"}
             small
             id={"Login"}
             onClick={handleSubmit}
-            rightIcon={<i className="fa fa-sign-in-alt pl-2" />}
+            rightIcon={isDisabled?<i class="fas fa-spinner fa-spin ml-2"></i>:<i className="fa fa-sign-in-alt pl-2" />}
           />
           <div className="pt-2">
             Don't have an Account? <Link to={"/register"}>Register</Link>

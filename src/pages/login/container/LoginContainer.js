@@ -10,11 +10,15 @@ const LoginContainer = props => {
     const [password, setpassword] = useState("");
     const [visible, setVisible] = useState(false);
     const [err, setErr] = useState({});
+    const [isDisabled,setIsDisabled]=useState(false)
     const token = 123;
     const alert = useAlert();
     useEffect(() => {
-        localStorage.clear();
-    }, []);
+         localStorage.clear();
+        document.getElementById("Email").focus()
+
+    },[]);
+   
     const _handleSubmit = e => {
         e.preventDefault();
         if (eMail === "") {
@@ -28,6 +32,7 @@ const LoginContainer = props => {
             return;
         } else {
             setErr({});
+            setIsDisabled(true)
             UserFetch({
                 eMail,
                 password,
@@ -35,6 +40,7 @@ const LoginContainer = props => {
             }, (err, data) => {
                 if (data.success === false) {
                     alert.error("Account does not exit!");
+                    setIsDisabled(false)
                 } else
                 // : data.payload.user_info[0].user_level_id === 1
                 // ? props.history.push("/admin") else {
@@ -43,11 +49,8 @@ const LoginContainer = props => {
                     localStorage.setItem("userId",data.payload[0].login_user_id);
                     localStorage.setItem("email",data.payload[0].email);
 
-
-
                     Auth.login(() => {
                         const userId=data.payload[0].login_user_id 
-                        console.log("USER ID---------------->",userId);
                         
                         props.history.push(`/menu/${userId}`);
                     })
@@ -82,7 +85,8 @@ const LoginContainer = props => {
             handlePwdChange={_handlePwdChange}
             handleView={_handleView}
             visible={visible}
-            err={err}/>
+            err={err}
+            isDisabled={isDisabled}/>
     );
 };
 

@@ -129,6 +129,9 @@ const BuildingContainer = (props) => {
     label: v.name,
   }));
 
+  useEffect(()=>{
+    document.getElementById("clientCompany").focus()
+  },[])
   return (
     <Building
       buildingName={buildingName}
