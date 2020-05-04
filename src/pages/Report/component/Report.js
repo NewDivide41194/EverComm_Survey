@@ -7,6 +7,7 @@ const Report = (props) => {
     ? reportData.map((v, k) => v.building_count[0].Number_of_buildings)[0]
     : null;
   const Percentage = (countAns) => ((countAns * 100) / TotalBuilding).toFixed(2);
+  // const Percentage1=()=>countAns*100/
   const NotAnswered = (totalAnsCount) => TotalBuilding - totalAnsCount;
   return (
     <div className="container py-2">

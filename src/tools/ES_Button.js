@@ -22,7 +22,7 @@ export const ESButton = props => {
   };
   const hoverStyle = {
     background: "#008ccc",
-    boxShadow: "3px 3px 6px #2B2B2B"
+    boxShadow: "0px 2px 3px #2B2B2B"
   };
 
   const defaultStyle = isHover||disabled ? defaultStyle1 : hoverStyle;

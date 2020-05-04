@@ -78,7 +78,9 @@ const QuestionContainer = (props) => {
         {
           label: "Submit",
           onClick: () => {
+            setIsLoading(true)
             PostAnswer({ data: AnswerData, token }, (err, data) => {
+              setIsLoading(false)
               history.push("/reportMenu");
             });
           },
@@ -101,7 +103,7 @@ const QuestionContainer = (props) => {
   };
 
   const handleRadioChange = (ansId, quesId) => {
-    setValue("");
+    // setValue("");
     const Ans = {
       other: "",
       optionChoiceId: ansId,
@@ -237,6 +239,7 @@ const QuestionContainer = (props) => {
       }
     }
   };
+console.log("ANS------>",AnswerData);
 
   return IsLoading ? (
     <ESLoading />
