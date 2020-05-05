@@ -43,10 +43,11 @@ const Question = (props) => {
             }`}
           >
             <div
-              className="px-4 position-fixed"
+              className={`px-${media.mobile?2:4} position-fixed`}
               style={{
+                minWidth:160,
                 borderRadius: media.mobile ? "20px 0px 0 20px" : "20px",
-                background: "rgba(0,0,0,0.5)",
+                background: "rgba(0,0,0,0.7)",
                 zIndex: '1'
               }}
             >{`${obtained || 0} of ${total} Answered`}</div>

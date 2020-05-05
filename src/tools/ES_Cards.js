@@ -6,7 +6,7 @@ import { withMedia } from "react-media-query-hoc";
 import { ESInput } from "./ES_Inputs";
 import ESDatePicker from "./ES_DatePicker";
 
-const QuestionCard = props => {
+const QuestionCard = (props) => {
   const {
     survey_sections,
     pageno,
@@ -21,7 +21,7 @@ const QuestionCard = props => {
     isAnswer,
     AnswerData,
     startDate,
-    endDate
+    endDate,
   } = props;
 
   return survey_sections[pageno].questions.map((ques, k2) => (
@@ -31,7 +31,7 @@ const QuestionCard = props => {
       id={ques.questionId}
       style={{
         fontSize: media.mobile ? "12px" : "15px",
-        background: "#f0f0f0"
+        background: "#f0f0f0",
       }}
     >
       <div
@@ -40,33 +40,15 @@ const QuestionCard = props => {
         style={{ fontSize: media.mobile ? "15px" : "18px" }}
       >
         <div className="d-flex flex-row pb-3 w-100  justify-content-between">
-          <div className="">
+          <div>
             {k2 + 1}. {ques.question_name}
           </div>
           {AnswerData.map((v, k) => v.questionId).filter(
-            v => v === ques.question_id
+            (v) => v === ques.question_id
           )[0] === ques.question_id ? (
-            <div>
-              {media.mobile || (
-                <span style={{ fontSize: 10 }} className="text-secondary pr-1">
-                  Answered
-                </span>
-              )}
-              <i className="fa fa-check text-success" title="Answered" />
-            </div>
+            <QuestionCardInfo info={"Answered"} media={media} />
           ) : (
-            <div>
-              {media.mobile || (
-                <span style={{ fontSize: 10 }} className="text-secondary pr-1">
-                  Pending
-                </span>
-              )}
-
-              <i
-                className="fa fa-exclamation text-warning"
-                title="Blank Answer!"
-              />
-            </div>
+            <QuestionCardInfo info={"Pending"} media={media} />
           )}
         </div>
       </div>
@@ -89,19 +71,17 @@ const QuestionCard = props => {
           quesId={ques.question_id}
           options={ques.option_choices.map((v, k) => ({
             value: v.option_choice_id,
-            label: v.option_choice_name
+            label: v.option_choice_name,
           }))}
           // value={ques.option_choices.map((v,k)=>({value:v.option_choice_id,label:v.option_choice_name}))}
           _handleSelect={_handleSelect}
           selectedOption={
-            AnswerData.filter(d => d.questionId === ques.question_id)
-              ? AnswerData.filter(
-                  d => d.questionId === ques.question_id
-                ).map((v, k) =>
-                  ques.option_choices
-                    .filter(
+            AnswerData.filter((d) => d.questionId === ques.question_id)
+              ? AnswerData.filter((d) => d.questionId === ques.question_id).map(
+                  (v, k) =>
+                    ques.option_choices.filter(
                       (x, y) => x.option_choice_id === v.optionChoiceId
-                    )[0]            
+                    )[0]
                 )
               : selectedOption
           }
@@ -112,13 +92,13 @@ const QuestionCard = props => {
           placeHolder={"Fill Your Answer"}
           id={ques.question_id}
           value={
-            AnswerData.filter(d => d.questionId === ques.question_id)
-              ? AnswerData.filter(d => d.questionId === ques.question_id).map(
+            AnswerData.filter((d) => d.questionId === ques.question_id)
+              ? AnswerData.filter((d) => d.questionId === ques.question_id).map(
                   (v, k) => v.other
                 )
               : ""
           }
-          onChange={e => {
+          onChange={(e) => {
             _handleInputChange(e, ques.question_id);
           }}
         />
@@ -126,17 +106,17 @@ const QuestionCard = props => {
         <ESDatePicker
           quesId={ques.question_id}
           startDate={
-            AnswerData.filter(d => d.questionId === ques.question_id).length &&
-            AnswerData.length
-              ? AnswerData.filter(d => d.questionId === ques.question_id).map(
+            AnswerData.filter((d) => d.questionId === ques.question_id)
+              .length && AnswerData.length
+              ? AnswerData.filter((d) => d.questionId === ques.question_id).map(
                   (v, k) => new Date(JSON.parse(v.other).YearOfManufacturing)
                 )[0]
               : startDate
           }
           endDate={
-            AnswerData.filter(d => d.questionId === ques.question_id).length &&
-            AnswerData.length
-              ? AnswerData.filter(d => d.questionId === ques.question_id).map(
+            AnswerData.filter((d) => d.questionId === ques.question_id)
+              .length && AnswerData.length
+              ? AnswerData.filter((d) => d.questionId === ques.question_id).map(
                   (v, k) => new Date(JSON.parse(v.other).YearOfInstallation)
                 )[0]
               : endDate
@@ -150,3 +130,24 @@ const QuestionCard = props => {
 };
 
 export default withMedia(QuestionCard);
+
+const QuestionCardInfo = (props) => {
+  const { info, media } = props;
+  return (
+    <div>
+      {media.mobile || (
+        <span style={{ fontSize: 10 }} className="text-secondary pr-1">
+          {info}
+        </span>
+      )}
+      <i
+        className={`fa ${
+          info === "Answered"
+            ? "fa-check text-success"
+            : "fa-exclamation text-warning"
+        }`}
+        title="Answered"
+      />
+    </div>
+  );
+};

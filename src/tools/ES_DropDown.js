@@ -1,28 +1,46 @@
 import React from "react";
 import Select from "react-select";
+import * as Colors from "../config/Color.config";
 
-export const ESDropDown = props => {
-  const { options, quesId, _handleSelect, selectedOption,disabled } = props;
+export const ESDropDown = (props) => {
+  const { options, quesId, _handleSelect, selectedOption, disabled } = props;
 
   const AnsSelected =
     selectedOption &&
     selectedOption.map((v, k) => ({
       value: v.option_choice_id,
-      label: v.option_choice_name
+      label: v.option_choice_name,
     }));
- 
+
+  const customStyles = {
+    option: (provided, state) => ({
+      ...provided,
+      color: state.isSelected ? Colors.PaleYellow : Colors.PrimaryColor,
+      fontWeight: state.isSelected && "bold",
+      padding: 10,
+    }),
+  };
+
   return (
     <Select
       isDisabled={disabled}
       id={`${quesId}`}
-      // styles={customStyles}
+      styles={customStyles}
+      theme={(theme) => ({
+        ...theme,
+        colors: {
+          ...theme.colors,
+          // primary25: 'hotpink',
+          primary: Colors.PrimaryColor,
+        },
+      })}
       className="w-100"
       value={
         selectedOption && selectedOption.length === 0
           ? selectedOption
           : AnsSelected
       }
-      onChange={e => _handleSelect(quesId, e)}
+      onChange={(e) => _handleSelect(quesId, e)}
       // value={selectedOption}
       options={options}
     />

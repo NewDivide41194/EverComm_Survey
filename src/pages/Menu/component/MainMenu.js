@@ -51,7 +51,7 @@ const MainMenu = (props) => {
           </div>
           {
             isHover&&
-              <i id={id} className="far fa-arrow-alt-circle-right text-secondary" style={{float: 'right', marginTop: "-50px",
+              <i id={id} className="far fa-arrow-alt-circle-right" style={{color:Colors.SecondaryColor,float: 'right', marginTop: "-50px",
               fontSize: "40px",}}></i> 
         } 
         </div>

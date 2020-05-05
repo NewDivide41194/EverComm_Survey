@@ -1,7 +1,7 @@
 import React from "react";
 import * as Color from "../config/Color.config";
 
-export const ESInput = props => {
+export const ESInput = (props) => {
   const {
     style,
     className,
@@ -14,31 +14,31 @@ export const ESInput = props => {
     width,
     onChange,
     value,
-    maxLength
+    maxLength,
   } = props;
-
 
   const defaultStyle = {
     width: width === undefined ? "100%" : width,
-    padding: 20,
+    padding: 18,
     fontSize: 14,
     height: `${height}`,
     boxShadow: "none",
     shapeOutline: "none",
     outline: "none",
     border: `1px solid ${Color.SecondaryColor}`,
-    // background: `${Color.SecondaryColor}`,
-    borderRadius: 5
+    borderRadius: 5,
   };
   const userStyle = style === undefined ? {} : style;
 
   const __handleFocus = () => {
     document.getElementById(
       id
-    ).style.border = `1px solid ${Color.PrimaryColor}`;
+    ).style.border = `2px solid ${Color.PrimaryColor}`;
   };
   const __handleBlur = () => {
-    document.getElementById(id).style.border = `1px solid ${Color.SecondaryColor}`;
+    document.getElementById(
+      id
+    ).style.border = `1px solid ${Color.SecondaryColor}`;
   };
 
   return (
@@ -51,7 +51,7 @@ export const ESInput = props => {
       onChange={onChange}
       style={{
         ...defaultStyle,
-        ...userStyle
+        ...userStyle,
       }}
       placeholder={placeHolder}
       className={`form-control form-rounded ${className}`}
