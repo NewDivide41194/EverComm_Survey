@@ -1,13 +1,12 @@
 import React from "react";
 import * as Colors from "../../../config/Color.config";
+import {NotAnswered,Percentage} from "../../../helper/reportHelper"
 
 const Report = (props) => {
   const { reportData } = props;
   const TotalBuilding = reportData
     ? reportData.map((v, k) => v.building_count[0].Number_of_buildings)[0]
     : null;
-  const Percentage = (countAns) => ((countAns * 100) / TotalBuilding).toFixed(2);
-  const NotAnswered = (totalAnsCount) => TotalBuilding - totalAnsCount;
   
   return (
     <div className="container py-2">
@@ -50,7 +49,7 @@ const Report = (props) => {
                                       {v3.totalAns == null
                                         ? "- 0"
                                         : `- ${v3.totalAns}`}{" "}
-                                      ({Percentage(v3.totalAns)} %)
+                                      ({Percentage(v3.totalAns,TotalBuilding)} %)
                                     </div>
                                   </div>
                                 ))
@@ -58,8 +57,8 @@ const Report = (props) => {
                            {v2.input_type_id===1|| <div className="row">
                               <div className="w-75">Not Answered</div>
                               <div className="W-25">
-                                - {NotAnswered(v2.totalAnsCount)} (
-                                {Percentage(NotAnswered(v2.totalAnsCount))} %)
+                                - {NotAnswered(v2.totalAnsCount,TotalBuilding)} (
+                                {Percentage(NotAnswered(v2.totalAnsCount,TotalBuilding),TotalBuilding)} %)
                               </div>
                             </div>}
                           </div>

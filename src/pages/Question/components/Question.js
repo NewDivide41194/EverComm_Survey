@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React from "react";
 import QuestionCard from "../../../tools/ES_Cards";
 import { ESButton } from "../../../tools/ES_Button";
 import { withMedia } from "react-media-query-hoc";
@@ -18,7 +18,6 @@ const Question = (props) => {
     selectedOption,
     obtained,
     total,
-    confirmAlert,
     _handleNext,
     _handlePrevious,
     _handleSubmit,

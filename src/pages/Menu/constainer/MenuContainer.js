@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import MainMenu from "../component/MainMenu";
 import { MenuInfoFetch } from "../../../api/FetchMenuInfo";
 import { TrancateAns } from "../../../api/FetchTrancate";
+import Loading from "../../../assets/images/loading1.gif";
 
 const MenuContainer = props => {
   const [menuData, setMenuData] = useState([]);
   const userId = localStorage.getItem("userId")
-
+  const [IsLoading,setIsLoading]=useState(false);
  
   const _handleChoose = (e,header )=> {
     localStorage.setItem("SurveyHeaderId", e.target.id);
@@ -16,8 +17,10 @@ const MenuContainer = props => {
   const token=localStorage.getItem("token")
 
   useEffect(() => {
+    setIsLoading(true);
     MenuInfoFetch({ userId,token }, (err, data) => {      
       setMenuData(data.payload);
+      setIsLoading(false);
     });
   }, []);
   const _handleReset = survey_header_id => {
@@ -39,6 +42,15 @@ console.log("Menu----->",menuData);
          }}
       >
         <h2>{"Select Survey Name"}</h2>
+        { IsLoading &&
+        <div className="text-center" style={{
+          height: "100%",
+          paddingTop: "25vh",
+        }}>
+            <img src={Loading} style={{ width: 150 }} alt="loading" />
+            <div className="w-100 font-weight-bold">Loading...</div>
+        </div>  
+      }
         {menuData.map((v, k) => (
           <MainMenu
             key={k}

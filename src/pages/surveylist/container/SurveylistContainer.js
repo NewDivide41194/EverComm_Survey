@@ -71,14 +71,14 @@ const SurveylistContainer = (props) => {
 
   return (
     <div className="container">
-      <div className="d-flex flex-row justify-content-between flex-fill py-3 ">
+      <div className="row justify-content-between py-3">
         <div
-          className="font-weight-bold"
+          className="col-sm-12 col-lg-9 col-md-8"
           style={{ color: Colors.PrimaryColor }}
         >
           <h2>{SurveyHeaderName}</h2>
         </div>
-        <div>
+        <div className="col-sm-12 col-lg-3 col-md-4">
           <ESButton
             text={"+ Create New Survey"}
             onClick={_handleNewSurvey}
@@ -115,7 +115,7 @@ const SurveylistContainer = (props) => {
           id={"Completed"}
           SurveyData={CompletedSurvey}
           surveyName={"Completed Survey"}
-          BgColor={Colors.DarkGreen}
+          BgColor={Colors.SparkGreen}
           TxtColor={"white"}
           HoverBgColor={Colors.PaleGreen}
           HoverTxtColor={Colors.PaleYellow}

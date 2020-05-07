@@ -8,6 +8,6 @@ export const MoonLight="#f7c972"
 
 export const PaleYellow="#fae3b2"
 
-export const DarkGreen="#4faab1"
+export const SparkGreen="#7bbf34"
 
-export const PaleGreen="#59bdbe"
+export const PaleGreen="#82c937"

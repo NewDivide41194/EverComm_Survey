@@ -47,7 +47,7 @@ const Register = props => {
           </span>
         </div>
         <div className="row form-group">
-          <div className="py-2 col-6">
+          <div className="py-2 col-sm-12 col-lg-6">
             <label>First Name:</label>
             <div className="text-right">
               {err.firstNameErr === undefined ? null : (
@@ -64,7 +64,7 @@ const Register = props => {
               onChange={e => handleFirstNameChange(e)}
             />
           </div>
-          <div className="py-2 col-6">
+          <div className="py-2 col-sm-12 col-lg-6">
             <label>Last Name:</label>
             {err.lastNameErr === undefined ? null : (
               <div  className="text-right col-lg-12" style={{ ...errStyle }}>{`*${err.lastNameErr}`}</div>

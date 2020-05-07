@@ -101,7 +101,7 @@ const QuestionContainer = (props) => {
     return AnswerData.findIndex((e) => e.questionId === quesId);
   };
 
-  const handleRadioChange = (ansId, quesId,qHeight) => {
+  const handleRadioChange = (ansId, quesId) => {
     // setValue("");
     const Ans = {
       other: "",
@@ -118,7 +118,6 @@ const QuestionContainer = (props) => {
       AnswerData.push(Ans);
     }
     setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
-    // document.getElementById('style-1').scroll(0)
   };
 
   const handleCheckChange = (quesId, answerId) => {
