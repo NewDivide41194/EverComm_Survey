@@ -1,26 +1,16 @@
 import React from "react";
 import * as Colors from "../../../config/Color.config";
 import { NotAnswered, Percentage } from "../../../helper/reportHelper";
-import RangePicker from "react-range-picker";
 import moment from "moment";
-import { ESButton } from "../../../tools/ES_Button";
 
 const Report = (props) => {
-  const { reportData, onDateChanges, FetchReport, startDate, endDate } = props;
+  const { reportData, startDate, endDate } = props;
   const TotalBuilding = reportData
     ? reportData.map((v, k) => v.building_count[0].Number_of_buildings)[0]
     : null;
-  console.log(endDate);
 
   return (
     <div className="container py-2">
-      <RangePicker onDateSelected={onDateChanges} selectTime />
-      <ESButton
-        small
-        onClick={FetchReport}
-        disabled={startDate&&endDate ? false : true}
-        text={"Find Result"}
-      />
       {reportData&&reportData.length
         ? reportData.map((v, k) => (
             <div className="mt-4" key={k}>
