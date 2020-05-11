@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from "react";
 import Register from "../components/register";
-import { RegisterFetch } from "../../../api/FetchRegisteration";
+import { RegisterFetch } from "../../../api/FetchUser";
 import { useAlert } from "react-alert";
 
 const RegisterContainer = (props) => {
@@ -14,12 +14,11 @@ const RegisterContainer = (props) => {
   const [isDisabled,setIsDisabled]=useState(false);
   const alert = useAlert();
   const errStyle = {
-    color: "red",
     fontSize: 12,
-    position: "absolute",
     marginTop: "-25px",
   };
-
+  const errClassName="text-danger d-flex flex-row justify-content-end pb-2"
+  const SpecialCharErr="Not Allow Special Characters!" 
   const Timeout = () => {
     setTimeout(() => setErr({}), 5000);
   };
@@ -27,7 +26,7 @@ const RegisterContainer = (props) => {
   const _handleCompanyChange = (e) => {
     if (!SpecialCharacterFormat.test(e.target.value)) {
       setCompanyName(e.target.value.replace(/\s+/g, " ").trimStart());
-    } else setErr({ companyErr: "Special Characters Not allow " }, Timeout());
+    } else setErr({ companyErr:SpecialCharErr }, Timeout());
   };
   const _handleSubmit = (e) => {
     e.preventDefault();
@@ -88,13 +87,13 @@ const RegisterContainer = (props) => {
   const _handleFirstNameChange = (e) => {
     if (!SpecialCharacterFormat.test(e.target.value)) {
       setFirstName(e.target.value.replace(/\s+/g, " ").trimStart());
-    } else setErr({ firstNameErr: "Special Characters Not allow " }, Timeout());
+    } else setErr({ firstNameErr: SpecialCharErr }, Timeout());
   };
 
   const _handleLastNameChange = (e) => {
     if (!SpecialCharacterFormat.test(e.target.value)) {
       setLastName(e.target.value.replace(/\s+/g, " ").trimStart());
-    } else setErr({ lastNameErr: "Special Characters Not allow " }, Timeout());
+    } else setErr({ lastNameErr: SpecialCharErr }, Timeout());
   };
   const _handleEmailChange = (e) => {
     setEmail(e.target.value.trimStart());
@@ -119,6 +118,7 @@ const RegisterContainer = (props) => {
       visible={visible}
       companyName={companyName}
       errStyle={errStyle}
+      errClassName={errClassName}
       handleView={_handleView}
       handleSubmit={_handleSubmit}
       handleEmailChange={_handleEmailChange}

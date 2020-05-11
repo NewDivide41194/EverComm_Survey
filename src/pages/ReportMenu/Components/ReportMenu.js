@@ -4,8 +4,7 @@ import { withRouter } from "react-router-dom";
 import HMT from "../../../assets/images/HMT.gif";
 
 const ReportMenu = (props) => {
-  // const surveyTitle = ReportData.length && ReportData[0].survery_title;
-  // const pageNo = ReportData.length && ReportData[0].survey_sections.length;
+
   const buildingId = localStorage.getItem("buildingId");
   const userId = localStorage.getItem("userId");
   const surveyHeaderId = localStorage.getItem("SurveyHeaderId");

@@ -13,24 +13,23 @@ const BuildingContainer = (props) => {
   const [clientCompany, setClientCompany] = useState("");
   const [comment, setComment] = useState("");
   const [err, setErr] = useState({});
-  const [isDisabled,setIsDisabled]=useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
   const alert = useAlert();
   const token = localStorage.getItem("token");
   const buildingId = localStorage.getItem("buildingId");
   const userId = localStorage.getItem("userId");
   const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
 
-  const Timeout=()=>{
-    setTimeout(()=>setErr({}),5000)
-  } 
-  const SpecialCharacterFormat=/[`!#$%^&*()_+\-=\[\]{};:"\\|,.<>\/?~]/
+  const Timeout = () => {
+    setTimeout(() => setErr({}), 5000);
+  };
+  const SpecialCharacterFormat = /[`!#$%^&*()_+\-=\[\]{};:"\\|,.<>\/?~]/;
 
-  const _handleBuildingNameChange = (e) =>{
+  const _handleBuildingNameChange = (e) => {
     if (!SpecialCharacterFormat.test(e.target.value)) {
       setBuildingName(e.target.value.replace(/\s+/g, " ").trimStart());
     } else
       setErr({ buildingNameErr: "Special Characters Not allow " }, Timeout());
-     
   };
   const _handlePostalChange = (e) => {
     setPostal(e.target.value.replace(/\s+/g, " ").trimStart());
@@ -42,13 +41,12 @@ const BuildingContainer = (props) => {
     if (!SpecialCharacterFormat.test(e.target.value)) {
       setClientCompany(e.target.value.replace(/\s+/g, " ").trimStart());
     } else
-      setErr({ clientCompanyErr: "Special Characters Not allow " }, Timeout()); 
+      setErr({ clientCompanyErr: "Special Characters Not allow " }, Timeout());
   };
   const _handleCommentChange = (e) => {
     if (!SpecialCharacterFormat.test(e.target.value)) {
       setComment(e.target.value.replace(/\s+/g, " ").trimStart());
-    } else
-      setErr({ commentErr: "Special Characters Not allow " }, Timeout()); 
+    } else setErr({ commentErr: "Special Characters Not allow " }, Timeout());
   };
 
   const _handleCountrySelect = (quesId, e) => {
@@ -56,10 +54,11 @@ const BuildingContainer = (props) => {
   };
 
   const errStyle = {
-    color: "red",
+    marginTop: "-25px",
     fontSize: 12,
-    position: "absolute",
   };
+
+  const errClassName = "text-danger d-flex flex-row justify-content-end pb-2";
 
   const _handleSubmit = (e) => {
     e.preventDefault();
@@ -100,7 +99,7 @@ const BuildingContainer = (props) => {
       return;
     } else {
       setErr({});
-      setIsDisabled(!isDisabled)
+      setIsDisabled(!isDisabled);
       BuildingFetch(
         {
           clientCompany,
@@ -113,29 +112,31 @@ const BuildingContainer = (props) => {
           surveyHeaderId,
           token,
         },
-        (err, data) => {  
-          if(data.success ===false){
+        (err, data) => {
+          if (data.success === false) {
             alert.error(data.message);
-            setIsDisabled(isDisabled)
-          }else{
+            setIsDisabled(isDisabled);
+          } else {
             localStorage.setItem("buildingId", data.payload.insertId);
-            props.history.push(`/question/${userId}/${surveyHeaderId}/${buildingId}`);
-            alert.success("submitted"); 
-          }   
+            props.history.push(
+              `/question/${userId}/${surveyHeaderId}/${buildingId}`
+            );
+            alert.success("submitted");
+          }
         }
       );
     }
   };
-  console.log('disable',{isDisabled});
-      
+  console.log("disable", { isDisabled });
+
   const CountryOptions = Countries.countries.map((v, k) => ({
     value: v.code,
     label: v.name,
   }));
 
-  useEffect(()=>{
-    document.getElementById("clientCompany").focus()
-  },[])
+  useEffect(() => {
+    document.getElementById("clientCompany").focus();
+  }, []);
   return (
     <Building
       buildingName={buildingName}
@@ -154,6 +155,7 @@ const BuildingContainer = (props) => {
       handleSubmit={_handleSubmit}
       err={err}
       errStyle={errStyle}
+      errClassName={errClassName}
       isDisabled={isDisabled}
     />
   );

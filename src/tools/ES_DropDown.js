@@ -15,7 +15,7 @@ export const ESDropDown = (props) => {
   const customStyles = {
     option: (provided, state) => ({
       ...provided,
-      color: state.isSelected ? Colors.PaleYellow : Colors.PrimaryColor,
+      color: state.isSelected ? "white" : "black",
       fontWeight: state.isSelected && "bold",
       padding: 10,
     }),

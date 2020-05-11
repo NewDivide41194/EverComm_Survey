@@ -24,7 +24,6 @@ const MenuContainer = props => {
     });
   }, []);
   const _handleReset = survey_header_id => {
-
     TrancateAns({ userId, survey_header_id }, (err, data) => {
       window.location.reload()
     });

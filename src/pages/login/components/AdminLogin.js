@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import { ESButton } from "../../../tools/ES_Button";
 import { ESInput } from "../../../tools/ES_Inputs";
 import { Link } from "react-router-dom";
@@ -13,18 +13,13 @@ const UserLogin = (props) => {
     handleView,
     visible,
     err,
-    isDisabled
+    isDisabled,
+    errStyle
   } = props;
-  const errStyle = {
-    color: "red",
-    fontSize: 12,
-    position: "absolute",
-    marginTop: "-20px",
-  };
  
+
   return (
     <div className="row justify-content-center">
-      {/* {IsLoading&&<div className='bg-dark w-100'>Loading...</div>} */}
       <form
         className="col-lg-3 col-md-8"
         style={{
@@ -39,9 +34,12 @@ const UserLogin = (props) => {
 
           <h4>Login Your Account</h4>
           <div className="py-3 text-left">
-            <label className="col-12">Email</label>
+            <label>Email</label>
             {err.eMailErr === undefined ? null : (
-              <div className="text-right col-lg-12" style={{ ...errStyle }}>{`*${err.eMailErr}`}</div>
+              <div
+                className="d-flex flex-row justify-content-end"
+                style={{ ...errStyle }}
+              >{`*${err.eMailErr}`}</div>
             )}
             <ESInput
               disabled={isDisabled}
@@ -52,12 +50,15 @@ const UserLogin = (props) => {
               onChange={(e) => handleEmailChange(e)}
             />
             <div className="pt-2">
-              <label className="col-12">Password</label>
+              <label>Password</label>
               {err.passwordErr === undefined ? null : (
-                <div className="text-right col-lg-12" style={{ ...errStyle }}>{`*${err.passwordErr}`}</div>
+                <div
+                className="d-flex flex-row justify-content-end"
+                  style={{ ...errStyle }}
+                >{`*${err.passwordErr}`}</div>
               )}
               <ESInput
-              disabled={isDisabled}
+                disabled={isDisabled}
                 required={true}
                 id={"password"}
                 type={visible ? "text" : "password"}
@@ -76,20 +77,29 @@ const UserLogin = (props) => {
                 }}
                 onClick={handleView}
               >
-                  <i className={`fa fa-eye${visible?"-slash":""} py-4 text-secondary`} />
-                
+                <i
+                  className={`fa fa-eye${
+                    visible ? "-slash" : ""
+                  } py-4 text-secondary`}
+                />
               </span>
             </div>
           </div>
 
           <ESButton
-          disabled={isDisabled}
+            disabled={isDisabled}
             text={"LOGIN"}
             type={"submit"}
             small
             id={"Login"}
             onClick={handleSubmit}
-            rightIcon={isDisabled?<i class="fas fa-spinner fa-spin ml-2"></i>:<i className="fa fa-sign-in-alt pl-2" />}
+            rightIcon={
+              isDisabled ? (
+                <i className="fas fa-spinner fa-spin ml-2"></i>
+              ) : (
+                <i className="fa fa-sign-in-alt pl-2" />
+              )
+            }
           />
           <div className="pt-2">
             Don't have an Account? <Link to={"/register"}>Register</Link>

@@ -24,8 +24,7 @@ export const ESTextfield =props=>{
         boxShadow: "none",
         shapeOutline: "none",
         outline: "none",
-        border: `1px solid ${Color.SecondaryColor}`,
-        // background: `${Color.SecondaryColor}`,
+        border: `2px solid ${Color.SecondaryColor}`,
         borderRadius: 5
       };
       const userStyle = style === undefined ? {} : style;
@@ -33,10 +32,10 @@ export const ESTextfield =props=>{
       const _handleFocus = () => {
         document.getElementById(
           id
-        ).style.border = `1px solid ${Color.PrimaryColor}`;
+        ).style.border = `2px solid ${Color.PrimaryColor}`;
       };
       const _handleBlur = () => {
-        document.getElementById(id).style.border = `1px solid gray`;
+        document.getElementById(id).style.border = `2px solid gray`;
       };
     
       return (
