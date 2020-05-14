@@ -1,13 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Account from "../component/Account";
 import { UpdateUserInfo } from "../../../../api/FetchUser";
-import { useAlert } from "react-alert";
 
 const AccountContainer = () => {
   const token = localStorage.getItem("token");
-  const [accountsetting, setAccountsetting] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [cancel, setCancel] = useState(false);
   const [Name, setName] = useState("");
   const [Mobile, setMobile] = useState("");
   const [eMail, setEMail] = useState("");
@@ -23,7 +20,13 @@ const AccountContainer = () => {
   };
 
   const errClassName = "text-danger d-flex flex-row justify-content-end pb-2";
+  const NameRef = useRef(null);
 
+useEffect(()=>{
+  if(edit){
+    NameRef.current.focus()
+  }  
+},[edit])
   const _handleSubmit = (e) => {
     e.preventDefault();
     if (Name === "") {
@@ -100,17 +103,9 @@ const AccountContainer = () => {
       });
     }
   };
-  console.log("error", err);
 
-  const _handleCancel = () => {
-    setEdit(false);
-  };
-
-  const _handleAccountSetting = () => {
-    setEdit(false);
-  };
-  const _handleEditProfile = () => {
-    setEdit(true);
+  const _handleIsEdit = () => {
+    setEdit(!edit);
   };
 
   const Timeout = () => {
@@ -121,7 +116,7 @@ const AccountContainer = () => {
   const _handleNameChange = (e) => {
     if (!SpecialCharacterFormat.test(e.target.value)) {
       setName(e.target.value.replace(/\s+/g, " ").trimStart());
-    } else setErr({ NameErr: "Special Characters Not allow " }, Timeout());
+    } else setErr({ NameErr: "Special Characters Not allow" }, Timeout());
   };
 
   const _handleMobileChange = (e) => {
@@ -143,12 +138,11 @@ const AccountContainer = () => {
   const _handleReEnterPasswordChange = (e) => {
     setReEnterPassword(e.target.value);
   };
+
   return (
     <Account
       err={err}
       edit={edit}
-      cancel={cancel}
-      accountsetting={accountsetting}
       Name={Name}
       Mobile={Mobile}
       eMail={eMail}
@@ -158,10 +152,8 @@ const AccountContainer = () => {
       ReEnterPassword={ReEnterPassword}
       errStyle={errStyle}
       errClassName={errClassName}
-      handleCancel={_handleCancel}
-      handleAccountSetting={_handleAccountSetting}
       handleSubmit={_handleSubmit}
-      handleEditProfile={_handleEditProfile}
+      handleIsEdit={_handleIsEdit}
       handleNameChange={_handleNameChange}
       handleMobileChange={_handleMobileChange}
       handleEmailChange={_handleEmailChange}
@@ -169,6 +161,7 @@ const AccountContainer = () => {
       handleCurrentPasswordChange={_handleCurrentPasswordChange}
       handleNewPasswordChange={_handleNewPasswordChange}
       handleReEnterPasswordChange={_handleReEnterPasswordChange}
+      NameRef={NameRef}
     />
   );
 };

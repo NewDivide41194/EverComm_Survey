@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ESInput } from "../../../../../src/tools/ES_Inputs.js";
 import { ESButton } from "../../../../../src/tools/ES_Button.js";
-import * as Colors from "../../../../config/Color.config"
+import * as Colors from "../../../../config/Color.config";
 
 const Account = (props) => {
   const {
@@ -23,12 +23,12 @@ const Account = (props) => {
     handleNewPasswordChange,
     handleReEnterPasswordChange,
     handleSubmit,
-    handleCancel,
-    cancel,
+    handleIsEdit,
     handleAccountSetting,
+    NameRef,
     err,
     errStyle,
-    errClassName
+    errClassName,
   } = props;
 
   const header = {
@@ -38,20 +38,21 @@ const Account = (props) => {
     cursor: "pointer",
     fontSize: "15px",
   };
-
   return (
     <div className="container">
       <div className="row">
         <div className="py-3 col-lg-12">
-            <span style={span} onClick={handleAccountSetting}>
-              Account Setting and profile >
+          <span style={span} onClick={edit ? handleIsEdit : null}>
+            Account Setting and profile >
+          </span>
+          {edit && !accountsetting && (
+            <span style={span} className="font-weight-bold">
+              Edit profile
             </span>
-            {edit && !accountsetting && !cancel && (
-              <span style={span} className="font-weight-bold">
-                Edit profile
-              </span>
-            )}
-          <h2 style={header} className="pt-2">Account Setting And Profile</h2>
+          )}
+          <h2 style={header} className="pt-2">
+            Account Setting And Profile
+          </h2>
           <div className="d-flex flex-row flex-fill justify-content-between">
             <h3 style={header}>General Setting</h3>
             {edit || (
@@ -60,7 +61,7 @@ const Account = (props) => {
                   id={"Edit"}
                   text={"Edit Profile"}
                   type={"submit"}
-                  onClick={handleEditProfile}
+                  onClick={handleIsEdit}
                   small
                 />
               </div>
@@ -83,6 +84,7 @@ const Account = (props) => {
               id={"Name"}
               placeHolder="Name"
               value={Name}
+              myRef={NameRef}
               onChange={(e) => handleNameChange(e)}
             />
           </div>
@@ -98,6 +100,7 @@ const Account = (props) => {
             <ESInput
               disabled={!edit}
               id={"Mobile"}
+              pattern={"/(7|8|9)d{9}/"}
               placeHolder="Mobile(Number Only)"
               value={Mobile}
               onChange={(e) => handleMobileChange(e)}
@@ -144,62 +147,62 @@ const Account = (props) => {
             />
           </div>
         </div>
-        {edit && !accountsetting && !cancel && (
+        {edit && !accountsetting && (
           <div className="w-100">
-            <div className="d-flex flex-row flex-fill pt-2 flex-wrap">
+            <div className="d-flex flex-row flex-fill flex-wrap">
               <h3 className="col-lg-12" style={header}>
                 Password
               </h3>
-
-              <div className="text-right">
+              <div className="col-lg-4">
+                <label>Current Password</label>
                 {err.currentPasswordErr === undefined ? null : (
-                  <div style={{ ...errStyle }} >
+                  <div className={errClassName} style={{ ...errStyle }}>
                     {`*${err.currentPasswordErr}`}
                   </div>
                 )}
+                <PasswordInput
+                  id={"currentPassword"}
+                  placeholder="Password"
+                  value={currentPassword}
+                  onChange={(e) => handleCurrentPasswordChange(e)}
+                />
               </div>
-              <PasswordInput
-                id={"currentPassword"}
-                placeholder="Password"
-                label={"Current Password"}
-                value={currentPassword}
-                onChange={(e) => handleCurrentPasswordChange(e)}
-              />
 
-              <div className="text-right">
+              <div className="col-lg-4">
+                <label>New Password</label>
                 {err.newPasswordErr === undefined ? null : (
-                  <div className="text-right col-lg-4" style={{ ...errStyle }}>
+                  <div className={errClassName} style={{ ...errStyle }}>
                     {`*${err.newPasswordErr}`}
                   </div>
                 )}
+
+                <PasswordInput
+                  id={"newPassword"}
+                  placeholder={"New Password"}
+                  value={newPassword}
+                  onChange={(e) => handleNewPasswordChange(e)}
+                />
               </div>
-              <PasswordInput
-                id={"newPassword"}
-                placeholder={"New Password"}
-                label={"New Password"}
-                value={newPassword}
-                onChange={(e) => handleNewPasswordChange(e)}
-              />
-              <div className="text-right">
+              <div className="col-lg-4">
+                <label>Re-Enter Password</label>
                 {err.ReEnterPasswordErr === undefined ? null : (
-                  <div className="text-right col-lg-4" style={{ ...errStyle }}>
+                  <div className={errClassName} style={{ ...errStyle }}>
                     {`*${err.ReEnterPasswordErr}`}
                   </div>
                 )}
+                <PasswordInput
+                  id={"reenterPassword"}
+                  placeholder="Re-Enter Password"
+                  value={ReEnterPassword}
+                  onChange={(e) => handleReEnterPasswordChange(e)}
+                />
               </div>
-              <PasswordInput
-                id={"reenterPassword"}
-                placeholder="Re-Enter Password"
-                label={"Re-Enter Password"}
-                value={ReEnterPassword}
-                onChange={(e) => handleReEnterPasswordChange(e)}
-              />
             </div>
             <div className="d-flex flex-row flex-fill">
               <div className="p-3">
                 <ESButton
-                  text="save"
-                  type="submit"
+                  text={"save"}
+                  type={"submit"}
                   onClick={handleSubmit}
                   small
                   id={"Save"}
@@ -207,9 +210,9 @@ const Account = (props) => {
               </div>
               <div className="p-3 row justify-content-end">
                 <ESButton
-                  text="Cancel"
-                  type="submit"
-                  onClick={handleCancel}
+                  text={"Cancel"}
+                  type={"submit"}
+                  onClick={handleIsEdit}
                   small
                   id={"Cancel"}
                 />
@@ -225,9 +228,7 @@ const Account = (props) => {
 const PasswordInput = (props) => {
   const [showPassword, setShowPassword] = useState(false);
   return (
-    <div className="col-lg-4">
-      <label>{props.label}</label>
-
+    <div>
       <ESInput
         id={props.id}
         type={showPassword ? "text" : "password"}

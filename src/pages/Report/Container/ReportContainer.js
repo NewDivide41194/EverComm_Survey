@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Report from "../component/Report";
-import { ReportAnswers } from "../../../api/FetchReportAnswers";
+import { ReportAnswers,ReportDateAnswers } from "../../../api/FetchReportAnswers";
 
 const ReportContainer = (props) => {
   const [reportData, setReportData] = useState([]);
-  
+  const [dateReportData,setDateReportData]=useState([])
   const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
   const token = localStorage.getItem("token");
 
@@ -20,15 +20,24 @@ const ReportContainer = (props) => {
         setReportData(data.payload);
       }
     );
+    ReportDateAnswers(
+      { surveyHeaderId, startDate, endDate, token },
+      (err, data) => {
+        setDateReportData(data.payload);
+      }
+    );
   },[]) 
   
   console.log(urlParams.get("startDate"));
+  console.log(dateReportData);
   
   return (
     <Report
       reportData={reportData}
+      dateReportData={dateReportData}
       startDate={startDate}
       endDate={endDate}
+
     />
   );
 };

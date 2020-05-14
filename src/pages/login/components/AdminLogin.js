@@ -14,9 +14,8 @@ const UserLogin = (props) => {
     visible,
     err,
     isDisabled,
-    errStyle
+    errStyle,
   } = props;
- 
 
   return (
     <div className="row justify-content-center">
@@ -31,7 +30,6 @@ const UserLogin = (props) => {
       >
         <div className="form-group text-center m-0 text-secondary">
           <i className="fas fa-user-lock fa-3x pb-4"></i>
-
           <h4>Login Your Account</h4>
           <div className="py-3 text-left">
             <label>Email</label>
@@ -53,7 +51,7 @@ const UserLogin = (props) => {
               <label>Password</label>
               {err.passwordErr === undefined ? null : (
                 <div
-                className="d-flex flex-row justify-content-end"
+                  className="d-flex flex-row justify-content-end"
                   style={{ ...errStyle }}
                 >{`*${err.passwordErr}`}</div>
               )}

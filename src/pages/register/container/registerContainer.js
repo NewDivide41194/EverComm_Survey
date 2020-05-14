@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Register from "../components/register";
 import { RegisterFetch } from "../../../api/FetchUser";
 import { useAlert } from "react-alert";
@@ -11,14 +11,14 @@ const RegisterContainer = (props) => {
   const [companyName, setCompanyName] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState({});
-  const [isDisabled,setIsDisabled]=useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
   const alert = useAlert();
   const errStyle = {
     fontSize: 12,
     marginTop: "-25px",
   };
-  const errClassName="text-danger d-flex flex-row justify-content-end pb-2"
-  const SpecialCharErr="Not Allow Special Characters!" 
+  const errClassName = "text-danger d-flex flex-row justify-content-end pb-2";
+  const SpecialCharErr = "Not Allow Special Characters!";
   const Timeout = () => {
     setTimeout(() => setErr({}), 5000);
   };
@@ -26,59 +26,71 @@ const RegisterContainer = (props) => {
   const _handleCompanyChange = (e) => {
     if (!SpecialCharacterFormat.test(e.target.value)) {
       setCompanyName(e.target.value.replace(/\s+/g, " ").trimStart());
-    } else setErr({ companyErr:SpecialCharErr }, Timeout());
+    } else setErr({ companyErr: SpecialCharErr }, Timeout());
   };
   const _handleSubmit = (e) => {
     e.preventDefault();
+    const FirstNameInput = document.getElementById("FirstName");
+    const LastNameInput = document.getElementById("LastName");
+    const EmailInput = document.getElementById("Email");
+    const CompanyInput = document.getElementById("CompanyName");
+    const PasswordInput = document.getElementById("Password");
 
     if (firstName === "") {
       setErr({
         firstNameErr: "Fill First Name",
       });
+      FirstNameInput.focus();
       return;
     } else if (lastName === "") {
       setErr({
         lastNameErr: "Fill Last Name",
       });
-      return;
-    } else if (eMail === "") {
-      setErr({
-        eMailErr: "Fill Email Address",
-      });
-      return;
-    } else if (!/^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/.test(eMail)) {
-      setErr({
-        eMailErr: "Invalid Email Address",
-      });
+      LastNameInput.focus();
       return;
     } else if (companyName === "") {
       setErr({
         companyErr: "Fill Company description",
       });
+      CompanyInput.focus();
+      return;
+    } else if (eMail === "") {
+      setErr({
+        eMailErr: "Fill Email Address",
+      });
+      EmailInput.focus();
+      return;
+    } else if (!/^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/.test(eMail)) {
+      setErr({
+        eMailErr: "Invalid Email Address",
+      });
+      EmailInput.focus();
       return;
     } else if (password === "") {
       setErr({
         passwordErr: "Create Password",
       });
+      PasswordInput.focus();
       return;
     } else if (password.length < 8) {
       setErr({
         passwordErr: "Minimum 8 characters",
       });
+      PasswordInput.focus();
       return;
     } else {
       setErr({});
-      setIsDisabled(!isDisabled)
+      setIsDisabled(!isDisabled);
       RegisterFetch(
         { firstName, lastName, eMail, password, companyName },
         (err, data) => {
-          if(data.success ===false){
+          if (data.success === false) {
             alert.error(data.message);
-            setIsDisabled(isDisabled)
-          }else{
+            setIsDisabled(isDisabled);
+          } else {
             props.history.push("/");
             alert.success("Account Created Successfuly!");
-          }   
+          }
         }
       );
     }
@@ -105,9 +117,9 @@ const RegisterContainer = (props) => {
   const _handleView = () => {
     setVisible(!visible);
   };
-  useEffect(()=>{
-    document.getElementById("FirstName").focus()
-  },[])
+  useEffect(() => {
+    document.getElementById("FirstName").focus();
+  }, []);
 
   return (
     <Register

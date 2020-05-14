@@ -9,7 +9,6 @@ const userId = localStorage.getItem("userId");
 const email=localStorage.getItem("email")
     const {media} = props;
 
-  
     const _handleSignOut = () => {
         Auth.signout(() => {
             props.history.push("/");

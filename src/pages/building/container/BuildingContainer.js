@@ -67,10 +67,12 @@ const BuildingContainer = (props) => {
       setErr({
         clientCompanyErr: "Fill Client Company",
       });
+      document.getElementById("clientCompany").focus();
     } else if (buildingName === "") {
       setErr({
         buildingNameErr: "Fill BuildingName",
       });
+      document.getElementById("buildingName").focus();
       return;
     } else if (country === "") {
       setErr({
@@ -81,21 +83,19 @@ const BuildingContainer = (props) => {
       setErr({
         postalErr: "Fill Postal",
       });
+      document.getElementById("postal").focus();
       return;
     } else if (address === "") {
       setErr({
         addressErr: "Fill Address",
       });
+      document.getElementById("address").focus();
       return;
     } else if (comment === "") {
       setErr({
         commentErr: "Fill Comment",
       });
-      return;
-    } else if (country === "") {
-      setErr({
-        commentErr: "Fill Country",
-      });
+      document.getElementById("comment").focus();
       return;
     } else {
       setErr({});

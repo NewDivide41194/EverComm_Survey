@@ -1,0 +1,121 @@
+{
+    "payload": [
+        {
+            "survey_header_id": 1,
+            "survey_name": "Cooling System",
+            "survey_sections": [
+                {
+                    "survey_section_id": 2,
+                    "section_name": "Chiller Information",
+                    "questions": [
+                        {
+                            "question_id": 8,
+                            "question_name": "When was chiller #1 installed?",
+                            "other": [
+                                {
+                                    "DateTime": "{\"YearOfManufacturing\":\"2020-05-01T02:02:03.000Z\",\"YearOfInstallation\":\"2020-05-06T02:02:03.000Z\"}"
+                                },
+                                {
+                                    "DateTime": "{\"YearOfManufacturing\":\"2020-05-05T03:34:18.000Z\",\"YearOfInstallation\":\"2020-05-05T03:34:18.748Z\"}"
+                                },
+                                {
+                                    "DateTime": "{\"YearOfManufacturing\":\"2020-05-08T05:07:06.173Z\",\"YearOfInstallation\":\"2020-05-28T05:07:06.000Z\"}"
+                                },
+                                {
+                                    "DateTime": "{\"YearOfManufacturing\":\"2020-05-05T03:28:19.200Z\",\"YearOfInstallation\":\"2020-05-20T03:28:19.000Z\"}"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "survey_section_id": 3,
+                    "section_name": "Condenser Information",
+                    "questions": [
+                        {
+                            "question_id": 13,
+                            "question_name": "When was condenser #1 insatalled?",
+                            "other": [
+                                {
+                                    "DateTime": "{\"YearOfManufacturing\":\"2020-05-08T05:07:06.173Z\",\"YearOfInstallation\":\"2020-05-30T05:07:06.000Z\"}"
+                                },
+                                {
+                                    "DateTime": "{\"YearOfManufacturing\":\"2020-05-06T05:01:09.000Z\",\"YearOfInstallation\":\"2020-05-13T05:01:09.000Z\"}"
+                                }
+                            ]
+                        },
+                        {
+                            "question_id": 20,
+                            "question_name": "When was Condenser #2 installed?",
+                            "other": [
+                                {
+                                    "DateTime": "{\"YearOfManufacturing\":\"2020-05-11T05:01:09.000Z\",\"YearOfInstallation\":\"2020-05-19T05:01:09.000Z\"}"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "survey_section_id": 5,
+                    "section_name": "Evaporator Information",
+                    "questions": [
+                        {
+                            "question_id": 24,
+                            "question_name": "When was Evaporator #1 was installed?",
+                            "other": [
+                                {
+                                    "DateTime": "{\"YearOfManufacturing\":\"2020-05-08T05:07:06.173Z\",\"YearOfInstallation\":\"2020-06-06T05:07:06.000Z\"}"
+                                },
+                                {
+                                    "DateTime": "{\"YearOfManufacturing\":\"2020-05-12T05:01:09.000Z\",\"YearOfInstallation\":\"2020-05-14T05:01:09.000Z\"}"
+                                }
+                            ]
+                        },
+                        {
+                            "question_id": 30,
+                            "question_name": "When was Evaporator #2 was installed?",
+                            "other": [
+                                {
+                                    "DateTime": "{\"YearOfManufacturing\":\"2020-05-05T05:01:09.000Z\",\"YearOfInstallation\":\"2020-05-13T05:01:09.000Z\"}"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "survey_section_id": 6,
+                    "section_name": "Cooling Tower Information",
+                    "questions": [
+                        {
+                            "question_id": 35,
+                            "question_name": "When was Cooling Tower #1 was installed?",
+                            "other": [
+                                {
+                                    "DateTime": "{\"YearOfManufacturing\":\"2020-05-08T04:58:21.924Z\",\"YearOfInstallation\":\"2020-05-28T04:58:21.000Z\"}"
+                                },
+                                {
+                                    "DateTime": "{\"YearOfManufacturing\":\"2020-05-05T05:01:09.000Z\",\"YearOfInstallation\":\"2020-05-13T05:01:09.000Z\"}"
+                                }
+                            ]
+                        },
+                        {
+                            "question_id": 39,
+                            "question_name": "When was Cooling Tower #2 installed?",
+                            "other": [
+                                {
+                                    "DateTime": "{\"YearOfManufacturing\":\"2020-05-08T04:58:21.924Z\",\"YearOfInstallation\":\"2020-05-23T04:58:21.000Z\"}"
+                                },
+                                {
+                                    "DateTime": "{\"YearOfManufacturing\":\"2020-05-07T05:01:09.000Z\",\"YearOfInstallation\":\"2020-05-13T05:01:09.000Z\"}"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "message": null,
+    "success": true,
+    "error": null
+}

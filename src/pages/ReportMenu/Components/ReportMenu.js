@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { ESButton } from "../../../tools/ES_Button";
-import * as Colors from "../../../config/Color.config"
 import { withRouter } from "react-router-dom";
 import PostedIcon from "../../../assets/images/HMT.gif";
 import { PickerWithCustomePlaceholder } from "../../../tools/ES_DateRangePicker";

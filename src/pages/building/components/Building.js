@@ -80,7 +80,7 @@ const Building = (props) => {
               )}
               <ESDropDown
                 disabled={isDisabled}
-                id={"Country"}
+                id={"country"}
                 _handleSelect={handleSelectCountry}
                 options={CountryOptions}
                 value={country}

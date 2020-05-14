@@ -15,6 +15,8 @@ export const ESInput = (props) => {
     onChange,
     value,
     maxLength,
+    pattern,
+    myRef
   } = props;
 
   const defaultStyle = {
@@ -43,6 +45,7 @@ export const ESInput = (props) => {
 
   return (
     <input
+      ref={myRef}
       autoComplete="off"
       spellCheck="false"
       id={id}
@@ -53,6 +56,7 @@ export const ESInput = (props) => {
         ...defaultStyle,
         ...userStyle,
       }}
+      pattern={pattern?pattern:null}
       placeholder={placeHolder}
       className={`form-control form-rounded ${className}`}
       onFocus={__handleFocus}

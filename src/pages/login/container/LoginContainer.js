@@ -3,9 +3,9 @@ import { LoginFetch } from "../../../api/FetchUser";
 import UserLogin from "../components/AdminLogin";
 import { useAlert } from "react-alert";
 import Auth from "../../../security/auth";
+import { LoginFormValidation } from "../../../helper/formValidation";
 
 const LoginContainer = (props) => {
-  const [userName, setUserName] = useState("");
   const [eMail, setEmail] = useState("");
   const [password, setpassword] = useState("");
   const [visible, setVisible] = useState(false);
@@ -27,17 +27,13 @@ const LoginContainer = (props) => {
 
   const _handleSubmit = (e) => {
     e.preventDefault();
-    if (eMail === "") {
-      setErr({ eMailErr: "Fill Email Address!" });
-      return;
-    } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(eMail)) {
-      setErr({ eMailErr: "Invalid Email Address" });
-      return;
-    } else if (password === "") {
-      setErr({ passwordErr: "Fill Password" });
-      return;
-    } else {
-      setErr({});
+    setErr(LoginFormValidation(eMail, password));
+    if (LoginFormValidation(eMail, password).eMailErr) {
+      document.getElementById("Email").focus();
+    } else if (LoginFormValidation(eMail, password).passwordErr) {
+      document.getElementById("password").focus();
+    }
+    if (Object.keys(LoginFormValidation(eMail, password)).length === 0) {
       setIsDisabled(true);
       LoginFetch(
         {
@@ -53,10 +49,8 @@ const LoginContainer = (props) => {
             localStorage.setItem("token", data.payload[0].token);
             localStorage.setItem("userId", data.payload[0].login_user_id);
             localStorage.setItem("email", data.payload[0].email);
-
             Auth.login(() => {
               const userId = data.payload[0].login_user_id;
-
               props.history.push(`/menu/${userId}`);
             });
             window.location.reload();
@@ -65,14 +59,14 @@ const LoginContainer = (props) => {
       );
     }
   };
-  const _handleUserChange = (e) => {
-    setUserName(e.target.value);
-  };
+
   const _handleEmailChange = (e) => {
     setEmail(e.target.value);
+    setErr({});
   };
   const _handlePwdChange = (e) => {
     setpassword(e.target.value);
+    setErr({});
   };
   const _handleView = () => {
     setVisible(!visible);
@@ -81,11 +75,9 @@ const LoginContainer = (props) => {
   return (
     <UserLogin
       handleSubmit={(d) => _handleSubmit(d)}
-      userName={userName}
       eMail={eMail}
       password={password}
       handleEmailChange={_handleEmailChange}
-      handleChange={_handleUserChange}
       handlePwdChange={_handlePwdChange}
       handleView={_handleView}
       visible={visible}
