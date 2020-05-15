@@ -41,6 +41,7 @@ const Account = (props) => {
   return (
     <div className="container">
       <div className="row">
+        <form>
         <div className="py-3 col-lg-12">
           <span style={span} onClick={edit ? handleIsEdit : null}>
             Account Setting and profile >
@@ -68,7 +69,7 @@ const Account = (props) => {
             )}
           </div>
         </div>
-        <div className="d-flex flex-row flex-fill flex-wrap pb-4 border-bottom">
+        <div className="d-flex flex-row flex-fill flex-wrap pb-4 border-bottom w-100">
           <div className="col-lg-4 col-md-6">
             <label>Name</label>
             <br></br>
@@ -107,7 +108,7 @@ const Account = (props) => {
             />
           </div>
         </div>
-        <div className="d-flex flex-row flex-fill flex-wrap pb-4 pt-2 border-bottom">
+        <div className="d-flex flex-row flex-fill flex-wrap pb-4 pt-2 border-bottom w-100">
           <h3 className="col-lg-12" style={header}>
             Account Information
           </h3>
@@ -220,7 +221,9 @@ const Account = (props) => {
             </div>
           </div>
         )}
+        </form>
       </div>
+    
     </div>
   );
 };

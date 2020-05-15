@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Register from "../components/register";
 import { RegisterFetch } from "../../../api/FetchUser";
 import { useAlert } from "react-alert";
+import { RegisterFormValidation } from "../../../helper/formValidation";
 
 const RegisterContainer = (props) => {
   const [visible, setVisible] = useState(false);
@@ -30,6 +31,9 @@ const RegisterContainer = (props) => {
   };
   const _handleSubmit = (e) => {
     e.preventDefault();
+    // const data={eMail, password, firstName, lastName, companyName}
+    // console.log(RegisterFormValidation(data));
+    // setErr(RegisterFormValidation(data))
     const FirstNameInput = document.getElementById("FirstName");
     const LastNameInput = document.getElementById("LastName");
     const EmailInput = document.getElementById("Email");

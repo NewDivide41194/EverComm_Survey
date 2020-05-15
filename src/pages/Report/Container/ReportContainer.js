@@ -26,7 +26,7 @@ const ReportContainer = (props) => {
         setDateReportData(data.payload);
       }
     );
-  },[]) 
+  },[])
   
   console.log(urlParams.get("startDate"));
   console.log(dateReportData);
