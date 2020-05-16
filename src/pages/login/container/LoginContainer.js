@@ -27,13 +27,15 @@ const LoginContainer = (props) => {
 
   const _handleSubmit = (e) => {
     e.preventDefault();
-    setErr(LoginFormValidation(eMail, password));
-    if (LoginFormValidation(eMail, password).eMailErr) {
+    const data={eMail,password}
+    const ValidatedErr = LoginFormValidation(data);
+    setErr(ValidatedErr);
+    if (ValidatedErr.eMailErr) {
       document.getElementById("Email").focus();
-    } else if (LoginFormValidation(eMail, password).passwordErr) {
+    } else if (ValidatedErr.passwordErr) {
       document.getElementById("password").focus();
     }
-    if (Object.keys(LoginFormValidation(eMail, password)).length === 0) {
+    if (Object.keys(ValidatedErr).length === 0) {
       setIsDisabled(true);
       LoginFetch(
         {
@@ -74,16 +76,16 @@ const LoginContainer = (props) => {
 
   return (
     <UserLogin
-      handleSubmit={(d) => _handleSubmit(d)}
       eMail={eMail}
       password={password}
-      handleEmailChange={_handleEmailChange}
-      handlePwdChange={_handlePwdChange}
-      handleView={_handleView}
       visible={visible}
       err={err}
       errStyle={errStyle}
       isDisabled={isDisabled}
+      handleEmailChange={_handleEmailChange}
+      handlePwdChange={_handlePwdChange}
+      handleView={_handleView}
+      handleSubmit={_handleSubmit}
     />
   );
 };

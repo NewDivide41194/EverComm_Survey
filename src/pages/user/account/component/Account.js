@@ -40,7 +40,7 @@ const Account = (props) => {
   };
   return (
     <div className="container">
-      <div className="row">
+      <div className="w-100">
         <form>
         <div className="py-3 col-lg-12">
           <span style={span} onClick={edit ? handleIsEdit : null}>

@@ -4,11 +4,10 @@ import { NotAnswered, Percentage } from "../../../helper/reportHelper";
 import moment from "moment";
 
 const Report = (props) => {
-  const { reportData, dateReportData, startDate, endDate } = props;
+  const { reportData, startDate, endDate } = props;
   const TotalBuilding = reportData
     ? reportData.map((v, k) => v.building_count[0].Number_of_buildings)[0]
     : null;
-  console.log(dateReportData);
 
   return (
     <div className="container py-2">
