@@ -22,7 +22,9 @@ const QuestionContainer = (props) => {
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
   const buildingId = localStorage.getItem("buildingId");
+  const buildingName=localStorage.getItem("buildingName")
   const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
+
 
   const Ans = {
     other: "",
@@ -31,6 +33,7 @@ const QuestionContainer = (props) => {
     questionId: null,
     survey_headers_id: surveyHeaderId,
     building_id: buildingId,
+   
   };
 
   useEffect(() => {
@@ -216,6 +219,7 @@ const QuestionContainer = (props) => {
     <ESLoading />
   ) : (
     <Question
+      buildingName={buildingName}
       surveyData={surveyData}
       userId={userId}
       pageno={pageno}

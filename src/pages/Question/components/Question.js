@@ -8,6 +8,7 @@ import { withRouter } from "react-router-dom";
 
 const Question = (props) => {
   const {
+    buildingName,
     surveyData,
     media,
     userId,
@@ -52,14 +53,21 @@ const Question = (props) => {
             >{`${obtained || 0} of ${total} Answered`}</div>
           </div>
 
-          <div
-            style={{
-              fontSize: media.mobile ? "20px" : "25px",
-              fontWeight: "bold",
-            }}
-            className="position-relative pt-2"
-          >
-            {surveyData[0].survey_name}
+          <div className="row justify-content-between py-3">
+            <div className="col-sm-12 col-lg-4 col-md-6"
+              style={{
+                fontSize: media.mobile ? "25px" : "25px",
+                fontWeight: "bold",
+              }}
+            >
+              {surveyData[0].survey_name}
+            </div>
+          
+            <div className="col-sm-12 col-lg-4 col-md-6 text-right" style={{
+                fontSize: media.mobile ? "25px" : "25px",
+                fontWeight: "bold",}}>
+              {buildingName}
+            </div>
           </div>
           <div
             className="my-2"

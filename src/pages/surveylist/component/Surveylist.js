@@ -13,14 +13,18 @@ const Surveylist = (props) => {
     handleCardClick,
     id,
   } = props;
-  const _handleMouseOver = (e) => {
+  const _handleMouseOver = (e,buildingName) => {
     localStorage.setItem("buildingId", e.target.id);
+    localStorage.setItem("buildingName",buildingName)
     const Card = document.getElementById(id);
     Card.className =
       "d-flex flex-row p-3 rounded justify-content-between my-2 shadow-sm";
     Card.style.background = HoverBgColor;
     Card.style.color = HoverTxtColor;
+    console.log("buildingName",buildingName);
   };
+ 
+  
   const _handleMouseLeave = () => {
     const Card = document.getElementById(id);
     Card.className = "d-flex flex-row p-3 rounded justify-content-between my-2";
@@ -37,7 +41,7 @@ const Surveylist = (props) => {
         color: TxtColor,
         cursor:"pointer"
       }}
-      onMouseOver={_handleMouseOver}
+      onMouseOver={(e)=>_handleMouseOver(e,buildingName)}
       onMouseLeave={_handleMouseLeave}
       onClick={(e)=>handleCardClick(e)}
     >

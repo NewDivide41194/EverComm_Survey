@@ -19,6 +19,14 @@ const AccountContainer = () => {
     fontSize: 12,
   };
 
+  const NameId = document.getElementById("Name");
+  const MobileId = document.getElementById("Mobile");
+  const EMailId = document.getElementById("email");
+  const RoleId = document.getElementById("Role");
+  // const currentPasswordId = document.getElementById("currentPassword");
+  const newPasswordId = document.getElementById("newPassword");
+  const ReEnterPasswordId = document.getElementById("reenterPassword");
+
   const errClassName = "text-danger d-flex flex-row justify-content-end pb-2";
   const NameRef = useRef(null);
 
@@ -33,31 +41,37 @@ useEffect(()=>{
       setErr({
         NameErr: "Fill Name",
       });
+      NameId.focus();
       return;
     } else if (Mobile === "") {
       setErr({
         MobileErr: "Fill Mobile No",
       });
+      MobileId.focus();
       return;
     } else if (!/^\d{10}$/.test(Mobile)) {
       setErr({
         MobileErr: "Invalid Mobile No",
       });
+      MobileId.focus();
       return;
     } else if (eMail === "") {
       setErr({
         eMailErr: "Fill Email Address",
       });
+      EMailId.focus();
       return;
     } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(eMail)) {
       setErr({
         eMailErr: "Invalid Email Address",
       });
+      EMailId.focus();
       return;
     } else if (Role === "") {
       setErr({
         RoleErr: "Plz Set your Roll",
       });
+      RoleId.focus();
       return;
     } else if (currentPassword === "") {
       setErr({
@@ -73,26 +87,31 @@ useEffect(()=>{
       setErr({
         newPasswordErr: "Create Password",
       });
+      newPasswordId.focus();
       return;
     } else if (newPassword.length < 8) {
       setErr({
         newPasswordErr: "Minimun 8 characters",
       });
+      newPasswordId.focus();
       return;
     } else if (ReEnterPassword === "") {
       setErr({
         ReEnterPasswordErr: "Create Password",
       });
+      ReEnterPasswordId.focus();
       return;
     } else if (ReEnterPassword !== newPassword) {
       setErr({
         ReEnterPasswordErr: "Re-enter password doesn't match",
       });
+      ReEnterPasswordId.focus();
       return;
     } else if (ReEnterPassword.length < 8) {
       setErr({
         ReEnterPasswordErr: "Minimun 8 characters",
       });
+      ReEnterPasswordId.focus();
       return;
     } else {
       setErr({});
