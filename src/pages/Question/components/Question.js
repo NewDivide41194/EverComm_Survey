@@ -27,9 +27,10 @@ const Question = (props) => {
     _handleInputChange,
     _handleStartChange,
     _handleEndChange,
-    percent
+    percent,
+    buildingName,
   } = props;
-  const isAnswer=(AnswerData.map((v, k) => v.optionChoiceId))
+  const isAnswer = AnswerData.map((v, k) => v.optionChoiceId);
 
   return (
     surveyData.length && (
@@ -42,25 +43,26 @@ const Question = (props) => {
             }`}
           >
             <div
-              className={`px-${media.mobile?2:4} position-fixed`}
+              className={`px-${media.mobile ? 2 : 4} position-fixed`}
               style={{
-                minWidth:160,
+                minWidth: 160,
                 borderRadius: media.mobile ? "20px 0px 0 20px" : "20px",
                 background: "rgba(0,0,0,0.7)",
-                zIndex: '1'
+                zIndex: "1",
               }}
             >{`${obtained || 0} of ${total} Answered`}</div>
           </div>
-
           <div
             style={{
               fontSize: media.mobile ? "20px" : "25px",
               fontWeight: "bold",
             }}
-            className="position-relative pt-2"
+            className="d-flex flex-row flex-wrap justify-content-between pt-2"
           >
-            {surveyData[0].survey_name}
+            <div>{surveyData[0].survey_name}</div>
+            <div>{buildingName}</div>
           </div>
+
           <div
             className="my-2"
             style={{ fontSize: media.mobile ? "18px" : "20px" }}

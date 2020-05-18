@@ -73,7 +73,6 @@ const QuestionCard = (props) => {
             value: v.option_choice_id,
             label: v.option_choice_name,
           }))}
-          // value={ques.option_choices.map((v,k)=>({value:v.option_choice_id,label:v.option_choice_name}))}
           _handleSelect={_handleSelect}
           selectedOption={
             AnswerData.filter((d) => d.questionId === ques.question_id)

@@ -14,8 +14,7 @@ const Surveylist = (props) => {
     id,
   } = props;
   const _handleMouseOver = (e,buildingName) => {
-    console.log("=====>",buildingName);
-    
+    localStorage.setItem("buildingName",buildingName)    
     localStorage.setItem("buildingId", e.target.id);    
     const Card = document.getElementById(id);
     Card.className =

@@ -23,7 +23,7 @@ const QuestionContainer = (props) => {
   const userId = localStorage.getItem("userId");
   const buildingId = localStorage.getItem("buildingId");
   const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
-
+  const buildingName=localStorage.getItem("buildingName")
   const Ans = {
     other: "",
     optionChoiceId: null,
@@ -130,6 +130,7 @@ const QuestionContainer = (props) => {
 
   const handleInputChange = (e, quesId) => {
     setValue(e.target.value);
+console.log(value);
 
     const TextAnswer = {
       ...Ans,
@@ -226,6 +227,7 @@ const QuestionContainer = (props) => {
       obtained={obtained}
       total={total}
       percent={percent}
+      buildingName={buildingName}
       _handleSelect={handleSelect}
       _handleCheckChange={handleCheckChange}
       _handleRadioChange={handleRadioChange}
