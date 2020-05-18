@@ -38,7 +38,7 @@ const Building = (props) => {
           </div>
           <div className="row form-group">
             <div className="py-2 col-12">
-              <label>Client Company</label>
+              <label htmlFor="clientCompany">Client Company</label>
               {err.clientCompanyErr === undefined ? null : (
                 <div
                   className={errClassName}
@@ -55,7 +55,7 @@ const Building = (props) => {
             </div>
 
             <div className="py-2 col-12">
-              <label>Building Name</label>
+              <label htmlFor="buildingName">Building Name</label>
               {err.buildingNameErr === undefined ? null : (
                 <div
                   className={errClassName}
@@ -71,7 +71,7 @@ const Building = (props) => {
               />
             </div>
             <div className="py-2 col-sm-12 col-lg-6">
-              <label>Country</label>
+              <label htmlFor="country">Country</label>
               {err.countryErr === undefined ? null : (
                 <div
                   className={errClassName}
@@ -87,7 +87,7 @@ const Building = (props) => {
               />
             </div>
             <div className="py-2 col-sm-12 col-lg-6">
-              <label>Postal</label>
+              <label htmlFor="postal">Postal</label>
               {err.postalErr === undefined ? null : (
                 <div
                   className={errClassName}
@@ -103,7 +103,7 @@ const Building = (props) => {
               />
             </div>
             <div className="py-2 col-12">
-              <label>Address</label>
+              <label htmlFor="address">Address</label>
               {err.addressErr === undefined ? null : (
                 <div
                   className={errClassName}
@@ -119,7 +119,7 @@ const Building = (props) => {
               />
             </div>
             <div className="py-2 col-12">
-              <label>Comment</label>
+              <label htmlFor="comment">Comment</label>
               {err.commentErr === undefined ? null : (
                 <div
                   className={errClassName}

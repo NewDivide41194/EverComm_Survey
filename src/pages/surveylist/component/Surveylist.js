@@ -14,8 +14,8 @@ const Surveylist = (props) => {
     id,
   } = props;
   const _handleMouseOver = (e,buildingName) => {
-    localStorage.setItem("buildingId", e.target.id);
-    localStorage.setItem("buildingName",buildingName)
+    localStorage.setItem("buildingName",buildingName)    
+    localStorage.setItem("buildingId", e.target.id);    
     const Card = document.getElementById(id);
     Card.className =
       "d-flex flex-row p-3 rounded justify-content-between my-2 shadow-sm";

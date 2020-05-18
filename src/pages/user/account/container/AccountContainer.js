@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import Account from "../component/Account";
 import { UpdateUserInfo } from "../../../../api/FetchUser";
+import {AccountSettingValidataion} from "../../../../helper/formValidation";
 
-const AccountContainer = () => {
+const AccountContainer = (props) => {
   const token = localStorage.getItem("token");
   const [edit, setEdit] = useState(false);
   const [Name, setName] = useState("");
@@ -13,13 +14,6 @@ const AccountContainer = () => {
   const [newPassword, setNewPassword] = useState("");
   const [ReEnterPassword, setReEnterPassword] = useState("");
   const [err, setErr] = useState({});
-  const NameId = document.getElementById("Name");
-  const MobileId = document.getElementById("Mobile");
-  const EMailId = document.getElementById("email");
-  const RoleId = document.getElementById("Role");
-  const currentPasswordId = document.getElementById("currentPassword");
-  const newPasswordId = document.getElementById("newPassword");
-  const ReEnterPasswordId = document.getElementById("reenterPassword");
   const errStyle = {
     marginTop: "-25px",
     fontSize: 12,
@@ -35,85 +29,27 @@ const AccountContainer = () => {
   }, [edit]);
   const _handleSubmit = (e) => {
     e.preventDefault();
-    if (Name === "") {
-      setErr({
-        NameErr: "Fill Name",
-      });
-      NameRef.current.focus();
-      return;
-    } else if (Mobile === "") {
-      setErr({
-        MobileErr: "Fill Mobile No",
-      });
-      MobileId.focus();
-      return;
-    } else if (!/^\d{10}$/.test(Mobile)) {
-      setErr({
-        MobileErr: "Invalid Mobile No",
-      });
-      MobileId.focus();
-      return;
-    } else if (eMail === "") {
-      setErr({
-        eMailErr: "Fill Email Address",
-      });
-      EMailId.focus();
-      return;
-    } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(eMail)) {
-      setErr({
-        eMailErr: "Invalid Email Address",
-      });
-      EMailId.focus();
-      return;
-    } else if (Role === "") {
-      setErr({
-        RoleErr: "Plz Set your Roll",
-      });
-      RoleId.focus();
-      return;
-    } else if (currentPassword === "") {
-      setErr({
-        currentPasswordErr: "Create Password",
-      });
-      currentPasswordId.focus();
-      return;
-    } else if (currentPassword.length < 8) {
-      setErr({
-        currentPasswordErr: "Minimun 8 characters",
-      });
-      currentPasswordId.focus();
-      return;
-    } else if (newPassword === "") {
-      setErr({
-        newPasswordErr: "Create Password",
-      });
-      newPasswordId.focus();
-      return;
-    } else if (newPassword.length < 8) {
-      setErr({
-        newPasswordErr: "Minimun 8 characters",
-      });
-      newPasswordId.focus();
-      return;
-    } else if (ReEnterPassword === "") {
-      setErr({
-        ReEnterPasswordErr: "Create Password",
-      });
-      ReEnterPasswordId.focus();
-      return;
-    } else if (ReEnterPassword !== newPassword) {
-      setErr({
-        ReEnterPasswordErr: "Re-enter password doesn't match",
-      });
-      ReEnterPasswordId.focus()
-      return;
-    } else if (ReEnterPassword.length < 8) {
-      setErr({
-        ReEnterPasswordErr: "Minimun 8 characters",
-      });
-      ReEnterPasswordId.focus()
-      return;
-    } else {
+    const data= {Name,Mobile,eMail,Role,currentPassword,newPassword,ReEnterPassword };
+    console.log("data",data);
+    console.log(AccountSettingValidataion(data));
+    const validedErr=AccountSettingValidataion(data);
+    setErr(validedErr);
+    console.log("valided err",validedErr);
+    
+    if(validedErr.NameErr){
+      document.getElementById("Name").focus();
+    }else if(validedErr.MobileErr){
+      document.getElementById("Mobile").focus();
+    }else if(validedErr.eMailErr){
+      document.getElementById("email").focus();
+    }else if(validedErr.currentPasswordErr){
+      document.getElementById("currentPassword").focus();
+    }else if(validedErr.newPasswordErr){
+      document.getElementById("newPassword").focus();
+    }else if(validedErr.ReEnterPasswordErr){
+      document.getElementById("ReenterPassword").focus();
+    }
+    if (Object.keys(validedErr).length === 0) {
       setErr({});
       UpdateUserInfo({ Name, eMail, newPassword, token }, (err, data) => {
         data.success === false
@@ -131,31 +67,35 @@ const AccountContainer = () => {
     setTimeout(() => setErr({}), 5000);
   };
 
-  const SpecialCharacterFormat = /[`!#$%^&*()_+\-=\[\]{};:"\\|,.<>\/?~]/;
   const _handleNameChange = (e) => {
-    if (!SpecialCharacterFormat.test(e.target.value)) {
-      setName(e.target.value.replace(/\s+/g, " ").trimStart());
-    } else setErr({ NameErr: "Special Characters Not allow" }, Timeout());
+    setErr({});
+    setName(e.target.value.replace(/\s+/g, " ").trimStart()); 
   };
 
   const _handleMobileChange = (e) => {
-    setMobile(e.target.value);
+    setErr({});
+    setMobile(e.target.value.replace(/\s+/g, " ").trimStart()); 
   };
 
   const _handleEmailChange = (e) => {
-    setEMail(e.target.value);
+    setErr({});
+    setEMail(e.target.value.replace(/\s+/g, " ").trimStart()); 
   };
   const _handleRoleChange = (e) => {
-    setRole(e.target.value);
+    setErr({});
+    setRole(e.target.value.replace(/\s+/g, " ").trimStart()); 
   };
   const _handleCurrentPasswordChange = (e) => {
-    setCurrentPassword(e.target.value);
+    setErr({});
+    setCurrentPassword(e.target.value.replace(/\s+/g, " ").trimStart()); 
   };
   const _handleNewPasswordChange = (e) => {
-    setNewPassword(e.target.value);
+    setErr({});
+    setNewPassword(e.target.value.replace(/\s+/g, " ").trimStart()); 
   };
   const _handleReEnterPasswordChange = (e) => {
-    setReEnterPassword(e.target.value);
+    setErr({});
+    setReEnterPassword(e.target.value.replace(/\s+/g, " ").trimStart()); 
   };
 
   return (

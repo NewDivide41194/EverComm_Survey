@@ -71,7 +71,7 @@ const Account = (props) => {
         </div>
         <div className="d-flex flex-row flex-fill flex-wrap pb-4 border-bottom w-100">
           <div className="col-lg-4 col-md-6">
-            <label>Name</label>
+            <label htmlFor="Name">Name</label>
             <br></br>
             <div className="text-right">
               {err.NameErr === undefined ? null : (
@@ -90,7 +90,7 @@ const Account = (props) => {
             />
           </div>
           <div className="col-lg-4 col-md-6">
-            <label>Mobile Number</label>
+            <label htmlFor="Mobile">Mobile Number</label>
             <div className="text-right">
               {err.MobileErr === undefined ? null : (
                 <div className={errClassName} style={{ ...errStyle }}>
@@ -110,11 +110,11 @@ const Account = (props) => {
         </div>
         <div className="d-flex flex-row flex-fill flex-wrap pb-4 pt-2 border-bottom w-100">
           <h3 className="col-lg-12" style={header}>
-            Account Information
+            Account InFormation
           </h3>
 
           <div className="col-lg-4 col-md-6">
-            <label>Email Address</label>
+            <label htmlFor="email">Email Address</label>
             <div className="text-right">
               {err.eMailErr === undefined ? null : (
                 <div className={errClassName} style={{ ...errStyle }}>
@@ -131,7 +131,7 @@ const Account = (props) => {
             />
           </div>
           <div className="col-lg-4 col-md-6">
-            <label>Role</label>
+            <label htmlFor="Role">Role</label>
             <div className="text-right">
               {err.RoleErr === undefined ? null : (
                 <div className={errClassName} style={{ ...errStyle }}>
@@ -155,7 +155,7 @@ const Account = (props) => {
                 Password
               </h3>
               <div className="col-lg-4">
-                <label>Current Password</label>
+                <label htmlFor="currentPassword">Current Password</label>
                 {err.currentPasswordErr === undefined ? null : (
                   <div className={errClassName} style={{ ...errStyle }}>
                     {`*${err.currentPasswordErr}`}
@@ -170,7 +170,7 @@ const Account = (props) => {
               </div>
 
               <div className="col-lg-4">
-                <label>New Password</label>
+                <label htmlFor="newPassword">New Password</label>
                 {err.newPasswordErr === undefined ? null : (
                   <div className={errClassName} style={{ ...errStyle }}>
                     {`*${err.newPasswordErr}`}
@@ -185,14 +185,14 @@ const Account = (props) => {
                 />
               </div>
               <div className="col-lg-4">
-                <label>Re-Enter Password</label>
+                <label htmlFor="ReenterPassword">Re-Enter Password</label>
                 {err.ReEnterPasswordErr === undefined ? null : (
                   <div className={errClassName} style={{ ...errStyle }}>
                     {`*${err.ReEnterPasswordErr}`}
                   </div>
                 )}
                 <PasswordInput
-                  id={"reenterPassword"}
+                  id={"ReenterPassword"}
                   placeholder="Re-Enter Password"
                   value={ReEnterPassword}
                   onChange={(e) => handleReEnterPasswordChange(e)}

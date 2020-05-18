@@ -1,8 +1,10 @@
 const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 const specialCharacterRegx = /[`!#$%^&*()_+\-=[\]{};:"\\|<>/?~]/;
+const MobileRegex=/[`!/^\d{10}$`]/;
 const err = {};
 
 export const LoginFormValidation = (data) => {
+  const err = {};
   const {eMail,password}=data
   if (eMail === "") {
     err.eMailErr = "Fill Email Address!";
@@ -16,6 +18,7 @@ export const LoginFormValidation = (data) => {
 };
 
 export const RegisterFormValidation = (data) => {
+  const err = {};
   const { eMail, password, firstName, lastName, companyName } = data;
   if (firstName === "") {
     err.firstNameErr = "Fill Frist Name!";
@@ -46,6 +49,7 @@ export const RegisterFormValidation = (data) => {
 };
 
 export const BuildingFormValidation = (data) => {
+  const err = {};
   const { clientCompany, buildingName, country, postal, address,comment } = data;
   if (clientCompany === "") {
     err.clientCompanyErr = "Fill Client Company!";
@@ -68,8 +72,51 @@ export const BuildingFormValidation = (data) => {
   } else if (specialCharacterRegx.test(address)) {
     err.addressErr = "Not Allow Special Characters!";
   }
-  if (specialCharacterRegx.test(comment)) {
+  if(comment===""){
+    err.commentErr="Fill Comment!";
+  }else if (specialCharacterRegx.test(comment)) {
     err.commentErr = "Not Allow Special Characters!";
   }
   return err;
 };
+
+export const AccountSettingValidataion=(data)=>{
+  const err = {};
+  const {Name,Mobile,eMail,Role,currentPassword,newPassword,ReEnterPassword }=data;
+  if(Name===""){
+    err.NameErr="Fill Name!";
+  }else if(specialCharacterRegx.test(Name)){
+    err.NameErr= "Not Allow Special Characters!";
+  }
+  if(Mobile===""){
+    err.MobileErr="Fill Mobile Number!";
+  }else if(!MobileRegex.test(Mobile)){
+    err.MobileErr="Incorrect Ph No"
+  }
+  if(eMail===""){
+    err.eMailErr="Fill Email!";
+  }else if (!emailRegex.test(eMail)) {
+    err.eMailErr = "incorret Email Address!";
+  }
+  if(Role===""){
+    err.RoleErr="Please set your Role!";
+  }
+  if(currentPassword===""){
+    err.currentPasswordErr="Create Password!";
+  }else if(currentPassword.length < 8){
+    err.currentPasswordErr="Minimum 8 character!";
+  }
+  if(newPassword===""){
+    err.newPasswordErr="create Password!"
+  }else if(newPassword.length < 8){
+    err.newPasswordErr="Minimum 8 character!";
+  }
+  if(ReEnterPassword===""){
+    err.ReEnterPasswordErr="create Password!";
+  }else if(ReEnterPassword.length < 8){
+    err.ReEnterPasswordErr="Minimum 8 character!";
+  }else if(ReEnterPassword!=newPassword){
+    err.ReEnterPasswordErr="Password doesn't match";
+  }
+  return err;
+}
