@@ -13,35 +13,33 @@ const AccountContainer = () => {
   const [newPassword, setNewPassword] = useState("");
   const [ReEnterPassword, setReEnterPassword] = useState("");
   const [err, setErr] = useState({});
-
+  const NameId = document.getElementById("Name");
+  const MobileId = document.getElementById("Mobile");
+  const EMailId = document.getElementById("email");
+  const RoleId = document.getElementById("Role");
+  const currentPasswordId = document.getElementById("currentPassword");
+  const newPasswordId = document.getElementById("newPassword");
+  const ReEnterPasswordId = document.getElementById("reenterPassword");
   const errStyle = {
     marginTop: "-25px",
     fontSize: 12,
   };
 
-  const NameId = document.getElementById("Name");
-  const MobileId = document.getElementById("Mobile");
-  const EMailId = document.getElementById("email");
-  const RoleId = document.getElementById("Role");
-  // const currentPasswordId = document.getElementById("currentPassword");
-  const newPasswordId = document.getElementById("newPassword");
-  const ReEnterPasswordId = document.getElementById("reenterPassword");
-
   const errClassName = "text-danger d-flex flex-row justify-content-end pb-2";
   const NameRef = useRef(null);
 
-useEffect(()=>{
-  if(edit){
-    NameRef.current.focus()
-  }  
-},[edit])
+  useEffect(() => {
+    if (edit) {
+      NameRef.current.focus();
+    }
+  }, [edit]);
   const _handleSubmit = (e) => {
     e.preventDefault();
     if (Name === "") {
       setErr({
         NameErr: "Fill Name",
       });
-      NameId.focus();
+      NameRef.current.focus();
       return;
     } else if (Mobile === "") {
       setErr({
@@ -77,11 +75,13 @@ useEffect(()=>{
       setErr({
         currentPasswordErr: "Create Password",
       });
+      currentPasswordId.focus();
       return;
     } else if (currentPassword.length < 8) {
       setErr({
         currentPasswordErr: "Minimun 8 characters",
       });
+      currentPasswordId.focus();
       return;
     } else if (newPassword === "") {
       setErr({
@@ -105,13 +105,13 @@ useEffect(()=>{
       setErr({
         ReEnterPasswordErr: "Re-enter password doesn't match",
       });
-      ReEnterPasswordId.focus();
+      ReEnterPasswordId.focus()
       return;
     } else if (ReEnterPassword.length < 8) {
       setErr({
         ReEnterPasswordErr: "Minimun 8 characters",
       });
-      ReEnterPasswordId.focus();
+      ReEnterPasswordId.focus()
       return;
     } else {
       setErr({});

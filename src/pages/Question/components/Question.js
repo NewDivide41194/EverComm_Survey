@@ -53,22 +53,17 @@ const Question = (props) => {
             >{`${obtained || 0} of ${total} Answered`}</div>
           </div>
 
-          <div className="row justify-content-between py-3">
-            <div className="col-sm-12 col-lg-4 col-md-6"
-              style={{
-                fontSize: media.mobile ? "25px" : "25px",
-                fontWeight: "bold",
-              }}
-            >
-              {surveyData[0].survey_name}
-            </div>
-          
-            <div className="col-sm-12 col-lg-4 col-md-6 text-right" style={{
-                fontSize: media.mobile ? "25px" : "25px",
-                fontWeight: "bold",}}>
-              {buildingName}
-            </div>
+          <div
+            style={{
+              fontSize: media.mobile ? "20px" : "25px",
+              fontWeight: "bold",
+            }}
+            className="d-flex flex-row flex-wrap justify-content-between pt-4"
+          >
+            <div>{surveyData[0].survey_name}</div>
+            <div>{buildingName}</div>
           </div>
+
           <div
             className="my-2"
             style={{ fontSize: media.mobile ? "18px" : "20px" }}

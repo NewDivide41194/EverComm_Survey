@@ -26,11 +26,8 @@ const SurveylistContainer = (props) => {
   useEffect(() => {
     SurveyListFetch(userId, SurveyHeaderId, token, (err, data) => {
       setSurveyList(data.payload.List);
-      console.log(data.payload);
     });
     NewSurveyListFetch(userId, SurveyHeaderId, token, (err, data) => {
-      console.log(data);
-
       setBuildingList(data.payload);
     });
   }, []);
@@ -54,7 +51,8 @@ const SurveylistContainer = (props) => {
     .filter(function (o1) {
       // filter out (!) items in result2
       return !surveyList.some(function (o2) {
-        return o1.building_id === o2.building_id; // assumes unique id
+        return o1.building_id === o2.building_id; 
+      // assumes unique id
       });
     })
     .map(function (o) {

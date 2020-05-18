@@ -20,22 +20,22 @@ export const ReportAnswers = (
     .catch((err) => console.log(err));
 };
 
-export const ReportDateAnswers = (
-  { surveyHeaderId, startDate, endDate, token },
-  callback
-) => {
-  console.log("DATE------>", startDate, endDate);
+// export const ReportDateAnswers = (
+//   { surveyHeaderId, startDate, endDate, token },
+//   callback
+// ) => {
+//   console.log("DATE------>", startDate, endDate);
 
-  fetch(API.Report_Date_Answers(surveyHeaderId, token), {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "*/*",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({ startDate: startDate, endDate: endDate }),
-  })
-    .then((res) => res.json())
-    .then((data) => callback(null, data))
-    .catch((err) => console.log(err));
-};
+//   fetch(API.Report_Date_Answers(surveyHeaderId, token), {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//       Accept: "*/*",
+//       Authorization: `Bearer ${token}`,
+//     },
+//     body: JSON.stringify({ startDate: startDate, endDate: endDate }),
+//   })
+//     .then((res) => res.json())
+//     .then((data) => callback(null, data))
+//     .catch((err) => console.log(err));
+// };
