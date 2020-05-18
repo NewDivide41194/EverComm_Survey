@@ -1,9 +1,12 @@
-const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const specialCharacterRegx = /[`!#$%^&*()_+\-=[\]{};:"\\|<>/?~]/;
-const err = {};
 
 export const LoginFormValidation = (data) => {
+  const err = {};
   const {eMail,password}=data
+  console.log(data);
+  console.log(eMail);
+  
   if (eMail === "") {
     err.eMailErr = "Fill Email Address!";
   } else if (!emailRegex.test(eMail)) {
@@ -16,6 +19,8 @@ export const LoginFormValidation = (data) => {
 };
 
 export const RegisterFormValidation = (data) => {
+  const err = {};
+
   const { eMail, password, firstName, lastName, companyName } = data;
   if (firstName === "") {
     err.firstNameErr = "Fill Frist Name!";
@@ -46,6 +51,8 @@ export const RegisterFormValidation = (data) => {
 };
 
 export const BuildingFormValidation = (data) => {
+  const err = {};
+
   const { clientCompany, buildingName, country, postal, address,comment } = data;
   if (clientCompany === "") {
     err.clientCompanyErr = "Fill Client Company!";

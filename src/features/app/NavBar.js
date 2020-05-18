@@ -77,6 +77,11 @@ const email=localStorage.getItem("email")
                         <i className="fa fa-list-ul pr-2 text-secondary"/>
                         Survey Menu
                     </button>
+                    <button className="dropdown-item"
+                        onClick={_handleMenu}>
+                        <i className="fa fa-chart-line pr-2 text-secondary"/>
+                        Report Menu
+                    </button>
                     <div className="dropdown-divider"></div>
                     <button className="dropdown-item"
                         onClick={_handleSignOut}>
