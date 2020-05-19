@@ -1,9 +1,8 @@
-import React from "react";
-import ReportMenu from "../Components/ReportMenu";
+import React from 'react';
+import ReportMenu from '../Components/ReportMenu';
 
-const ReportMenuContainer = () => {
-  
-  return <ReportMenu/>;
-};
+const ReportMenuContainer=(props)=>{
+  return<ReportMenu/>;
 
+}
 export default ReportMenuContainer;
