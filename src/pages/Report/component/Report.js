@@ -31,44 +31,44 @@ const Report = (props) => {
                   {v1.questions
                     ? v1.questions.map((v2, k2) => (
                         <div key={k2} className="col-lg-6 pb-4">
-                          <div className="row font-weight-bold pb-2">
+                          <div className="d-flex flex-row font-weight-bold pb-2">
                             {k2 + 1}. {v2.question_name}
                           </div>
                           {v2.input_type_id !== 6 ? (
-                            <div className="row font-weight-bold">
-                              <div className="w-75">Total Buildings</div>
+                            <div className="d-flex flex-row font-weight-bold">
+                              <div className="w-50">Total Buildings</div>
 
-                              <div className="W-25">{`- ${TotalBuilding} (100%)`}</div>
+                              <div className="w-50">{`- ${TotalBuilding} (100%)`}</div>
                             </div>
                           ) : null}
 
                           {v2.option_choices.map((v3, k3) =>
                             v2.input_type_id !== 6 ? (
-                              <div key={k3} className="row">
-                                <div className="w-75">
+                              <div key={k3} className="d-flex flex-row flex-wrap">
+                                <div className="w-50">
                                   {v3.option_choice_name}
                                 </div>
-                                <div className="W-25">
+                                <div className="w-50">
                                   {v3.totalAns == null
                                     ? "- 0"
                                     : `- ${v3.totalAns}`}{" "}
-                                  ({Percentage(v3.totalAns, TotalBuilding)} %)
+                                  ({Percentage(v3.totalAns, TotalBuilding)}%)
                                 </div>
                               </div>
                             ) : (
-                              <div key={k3} className="row">
-                                <div className="col-6 font-weight-bold">
+                              <div key={k3} className="d-flex flex-row flex-wrap">
+                                <div className="w-50 font-weight-bold">
                                   {Object.keys(v3.other)[0]}
                                 </div>
-                                <div className="col-6 font-weight-bold">
+                                <div className="w-50 font-weight-bold">
                                   {Object.keys(v3.other)[1]}
                                 </div>
-                                <div className="col-6">
+                                <div className="w-50">
                                   {moment(v3.other.YearOfManufacturing).format(
                                     "YYYY-MMM-DD"
                                   )}
                                 </div>
-                                <div className="col-6">
+                                <div className="w-50">
                                   {moment(v3.other.YearOfInstallation).format(
                                     "YYYY-MMM-DD"
                                   )}
@@ -79,16 +79,15 @@ const Report = (props) => {
 
                           {v2.input_type_id === 1 ||
                           v2.input_type_id === 6 ? null : (
-                            <div className="row">
-                              <div className="w-75">Not Answered</div>
-                              <div className="W-25">
+                            <div className="d-flex flex-row flex-wrap">
+                              <div className="w-50">Not Answered</div>
+                              <div className="w-50">
                                 - {NotAnswered(v2.totalAnsCount, TotalBuilding)}{" "}
                                 (
                                 {Percentage(
                                   NotAnswered(v2.totalAnsCount, TotalBuilding),
                                   TotalBuilding
-                                )}{" "}
-                                %)
+                                )}%)
                               </div>
                             </div>
                           )}

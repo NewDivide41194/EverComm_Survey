@@ -31,7 +31,6 @@ const QuestionContainer = (props) => {
     questionId: null,
     survey_headers_id: surveyHeaderId,
     building_id: buildingId,
-   
   };
 
   useEffect(() => {

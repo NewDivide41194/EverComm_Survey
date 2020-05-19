@@ -52,7 +52,6 @@ export const UpdateUserInfo=({Name,eMail,newPassword,token },callback)=>{
 
 
 export const LoginFetch = ({ eMail,password, token }, callback) => {
-    console.log("555555555 ",eMail,password);
     
     fetch(API.LoginAPI, {
       method: "POST",

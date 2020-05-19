@@ -29,7 +29,6 @@ const Question = (props) => {
     _handleStartChange,
     _handleEndChange,
     percent,
-
   } = props;
   const isAnswer = AnswerData.map((v, k) => v.optionChoiceId);
 

@@ -1,11 +1,11 @@
-const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const specialCharacterRegx = /[`!#$%^&*()_+\-=[\]{};:"\\|<>/?~]/;
 const MobileRegex=/[`!/^\d{10}$`]/;
-const err = {};
 
 export const LoginFormValidation = (data) => {
   const err = {};
   const {eMail,password}=data
+
   if (eMail === "") {
     err.eMailErr = "Fill Email Address!";
   } else if (!emailRegex.test(eMail)) {
@@ -20,6 +20,7 @@ export const LoginFormValidation = (data) => {
 export const RegisterFormValidation = (data) => {
   const err = {};
   const { eMail, password, firstName, lastName, companyName } = data;
+
   if (firstName === "") {
     err.firstNameErr = "Fill Frist Name!";
   } else if (specialCharacterRegx.test(firstName)) {
@@ -51,6 +52,7 @@ export const RegisterFormValidation = (data) => {
 export const BuildingFormValidation = (data) => {
   const err = {};
   const { clientCompany, buildingName, country, postal, address,comment } = data;
+
   if (clientCompany === "") {
     err.clientCompanyErr = "Fill Client Company!";
   } else if (specialCharacterRegx.test(clientCompany)) {
@@ -69,9 +71,7 @@ export const BuildingFormValidation = (data) => {
   }
   if (address === "") {
     err.addressErr = "Fill Address!";
-  } else if (specialCharacterRegx.test(address)) {
-    err.addressErr = "Not Allow Special Characters!";
-  }
+  } 
   if(comment===""){
     err.commentErr="Fill Comment!";
   }else if (specialCharacterRegx.test(comment)) {
@@ -83,6 +83,7 @@ export const BuildingFormValidation = (data) => {
 export const AccountSettingValidataion=(data)=>{
   const err = {};
   const {Name,Mobile,eMail,Role,currentPassword,newPassword,ReEnterPassword }=data;
+  
   if(Name===""){
     err.NameErr="Fill Name!";
   }else if(specialCharacterRegx.test(Name)){

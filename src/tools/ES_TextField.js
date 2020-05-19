@@ -35,7 +35,7 @@ export const ESTextfield =props=>{
         ).style.border = `2px solid ${Color.PrimaryColor}`;
       };
       const _handleBlur = () => {
-        document.getElementById(id).style.border = `2px solid gray`;
+        document.getElementById(id).style.border = `2px solid ${Color.SecondaryColor}`;
       };
     
       return (

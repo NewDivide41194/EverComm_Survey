@@ -28,6 +28,7 @@ const LoginContainer = (props) => {
   const _handleSubmit = (e) => {
     e.preventDefault();
     const data={eMail,password}
+
     const ValidatedErr = LoginFormValidation(data);
     setErr(ValidatedErr);
     if (ValidatedErr.eMailErr) {

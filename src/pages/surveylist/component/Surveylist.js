@@ -21,8 +21,7 @@ const Surveylist = (props) => {
     Card.style.background = HoverBgColor;
     console.log("buildingName",buildingName);
   };
- 
-  
+   
   const _handleMouseLeave = () => {
     const Card = document.getElementById(id);
     Card.className = "d-flex flex-row p-3 rounded justify-content-between my-2";
