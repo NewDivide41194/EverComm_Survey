@@ -8,6 +8,7 @@ import { withRouter } from "react-router-dom";
 
 const Question = (props) => {
   const {
+    buildingName,
     surveyData,
     media,
     userId,
@@ -28,7 +29,6 @@ const Question = (props) => {
     _handleStartChange,
     _handleEndChange,
     percent,
-    buildingName,
   } = props;
   const isAnswer = AnswerData.map((v, k) => v.optionChoiceId);
 

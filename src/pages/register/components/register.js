@@ -45,7 +45,7 @@ const Register = (props) => {
           </div>
           <div className="row form-group">
             <div className="py-2 col-sm-12 col-lg-6">
-              <label>First Name:</label>
+              <label htmlFor="FirstName">First Name</label>
               {err.firstNameErr === undefined ? null : (
                 <div
                   className={errClassName}
@@ -63,7 +63,7 @@ const Register = (props) => {
               />
             </div>
             <div className="py-2 col-sm-12 col-lg-6">
-              <label>Last Name:</label>
+              <label htmlFor="LastName">Last Name</label>
               {err.lastNameErr === undefined ? null : (
                 <div
                   className={errClassName}
@@ -80,7 +80,7 @@ const Register = (props) => {
               />
             </div>
             <div className="py-2 col-12">
-              <label>Your Company Name:</label>
+              <label htmlFor="CompanyName">Your Company Name</label>
               {err.companyErr === undefined ? null : (
                 <div
                   className={errClassName}
@@ -97,7 +97,7 @@ const Register = (props) => {
               />
             </div>
             <div className="py-2 col-12">
-              <label>Email:</label>
+              <label htmlFor="Email">Email</label>
 
               {err.eMailErr === undefined ? null : (
                 <div
@@ -116,7 +116,7 @@ const Register = (props) => {
               />
             </div>
             <div className="py-2 col-12">
-              <label>Password:</label>
+              <label htmlFor="Password">Password</label>
 
               {err.passwordErr === undefined ? null : (
                 <div

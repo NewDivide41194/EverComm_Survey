@@ -22,8 +22,8 @@ const QuestionContainer = (props) => {
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
   const buildingId = localStorage.getItem("buildingId");
-  const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
   const buildingName=localStorage.getItem("buildingName")
+  const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
   const Ans = {
     other: "",
     optionChoiceId: null,
@@ -217,6 +217,7 @@ console.log(value);
     <ESLoading />
   ) : (
     <Question
+      buildingName={buildingName}
       surveyData={surveyData}
       userId={userId}
       pageno={pageno}

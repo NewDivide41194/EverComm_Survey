@@ -21,7 +21,9 @@ const Surveylist = (props) => {
       "d-flex flex-row p-3 rounded justify-content-between my-2 shadow-sm";
     Card.style.background = HoverBgColor;
     Card.style.color = HoverTxtColor;
+    console.log("buildingName",buildingName);
   };
+   
   const _handleMouseLeave = () => {
     const Card = document.getElementById(id);
     Card.className = "d-flex flex-row p-3 rounded justify-content-between my-2";
