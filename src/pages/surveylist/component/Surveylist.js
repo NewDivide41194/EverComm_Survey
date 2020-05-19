@@ -9,7 +9,6 @@ const Surveylist = (props) => {
     BgColor,
     TxtColor,
     HoverBgColor,
-    HoverTxtColor,
     handleCardClick,
     id,
   } = props;
@@ -20,7 +19,6 @@ const Surveylist = (props) => {
     Card.className =
       "d-flex flex-row p-3 rounded justify-content-between my-2 shadow-sm";
     Card.style.background = HoverBgColor;
-    Card.style.color = HoverTxtColor;
     console.log("buildingName",buildingName);
   };
  

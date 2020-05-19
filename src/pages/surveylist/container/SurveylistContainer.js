@@ -92,7 +92,6 @@ const SurveylistContainer = (props) => {
           BgColor={Colors.PrimaryColor}
           TxtColor={"white"}
           HoverBgColor={Colors.skyBlue}
-          HoverTxtColor={"white"}
           handleCardClick={handleCardClick}
         />
       ) : null}
@@ -103,8 +102,7 @@ const SurveylistContainer = (props) => {
           surveyName={"Pending Survey"}
           BgColor={Colors.MoonLight}
           TxtColor={Colors.PrimaryColor}
-          HoverBgColor={Colors.PaleYellow}
-          HoverTxtColor={Colors.PrimaryColor}
+          HoverBgColor={Colors.PaleYellow}   
           handleCardClick={handleCardClick}
         />
       ) : null}
@@ -116,7 +114,6 @@ const SurveylistContainer = (props) => {
           BgColor={Colors.SparkGreen}
           TxtColor={"white"}
           HoverBgColor={Colors.PaleGreen}
-          HoverTxtColor={Colors.PaleYellow}
           handleCardClick={handleCardClick}
         />
       ) : null}
@@ -134,7 +131,6 @@ const CollapseSurveyList = (props) => {
     BgColor,
     TxtColor,
     HoverBgColor,
-    HoverTxtColor,
   } = props;
   const [expend, setIsExpend] = useState(false);
   return (
@@ -177,7 +173,6 @@ const CollapseSurveyList = (props) => {
               BgColor={BgColor}
               TxtColor={TxtColor}
               HoverBgColor={HoverBgColor}
-              HoverTxtColor={HoverTxtColor}
               handleCardClick={handleCardClick}
             />
           ))
