@@ -100,7 +100,6 @@ const QuestionContainer = (props) => {
 
   const handleRadioChange = (ansId, quesId) => {
     const RadioAns = { ...Ans, optionChoiceId: ansId, questionId: quesId };
-    console.log(RadioAns);
 
     if (isQuesId(quesId).length >= 1) {
       AnswerData.splice(isQuesIdIndex(quesId), 1, RadioAns);
@@ -211,7 +210,6 @@ console.log(value);
       }
     }
   };
-  console.log("ANS------>", AnswerData);
 
   return IsLoading ? (
     <ESLoading />
@@ -228,7 +226,6 @@ console.log(value);
       obtained={obtained}
       total={total}
       percent={percent}
-      buildingName={buildingName}
       _handleSelect={handleSelect}
       _handleCheckChange={handleCheckChange}
       _handleRadioChange={handleRadioChange}

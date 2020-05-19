@@ -3,7 +3,7 @@ import * as Color from "../config/Color.config";
 import withMedia from "react-media-query-hoc/dist/with-media";
 
 const ESProgress = props => {
-  const { media, Percent } = props;
+  const { Percent } = props;
   return (
     <div className="progress" style={{ height: "6px", borderRadius: "0px"}}>
       <div

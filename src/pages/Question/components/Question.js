@@ -35,11 +35,13 @@ const Question = (props) => {
   return (
     surveyData.length && (
       <div>
-        <ESProgress Percent={percent} />
+        <div className={`position-fixed w-100`}>
+          <ESProgress Percent={percent} />
+        </div>
         <div className="container">
           <div
-            className={`text-light row justify-content-end ${
-              media.mobile || "pt-3 justify-content-center"
+            className={`text-light row justify-content-end pt-3 ${
+              media.mobile || "justify-content-center"
             }`}
           >
             <div
@@ -56,6 +58,7 @@ const Question = (props) => {
             style={{
               fontSize: media.mobile ? "20px" : "25px",
               fontWeight: "bold",
+              color:Color.PrimaryColor
             }}
             className="d-flex flex-row flex-wrap justify-content-between pt-2"
           >
