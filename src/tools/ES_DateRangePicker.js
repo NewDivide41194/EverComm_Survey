@@ -2,6 +2,8 @@ import React from 'react'
 import moment from 'moment'
 import {ESButton} from './ES_Button'
 import RangePicker from "react-range-picker";
+import * as Colors from "../config/Color.config";
+
 
 export const PickerWithCustomePlaceholder = (props) => {
     const {onDateChange,viewReport}=props
@@ -15,9 +17,9 @@ export const PickerWithCustomePlaceholder = (props) => {
         _endDate = `${moment(endDate).format("YYYY-MM-DD")}`;
       }
       return (
-        <div className="py-2">
-          <ESButton
-            text={
+        <div className="w-100">
+          <ESButton 
+              text={
               !_startDate
                 ? "Select Date to View Report"
                 : `${_startDate} - ${_endDate}`
