@@ -28,7 +28,7 @@ const ReportMenu = (props) => {
       <div className="d-flex flex-row flex-fill flex-wrap justify-content-center" style={{marginTop:"20vh"}}> 
         <div className="col-lg-5 col-sm-12 py-2">
           <h5 style={{ color: Colors.PrimaryColor }}>
-            Select Survey Name for Report
+            Select Survey Name
           </h5>
           <div className="pt-3 w-100">
             <ESDropDown 
