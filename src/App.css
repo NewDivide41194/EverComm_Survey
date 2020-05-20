@@ -36,3 +36,26 @@
     transform: rotate(360deg);
   }
 }
+
+.DateInput_input {
+  font-weight: 200;
+  font-size: 19px;
+  height: 20px;
+  color:#484848;
+  background-color: #fff;
+  width: 100%;
+  padding: 11px 11px 9px;
+  /* border: 2px solid transparent; */
+}
+.DateRangePickerInput__withBorder{
+  border-radius: 5px;
+  width: 100%;
+  margin:0
+}
+
+.DateInput_input__focused{
+  border:none
+}
+.DateRangePicker{width: 100%;}
+
+.DateInput_fang_1{display:none}
