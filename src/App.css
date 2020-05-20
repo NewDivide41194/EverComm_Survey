@@ -50,6 +50,9 @@
 .DateRangePickerInput__withBorder{
   border-radius: 5px;
   width: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  text-align: center;
   margin:0
 }
 
@@ -59,3 +62,26 @@
 .DateRangePicker{width: 100%;}
 
 .DateInput_fang_1{display:none}
+
+.CalendarDay__selected, .CalendarDay__selected:active, .CalendarDay__selected:hover,.CalendarDay__selected_span{
+    background: #276bb9;
+    border: 1px double white;
+    color: #fff;
+}
+.CalendarDay__selected_span:active, .CalendarDay__selected_span:hover{
+  background: #45a1e0;
+    border: 1px double #45a1e0;
+    color: #fff;
+}
+
+.DayPickerKeyboardShortcuts_show__bottomRight::before{
+  border-right: 33px solid #276bb9;
+
+}
+
+.CalendarDay__hovered_span, .CalendarDay__hovered_span:hover {
+  background: #45a1e0;
+  border: 1px double #45a1e0;
+  color: #fff;
+}
+

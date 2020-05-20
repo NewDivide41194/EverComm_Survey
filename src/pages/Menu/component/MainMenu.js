@@ -1,6 +1,13 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 
 const MainMenu = (props) => {
+  const _handleReportClick = () => {
+    props.history.push(`/reportMenu`);
+  };
+  const _handleSurveyClick=()=>{
+    props.history.push(`/surveyMenu`)
+  }
   return (
     <div
       style={{
@@ -19,7 +26,10 @@ const MainMenu = (props) => {
               width: "40%",
               backgroundColor: "#276BB9",
               borderRadius: "10px",
+              cursor: "pointer",
             }}
+            onClick={_handleSurveyClick}
+
           >
             <div className="py-1 card-header border-light">
               <h4>Survey Questions</h4>
@@ -39,7 +49,9 @@ const MainMenu = (props) => {
               width: "40%",
               backgroundColor: "#276BB9",
               borderRadius: "10px",
+              cursor: "pointer",
             }}
+            onClick={_handleReportClick}
           >
             <div className="py-1 card-header border-light">
               <h4>Reporting</h4>
@@ -53,4 +65,4 @@ const MainMenu = (props) => {
     </div>
   );
 };
-export default MainMenu;
+export default withRouter(MainMenu);

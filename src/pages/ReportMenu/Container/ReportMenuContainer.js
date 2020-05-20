@@ -6,14 +6,15 @@ const ReportMenuContainer = (props) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [focusedInput, setFocusedInput] = useState(null);
+  const [isDisable,setIsDisable]=useState(true)
+
   const StartDate = startDate && moment(startDate._d).format("YYYY-MM-DD");
   const EndDate = endDate && moment(endDate._d).format("YYYY-MM-DD");
   const _handleReport = () => {
     if (startDate !== null && endDate !== null) {
       props.history.push(`/report/?startDate=${StartDate}&endDate=${EndDate}`);
     } else {
-      window.alert("Date Not Selected");
-    }
+      props.history.push(`/report`)    }
   };
 
   const _handleDatesChange = ({ startDate, endDate }) => {
@@ -29,6 +30,7 @@ const ReportMenuContainer = (props) => {
       _handleDatesChange={_handleDatesChange}
       _handleFocusedInput={_handleFocusedInput}
       _handleReport={_handleReport}
+      isDisable={false}
     />
   );
 };

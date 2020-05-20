@@ -16,13 +16,14 @@ const ReportMenu = (props) => {
     _handleReport,
     _handleDatesChange,
     _handleFocusedInput,
+    isDisable
   } = props;
   const isOutsideRange = (day) => !isInclusivelyBeforeDay(day, moment());
 
   return (
-    <div className="container text-center">
+    <div className="container">
       <div className="d-flex flex-row flex-fill flex-wrap justify-content-center" style={{marginTop:"20vh"}}> 
-        <div className="col-lg-6 col-sm-12 py-2">
+        <div className="col-lg-5 col-sm-12 py-2">
           <h5 style={{ color: Colors.PrimaryColor }}>
             Select Survey Name for Report
           </h5>
@@ -30,7 +31,7 @@ const ReportMenu = (props) => {
             <ESDropDown />
           </div>
         </div>
-        <div className="col-lg-6 col-sm-12 py-2">
+        <div className="col-lg-5 col-sm-12 py-2">
           <h5 style={{ color: Colors.PrimaryColor }}>
             Select Date Range (optional)
           </h5>
@@ -45,14 +46,15 @@ const ReportMenu = (props) => {
               focusedInput={focusedInput}
               onFocusChange={_handleFocusedInput}
               onDatesChange={_handleDatesChange}
-              showDefaultInputIcon={true}
+              // showDefaultInputIcon={true}
             />
           </div>
         </div>
         <div className="w-100 row justify-content-center py-5">
         <div className="col-lg-3 col-12">
           <ESButton
-          // small
+          small
+            disabled={isDisable}
             text={"View report"}
             style={{ fontSize: 23 }}
             onClick={() => _handleReport()}
