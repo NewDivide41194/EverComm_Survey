@@ -13,7 +13,10 @@ const ReportMenu = (props) => {
     startDate,
     endDate,
     focusedInput,
+    surveyId,
+    SurrveyNameOptions,
     _handleReport,
+    _handleSelectSurvey,
     _handleDatesChange,
     _handleFocusedInput,
     isDisable
@@ -28,7 +31,12 @@ const ReportMenu = (props) => {
             Select Survey Name for Report
           </h5>
           <div className="pt-3 w-100">
-            <ESDropDown />
+            <ESDropDown 
+               id={"id"}
+               _handleSelect={_handleSelectSurvey}
+               options={SurrveyNameOptions}
+               value={surveyId}
+            />
           </div>
         </div>
         <div className="col-lg-5 col-sm-12 py-2">
