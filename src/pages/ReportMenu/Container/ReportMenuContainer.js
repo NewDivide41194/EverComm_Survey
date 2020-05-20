@@ -1,49 +1,51 @@
-import React, { useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import ReportMenu from "../Components/ReportMenu";
 import { MenuInfoFetch } from "../../../api/FetchMenuInfo";
 import moment from "moment";
 
 const ReportMenuContainer = (props) => {
-  const[surveyId,setSurveyId]=useState("");
+  const [surveyId, setSurveyId] = useState(null);
   const [menuData, setMenuData] = useState([]);
-  const userId = localStorage.getItem("userId")
-  const token=localStorage.getItem("token")
+  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [focusedInput, setFocusedInput] = useState(null);
+  const [isDisable, setIsDisable] = useState(true);
+
   const StartDate = startDate && moment(startDate._d).format("YYYY-MM-DD");
   const EndDate = endDate && moment(endDate._d).format("YYYY-MM-DD");
   const _handleReport = () => {
     if (startDate !== null && endDate !== null) {
       props.history.push(`/report/?startDate=${StartDate}&endDate=${EndDate}`);
     } else {
-      window.alert("Date Not Selected");
+      props.history.push(`/report`);
     }
   };
-  useEffect(()=>{
-    MenuInfoFetch({userId,token},(err,data)=>{
+  useEffect(() => {
+    surveyId && setIsDisable(false);
+    MenuInfoFetch({ userId, token }, (err, data) => {
       setMenuData(data.payload);
-    })
-  },[]);
-  console.log("menu data....",menuData);
+    });
+  }, [surveyId]);
 
-  const SurrveyNameOptions = menuData.map((v, k) => ({
+  const SurrveyNameOptions = menuData&&menuData.map((v, k) => ({
     value: v.survey_header_id,
     label: v.survey_name,
   }));
-  
+
   const _handleSelectSurvey = (SurveyHeaderId, e) => {
     localStorage.setItem("SurveyHeaderId", e.value);
     setSurveyId(e.value);
-    console.log("surveyheaderid",e.value);
   };
- 
-  
+
   const _handleDatesChange = ({ startDate, endDate }) => {
     setStartDate(startDate);
     setEndDate(endDate);
   };
-  const _handleFocusedInput =(focusedInput) => {setFocusedInput(focusedInput)}
+  const _handleFocusedInput = (focusedInput) => {
+    setFocusedInput(focusedInput);
+  };
   return (
     <ReportMenu
       startDate={startDate}
@@ -55,6 +57,7 @@ const ReportMenuContainer = (props) => {
       _handleDatesChange={_handleDatesChange}
       _handleFocusedInput={_handleFocusedInput}
       _handleReport={_handleReport}
+      isDisable={isDisable}
     />
   );
 };

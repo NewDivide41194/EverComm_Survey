@@ -17,10 +17,14 @@ const Report = (props) => {
             <h2 className="text-center" style={{ color: Colors.PrimaryColor }}>
               Report for {v.survey_name}
             </h2>
-            <h4 className="text-center text-secondary">
-              From {moment(startDate).format("YYYY-MMM-DD")} to{" "}
-              {moment(endDate).format("YYYY-MMM-DD")}
-            </h4>
+            {startDate ? (
+              <h4 className="text-center text-secondary">
+                From {moment(startDate).format("YYYY-MMM-DD")} to{" "}
+                {moment(endDate).format("YYYY-MMM-DD")}
+              </h4>
+            ) : (
+              <h4 className="text-center text-secondary">Overall Report</h4>
+            )}
             {v.survey_sections.map((v1, k1) => (
               <div key={k1} className="text-dark">
                 <h4 className="pt-2" style={{ color: Colors.PrimaryColor }}>
@@ -44,7 +48,10 @@ const Report = (props) => {
 
                           {v2.option_choices.map((v3, k3) =>
                             v2.input_type_id !== 6 ? (
-                              <div key={k3} className="d-flex flex-row flex-wrap">
+                              <div
+                                key={k3}
+                                className="d-flex flex-row flex-wrap"
+                              >
                                 <div className="w-50">
                                   {v3.option_choice_name}
                                 </div>
@@ -56,7 +63,10 @@ const Report = (props) => {
                                 </div>
                               </div>
                             ) : (
-                              <div key={k3} className="d-flex flex-row flex-wrap">
+                              <div
+                                key={k3}
+                                className="d-flex flex-row flex-wrap"
+                              >
                                 <div className="w-50 font-weight-bold">
                                   {Object.keys(v3.other)[0]}
                                 </div>
@@ -87,7 +97,8 @@ const Report = (props) => {
                                 {Percentage(
                                   NotAnswered(v2.totalAnsCount, TotalBuilding),
                                   TotalBuilding
-                                )}%)
+                                )}
+                                %)
                               </div>
                             </div>
                           )}
@@ -101,7 +112,7 @@ const Report = (props) => {
         ))
       ) : (
         <h3 className="mt-5 text-center text-warning">
-          No Data! Please Select Correct Date
+          No Data!
         </h3>
       )}
     </div>
