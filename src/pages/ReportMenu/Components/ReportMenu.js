@@ -29,7 +29,7 @@ const ReportMenu = (props) => {
           <h5 style={{ color: Colors.PrimaryColor }}>
             Select Survey Name for Report
           </h5>
-          <div className="pt-3 w-100">
+          <div className="pt-3">
             <ESDropDown 
                id={"id"}
                _handleSelect={_handleSelectSurvey}
@@ -42,7 +42,7 @@ const ReportMenu = (props) => {
           <h5 style={{ color: Colors.PrimaryColor }}>
             Select Date Range (optional)
           </h5>
-          <div className="pt-3 w-100">
+          <div className="pt-3">
             <DateRangePicker
               isOutsideRange={isOutsideRange}
               numberOfMonths={1}
