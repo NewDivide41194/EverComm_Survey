@@ -19,7 +19,9 @@ const ReportMenu = (props) => {
     _handleSelectSurvey,
     _handleDatesChange,
     _handleFocusedInput,
-    isDisable
+    _handleClearable,
+    isDisable,
+    isClearable
   } = props;
   const isOutsideRange = (day) => !isInclusivelyBeforeDay(day, moment());
 
@@ -36,6 +38,9 @@ const ReportMenu = (props) => {
                _handleSelect={_handleSelectSurvey}
                options={SurrveyNameOptions}
                value={surveyId}
+               onClick={_handleClearable}
+               //isClearable={isClearable}
+              large               
             />
           </div>
         </div>
@@ -61,7 +66,7 @@ const ReportMenu = (props) => {
         <div className="w-100 row justify-content-center py-5">
         <div className="col-lg-3 col-12">
           <ESButton
-            small
+          // small
             disabled={isDisable}
             text={"View report"}
             style={{ fontSize: 23 }}
