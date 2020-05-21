@@ -21,7 +21,6 @@ const ReportMenu = (props) => {
     _handleFocusedInput,
     _handleClearable,
     isDisable,
-    isClearable
   } = props;
   const isOutsideRange = (day) => !isInclusivelyBeforeDay(day, moment());
 
@@ -39,7 +38,6 @@ const ReportMenu = (props) => {
                options={SurrveyNameOptions}
                value={surveyId}
                onClick={_handleClearable}
-               //isClearable={isClearable}
               large               
             />
           </div>
