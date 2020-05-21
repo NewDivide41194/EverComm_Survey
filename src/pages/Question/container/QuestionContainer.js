@@ -22,7 +22,7 @@ const QuestionContainer = (props) => {
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
   const buildingId = localStorage.getItem("buildingId");
-  const buildingName=localStorage.getItem("buildingName")
+  const buildingName = localStorage.getItem("buildingName");
   const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
   const Ans = {
     other: "",
@@ -129,20 +129,19 @@ const QuestionContainer = (props) => {
 
   const handleInputChange = (e, quesId) => {
     setValue(e.target.value);
-console.log(value);
-
+    const ImportText=e.target.value.replace(/\s+/g, " ").trimStart()
     const TextAnswer = {
       ...Ans,
-      other: e.target.value.replace(/\s+/g, " ").trimStart(),
+      other:ImportText ,
       questionId: quesId,
     };
     if (
-      e.target.value.replace(/\s+/g, " ").trimStart() === "" &&
+      ImportText === "" &&
       isQuesId(quesId).length < 1
     ) {
       return;
     } else if (
-      e.target.value.replace(/\s+/g, " ").trimStart() === "" &&
+      ImportText === "" &&
       isQuesId(quesId).length >= 1
     ) {
       AnswerData.splice(isQuesIdIndex(quesId), 1);
@@ -151,7 +150,11 @@ console.log(value);
     } else {
       AnswerData.push(TextAnswer);
     }
+    console.log(isQuesId(quesId));
+    
   };
+console.log("Value--->",value);
+console.log("ANSWERDATA--->",AnswerData);
 
   const handleSelect = (quesId, e) => {
     setSelectedOption(e);
