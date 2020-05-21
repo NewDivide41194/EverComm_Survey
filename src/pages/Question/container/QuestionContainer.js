@@ -78,7 +78,7 @@ const QuestionContainer = (props) => {
             setIsLoading(true);
             PostAnswer({ data: AnswerData, token }, (err, data) => {
               setIsLoading(false);
-              history.push("/reportMenu");
+              history.push("/finalPage");
             });
           },
         },

@@ -61,7 +61,7 @@ const ReportMenu = (props) => {
         <div className="w-100 row justify-content-center py-5">
         <div className="col-lg-3 col-12">
           <ESButton
-          small
+            small
             disabled={isDisable}
             text={"View report"}
             style={{ fontSize: 23 }}
@@ -81,3 +81,4 @@ const ReportMenu = (props) => {
   );
 };
 export default withRouter(ReportMenu);
+

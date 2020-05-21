@@ -10,7 +10,7 @@ const FinalPage= (props) => {
   const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
 
   const _handleMenu = () => {
-    props.history.push(`/menu/${userId}`);
+    props.history.push(`/surveyMenu/${userId}`);
   };
 
   const _handleReview = () => {
@@ -32,7 +32,7 @@ const FinalPage= (props) => {
           />
         </div>
         <div className="col-md-3 col-sm-12 py-2">
-          <ESButton text={"Back to Menu"} onClick={() => _handleMenu()} 
+          <ESButton text={"Back to SurveyMenu"} onClick={() => _handleMenu()} 
             rightIcon={<i className="fa fa-caret-right pl-2" />}
             small />
         </div>
