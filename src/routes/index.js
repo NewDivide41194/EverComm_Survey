@@ -22,15 +22,15 @@ export const RouteName = {
   routeAdminPage: "admin",
   routeMenuPage: "menu/:userId",
 
-  routeSurveyMenuPage: "surveymenu",
+  routeSurveyMenuPage: "surveyMenu",
 
   routeBuildingPage: "addBuilding",
 
   routeAccountPage: "user/account",
 
-  routeSurveylistPage: "surveylist",
+  routeSurveylistPage: "surveyList",
 
-  routeFinalPage: "finalpage",
+  routeFinalPage: "finalPage",
 };
 
 export default {

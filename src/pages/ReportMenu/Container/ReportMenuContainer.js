@@ -6,6 +6,7 @@ import moment from "moment";
 const ReportMenuContainer = (props) => {
   const [surveyId, setSurveyId] = useState(null);
   const [menuData, setMenuData] = useState([]);
+  const [isClearable,setisClearable]=useState(false);
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
   const [startDate, setStartDate] = useState(null);
@@ -35,8 +36,13 @@ const ReportMenuContainer = (props) => {
   }));
 
   const _handleSelectSurvey = (SurveyHeaderId, e) => {
-    localStorage.setItem("SurveyHeaderId", e.value);
-    setSurveyId(e.value);
+    if(e !== null){
+      localStorage.setItem("SurveyHeaderId", e.value);
+      setSurveyId(e.value);
+    }else{
+      setIsDisable(true);
+    }
+    
   };
 
   const _handleDatesChange = ({ startDate, endDate }) => {
@@ -46,6 +52,9 @@ const ReportMenuContainer = (props) => {
   const _handleFocusedInput = (focusedInput) => {
     setFocusedInput(focusedInput);
   };
+  const _handleClearable=()=>{
+    setisClearable(!isClearable);
+  }
   return (
     <ReportMenu
       startDate={startDate}
@@ -53,6 +62,8 @@ const ReportMenuContainer = (props) => {
       SurrveyNameOptions={SurrveyNameOptions}
       focusedInput={focusedInput}
       surveyId={surveyId}
+      isClearable={isClearable}
+      _handleClearable={_handleClearable}
       _handleSelectSurvey={_handleSelectSurvey}
       _handleDatesChange={_handleDatesChange}
       _handleFocusedInput={_handleFocusedInput}

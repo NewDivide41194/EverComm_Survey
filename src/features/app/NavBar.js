@@ -30,7 +30,12 @@ const NavBar = (props) => {
       props.history.push("/");
     }
   };
-
+  const _handlesurveyMenu = () => {
+   props.history.push(`/surveyMenu/${userId}`);  
+  };
+  const _handleReportMenu=()=>{
+      props.history.push(`/reportMenu/${userId}`);
+  };
   return (
     <div
       style={{ zIndex: 97 }}
@@ -65,11 +70,11 @@ const NavBar = (props) => {
             <i className="fas fa-user-cog pr-2 text-secondary" />
             Account Setting
           </button>
-          <button className="dropdown-item" onClick={_handleMenu}>
+          <button className="dropdown-item" onClick={_handlesurveyMenu}>
             <i className="fa fa-list-ul pr-2 text-secondary" />
             Survey Menu
           </button>
-          <button className="dropdown-item" onClick={_handleMenu}>
+          <button className="dropdown-item" onClick={_handleReportMenu}>
             <i className="fa fa-chart-line pr-2 text-secondary" />
             Report Menu
           </button>

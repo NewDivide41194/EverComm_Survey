@@ -19,7 +19,9 @@ const ReportMenu = (props) => {
     _handleSelectSurvey,
     _handleDatesChange,
     _handleFocusedInput,
-    isDisable
+    _handleClearable,
+    isDisable,
+    isClearable
   } = props;
   const isOutsideRange = (day) => !isInclusivelyBeforeDay(day, moment());
 
@@ -30,12 +32,14 @@ const ReportMenu = (props) => {
           <h5 style={{ color: Colors.PrimaryColor }}>
             Select Survey Name
           </h5>
-          <div className="pt-3 w-100">
+          <div className="pt-3">
             <ESDropDown 
                id={"id"}
                _handleSelect={_handleSelectSurvey}
                options={SurrveyNameOptions}
                value={surveyId}
+               onClick={_handleClearable}
+               //isClearable={isClearable}
               large               
             />
           </div>
@@ -44,7 +48,7 @@ const ReportMenu = (props) => {
           <h5 style={{ color: Colors.PrimaryColor }}>
             Select Date Range (optional)
           </h5>
-          <div className="pt-3 w-100">
+          <div className="pt-3">
             <DateRangePicker
               isOutsideRange={isOutsideRange}
               numberOfMonths={1}
@@ -82,3 +86,4 @@ const ReportMenu = (props) => {
   );
 };
 export default withRouter(ReportMenu);
+
