@@ -24,7 +24,10 @@ const QuestionCard = (props) => {
     endDate,
   } = props;
 
+  console.log("INPUT VALUE",survey_sections[pageno].questions.map((ques, k2) => AnswerData.filter((d) => d.questionId === ques.question_id)))
+
   return survey_sections[pageno].questions.map((ques, k2) => (
+    
     <div
       className="d-flex flex-row flex-fill flex-wrap w-100 p-3 py-3 mb-3 rounded"
       key={k2}
@@ -91,8 +94,8 @@ const QuestionCard = (props) => {
           placeHolder={"Fill Your Answer"}
           id={ques.question_id}
           value={
-            AnswerData.filter((d) => d.questionId === ques.question_id)
-              ? AnswerData.filter((d) => d.questionId === ques.question_id).map(
+            // AnswerData.filter((d) => d.questionId === ques.question_id)
+              AnswerData? AnswerData.filter((d) => d.questionId === ques.question_id).map(
                   (v, k) => v.other
                 )
               : ""

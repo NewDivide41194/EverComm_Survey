@@ -14,32 +14,17 @@ const ReportContainer = (props) => {
   const endDate=urlParams.get("endDate")
   const userLevel=localStorage.getItem("userLevel")
   const userId=localStorage.getItem("userId")
+  
   useEffect(()=>{
-    console.log("ooooooo",userLevel);
-    
-  ReportAnswers(
-      { surveyHeaderId, startDate, endDate, token },
+    UserReportAnswers(
+      {userId, surveyHeaderId, startDate, endDate, token },
       (err, data) => {
-        setReportData(data.payload);
+        setReportData(data.payload);        
       }
     );
-    // UserReportAnswers(
-    //   {userId, surveyHeaderId, startDate, endDate, token },
-    //   (err, data) => {
-    //     setReportData(data.payload);
-    //   }
-    // );
-    console.log("ReportDATA=====>",reportData);
-    
-    // ReportDateAnswers(
-    //   { surveyHeaderId, startDate, endDate, token },
-    //   (err, data) => {
-    //     setDateReportData(data.payload);
-    //   }
-    // );
   },[])
   
-  // console.log(userLevel);
+  console.log("ReportDATA=====>",reportData);
   
   return (
     <Report
