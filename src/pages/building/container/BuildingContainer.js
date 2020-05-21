@@ -75,6 +75,7 @@ const BuildingContainer = (props) => {
             alert.error(data.message);
             setIsDisabled(isDisabled);
           } else {
+            localStorage.setItem("buildingName",buildingName)
             localStorage.setItem("buildingId", data.payload.insertId);
             props.history.push(
               `/question/${userId}/${surveyHeaderId}/${buildingId}`
