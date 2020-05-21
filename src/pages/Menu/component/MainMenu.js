@@ -5,31 +5,30 @@ const MainMenu = (props) => {
   const _handleReportClick = () => {
     props.history.push(`/reportMenu`);
   };
-  const _handleSurveyClick=()=>{
-    props.history.push(`/surveyMenu`)
-  }
+  const _handleSurveyClick = () => {
+    props.history.push(`/surveyMenu`);
+  };
   return (
     <div
       style={{
-        margin: 0,
-        position: "",
-        top: "50%",
-        transform: "translateY(190px)",
+        margin: "0",
+        top: "40%",
+        transform: "translateY(150px)",
       }}
     >
-      <div className="d-flex flex-row justify-content-center card-deck">
-        <div className="d-flex col-md-4 align-item-center">
+      <div className="justify-content-center card-deck">
+        <div className="d-flex col-md-3 justify-content-center flex-row ">
           <div
             className="p-2 card text-light text-left"
             style={{
-              maxwidth: "18rem",
-              width: "40%",
+              minWidth: "180px",
+              width: "300px",
+              minHeight: "200px",
               backgroundColor: "#276BB9",
-              borderRadius: "10px",
+              borderRadius: "15px",
               cursor: "pointer",
             }}
             onClick={_handleSurveyClick}
-
           >
             <div className="py-1 card-header border-light">
               <h4>Survey Questions</h4>
@@ -41,12 +40,14 @@ const MainMenu = (props) => {
             </div>
           </div>
         </div>
-        <div className="d-flex col-md-4 align-item-center">
+        <div className="d-flex justify-content-center flex-wrap col-md-3">
           <div
-            className="p-2 card text-light text-left"
+            className="flex-wrap p-2 card text-light text-left"
             style={{
-              maxwidth: "18rem",
-              width: "40%",
+              minWidth: "180px",
+              width: "300px",
+              height: "200px",
+              minHeight: "200px",
               backgroundColor: "#276BB9",
               borderRadius: "10px",
               cursor: "pointer",

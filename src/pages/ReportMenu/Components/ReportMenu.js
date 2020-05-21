@@ -36,6 +36,7 @@ const ReportMenu = (props) => {
                _handleSelect={_handleSelectSurvey}
                options={SurrveyNameOptions}
                value={surveyId}
+              large               
             />
           </div>
         </div>
@@ -61,7 +62,7 @@ const ReportMenu = (props) => {
         <div className="w-100 row justify-content-center py-5">
         <div className="col-lg-3 col-12">
           <ESButton
-          small
+          // small
             disabled={isDisable}
             text={"View report"}
             style={{ fontSize: 23 }}

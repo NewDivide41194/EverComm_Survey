@@ -19,7 +19,7 @@ const ReportMenuContainer = (props) => {
     if (startDate !== null && endDate !== null) {
       props.history.push(`/report/?startDate=${StartDate}&endDate=${EndDate}`);
     } else {
-      props.history.push(`/report`);
+      props.history.push(`/report/totalReport`);
     }
   };
   useEffect(() => {
