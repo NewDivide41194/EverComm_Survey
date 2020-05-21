@@ -23,6 +23,7 @@ export const ESDropDown = (props) => {
 
   return (
     <Select
+      isClearable={true}
       isDisabled={disabled}
       id={`${quesId}`}
       styles={customStyles}
