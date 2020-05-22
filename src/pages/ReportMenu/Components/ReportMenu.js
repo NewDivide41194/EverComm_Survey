@@ -23,7 +23,6 @@ const ReportMenu = (props) => {
     isDisable,
   } = props;
   const isOutsideRange = (day) => !isInclusivelyBeforeDay(day, moment());
-
   return (
     <div className="container">
       <div className="d-flex flex-row flex-fill flex-wrap justify-content-center" style={{marginTop:"20vh"}}> 
@@ -57,7 +56,7 @@ const ReportMenu = (props) => {
               focusedInput={focusedInput}
               onFocusChange={_handleFocusedInput}
               onDatesChange={_handleDatesChange}
-              // showDefaultInputIcon={true}
+              showClearDates={true}
             />
           </div>
         </div>

@@ -27,12 +27,13 @@ export const ESDropDown = (props) => {
       isDisabled={disabled}
       id={`${quesId}`}
       styles={customStyles}
+      isClearable={true}
       theme={(theme) => ({
         ...theme,
         colors: {
           ...theme.colors,
           // primary25: 'hotpink',
-          primary: Colors.PrimaryColor,
+           primary: Colors.PrimaryColor,
         },
       })}
       className="w-100"

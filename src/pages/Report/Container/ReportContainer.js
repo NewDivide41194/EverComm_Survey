@@ -14,7 +14,7 @@ const ReportContainer = (props) => {
   const endDate=urlParams.get("endDate")
   const userLevel=localStorage.getItem("userLevel")
   const userId=localStorage.getItem("userId")
-  
+
   useEffect(()=>{
     UserReportAnswers(
       {userId, surveyHeaderId, startDate, endDate, token },
@@ -24,7 +24,6 @@ const ReportContainer = (props) => {
     );
   },[])
   
-  console.log("ReportDATA=====>",reportData);
   
   return (
     <Report

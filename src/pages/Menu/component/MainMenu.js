@@ -9,10 +9,11 @@ const MainMenu = (props) => {
     props.history.push(`/surveyMenu`);
   };
   return (
-    <div
+    <div 
       style={{
         margin: "0",
         top: "40%",
+        position: 'relative',
         transform: "translateY(150px)",
       }}
     >

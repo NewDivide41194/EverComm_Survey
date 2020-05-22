@@ -42,7 +42,7 @@ const Report = (props) => {
                             <div className="d-flex flex-row font-weight-bold">
                               <div className="w-50">Total Buildings</div>
 
-                              <div className="w-50">{`- ${TotalBuilding} (100%)`}</div>
+                          <div className="w-50">{`- ${TotalBuilding} ${TotalBuilding===0?"(0%)":"(100%)"} `}</div>
                             </div>
                           ) : null}
 
@@ -59,7 +59,7 @@ const Report = (props) => {
                                   {v3.totalAns == null
                                     ? "- 0"
                                     : `- ${v3.totalAns}`}{" "}
-                                  ({Percentage(v3.totalAns, TotalBuilding)}%)
+                                  ({isNaN(Percentage(v3.totalAns, TotalBuilding))?0:Percentage(v3.totalAns, TotalBuilding)}%)
                                 </div>
                               </div>
                             ) : (
@@ -94,7 +94,10 @@ const Report = (props) => {
                               <div className="w-50">
                                 - {NotAnswered(v2.totalAnsCount, TotalBuilding)}{" "}
                                 (
-                                {Percentage(
+                                {isNaN(Percentage(
+                                  NotAnswered(v2.totalAnsCount, TotalBuilding),
+                                  TotalBuilding
+                                ))?0:Percentage(
                                   NotAnswered(v2.totalAnsCount, TotalBuilding),
                                   TotalBuilding
                                 )}

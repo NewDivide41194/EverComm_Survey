@@ -55,6 +55,11 @@
   text-align: center;
   margin:0
 }
+.DateRangePickerInput__withBorder:active,
+.DateRangePickerInput__withBorder:hover{
+  border: 1.5px solid #276bb9;
+ 
+}
 
 .DateInput_input__focused{
   border:none

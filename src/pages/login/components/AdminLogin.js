@@ -24,8 +24,7 @@ const UserLogin = (props) => {
         style={{
           margin: 0,
           position: "absolute",
-          top: "50%",
-          transform: "translateY(-185px)",
+          top: "25%",
         }}
       >
         <div className="form-group text-center m-0 text-secondary">
