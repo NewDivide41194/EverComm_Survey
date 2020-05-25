@@ -102,9 +102,10 @@ const BuildingContainer = (props) => {
   const _handleCommentChange = (e) => {
     setComment(e.target.value.replace(/\s+/g, " ").trimStart());
   };
-
+  
   const _handleCountrySelect = (quesId, e) => {
-    setCountry(e.label);
+    e!==null&&setCountry(e.label);
+    return
   };
 
   const CountryOptions = Countries.countries.map((v, k) => ({

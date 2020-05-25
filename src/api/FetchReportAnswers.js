@@ -4,9 +4,28 @@ export const UserReportAnswers = (
   { userId, surveyHeaderId, startDate, endDate, token },
   callback
 ) => {
-console.log(userId, surveyHeaderId, startDate, endDate, token);
 
   fetch(API.User_Report_Answer( surveyHeaderId), {
+    method: `POST`,
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "*/*",
+      Authorization: `Bearer ${token}`,
+    },
+     body: JSON.stringify({ startDate: startDate, endDate: endDate, userId:userId }),
+  })
+    .then((res) => res.json())
+    .then((data) => callback(null, data))
+    .catch((err) => console.log(err));
+};
+
+export const FetchReportMenu = (
+  { userId, startDate, endDate, token },
+  callback
+) => {
+console.log(userId, startDate, endDate, token);
+
+  fetch(API.Report_Menu( userId), {
     method: `POST`,
     headers: {
       "Content-Type": "application/json",

@@ -3,7 +3,7 @@ import Select from "react-select";
 import * as Colors from "../config/Color.config";
 
 export const ESDropDown = (props) => {
-  const { options, quesId, _handleSelect, selectedOption, disabled,large } = props;
+  const { options, quesId, _handleSelect, selectedOption } = props;
 
   const AnsSelected =
     selectedOption &&
@@ -15,8 +15,8 @@ export const ESDropDown = (props) => {
   const customStyles = {
     option: (provided, state) => ({
       ...provided,
-      color: state.isSelected ? "white" : "black",
-      fontWeight: state.isSelected && "bold",
+      // color: state.isSelected ? "white" : "black",
+      // fontWeight: state.isSelected && "bold",
       padding: 10,
     }),
   };
@@ -24,7 +24,7 @@ export const ESDropDown = (props) => {
   return (
     <Select
       isClearable={true}
-      isDisabled={disabled}
+      // isDisabled={IsDisabled}
       id={`${quesId}`}
       styles={customStyles}
       theme={(theme) => ({

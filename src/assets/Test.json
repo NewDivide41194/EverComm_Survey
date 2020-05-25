@@ -1,9 +1,8 @@
 {
     "payload": [
         {
-            "survey_name": 1,
-            "survey_header_id": "Cooling System",
-            /* "amount_of_survey": 1*/
+            "survey_header_id": 1,
+            "survey_name": "Cooling System",
             "amount_of_survey_buildings": [
                 {
                     "building_id": 1,
@@ -37,8 +36,8 @@
             ]
         },
         {
-            "survey_name": 3,
-            "survey_header_id": "Carbon Emission Reporting",
+            "survey_header_id": 3,
+            "survey_name": "Carbon Emission Reporting",
             "amount_of_survey": 0,
             "created_date": "Mon Mar 16 2020 09:03:43 GMT+0630 (Myanmar Time)",
             "survey_section": [
@@ -67,8 +66,8 @@
             ]
         },
         {
-            "survey_name": 4,
-            "survey_header_id": "Digital Green Mark Reporting",
+            "survey_header_id": 4,
+            "survey_name": "Digital Green Mark Reporting",
             "amount_of_survey": 0,
             "created_date": "Mon Mar 16 2020 09:04:17 GMT+0630 (Myanmar Time)",
             "survey_section": [
@@ -97,8 +96,8 @@
             ]
         },
         {
-            "survey_name": 6,
-            "survey_header_id": "Employee ",
+            "survey_header_id": 6,
+            "survey_name": "Employee ",
             "amount_of_survey": 1,
             "created_date": "Mon Mar 30 2020 09:39:10 GMT+0630 (Myanmar Time)",
             "survey_section": [
@@ -108,8 +107,8 @@
                 }
             ]
         }, {
-            "survey_name": 7,
-            "survey_header_id": "School",
+            "survey_header_id": 7,
+            "survey_name": "School",
             "amount_of_survey": 0,
             "created_date": "Tue Mar 31 2020 03:41:42 GMT+0630 (Myanmar Time)",
             "survey_section": [
@@ -119,8 +118,8 @@
                 }
             ]
         }, {
-            "survey_name": 8,
-            "survey_header_id": "Product/Service",
+            "survey_header_id": 8,
+            "survey_name": "Product/Service",
             "amount_of_survey": 0,
             "created_date": "Tue Mar 31 2020 04:48:28 GMT+0630 (Myanmar Time)",
             "survey_section": [
@@ -130,8 +129,8 @@
                 }
             ]
         }, {
-            "survey_name": 9,
-            "survey_header_id": "Club",
+            "survey_header_id": 9,
+            "survey_name": "Club",
             "amount_of_survey": 0,
             "created_date": "Tue Mar 31 2020 07:11:00 GMT+0630 (Myanmar Time)",
             "survey_section": [
@@ -141,8 +140,8 @@
                 }
             ]
         }, {
-            "survey_name": 10,
-            "survey_header_id": "Nightlife Survey",
+            "survey_header_id": 10,
+            "survey_name": "Nightlife Survey",
             "amount_of_survey": 0,
             "created_date": "Tue Mar 31 2020 08:18:59 GMT+0630 (Myanmar Time)",
             "survey_section": [
@@ -152,8 +151,8 @@
                 }
             ]
         }, {
-            "survey_name": 11,
-            "survey_header_id": "Food Survey",
+            "survey_header_id": 11,
+            "survey_name": "Food Survey",
             "amount_of_survey": 0,
             "created_date": "Tue Mar 31 2020 08:46:52 GMT+0630 (Myanmar Time)",
             "survey_section": [
@@ -163,8 +162,8 @@
                 }
             ]
         }, {
-            "survey_name": 12,
-            "survey_header_id": "Bank",
+            "survey_header_id": 12,
+            "survey_name": "Bank",
             "amount_of_survey": 0,
             "created_date": "Tue Mar 31 2020 09:44:17 GMT+0630 (Myanmar Time)",
             "survey_section": [
@@ -174,8 +173,8 @@
                 }
             ]
         }, {
-            "survey_name": 13,
-            "survey_header_id": "Banking Questionnaire",
+            "survey_header_id": 13,
+            "survey_name": "Banking Questionnaire",
             "amount_of_survey": 0,
             "created_date": "Tue Mar 31 2020 10:21:34 GMT+0630 (Myanmar Time)",
             "survey_section": [
@@ -185,8 +184,8 @@
                 }
             ]
         }, {
-            "survey_name": 14,
-            "survey_header_id": "School survey for parent",
+            "survey_header_id": 14,
+            "survey_name": "School survey for parent",
             "amount_of_survey": 0,
             "created_date": "Wed Apr 01 2020 05:43:09 GMT+0630 (Myanmar Time)",
             "survey_section": [
@@ -196,8 +195,8 @@
                 }
             ]
         }, {
-            "survey_name": 15,
-            "survey_header_id": "School survey for student",
+            "survey_header_id": 15,
+            "survey_name": "School survey for student",
             "amount_of_survey": 0,
             "created_date": "Wed Apr 01 2020 08:45:30 GMT+0630 (Myanmar Time)",
             "survey_section": [
