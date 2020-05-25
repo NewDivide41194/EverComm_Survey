@@ -24,7 +24,8 @@ const QuestionCard = (props) => {
     endDate,
   } = props;
 
-  console.log("INPUT VALUE",survey_sections[pageno].questions.map((ques, k2) => AnswerData.filter((d) => d.questionId === ques.question_id)))
+console.log("AnswerData----->",AnswerData.filter((d) => d.questionId === 41).map(
+  (v, k) => v.other))
 
   return survey_sections[pageno].questions.map((ques, k2) => (
     
@@ -94,11 +95,9 @@ const QuestionCard = (props) => {
           placeHolder={"Fill Your Answer"}
           id={ques.question_id}
           value={
-            // AnswerData.filter((d) => d.questionId === ques.question_id)
-              AnswerData? AnswerData.filter((d) => d.questionId === ques.question_id).map(
+              AnswerData.filter((d) => d.questionId === ques.question_id).map(
                   (v, k) => v.other
                 )
-              : ""
           }
           onChange={(e) => {
             _handleInputChange(e, ques.question_id);

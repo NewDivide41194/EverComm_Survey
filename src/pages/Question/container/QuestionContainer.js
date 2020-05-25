@@ -135,19 +135,22 @@ const QuestionContainer = (props) => {
       other: ImportText,
       questionId: quesId,
     };
-    if (ImportText === "" && isQuesId(quesId).length < 1) {
-      return;
-    } else if (ImportText === "" && isQuesId(quesId).length >= 1) {
+    // if (ImportText === "" && isQuesId(quesId).length < 1) {
+    //   return;
+    // } else
+     if (ImportText === "" && isQuesId(quesId).length >= 1) {
       AnswerData.splice(isQuesIdIndex(quesId), 1);
     } else if (isQuesId(quesId).length >= 1) {
       AnswerData.splice(isQuesIdIndex(quesId), 1, TextAnswer);
     } else {
       AnswerData.push(TextAnswer);
     }
-    console.log(isQuesId(quesId));
+    console.log("Import Text--->",ImportText);
+    
+    console.log("is Question Id===>",isQuesId(quesId));
   };
-  console.log("Value--->", value);
-  console.log("ANSWERDATA--->", AnswerData);
+  // console.log("Value--->", value);
+  // console.log("ANSWERDATA--->", AnswerData);
 
   const handleSelect = (quesId, e) => {
     setSelectedOption(e);

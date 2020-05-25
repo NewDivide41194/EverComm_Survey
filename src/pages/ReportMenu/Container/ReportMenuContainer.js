@@ -4,12 +4,13 @@ import { MenuInfoFetch } from "../../../api/FetchMenuInfo";
 import moment from "moment";
 
 const ReportMenuContainer = (props) => {
-  const [surveyId, setSurveyId] = useState(null);
-  const [menuData, setMenuData] = useState([]);
-  const [isClearable,setisClearable]=useState(false);
+  
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
   const [startDate, setStartDate] = useState(null);
+  const [surveyId, setSurveyId] = useState(null);
+  const [menuData, setMenuData] = useState([]);
+  const [isClearable,setisClearable]=useState(false);
   const [endDate, setEndDate] = useState(null);
   const [focusedInput, setFocusedInput] = useState(null);
   const [isDisable, setIsDisable] = useState(true);

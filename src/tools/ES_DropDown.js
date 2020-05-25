@@ -27,7 +27,6 @@ export const ESDropDown = (props) => {
       isDisabled={disabled}
       id={`${quesId}`}
       styles={customStyles}
-      isClearable={true}
       theme={(theme) => ({
         ...theme,
         colors: {

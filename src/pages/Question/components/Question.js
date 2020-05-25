@@ -34,7 +34,7 @@ const Question = (props) => {
 
   return (
     surveyData.length && (
-      <div>
+      <div className="h-75">
         <div className={`position-fixed w-100`}>
           <ESProgress Percent={percent} />
         </div>

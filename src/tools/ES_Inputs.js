@@ -16,7 +16,7 @@ export const ESInput = (props) => {
     value,
     maxLength,
     pattern,
-    myRef
+    myRef,
   } = props;
 
   const defaultStyle = {
