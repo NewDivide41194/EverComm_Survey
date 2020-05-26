@@ -95,7 +95,7 @@ const ReportDetail = (props) => {
   // console.log(filteredData);
 
   return (
-    <div>
+    <div className="">
       {filteredData
         ? filteredData.map((v, k) => (
             <div
@@ -103,51 +103,57 @@ const ReportDetail = (props) => {
               style={{ fontSize: 13 }}
               key={k}
             >
-              <div className="w-100">
+              <div className="col-12">
                 <h4 style={{color:Colors.PrimaryColor}}>Report Detail</h4>
                 <hr />
               </div>
-              <div className="d-flex flex-row w-50">
-                <div className="flex-column w-25 font-weight-bold">
-                  Section Count
-                </div>
-                <div className="flex-column w-75">
-                  : {v.survey_section.length} sections
-                </div>
-              </div>
-              <div className="d-flex flex-row w-50">
-                <div className="flex-column w-25 font-weight-bold">
+              <div className="d-flex flex-row flex-fill col-lg-6 col-sm-12">
+                <div className="col-4 px-0 font-weight-bold">
                   Building Count
                 </div>
-                <div className="flex-column w-75">
-                  {" "}
-                  : {v.amount_of_survey.length} buildings
+                <div className="col-1">:</div>
+
+                <div className="col-7">
+                  {v.amount_of_survey.length} buildings
                 </div>
               </div>
-              <div className="d-flex flex-row w-50">
-                <div className="flex-column w-25 font-weight-bold">
-                  Survey Sections
+              <div className="d-flex flex-row flex-fill col-lg-6 col-sm-12 ">
+                <div className="col-4 px-0 font-weight-bold">
+                  Section Count
                 </div>
-                <div className="flex-column w-75">
-                  :{" "}
-                  {v.survey_section.map((v, k) => v.survey_section_name + ", ")}
+                <div className="col-1">:</div>
+
+                <div className="col-7">
+                  {v.survey_section.length} sections
                 </div>
               </div>
-              <div className="d-flex flex-row w-50">
-                <div className="flex-column w-25 font-weight-bold">
+              
+              <div className="d-flex flex-row flex-fill col-lg-6 col-sm-12 ">
+                <div className="col-4 px-0 font-weight-bold">
                   Building Name
                 </div>
-                <div className="flex-column w-75">
-                  :{" "}
-                  { v.amount_of_survey.map((v1,k1)=>v1.building_name + ", ")}
+                <div className="col-1">:</div>
+                <div className="col-7">
+                  {v.amount_of_survey.map((v1,k1)=>v1.building_name+`${k1+1!==v.amount_of_survey.length?", ":"."}`)}
                 </div>
               </div>
-              <div className="d-flex flex-row w-50">
-                <div className="flex-column w-25 font-weight-bold">
+              <div className="d-flex flex-row flex-fill col-lg-6 col-sm-12">
+                <div className="col-4 px-0 font-weight-bold">
+                  Survey Sections
+                </div>
+                <div className="col-1">:</div>
+                <div className="col-7">
+                  {v.survey_section.map((v1, k1) => v1.survey_section_name +`${k1+1!==v.survey_section.length?", ":"."}`)}
+                </div>
+              </div>
+              <div className="col-lg-6"></div>
+              <div className="d-flex flex-row flex-fill col-lg-6 col-sm-12">
+                <div className="col-4 px-0 font-weight-bold">
                   Survey Created Date
                 </div>
-                <div className="flex-column w-75">
-                  : {moment(v.created_date).format("DD-MMM-YYYY")}
+                <div className="col-1">:</div>
+                <div className="col-7">
+                  {moment(v.created_date).format("DD-MMM-YYYY")}
                 </div>
               </div>
             </div>
@@ -157,3 +163,4 @@ const ReportDetail = (props) => {
   );
 };
 export default withRouter(ReportMenu);
+

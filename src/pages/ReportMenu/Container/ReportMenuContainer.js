@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReportMenu from "../Components/ReportMenu";
 import { FetchReportMenu } from "../../../api/FetchReportAnswers";
 import moment from "moment";
-import ReportDetailData from "../../../assets/Test.json";
+
 const ReportMenuContainer = (props) => {
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
@@ -28,15 +28,14 @@ const ReportMenuContainer = (props) => {
     FetchReportMenu({ userId, StartDate, EndDate, token }, (err, data) => {
       setMenuData(data.payload);
     });
-    
-  }, [surveyId,startDate,endDate]);
+  }, [surveyId, startDate, endDate]);
 
   const SurrveyNameOptions =
     menuData &&
     menuData.map((v, k) => ({
       value: v.survey_header_id,
       label: v.survey_name,
-      isDisabled: v.amount_of_survey <= 0
+      isDisabled: v.amount_of_survey <= 0,
     }));
   console.log(menuData);
 
@@ -53,7 +52,7 @@ const ReportMenuContainer = (props) => {
   const _handleDatesChange = ({ startDate, endDate }) => {
     setStartDate(startDate);
     setEndDate(endDate);
-    startDate!==null&&setSurveyId(setSurveyId)
+    startDate !== null && setSurveyId(setSurveyId);
   };
   const _handleFocusedInput = (focusedInput) => {
     setFocusedInput(focusedInput);
@@ -64,7 +63,7 @@ const ReportMenuContainer = (props) => {
 
   return (
     <ReportMenu
-    isDisable={isDisable}
+      isDisable={isDisable}
       ReportDetailData={menuData}
       startDate={startDate}
       endDate={endDate}
