@@ -11,26 +11,29 @@ const MainMenu = (props) => {
   };
 
   return (
-    <div 
+    <div
+      className="w-100"
       style={{
-        margin: "0",
-        top: "40%",
-        position: 'relative',
-        transform: "translateY(150px)",
+        marginTop:0,
+        top: "50%",
+        position: "absolute",
+        transform: "translateY(-50%)",
       }}
     >
-      <div className="justify-content-center d-flex flex-fill flex-wrap flex-row">
+      <div className="justify-content-center d-flex flex-row flex-fill flex-wrap">
         <MenuCard
           onClick={_handleSurveyClick}
           header={"Survey Questions"}
           text={"Answer survey questions for each building."}
           id={"Survey"}
+          icon={"fas fa-tasks fa-2x"}
         />
         <MenuCard
           onClick={_handleReportClick}
-          header={"Survey Reporting"}
+          header={"Reporting"}
           text={"View reports for Answered questions."}
           id={"Report"}
+          icon={"far fa-chart-bar fa-2x"}
         />
       </div>
     </div>
@@ -38,7 +41,6 @@ const MainMenu = (props) => {
 };
 
 const MenuCard = (props) => {
-
   const _handleMouseOver = (e) => {
     document.getElementById(props.id).className = "p-2 card text-light bg-dark";
   };
@@ -62,13 +64,12 @@ const MenuCard = (props) => {
         onMouseEnter={(e) => _handleMouseOver(e)}
         onMouseLeave={(e) => _handleMouseLeave(e)}
       >
-        {
-          <div className="py-1 card-header">
-            <h4>{props.header}</h4>
-          </div>
-        }
+        <div className="py-1 card-header d-flex flex-row py-2" style={{borderBottom:`1px solid rgba(255,255,255,.3)`}}>
+        <i className={`${props.icon} pr-2 text-light`}></i><h4>{props.header}</h4>
+        </div>
+
         <div className="card-body">
-          {<p className="card-text">{props.text}</p>}
+          <p className="card-text">{props.text}</p>
         </div>
       </div>
     </div>
