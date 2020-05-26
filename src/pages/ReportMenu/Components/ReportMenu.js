@@ -153,7 +153,7 @@ const ReportDetail = (props) => {
                 </div>
                 <div className="col-1">:</div>
                 <div className="col-7">
-                  {moment(v.created_date).format("DD-MMM-YYYY")}
+                  {moment(v.survey_created_date).format("DD-MMM-YYYY")}
                 </div>
               </div>
             </div>

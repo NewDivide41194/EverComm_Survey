@@ -46,6 +46,8 @@ const ReportMenuContainer = (props) => {
     } else {
       setIsDisable(true);
       setSurveyId(null);
+      setStartDate(null);
+      setEndDate(null);
     }
   };
 
