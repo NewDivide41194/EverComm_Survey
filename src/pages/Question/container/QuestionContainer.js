@@ -6,6 +6,7 @@ import { AnswerCount, windowScrollTop } from "../../../helper/questionHelper";
 import ESLoading from "../../../tools/ES_Loading.js";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import moment from "moment";
 
 const QuestionContainer = (props) => {
   const { history } = props;
@@ -138,16 +139,16 @@ const QuestionContainer = (props) => {
     // if (ImportText === "" && isQuesId(quesId).length < 1) {
     //   return;
     // } else
-     if (ImportText === "" && isQuesId(quesId).length >= 1) {
+    if (ImportText === "" && isQuesId(quesId).length >= 1) {
       AnswerData.splice(isQuesIdIndex(quesId), 1);
     } else if (isQuesId(quesId).length >= 1) {
       AnswerData.splice(isQuesIdIndex(quesId), 1, TextAnswer);
     } else {
       AnswerData.push(TextAnswer);
     }
-    console.log("Import Text--->",ImportText);
-    
-    console.log("is Question Id===>",isQuesId(quesId));
+    console.log("Import Text--->", ImportText);
+
+    console.log("is Question Id===>", isQuesId(quesId));
   };
   // console.log("Value--->", value);
   // console.log("ANSWERDATA--->", AnswerData);
@@ -174,16 +175,22 @@ const QuestionContainer = (props) => {
   };
 
   const handleStartChange = (date, quesId) => {
-    if (date > endDate) {
+    console.log("Start", date, "end", endDate);
+    if (date === null) {
+      AnswerData.splice(isQuesIdIndex(quesId), 1);
+      setStartDate(null);
+      setEndDate(null);
+    } else if (endDate !== null && endDate < date) {
       alert("Year of Installation is Later Than Year of Manufacturing!");
     } else {
       setStartDate(date);
-
       const StartDateAnswer = {
         ...Ans,
         other: JSON.stringify({
-          YearOfManufacturing: date,
-          YearOfInstallation: endDate,
+          YearOfManufacturing: moment(date).format("YYYY-MMM-DD"),
+          YearOfInstallation: endDate
+            ? moment(endDate).format("YYYY-MMM-DD")
+            : moment().format("YYYY-MMM-DD"),
         }),
         questionId: quesId,
       };
@@ -197,17 +204,22 @@ const QuestionContainer = (props) => {
   };
 
   const handleEndChange = (date, quesId) => {
-    if (startDate > date) {
+    if (date === null) {
+      AnswerData.splice(isQuesIdIndex(quesId), 1);
+      setEndDate(null);
+      setStartDate(null);
+    } else if (startDate !== null && startDate > date) {
       alert("Year of Installation is Older Than Year of Manufacturing");
-      return null;
     } else {
       setEndDate(date);
 
       const EndDateAnswer = {
         ...Ans,
         other: JSON.stringify({
-          YearOfManufacturing: startDate,
-          YearOfInstallation: date,
+          YearOfManufacturing: startDate
+            ? moment(startDate).format("YYYY-MMM-DD")
+            : moment(date).subtract(10, "days").calendar(),
+          YearOfInstallation: moment(date).format("YYYY-MMM-DD"),
         }),
         questionId: quesId,
       };
@@ -216,8 +228,10 @@ const QuestionContainer = (props) => {
       } else {
         AnswerData.push(EndDateAnswer);
       }
+      setAnswerData(AnswerData);
     }
   };
+  console.log(AnswerData);
 
   return IsLoading ? (
     <ESLoading />
