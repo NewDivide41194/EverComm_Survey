@@ -60,6 +60,7 @@ const AccountContainer = (props) => {
   };
 
   const _handleIsEdit = () => {
+    setErr("");
     setEdit(!edit);
   };
 

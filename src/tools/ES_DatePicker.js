@@ -1,6 +1,7 @@
 import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import "../App.css";
 
 const ESDatePicker = (props) => {
   const {_handleStartChange,_handleEndChange,startDate,endDate,quesId}=props
@@ -12,9 +13,10 @@ const ESDatePicker = (props) => {
         <DatePicker
           className="form-control"
           selected={startDate}
+          isClearable
           onChange={date => _handleStartChange(date,quesId)}
           selectsStart
-          startDate={startDate}
+          startDate={startDate} 
           endDate={endDate}
         />
       </div>
@@ -24,6 +26,7 @@ const ESDatePicker = (props) => {
         <DatePicker
           className="form-control"
           selected={endDate}
+          isClearable
           onChange={date => _handleEndChange(date,quesId)}
           selectsEnd
           startDate={startDate}
