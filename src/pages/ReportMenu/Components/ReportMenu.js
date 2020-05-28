@@ -8,13 +8,14 @@ import { DateRangePicker, isInclusivelyBeforeDay } from "react-dates";
 import "react-dates/lib/css/_datepicker.css";
 import "../../../App.css";
 import moment from "moment";
+import { ESRadio } from "../../../tools/ES_Radio";
 const ReportMenu = (props) => {
   const {
     startDate,
     endDate,
     focusedInput,
     surveyId,
-    SurrveyNameOptions,
+    SurveyNameOptions,
     _handleReport,
     _handleSelectSurvey,
     _handleDatesChange,
@@ -36,7 +37,7 @@ const ReportMenu = (props) => {
             <ESDropDown
               id={"id"}
               _handleSelect={_handleSelectSurvey}
-              options={SurrveyNameOptions}
+              options={SurveyNameOptions}
               value={surveyId}
               onClick={_handleClearable}
             />
@@ -92,7 +93,7 @@ const ReportDetail = (props) => {
   const filteredData = ReportDetailData&&ReportDetailData.filter(
     (R) => R.survey_header_id === surveyId
   );
-  // console.log(filteredData);
+  console.log(filteredData);
 
   return (
     <div className="">

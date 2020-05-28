@@ -21,7 +21,7 @@ console.log("START--->",startDate,"END--->",endDate);
           selected={startDate}
           onChange={(date) => _handleStartChange(date, quesId)}
           selectsStart
-          isClearable
+          // isClearable
           placeholderText={"Year Of Manufacturing"}
           startDate={startDate}
           maxDate={new Date()}
@@ -35,7 +35,7 @@ console.log("START--->",startDate,"END--->",endDate);
           selected={endDate}
           onChange={(date) => _handleEndChange(date, quesId)}
           selectsEnd
-          isClearable
+          // isClearable
           placeholderText={"Year Of Installation"}
           startDate={startDate}
           maxDate={new Date()}

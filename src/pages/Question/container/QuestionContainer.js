@@ -212,7 +212,6 @@ const QuestionContainer = (props) => {
       alert("Year of Installation is Older Than Year of Manufacturing");
     } else {
       setEndDate(date);
-
       const EndDateAnswer = {
         ...Ans,
         other: JSON.stringify({

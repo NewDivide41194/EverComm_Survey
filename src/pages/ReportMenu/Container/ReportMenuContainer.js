@@ -30,7 +30,7 @@ const ReportMenuContainer = (props) => {
     });
   }, [surveyId, startDate, endDate]);
 
-  const SurrveyNameOptions =
+  const SurveyNameOptions =
     menuData &&
     menuData.map((v, k) => ({
       value: v.survey_header_id,
@@ -69,7 +69,7 @@ const ReportMenuContainer = (props) => {
       ReportDetailData={menuData}
       startDate={startDate}
       endDate={endDate}
-      SurrveyNameOptions={SurrveyNameOptions}
+      SurveyNameOptions={SurveyNameOptions}
       focusedInput={focusedInput}
       surveyId={surveyId}
       isClearable={isClearable}
