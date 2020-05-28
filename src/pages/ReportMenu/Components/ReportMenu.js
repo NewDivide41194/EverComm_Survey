@@ -1,14 +1,15 @@
 import React, { useState } from "react";
+import "../../../App.css";
+import "react-dates/lib/css/_datepicker.css";
 import { ESButton } from "../../../tools/ES_Button";
 import { ESDropDown } from "../../../tools/ES_DropDown";
 import { withRouter } from "react-router-dom";
 import * as Colors from "../../../config/Color.config";
 import "react-dates/initialize";
 import { DateRangePicker, isInclusivelyBeforeDay } from "react-dates";
-import "react-dates/lib/css/_datepicker.css";
-import "../../../App.css";
+
 import moment from "moment";
-import { ESRadio } from "../../../tools/ES_Radio";
+
 const ReportMenu = (props) => {
   const {
     startDate,
@@ -23,13 +24,33 @@ const ReportMenu = (props) => {
     _handleClearable,
     isDisable,
     ReportDetailData,
+    viewType,
+    _handleSelectChange,
   } = props;
+  const userLevel=localStorage.getItem("userLevel")
   const isOutsideRange = (day) => !isInclusivelyBeforeDay(day, moment());
+  console.log("Level",userLevel);
+  
   return (
     <div className="container">
+      { userLevel!=2 ?
+      <div className="py-5 d-flex flex-row flex-fill flex-wrap justify-content-end" style={{fontSize:"18px",}}>
+         <label style={{fontWeight:"bold"}}>
+           Types of View :
+         </label>
+         <div className="pl-2">
+             <input className="mr-1" type="radio" value="all" name="type" onChange={_handleSelectChange} checked={viewType==="all"}/>
+               All users
+         </div>
+         <div className="pl-2 ">
+             <input className="mr-1" type="radio" value="one" name="type" onChange={_handleSelectChange}/>
+               Only me
+         </div>
+       </div>:null
+      } 
       <div
         className="d-flex flex-row flex-fill flex-wrap justify-content-center"
-        style={{ marginTop: "20vh" }}
+        style={{ marginTop: "8vh" }}
       >
         <div className="col-lg-5 col-sm-12 py-2">
           <h5 style={{ color: Colors.PrimaryColor }}>Select Survey Name</h5>

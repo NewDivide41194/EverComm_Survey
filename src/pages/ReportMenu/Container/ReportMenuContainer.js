@@ -13,9 +13,10 @@ const ReportMenuContainer = (props) => {
   const [endDate, setEndDate] = useState(null);
   const [focusedInput, setFocusedInput] = useState(null);
   const [isDisable, setIsDisable] = useState(true);
-
+  const [viewType, setViewType] = useState("all");
   const StartDate = startDate && moment(startDate._d).format("YYYY-MM-DD");
   const EndDate = endDate && moment(endDate._d).format("YYYY-MM-DD");
+
   const _handleReport = () => {
     if (startDate !== null && endDate !== null) {
       props.history.push(`/report/?startDate=${StartDate}&endDate=${EndDate}`);
@@ -25,10 +26,15 @@ const ReportMenuContainer = (props) => {
   };
   useEffect(() => {
     surveyId && setIsDisable(false);
-    FetchReportMenu({ userId, StartDate, EndDate, token }, (err, data) => {
-      setMenuData(data.payload);
-    });
-  }, [surveyId, startDate, endDate]);
+    FetchReportMenu(
+      { userId, StartDate, EndDate, viewType, token },
+      (err, data) => {
+        setMenuData(data.payload);
+        localStorage.setItem("viewType", viewType);
+      }
+    );
+  }, [surveyId, startDate, endDate, viewType]);
+  console.log("view type..", viewType);
 
   const SurveyNameOptions =
     menuData &&
@@ -37,7 +43,12 @@ const ReportMenuContainer = (props) => {
       label: v.survey_name,
       isDisabled: v.amount_of_survey <= 0,
     }));
-  console.log(menuData);
+  console.log("------>", SurveyNameOptions);
+
+  const _handleSelectChange = (e) => {
+    setViewType(e.target.value);
+    localStorage.setItem("viewType", e.target.value);
+  };
 
   const _handleSelectSurvey = (SurveyHeaderId, e) => {
     if (e !== null) {
@@ -73,6 +84,8 @@ const ReportMenuContainer = (props) => {
       focusedInput={focusedInput}
       surveyId={surveyId}
       isClearable={isClearable}
+      viewType={viewType}
+      _handleSelectChange={_handleSelectChange}
       _handleClearable={_handleClearable}
       _handleSelectSurvey={_handleSelectSurvey}
       _handleDatesChange={_handleDatesChange}

@@ -36,11 +36,9 @@
     transform: rotate(360deg);
   }
 }
-
-.react-datepicker__close-icon:focus{
+/* .react-datepicker__close-icon:focus{
   outline: none;
-}
-
+} */
 .DateInput_input {
   font-weight: normal;
   font-size: 19px;
@@ -61,12 +59,8 @@
 }
 .DateRangePickerInput__withBorder:hover{
   border: 2px solid #276bb9;
- 
 }
 
-.DateInput_input__focused{
-  border:none
-}
 .DateRangePicker{width: 100%;}
 
 .DateInput_fang_1{display:none}
@@ -95,4 +89,8 @@
 
 .DateRangePickerInput_clearDates_default:hover{
   background: none;
+}
+
+.testHein{
+  color: aqua;
 }

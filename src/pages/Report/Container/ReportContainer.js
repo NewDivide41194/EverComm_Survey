@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Report from "../component/Report";
-import { ReportAnswers,UserReportAnswers } from "../../../api/FetchReportAnswers";
+import {
+  ReportAnswers,
+  UserReportAnswers,
+} from "../../../api/FetchReportAnswers";
 
 const ReportContainer = (props) => {
   const [reportData, setReportData] = useState([]);
@@ -10,28 +13,22 @@ const ReportContainer = (props) => {
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const startDate=urlParams.get("startDate")
-  const endDate=urlParams.get("endDate")
-  const userLevel=localStorage.getItem("userLevel")
-  const userId=localStorage.getItem("userId")
-
-  useEffect(()=>{
+  const startDate = urlParams.get("startDate");
+  const endDate = urlParams.get("endDate");
+  const userLevel = localStorage.getItem("userLevel");
+  const userId = localStorage.getItem("userId");
+  const viewType = localStorage.getItem("viewType");
+  useEffect(() => {
     UserReportAnswers(
-      {userId, surveyHeaderId, startDate, endDate, token },
+      { userId, surveyHeaderId, startDate, endDate, viewType, token },
       (err, data) => {
-        setReportData(data.payload);        
+        setReportData(data.payload);
       }
     );
-  },[])
-  
-  
-  return (
-    <Report
-      reportData={reportData}
-      startDate={startDate}
-      endDate={endDate}
+  }, []);
 
-    />
+  return (
+    <Report reportData={reportData} startDate={startDate} endDate={endDate} />
   );
 };
 
