@@ -40,6 +40,10 @@
   outline: none;
 }
 
+.react-datepicker__close-icon:focus{
+  outline: none;
+}
+
 .DateInput_input {
   font-weight: normal;
   font-size: 19px;

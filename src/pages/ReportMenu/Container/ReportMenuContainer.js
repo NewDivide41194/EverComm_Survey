@@ -13,7 +13,7 @@ const ReportMenuContainer = (props) => {
   const [endDate, setEndDate] = useState(null);
   const [focusedInput, setFocusedInput] = useState(null);
   const [isDisable, setIsDisable] = useState(true);
-
+  const [viewType,setViewType]=useState(null);
   const StartDate = startDate && moment(startDate._d).format("YYYY-MM-DD");
   const EndDate = endDate && moment(endDate._d).format("YYYY-MM-DD");
   const _handleReport = () => {
@@ -25,10 +25,11 @@ const ReportMenuContainer = (props) => {
   };
   useEffect(() => {
     surveyId && setIsDisable(false);
-    FetchReportMenu({ userId, StartDate, EndDate, token }, (err, data) => {
+    FetchReportMenu({ userId, StartDate, EndDate, viewType ,token }, (err, data) => {
       setMenuData(data.payload);
     });
-  }, [surveyId, startDate, endDate]);
+  }, [surveyId, startDate, endDate,viewType]);
+  console.log("view type..",viewType);
 
   const SurrveyNameOptions =
     menuData &&
@@ -38,6 +39,10 @@ const ReportMenuContainer = (props) => {
       isDisabled: v.amount_of_survey <= 0,
     }));
   console.log(menuData);
+
+  const _handleSelectChange=(e)=>{
+    setViewType(e.target.value);
+  }
 
   const _handleSelectSurvey = (SurveyHeaderId, e) => {
     if (e !== null) {
@@ -73,6 +78,8 @@ const ReportMenuContainer = (props) => {
       focusedInput={focusedInput}
       surveyId={surveyId}
       isClearable={isClearable}
+      viewType={viewType}
+      _handleSelectChange={_handleSelectChange}
       _handleClearable={_handleClearable}
       _handleSelectSurvey={_handleSelectSurvey}
       _handleDatesChange={_handleDatesChange}

@@ -22,13 +22,35 @@ const ReportMenu = (props) => {
     _handleClearable,
     isDisable,
     ReportDetailData,
+    viewType,
+    _handleSelectChange,
   } = props;
+  const userLevel=localStorage.getItem("userLevel")
   const isOutsideRange = (day) => !isInclusivelyBeforeDay(day, moment());
   return (
     <div className="container">
+      { userLevel==2 ||
+      <div className="py-5 d-flex flex-row flex-fill flex-wrap justify-content-end font-weight-bold">
+         <div style={{fontSize:"17px"}}>
+           Types of View :
+         </div>
+         <div className="pl-2 radio">
+           <label>
+             <input type="radio" value="all" name="type" onChange={_handleSelectChange}/>
+               All users
+           </label>
+         </div>
+         <div className="pl-2 radio">
+           <label>
+             <input type="radio" value="one" name="type" onChange={_handleSelectChange}/>
+               only me
+           </label>
+         </div>
+       </div>
+      } 
       <div
         className="d-flex flex-row flex-fill flex-wrap justify-content-center"
-        style={{ marginTop: "20vh" }}
+        style={{ marginTop: "8vh" }}
       >
         <div className="col-lg-5 col-sm-12 py-2">
           <h5 style={{ color: Colors.PrimaryColor }}>Select Survey Name</h5>

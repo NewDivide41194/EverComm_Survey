@@ -20,10 +20,10 @@ export const UserReportAnswers = (
 };
 
 export const FetchReportMenu = (
-  { userId, StartDate, EndDate, token },
+  { userId, StartDate, EndDate,viewType,token },
   callback
 ) => {
-console.log(userId, StartDate, EndDate, token);
+console.log(userId, StartDate, EndDate,viewType, token);
 
   fetch(API.Report_Menu( userId), {
     method: `POST`,
@@ -32,7 +32,7 @@ console.log(userId, StartDate, EndDate, token);
       Accept: "*/*",
       Authorization: `Bearer ${token}`,
     },
-     body: JSON.stringify({ startDate: StartDate, endDate: EndDate, userId:userId }),
+     body: JSON.stringify({ startDate: StartDate, endDate: EndDate,viewType, userId:userId }),
   })
     .then((res) => res.json())
     .then((data) => callback(null, data))

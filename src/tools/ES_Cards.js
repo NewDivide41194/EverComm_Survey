@@ -24,9 +24,6 @@ const QuestionCard = (props) => {
     endDate,
   } = props;
 
-console.log("AnswerData----->",AnswerData.filter((d) => d.questionId === 41).map(
-  (v, k) => v.other))
-
   return survey_sections[pageno].questions.map((ques, k2) => (
     
     <div
@@ -112,7 +109,7 @@ console.log("AnswerData----->",AnswerData.filter((d) => d.questionId === 41).map
               ? AnswerData.filter((d) => d.questionId === ques.question_id).map(
                   (v, k) => new Date(JSON.parse(v.other).YearOfManufacturing)
                 )[0]
-              : startDate
+              : null
           }
           endDate={
             AnswerData.filter((d) => d.questionId === ques.question_id)
@@ -120,7 +117,7 @@ console.log("AnswerData----->",AnswerData.filter((d) => d.questionId === 41).map
               ? AnswerData.filter((d) => d.questionId === ques.question_id).map(
                   (v, k) => new Date(JSON.parse(v.other).YearOfInstallation)
                 )[0]
-              : endDate
+              : null
           }
           _handleEndChange={_handleEndChange}
           _handleStartChange={_handleStartChange}
