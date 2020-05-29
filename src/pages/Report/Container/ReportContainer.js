@@ -28,7 +28,7 @@ const ReportContainer = (props) => {
   }, []);
 
   return (
-    <Report reportData={reportData} startDate={startDate} endDate={endDate} />
+    <Report reportData={reportData} startDate={startDate} endDate={endDate} viewType={viewType}/>
   );
 };
 

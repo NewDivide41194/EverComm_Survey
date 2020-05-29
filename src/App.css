@@ -39,8 +39,9 @@
 /* .react-datepicker__close-icon:focus{
   outline: none;
 } */
+
 .DateInput_input {
-  font-weight: normal;
+  /* font-weight: normal; */
   font-size: 19px;
   height: 20px;
   color:black;

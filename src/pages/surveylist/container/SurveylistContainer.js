@@ -25,11 +25,12 @@ const SurveylistContainer = (props) => {
 
   useEffect(() => {
     SurveyListFetch(userId, SurveyHeaderId, token, (err, data) => {
-      setSurveyList(data.payload.List);
+      setSurveyList(data.payload.survey_list);
+      setBuildingList(data.payload.new_survey_list)
     });
-    NewSurveyListFetch(userId, SurveyHeaderId, token, (err, data) => {
-      setBuildingList(data.payload);
-    });
+    // NewSurveyListFetch(userId, SurveyHeaderId, token, (err, data) => {
+    //   setBuildingList(data.payload);
+    // });
   }, []);
 
   const BuildingSurveyData =
