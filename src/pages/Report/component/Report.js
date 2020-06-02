@@ -4,7 +4,7 @@ import { NotAnswered, Percentage } from "../../../helper/reportHelper";
 import moment from "moment";
 
 const Report = (props) => {
-  const { reportData, startDate, endDate } = props;
+  const { reportData, startDate, endDate,viewType } = props;
   const TotalBuilding = reportData
     ? reportData.map((v, k) => v.building_count[0].Number_of_buildings)[0]
     : null;
@@ -25,6 +25,7 @@ const Report = (props) => {
             ) : (
               <h4 className="text-center text-secondary">Overall Report</h4>
             )}
+            {viewType?<div className='row justify-content-end text-dark'>{`View Type: ${viewType==="all"?"All Users":"Only Me"}`}</div>:null}
             {v.survey_sections.map((v1, k1) => (
               <div key={k1} className="text-dark">
                 <h4 className="pt-2" style={{ color: Colors.PrimaryColor }}>
@@ -74,14 +75,10 @@ const Report = (props) => {
                                   {Object.keys(v3.other)[1]}
                                 </div>
                                 <div className="w-50">
-                                  {moment(v3.other.YearOfManufacturing).format(
-                                    "YYYY-MMM-DD"
-                                  )}
+                                  {v3.other.YearOfManufacturing}
                                 </div>
                                 <div className="w-50">
-                                  {moment(v3.other.YearOfInstallation).format(
-                                    "YYYY-MMM-DD"
-                                  )}
+                                  {v3.other.YearOfInstallation}
                                 </div>
                               </div>
                             )

@@ -7,7 +7,6 @@ import { withRouter } from "react-router-dom";
 import * as Colors from "../../../config/Color.config";
 import "react-dates/initialize";
 import { DateRangePicker, isInclusivelyBeforeDay } from "react-dates";
-
 import moment from "moment";
 
 const ReportMenu = (props) => {
@@ -27,27 +26,41 @@ const ReportMenu = (props) => {
     viewType,
     _handleSelectChange,
   } = props;
-  const userLevel=localStorage.getItem("userLevel")
+  const userLevel = localStorage.getItem("userLevel");
   const isOutsideRange = (day) => !isInclusivelyBeforeDay(day, moment());
-  console.log("Level",userLevel);
-  
+  console.log("Level", userLevel);
+
   return (
     <div className="container">
-      { userLevel!=2 ?
-      <div className="py-5 d-flex flex-row flex-fill flex-wrap justify-content-end" style={{fontSize:"18px",}}>
-         <label style={{fontWeight:"bold"}}>
-           Types of View :
-         </label>
-         <div className="pl-2">
-             <input className="mr-1" type="radio" value="all" name="type" onChange={_handleSelectChange} checked={viewType==="all"}/>
-               All users
-         </div>
-         <div className="pl-2 ">
-             <input className="mr-1" type="radio" value="one" name="type" onChange={_handleSelectChange}/>
-               Only me
-         </div>
-       </div>:null
-      } 
+      {userLevel != 2 ? (
+        <div
+          className="py-5 d-flex flex-row flex-fill flex-wrap justify-content-end"
+          style={{ fontSize: "18px" }}
+        >
+          <label style={{ fontWeight: "bold" }}>Types of View :</label>
+          <div className="pl-2">
+            <input
+              className="mr-1"
+              type="radio"
+              value="all"
+              name="type"
+              onChange={_handleSelectChange}
+              checked={viewType === "all"}
+            />
+            All users
+          </div>
+          <div className="pl-2 ">
+            <input
+              className="mr-1"
+              type="radio"
+              value="one"
+              name="type"
+              onChange={_handleSelectChange}
+            />
+            Only me
+          </div>
+        </div>
+      ) : null}
       <div
         className="d-flex flex-row flex-fill flex-wrap justify-content-center"
         style={{ marginTop: "8vh" }}
@@ -70,7 +83,7 @@ const ReportMenu = (props) => {
           </h5>
           <div className="pt-3">
             <DateRangePicker
-              disabled={surveyId?false:true}
+              disabled={surveyId ? false : true}
               isOutsideRange={isOutsideRange}
               numberOfMonths={1}
               startDate={startDate}
@@ -111,9 +124,9 @@ const ReportDetail = (props) => {
   const { ReportDetailData, surveyId } = props;
   // console.log(ReportDetailData);
 
-  const filteredData = ReportDetailData&&ReportDetailData.filter(
-    (R) => R.survey_header_id === surveyId
-  );
+  const filteredData =
+    ReportDetailData &&
+    ReportDetailData.filter((R) => R.survey_header_id === surveyId);
   console.log(filteredData);
 
   return (
@@ -126,7 +139,7 @@ const ReportDetail = (props) => {
               key={k}
             >
               <div className="col-12">
-                <h4 style={{color:Colors.PrimaryColor}}>Report Detail</h4>
+                <h4 style={{ color: Colors.PrimaryColor }}>Report Detail</h4>
                 <hr />
               </div>
               <div className="d-flex flex-row flex-fill col-lg-6 col-sm-12">
@@ -140,23 +153,20 @@ const ReportDetail = (props) => {
                 </div>
               </div>
               <div className="d-flex flex-row flex-fill col-lg-6 col-sm-12 ">
-                <div className="col-4 px-0 font-weight-bold">
-                  Section Count
-                </div>
+                <div className="col-4 px-0 font-weight-bold">Section Count</div>
                 <div className="col-1">:</div>
-
-                <div className="col-7">
-                  {v.survey_section.length} sections
-                </div>
+                <div className="col-7">{v.survey_section.length} sections</div>
               </div>
-              
+
               <div className="d-flex flex-row flex-fill col-lg-6 col-sm-12 ">
-                <div className="col-4 px-0 font-weight-bold">
-                  Building Name
-                </div>
+                <div className="col-4 px-0 font-weight-bold">Building Name</div>
                 <div className="col-1">:</div>
                 <div className="col-7">
-                  {v.amount_of_survey.map((v1,k1)=>v1.building_name+`${k1+1!==v.amount_of_survey.length?", ":"."}`)}
+                  {v.amount_of_survey.map(
+                    (v1, k1) =>
+                      v1.building_name +
+                      `${k1 + 1 !== v.amount_of_survey.length ? ", " : "."}`
+                  )}
                 </div>
               </div>
               <div className="d-flex flex-row flex-fill col-lg-6 col-sm-12">
@@ -165,7 +175,11 @@ const ReportDetail = (props) => {
                 </div>
                 <div className="col-1">:</div>
                 <div className="col-7">
-                  {v.survey_section.map((v1, k1) => v1.survey_section_name +`${k1+1!==v.survey_section.length?", ":"."}`)}
+                  {v.survey_section.map(
+                    (v1, k1) =>
+                      v1.survey_section_name +
+                      `${k1 + 1 !== v.survey_section.length ? ", " : "."}`
+                  )}
                 </div>
               </div>
               <div className="col-lg-6"></div>
@@ -185,4 +199,3 @@ const ReportDetail = (props) => {
   );
 };
 export default withRouter(ReportMenu);
-

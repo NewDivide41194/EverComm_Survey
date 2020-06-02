@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import Surveylist from "../component/Surveylist";
 import { ESButton } from "../../../tools/ES_Button";
 import * as Colors from "../../../config/Color.config";
-import {
-  SurveyListFetch,
-  NewSurveyListFetch,
-} from "../../../api/FetchSurveyList";
+import {SurveyListFetch} from "../../../api/FetchSurveyList";
 const SurveylistContainer = (props) => {
   const [surveyList, setSurveyList] = useState([]);
   const [buildingList, setBuildingList] = useState([]);

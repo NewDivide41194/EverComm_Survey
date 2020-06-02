@@ -175,7 +175,7 @@ const QuestionContainer = (props) => {
   };
 
   const handleStartChange = (date, quesId) => {
-    console.log("Start", date, "end", endDate);
+    console.log("Start", date, "end", endDate); 
     if (date === null) {
       AnswerData.splice(isQuesIdIndex(quesId), 1);
       setStartDate(null);

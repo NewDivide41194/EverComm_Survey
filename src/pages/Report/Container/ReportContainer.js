@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Report from "../component/Report";
-import {
-  ReportAnswers,
-  UserReportAnswers,
-} from "../../../api/FetchReportAnswers";
+import { UserReportAnswers } from "../../../api/FetchReportAnswers";
 
 const ReportContainer = (props) => {
   const [reportData, setReportData] = useState([]);
@@ -18,6 +15,7 @@ const ReportContainer = (props) => {
   const userLevel = localStorage.getItem("userLevel");
   const userId = localStorage.getItem("userId");
   const viewType = localStorage.getItem("viewType");
+
   useEffect(() => {
     UserReportAnswers(
       { userId, surveyHeaderId, startDate, endDate, viewType, token },
@@ -26,9 +24,15 @@ const ReportContainer = (props) => {
       }
     );
   }, []);
+console.log("Report Data---->",reportData);
 
   return (
-    <Report reportData={reportData} startDate={startDate} endDate={endDate} viewType={viewType}/>
+    <Report
+      reportData={reportData}
+      startDate={startDate}
+      endDate={endDate}
+      viewType={viewType}
+    />
   );
 };
 
