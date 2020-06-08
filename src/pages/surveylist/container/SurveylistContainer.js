@@ -164,6 +164,7 @@ const CollapseSurveyList = (props) => {
               key={k}
               id={v.building_id}
               progress={
+                v.answers===v.questions?<i className="fa fa-check" id={v.building_id}> Completed</i>:
                 <i className="fa fa-edit" id={v.building_id}>
                   &nbsp;{v.answers ? v.answers : "0"} Answered
                 </i>

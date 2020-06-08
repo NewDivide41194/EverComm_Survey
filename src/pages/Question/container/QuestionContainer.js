@@ -19,7 +19,7 @@ const QuestionContainer = (props) => {
   const [isAnswer, setIsAnswer] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
   const [IsLoading, setIsLoading] = useState(false);
-  const [total, setTotal] = useState();
+  const [total, setTotal] = useState(null);
   const [indexPage, setIndexPage] = useState([{ pageno: pageno, index: 1 }]);
   const [index, setIndex] = useState(1);
   const token = localStorage.getItem("token");
@@ -42,9 +42,22 @@ const QuestionContainer = (props) => {
     QuestionFetch(
       { userId, surveyHeaderId, buildingId, token },
       (err, data) => {
+        const allCount = data.payload[0].survey_sections
+          .map((v) =>
+            v.devicesQuestions
+              .map(
+                (v) => v.questions.filter((d) => d.input_type_id !== 8).length
+              )
+              .reduce((a, b) => a + b)
+          )
+          .reduce((a, b) => a + b);
         setSurveyData(data.payload);
         setAnswerData(data.payload[0].answers);
-        setTotal(data.payload[0].question_count);
+        setTotal(
+          data.payload[0].answers.length > 0
+            ? allCount
+            : data.payload[0].question_count
+        );
         setIsLoading(false);
       }
     );
@@ -62,7 +75,6 @@ const QuestionContainer = (props) => {
   };
 
   const _handlePrevious = () => {
-    // setIndex(1)
     setPageno(pageno - 1);
     windowScrollTop();
   };
@@ -117,8 +129,6 @@ const QuestionContainer = (props) => {
   };
 
   const handleCheckChange = (quesId, answerId) => {
-    console.log(quesId);
-
     const isQuesId =
       AnswerData.length &&
       AnswerData.filter(
@@ -229,13 +239,21 @@ const QuestionContainer = (props) => {
       setAnswerData(AnswerData);
     }
   };
+  const Data1 = surveyData.length&&surveyData[0].survey_sections[
+    pageno
+  ].devicesQuestions.map((v) =>
+    v.questions.filter((d) => d.input_type_id !== 8)
+  );
 
-  const devicesQuestions =
-    surveyData.length && surveyData[0].survey_sections[pageno].devicesQuestions;
-
+  let flattened = surveyData.length&&Data1.reduce(function (accumulator, currentValue) {
+    return accumulator.concat(currentValue);
+  }, []);
+  console.log(flattened);
   const QuestionData =
-    surveyData.length &&
-    surveyData[0].survey_sections[pageno].devicesQuestions[0].questions;
+    surveyData.length&&AnswerData.length===0?
+       surveyData[0].survey_sections[pageno].devicesQuestions[0].questions
+        
+      : flattened;
 
   const filteredIndex = indexPage.filter((d) => d.page === pageno);
   var maxIndex =
@@ -265,16 +283,8 @@ const QuestionContainer = (props) => {
       .length;
     setTotal(total + AddedQuestionsLength);
   };
+  console.log("----->", total);
 
-  const AnsweredQuestions = AnswerData.map((v) => v.questionId);
-
-  const DeviceQuestions =
-    devicesQuestions &&
-    devicesQuestions.map((v, k) => v.questions.map((v1, k1) => v1.question_id));
-
-  console.log ("=====>",AnsweredQuestions);
-
-  console.log(";::::>",DeviceQuestions);
   return IsLoading ? (
     <ESLoading />
   ) : (
