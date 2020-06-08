@@ -12,7 +12,6 @@ const ReportContainer = (props) => {
   const urlParams = new URLSearchParams(queryString);
   const startDate = urlParams.get("startDate");
   const endDate = urlParams.get("endDate");
-  const userLevel = localStorage.getItem("userLevel");
   const userId = localStorage.getItem("userId");
   const viewType = localStorage.getItem("viewType");
 

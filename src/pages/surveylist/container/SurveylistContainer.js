@@ -165,7 +165,7 @@ const CollapseSurveyList = (props) => {
               id={v.building_id}
               progress={
                 <i className="fa fa-edit" id={v.building_id}>
-                  &nbsp;{v.answers ? v.answers : "0"} of {v.questions} Answered
+                  &nbsp;{v.answers ? v.answers : "0"} Answered
                 </i>
               }
               BgColor={BgColor}

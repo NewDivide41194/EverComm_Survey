@@ -19,7 +19,9 @@ const QuestionContainer = (props) => {
   const [isAnswer, setIsAnswer] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
   const [IsLoading, setIsLoading] = useState(false);
-
+  const [total, setTotal] = useState();
+  const [indexPage, setIndexPage] = useState([{ pageno: pageno, index: 1 }]);
+  const [index, setIndex] = useState(1);
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
   const buildingId = localStorage.getItem("buildingId");
@@ -33,6 +35,7 @@ const QuestionContainer = (props) => {
     survey_headers_id: surveyHeaderId,
     building_id: buildingId,
   };
+  // const totalByUser=parseInt(localStorage.getItem(buildingId))
 
   useEffect(() => {
     setIsLoading(true);
@@ -40,14 +43,15 @@ const QuestionContainer = (props) => {
       { userId, surveyHeaderId, buildingId, token },
       (err, data) => {
         setSurveyData(data.payload);
-        setIsLoading(false);
         setAnswerData(data.payload[0].answers);
+        setTotal(data.payload[0].question_count);
+        setIsLoading(false);
       }
     );
   }, []);
 
   const obtained = AnswerCount(AnswerData).length;
-  const total = surveyData.length && surveyData[0].question_count;
+
   const percent = (obtained * 100) / total;
   const oneQuestion = total - obtained === 1;
   const fullQuestion = total - obtained === 0;
@@ -58,6 +62,7 @@ const QuestionContainer = (props) => {
   };
 
   const _handlePrevious = () => {
+    // setIndex(1)
     setPageno(pageno - 1);
     windowScrollTop();
   };
@@ -80,6 +85,7 @@ const QuestionContainer = (props) => {
             PostAnswer({ data: AnswerData, token }, (err, data) => {
               setIsLoading(false);
               history.push("/finalPage");
+              // localStorage.setItem(`${buildingId}`,total)
             });
           },
         },
@@ -111,6 +117,8 @@ const QuestionContainer = (props) => {
   };
 
   const handleCheckChange = (quesId, answerId) => {
+    console.log(quesId);
+
     const isQuesId =
       AnswerData.length &&
       AnswerData.filter(
@@ -136,9 +144,6 @@ const QuestionContainer = (props) => {
       other: ImportText,
       questionId: quesId,
     };
-    // if (ImportText === "" && isQuesId(quesId).length < 1) {
-    //   return;
-    // } else
     if (ImportText === "" && isQuesId(quesId).length >= 1) {
       AnswerData.splice(isQuesIdIndex(quesId), 1);
     } else if (isQuesId(quesId).length >= 1) {
@@ -146,12 +151,7 @@ const QuestionContainer = (props) => {
     } else {
       AnswerData.push(TextAnswer);
     }
-    console.log("Import Text--->", ImportText);
-
-    console.log("is Question Id===>", isQuesId(quesId));
   };
-  // console.log("Value--->", value);
-  // console.log("ANSWERDATA--->", AnswerData);
 
   const handleSelect = (quesId, e) => {
     setSelectedOption(e);
@@ -175,7 +175,6 @@ const QuestionContainer = (props) => {
   };
 
   const handleStartChange = (date, quesId) => {
-    console.log("Start", date, "end", endDate); 
     if (date === null) {
       AnswerData.splice(isQuesIdIndex(quesId), 1);
       setStartDate(null);
@@ -230,14 +229,59 @@ const QuestionContainer = (props) => {
       setAnswerData(AnswerData);
     }
   };
-  console.log(AnswerData);
 
+  const devicesQuestions =
+    surveyData.length && surveyData[0].survey_sections[pageno].devicesQuestions;
+
+  const QuestionData =
+    surveyData.length &&
+    surveyData[0].survey_sections[pageno].devicesQuestions[0].questions;
+
+  const filteredIndex = indexPage.filter((d) => d.page === pageno);
+  var maxIndex =
+    filteredIndex.length === 0
+      ? 1
+      : Math.max.apply(
+          Math,
+          filteredIndex.map((o) => o.index)
+        );
+
+  const _handleAnotherDevice = () => {
+    indexPage.push({ page: pageno, index: maxIndex + 1 });
+    setIndex(index + 1);
+
+    //Add Questions
+    QuestionData.push(
+      ...surveyData[0].survey_sections[pageno].devicesQuestions[maxIndex]
+        .questions
+    );
+    //Remove Question
+    const isActionIndex = QuestionData.findIndex((d) => d.input_type_id === 8);
+    QuestionData.splice(isActionIndex, 1);
+    //Add Question Count
+    const AddedQuestionsLength = surveyData[0].survey_sections[
+      pageno
+    ].devicesQuestions[maxIndex].questions.filter((v) => v.input_type_id !== 8)
+      .length;
+    setTotal(total + AddedQuestionsLength);
+  };
+
+  const AnsweredQuestions = AnswerData.map((v) => v.questionId);
+
+  const DeviceQuestions =
+    devicesQuestions &&
+    devicesQuestions.map((v, k) => v.questions.map((v1, k1) => v1.question_id));
+
+  console.log ("=====>",AnsweredQuestions);
+
+  console.log(";::::>",DeviceQuestions);
   return IsLoading ? (
     <ESLoading />
   ) : (
     <Question
       buildingName={buildingName}
       surveyData={surveyData}
+      QuestionData={QuestionData}
       userId={userId}
       pageno={pageno}
       AnswerData={AnswerData}
@@ -256,6 +300,7 @@ const QuestionContainer = (props) => {
       _handleNext={_handleNext}
       _handlePrevious={_handlePrevious}
       _handleSubmit={_handleSubmit}
+      _handleAnotherDevice={_handleAnotherDevice}
     />
   );
 };

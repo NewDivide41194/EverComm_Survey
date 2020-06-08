@@ -13,7 +13,6 @@ const App = (history, props) => {
     tablet: "screen and (min-width:768px) and (max-width: 1024px)",
     desktop: "screen and (min-width:1025px) and (min-width: 1441px)",
   };
-  console.log(history);
 
   return (
     <MediaQueryProvider queries={Media}>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import QuestionCard from "../../../tools/ES_Cards";
 import { ESButton } from "../../../tools/ES_Button";
 import { withMedia } from "react-media-query-hoc";
@@ -14,6 +14,7 @@ const Question = (props) => {
     userId,
     pageno,
     AnswerData,
+    QuestionData,
     startDate,
     endDate,
     selectedOption,
@@ -28,16 +29,14 @@ const Question = (props) => {
     _handleInputChange,
     _handleStartChange,
     _handleEndChange,
+    _handleAnotherDevice,
     percent,
   } = props;
   const isAnswer = AnswerData.map((v, k) => v.optionChoiceId);
-
   return (
     surveyData.length && (
       <div className="">
-        <div className={`position-fixed w-100`}>
-          <ESProgress Percent={percent} />
-        </div>
+        <ESProgress Percent={percent} />
         <div className="container">
           <div
             className={`text-light row justify-content-end pt-3 ${
@@ -58,7 +57,7 @@ const Question = (props) => {
             style={{
               fontSize: media.mobile ? "20px" : "25px",
               fontWeight: "bold",
-              color:Color.PrimaryColor
+              color: Color.PrimaryColor,
             }}
             className="d-flex flex-row flex-wrap justify-content-between pt-2"
           >
@@ -73,26 +72,28 @@ const Question = (props) => {
             {surveyData[0].survey_sections[pageno].section_name}
           </div>
           <div className="my-2 scrollbar w-100" id="style-1">
-            <div className="force-overflow">
-              {surveyData[0].survey_sections.length && (
-                <QuestionCard
-                  survey_sections={surveyData[0].survey_sections}
-                  pageno={pageno}
-                  _handleCheckChange={_handleCheckChange}
-                  _handleRadioChange={_handleRadioChange}
-                  _handleInputChange={_handleInputChange}
-                  _handleSelect={_handleSelect}
-                  _handleStartChange={_handleStartChange}
-                  _handleEndChange={_handleEndChange}
-                  userId={userId}
-                  selectedOption={selectedOption}
-                  AnswerData={AnswerData}
-                  startDate={startDate}
-                  endDate={endDate}
-                  isAnswer={isAnswer}
-                />
-              )}
-            </div>
+            {/* <div className="force-overflow"> */}
+            {surveyData[0].survey_sections.length && (
+              <QuestionCard
+                QuestionData={QuestionData}
+                pageno={pageno}
+                _handleCheckChange={_handleCheckChange}
+                _handleRadioChange={_handleRadioChange}
+                _handleInputChange={_handleInputChange}
+                _handleSelect={_handleSelect}
+                _handleStartChange={_handleStartChange}
+                _handleEndChange={_handleEndChange}
+                _handleAnotherDevice={_handleAnotherDevice}
+                _handleNext={_handleNext}
+                userId={userId}
+                selectedOption={selectedOption}
+                AnswerData={AnswerData}
+                startDate={startDate}
+                endDate={endDate}
+                isAnswer={isAnswer}
+              />
+            )}
+            {/* </div> */}
           </div>
           <div className="row justify-content-between">
             <div

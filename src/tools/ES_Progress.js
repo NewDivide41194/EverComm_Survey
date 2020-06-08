@@ -5,7 +5,7 @@ import withMedia from "react-media-query-hoc/dist/with-media";
 const ESProgress = props => {
   const { Percent } = props;
   return (
-    <div className="progress" style={{ height: "6px", borderRadius: "0px"}}>
+    <div className="progress position-fixed w-100" style={{ height: "6px", borderRadius: "0px"}}>
       <div
         className="progress-bar"
         role="progressbar"

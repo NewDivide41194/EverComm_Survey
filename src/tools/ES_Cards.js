@@ -1,21 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ESCheckBox from "./ES_CheckBox";
 import { ESRadio } from "./ES_Radio";
 import { ESDropDown } from "./ES_DropDown";
+import { ESButton } from "./ES_Button";
+
 import { withMedia } from "react-media-query-hoc";
 import { ESInput } from "./ES_Inputs";
 import ESDatePicker from "./ES_DatePicker";
 
 const QuestionCard = (props) => {
   const {
-    survey_sections,
-    pageno,
+    QuestionData,
     _handleRadioChange,
     _handleCheckChange,
     _handleInputChange,
     _handleStartChange,
     _handleSelect,
     _handleEndChange,
+    _handleAnotherDevice,
+    _handleNext,
     media,
     selectedOption,
     isAnswer,
@@ -24,8 +27,7 @@ const QuestionCard = (props) => {
     endDate,
   } = props;
 
-  return survey_sections[pageno].questions.map((ques, k2) => (
-    
+  return QuestionData.map((ques, k2) => (
     <div
       className="d-flex flex-row flex-fill flex-wrap w-100 p-3 py-3 mb-3 rounded"
       key={k2}
@@ -43,12 +45,18 @@ const QuestionCard = (props) => {
         <div className="d-flex flex-row pb-3 w-100  justify-content-between">
           <div>
             {k2 + 1}. {ques.question_name}
+            {ques.input_type_id === 8 && (
+              <span className="col-12 text-info">
+                *Press "No" to go Next Section
+              </span>
+            )}
           </div>
+
           {AnswerData.map((v, k) => v.questionId).filter(
             (v) => v === ques.question_id
           )[0] === ques.question_id ? (
             <QuestionCardInfo info={"Answered"} media={media} />
-          ) : (
+          ) : ques.input_type_id === 8 ? null : (
             <QuestionCardInfo info={"Pending"} media={media} />
           )}
         </div>
@@ -91,11 +99,9 @@ const QuestionCard = (props) => {
         <ESInput
           placeHolder={"Fill Your Answer"}
           id={ques.question_id}
-          value={
-              AnswerData.filter((d) => d.questionId === ques.question_id).map(
-                  (v, k) => v.other
-                )
-          }
+          value={AnswerData.filter(
+            (d) => d.questionId === ques.question_id
+          ).map((v, k) => v.other)}
           onChange={(e) => {
             _handleInputChange(e, ques.question_id);
           }}
@@ -122,6 +128,19 @@ const QuestionCard = (props) => {
           _handleEndChange={_handleEndChange}
           _handleStartChange={_handleStartChange}
         />
+      ) : ques.input_type_id === 8 ? (
+        <div className="row w-100">
+          <div className="col-lg-2 col-6">
+            <ESButton
+              small
+              text={"Yes"}
+              onClick={() => _handleAnotherDevice(ques.question_id)}
+            />
+          </div>
+          <div className="col-lg-2 col-6">
+            <ESButton small text={"No"} onClick={_handleNext} />
+          </div>
+        </div>
       ) : null}
     </div>
   ));

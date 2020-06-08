@@ -33,7 +33,6 @@ const ESCheckbox = (props) => {
     >
       <ThemeProvider theme={customTheme}>
         <Checkbox
-          // color={primary}
           className="p-1"
           checked={
             isAnswer.filter((d) => d === ans.option_choice_id).length > 0
