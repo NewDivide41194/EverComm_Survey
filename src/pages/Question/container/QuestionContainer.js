@@ -42,21 +42,21 @@ const QuestionContainer = (props) => {
     QuestionFetch(
       { userId, surveyHeaderId, buildingId, token },
       (err, data) => {
-        const allCount = data.payload[0].survey_sections
-          .map((v) =>
-            v.devicesQuestions
-              .map(
-                (v) => v.questions.filter((d) => d.input_type_id !== 8).length
-              )
-              .reduce((a, b) => a + b)
-          )
-          .reduce((a, b) => a + b);
+        // const allCount = data.payload[0].survey_sections
+        //   .map((v) =>
+        //     v.devicesQuestions
+        //       .map(
+        //         (v) => v.questions.filter((d) => d.input_type_id !== 8).length
+        //       )
+        //       .reduce((a, b) => a + b)
+        //   )
+        //   .reduce((a, b) => a + b);
         setSurveyData(data.payload);
         setAnswerData(data.payload[0].answers);
         setTotal(
-          data.payload[0].answers.length > 0
-            ? allCount
-            : data.payload[0].question_count
+          // data.payload[0].answers.length > 0
+            // ? allCount
+            data.payload[0].question_count
         );
         setIsLoading(false);
       }
@@ -239,21 +239,18 @@ const QuestionContainer = (props) => {
       setAnswerData(AnswerData);
     }
   };
-  const Data1 = surveyData.length&&surveyData[0].survey_sections[
-    pageno
-  ].devicesQuestions.map((v) =>
-    v.questions.filter((d) => d.input_type_id !== 8)
-  );
+  const Data1 = surveyData.length&&surveyData[0].survey_sections[pageno].questions
 
-  let flattened = surveyData.length&&Data1.reduce(function (accumulator, currentValue) {
-    return accumulator.concat(currentValue);
-  }, []);
-  console.log(flattened);
+  // let flattened = surveyData.length&&Data1.reduce(function (accumulator, currentValue) {
+  //   return accumulator.concat(currentValue);
+  // }, []);
+  console.log(Data1);
   const QuestionData =
-    surveyData.length&&AnswerData.length===0?
-       surveyData[0].survey_sections[pageno].devicesQuestions[0].questions
+    // surveyData.length&&AnswerData.length===0?
+    //    surveyData[0].survey_sections[pageno].questions
         
-      : flattened;
+    //   :
+       Data1;
 
   const filteredIndex = indexPage.filter((d) => d.page === pageno);
   var maxIndex =
@@ -283,7 +280,7 @@ const QuestionContainer = (props) => {
       .length;
     setTotal(total + AddedQuestionsLength);
   };
-  console.log("----->", total);
+  console.log("----->", QuestionData);
 
   return IsLoading ? (
     <ESLoading />

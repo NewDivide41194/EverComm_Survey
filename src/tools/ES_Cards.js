@@ -128,19 +128,6 @@ const QuestionCard = (props) => {
           _handleEndChange={_handleEndChange}
           _handleStartChange={_handleStartChange}
         />
-      ) : ques.input_type_id === 8 ? (
-        <div className="row w-100">
-          <div className="col-lg-2 col-6">
-            <ESButton
-              small
-              text={"Yes"}
-              onClick={() => _handleAnotherDevice(ques.question_id)}
-            />
-          </div>
-          <div className="col-lg-2 col-6">
-            <ESButton small text={"No"} onClick={_handleNext} />
-          </div>
-        </div>
       ) : null}
     </div>
   ));

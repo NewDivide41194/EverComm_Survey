@@ -27,9 +27,15 @@ const BuildingContainer = (props) => {
   };
 
   const errClassName = "text-danger d-flex flex-row justify-content-end pb-2";
+  const [deviceOption, setDeviceOption] = useState([]);
 
   useEffect(() => {
     document.getElementById("clientCompany").focus();
+    // deviceOption.push({ label: i, value: i });
+    //   let i=1
+    //   let videos = i++
+    // let images =i
+    // setDeviceOption({label:videos,value:videos})
   }, []);
 
   const _handleSubmit = (e) => {
@@ -75,7 +81,7 @@ const BuildingContainer = (props) => {
             alert.error(data.message);
             setIsDisabled(isDisabled);
           } else {
-            localStorage.setItem("buildingName",buildingName)
+            localStorage.setItem("buildingName", buildingName);
             localStorage.setItem("buildingId", data.payload.insertId);
             props.history.push(
               `/question/${userId}/${surveyHeaderId}/${buildingId}`
@@ -86,7 +92,7 @@ const BuildingContainer = (props) => {
       );
     }
   };
-  
+
   const _handleBuildingNameChange = (e) => {
     setBuildingName(e.target.value.replace(/\s+/g, " ").trimStart());
   };
@@ -102,10 +108,10 @@ const BuildingContainer = (props) => {
   const _handleCommentChange = (e) => {
     setComment(e.target.value.replace(/\s+/g, " ").trimStart());
   };
-  
+
   const _handleCountrySelect = (quesId, e) => {
-    e!==null&&setCountry(e.label);
-    return
+    e !== null && setCountry(e.label);
+    return;
   };
 
   const CountryOptions = Countries.countries.map((v, k) => ({
@@ -133,6 +139,7 @@ const BuildingContainer = (props) => {
       errStyle={errStyle}
       errClassName={errClassName}
       isDisabled={isDisabled}
+      deviceOption={deviceOption}
     />
   );
 };

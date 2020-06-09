@@ -73,8 +73,7 @@ const Question = (props) => {
           </div>
           <div className="my-2 scrollbar w-100" id="style-1">
             {/* <div className="force-overflow"> */}
-            {surveyData[0].survey_sections.length && (
-              <QuestionCard
+            <QuestionCard
                 QuestionData={QuestionData}
                 pageno={pageno}
                 _handleCheckChange={_handleCheckChange}
@@ -92,7 +91,7 @@ const Question = (props) => {
                 endDate={endDate}
                 isAnswer={isAnswer}
               />
-            )}
+            
             {/* </div> */}
           </div>
           <div className="row justify-content-between">

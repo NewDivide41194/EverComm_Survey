@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Surveylist from "../component/Surveylist";
 import { ESButton } from "../../../tools/ES_Button";
 import * as Colors from "../../../config/Color.config";
-import {SurveyListFetch} from "../../../api/FetchSurveyList";
+import { SurveyListFetch } from "../../../api/FetchSurveyList";
 const SurveylistContainer = (props) => {
   const [surveyList, setSurveyList] = useState([]);
   const [buildingList, setBuildingList] = useState([]);
@@ -23,7 +23,7 @@ const SurveylistContainer = (props) => {
   useEffect(() => {
     SurveyListFetch(userId, SurveyHeaderId, token, (err, data) => {
       setSurveyList(data.payload.survey_list);
-      setBuildingList(data.payload.new_survey_list)
+      setBuildingList(data.payload.new_survey_list);
     });
     // NewSurveyListFetch(userId, SurveyHeaderId, token, (err, data) => {
     //   setBuildingList(data.payload);
@@ -49,8 +49,8 @@ const SurveylistContainer = (props) => {
     .filter(function (o1) {
       // filter out (!) items in result2
       return !surveyList.some(function (o2) {
-        return o1.building_id === o2.building_id; 
-      // assumes unique id
+        return o1.building_id === o2.building_id;
+        // assumes unique id
       });
     })
     .map(function (o) {
@@ -100,7 +100,7 @@ const SurveylistContainer = (props) => {
           surveyName={"Pending Survey"}
           BgColor={Colors.MoonLight}
           TxtColor={Colors.PrimaryColor}
-          HoverBgColor={Colors.PaleYellow}   
+          HoverBgColor={Colors.PaleYellow}
           handleCardClick={handleCardClick}
         />
       ) : null}
@@ -164,10 +164,16 @@ const CollapseSurveyList = (props) => {
               key={k}
               id={v.building_id}
               progress={
-                v.answers===v.questions?<i className="fa fa-check" id={v.building_id}> Completed</i>:
-                <i className="fa fa-edit" id={v.building_id}>
-                  &nbsp;{v.answers ? v.answers : "0"} Answered
-                </i>
+                v.answers !== undefined && v.answers === v.questions ? (
+                  <i className="fa fa-check" id={v.building_id}>
+                    {" "}
+                    Completed
+                  </i>
+                ) : (
+                  <i className="fa fa-edit" id={v.building_id}>
+                    &nbsp;{v.answers ? v.answers : "0"} Answered
+                  </i>
+                )
               }
               BgColor={BgColor}
               TxtColor={TxtColor}
