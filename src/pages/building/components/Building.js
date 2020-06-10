@@ -12,6 +12,7 @@ const Building = (props) => {
     clientCompany,
     comment,
     country,
+    devices,
     handleBuildingNameChange,
     handlePostalChange,
     handleAddressChange,
@@ -119,7 +120,7 @@ const Building = (props) => {
                 disabled={isDisabled}
                 id={"country"}
                 _handleSelect={handleSelectCountry}
-                options={CountryOptions}
+                options={devices}
                 value={country}
               />
             </div>
@@ -135,7 +136,7 @@ const Building = (props) => {
                 disabled={isDisabled}
                 id={"country"}
                 _handleSelect={handleSelectCountry}
-                options={CountryOptions}
+                options={devices}
                 value={country}
               />
             </div>
@@ -151,7 +152,7 @@ const Building = (props) => {
                 disabled={isDisabled}
                 id={"country"}
                 _handleSelect={handleSelectCountry}
-                options={CountryOptions}
+                options={devices}
                 value={country}
               />
             </div>
@@ -167,7 +168,7 @@ const Building = (props) => {
                 disabled={isDisabled}
                 id={"country"}
                 _handleSelect={handleSelectCountry}
-                options={CountryOptions}
+                options={devices}
                 value={country}
               />
             </div> */}

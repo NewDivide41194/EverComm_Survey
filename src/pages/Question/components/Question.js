@@ -30,8 +30,12 @@ const Question = (props) => {
     _handleStartChange,
     _handleEndChange,
     _handleAnotherDevice,
+    amountOfDevice,
     percent,
   } = props;
+  console.log(amountOfDevice);
+  const deviceIndex = [[1], [1, 2], [1, 2, 3],[1],[1],[1]];
+
   const isAnswer = AnswerData.map((v, k) => v.optionChoiceId);
   return (
     surveyData.length && (
@@ -73,9 +77,13 @@ const Question = (props) => {
           </div>
           <div className="my-2 scrollbar w-100" id="style-1">
             {/* <div className="force-overflow"> */}
+
+            {/* { deviceIndex[pageno].map((a, b) => (
+    <div key={b}> */}
             <QuestionCard
                 QuestionData={QuestionData}
                 pageno={pageno}
+                amountOfDevice={amountOfDevice}
                 _handleCheckChange={_handleCheckChange}
                 _handleRadioChange={_handleRadioChange}
                 _handleInputChange={_handleInputChange}
@@ -91,6 +99,8 @@ const Question = (props) => {
                 endDate={endDate}
                 isAnswer={isAnswer}
               />
+              {/* </div>
+              ))} */}
             
             {/* </div> */}
           </div>

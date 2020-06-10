@@ -56,8 +56,10 @@ const QuestionContainer = (props) => {
         setTotal(
           // data.payload[0].answers.length > 0
             // ? allCount
-            data.payload[0].question_count
+            data.payload[0].question_count+(data.payload[0].survey_sections[1].questions.length*2)+(data.payload[0].survey_sections[2].questions.length*2)
         );
+        // console.log(data.payload[0].survey_sections[1]);
+
         setIsLoading(false);
       }
     );
@@ -244,7 +246,7 @@ const QuestionContainer = (props) => {
   // let flattened = surveyData.length&&Data1.reduce(function (accumulator, currentValue) {
   //   return accumulator.concat(currentValue);
   // }, []);
-  console.log(Data1);
+  // console.log(Data1);
   const QuestionData =
     // surveyData.length&&AnswerData.length===0?
     //    surveyData[0].survey_sections[pageno].questions
@@ -280,7 +282,8 @@ const QuestionContainer = (props) => {
       .length;
     setTotal(total + AddedQuestionsLength);
   };
-  console.log("----->", QuestionData);
+const amountOfDevice=surveyData.length&&surveyData[0].amountOfDevice
+// console.log("----->", surveyData.length&&surveyData[0].survey_sections);
 
   return IsLoading ? (
     <ESLoading />
@@ -298,6 +301,7 @@ const QuestionContainer = (props) => {
       obtained={obtained}
       total={total}
       percent={percent}
+      amountOfDevice={amountOfDevice}
       _handleSelect={handleSelect}
       _handleCheckChange={handleCheckChange}
       _handleRadioChange={handleRadioChange}

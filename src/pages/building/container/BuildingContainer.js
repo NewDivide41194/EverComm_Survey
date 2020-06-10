@@ -5,6 +5,7 @@ import { BuildingFetch } from "../../../api/FetchBuilding";
 import { withRouter } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { BuildingFormValidation } from "../../../helper/formValidation.js";
+import Devices from "../../../assets/Devices.json"
 
 const BuildingContainer = (props) => {
   const [country, setCountry] = useState("");
@@ -118,12 +119,14 @@ const BuildingContainer = (props) => {
     value: v.code,
     label: v.name,
   }));
+console.log(Devices.devices);
 
   return (
     <Building
       buildingName={buildingName}
       postal={postal}
       address={address}
+      devices={Devices.devices}
       clientCompany={clientCompany}
       comment={comment}
       CountryOptions={CountryOptions}
