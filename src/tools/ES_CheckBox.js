@@ -13,7 +13,10 @@ const ESCheckbox = (props) => {
       },
     },
   });
-
+  console.log("ANS",isAnswer.filter(d=>d.option_choice_id===40&&d.questionId===quesId));
+  // console.log("Ques",isQuestion.filter(d1=>d1===quesId));
+  console.log(isAnswer.filter(d=>d.optionChoiceId===40&&d.questionId===quesId).length>0)
+  
   return value.map((ans, k3) => (
     <label
       id={`${ans.option_choice_id} div`}
@@ -35,13 +38,13 @@ const ESCheckbox = (props) => {
         <Checkbox
           className="p-1"
           checked={
-            isQuestion.filter(q=>q===quesId).length>0 &&
-            isAnswer.filter((d) => d === ans.option_choice_id).length > 0
-            
+            // isAnswer.filter(d=>d===ans.option_choice_id).length>0&&isQuestion.filter(d1=>d1===quesId).length>0
+            isAnswer.filter(d=>d.optionChoiceId===ans.option_choice_id&&d.questionId===quesId).length>0
           }
           id={`${ans.option_choice_id}`}
           value={ans.option_choice_id}
           onChange={() => _handleChange(quesId, ans.option_choice_id)}
+          name={`${quesId}`}
         />
       </ThemeProvider>
 

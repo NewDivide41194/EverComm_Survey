@@ -33,11 +33,10 @@ const buildingId=localStorage.getItem("buildingId")
   // const deviceIndex = Object.values(amountOfDevice[0]);
   const deviceIndexValue = Object.values(amountOfDevice[0]);
   const remakeQuestionId = 1000;
+
   console.log("AnswerData--->",AnswerData);
-  console.log("QuestionData--->",QuestionData);
-
-
-  console.log(pageno===0?1:deviceIndexValue[pageno-1])
+  // console.log("QuestionData--->",QuestionData);
+  // console.log(pageno===0?1:deviceIndexValue[pageno-1])
 
  const pageDeviceIndex=pageno===0?1:deviceIndexValue[pageno-1]
 //  console.log(AnswerData.filter(
@@ -83,13 +82,11 @@ const buildingId=localStorage.getItem("buildingId")
             {ques.input_type_id === 1 ? (
               <ESCheckBox
                 quesId={
-                  deviceIndexValue[pageno - 1] === 1
-                    ? ques.question_id
-                    : k3 + remakeQuestionId + ques.question_id
+                  pageDeviceIndex>1? parseInt(k3 + remakeQuestionId + ques.question_id+buildingId): ques.question_id
                 }
                 value={ques.option_choices}
                 _handleChange={_handleCheckChange}
-                isAnswer={isAnswer}
+                isAnswer={AnswerData}
                 isQuestion={isQuestion}
               />
             ) : ques.input_type_id === 2 ? (
@@ -97,11 +94,10 @@ const buildingId=localStorage.getItem("buildingId")
                 value={ques.option_choices}
                 _handleRadioChange={_handleRadioChange}
                 quesId={
-                  deviceIndexValue[pageno - 1] === 1
-                    ? ques.question_id
-                    : k3 + remakeQuestionId + ques.question_id
+                  pageDeviceIndex>1? parseInt(k3 + remakeQuestionId + ques.question_id+buildingId): ques.question_id
                 }
                 isAnswer={isAnswer}
+                isQuestion={isQuestion}
               />
             ) : ques.input_type_id === 5 ? (
               <ESDropDown
