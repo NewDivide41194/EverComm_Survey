@@ -32,7 +32,7 @@ const ReportMenu = (props) => {
 
   return (
     <div className="container">
-      {userLevel != 2 ? (
+      {userLevel !== "2" ? (
         <div
           className="py-5 d-flex flex-row flex-fill flex-wrap justify-content-end"
           style={{ fontSize: "18px" }}

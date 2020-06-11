@@ -13,7 +13,7 @@ const Report = (props) => {
     ? reportData.map((v, k) => v.building_count[0].Number_of_buildings)[0]
     : null;
 
-  const Buildingdata = reportData&&reportData.map((v, k) =>
+  const Buildingdata = reportData.map((v, k) =>
     v.survey_sections[0].questions.map((v1, k1) => v1.option_choices)[0].map((v2, k2) => ({ name: v2.option_choice_name, value: v2.totalAns === null ? 0 : v2.totalAns }))
   )[0]
   console.log("building", Buildingdata);
@@ -171,8 +171,8 @@ const Report = (props) => {
                     legendPosition: 'middle',
                     legendOffset: 32,
                     legend:"Amount of Buildings",
-                    tickValues:[0,1,2,3]
-                }}  
+                    tickValues:AgeBuildingData.length
+                  }}  
                   margin={{ top: 5, right: 50, bottom: 40, left: 90 }}
                 />
               </div>

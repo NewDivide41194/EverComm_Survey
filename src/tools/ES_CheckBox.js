@@ -5,7 +5,7 @@ import * as Colors from "../config/Color.config";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 const ESCheckbox = (props) => {
-  const { value, _handleChange, quesId, media, isAnswer } = props;
+  const { value, _handleChange, quesId, media, isAnswer ,isQuestion} = props;
   const customTheme = createMuiTheme({
     palette: {
       secondary: {
@@ -35,7 +35,9 @@ const ESCheckbox = (props) => {
         <Checkbox
           className="p-1"
           checked={
+            isQuestion.filter(q=>q===quesId).length>0 &&
             isAnswer.filter((d) => d === ans.option_choice_id).length > 0
+            
           }
           id={`${ans.option_choice_id}`}
           value={ans.option_choice_id}

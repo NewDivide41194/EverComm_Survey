@@ -166,6 +166,10 @@ const QuestionContainer = (props) => {
   };
 
   const handleSelect = (quesId, e) => {
+    console.log(quesId);
+    console.log(e);
+    
+    
     setSelectedOption(e);
     if (e !== null) {
       let ansId = e.value;

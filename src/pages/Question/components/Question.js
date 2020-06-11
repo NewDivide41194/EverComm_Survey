@@ -33,10 +33,10 @@ const Question = (props) => {
     amountOfDevice,
     percent,
   } = props;
-  console.log(amountOfDevice);
-  const deviceIndex = [[1], [1, 2], [1, 2, 3],[1],[1],[1]];
 
   const isAnswer = AnswerData.map((v, k) => v.optionChoiceId);
+  const isQuestion = AnswerData.map((v, k) => v.questionId);
+
   return (
     surveyData.length && (
       <div className="">
@@ -98,6 +98,7 @@ const Question = (props) => {
                 startDate={startDate}
                 endDate={endDate}
                 isAnswer={isAnswer}
+                isQuestion={isQuestion}
               />
               {/* </div>
               ))} */}
