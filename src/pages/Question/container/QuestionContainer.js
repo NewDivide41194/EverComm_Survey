@@ -42,21 +42,15 @@ const QuestionContainer = (props) => {
     QuestionFetch(
       { userId, surveyHeaderId, buildingId, token },
       (err, data) => {
-        // const allCount = data.payload[0].survey_sections
-        //   .map((v) =>
-        //     v.devicesQuestions
-        //       .map(
-        //         (v) => v.questions.filter((d) => d.input_type_id !== 8).length
-        //       )
-        //       .reduce((a, b) => a + b)
-        //   )
-        //   .reduce((a, b) => a + b);
+      
         setSurveyData(data.payload);
         setAnswerData(data.payload[0].answers);
         setTotal(
           // data.payload[0].answers.length > 0
-            // ? allCount
-            data.payload[0].question_count+(data.payload[0].survey_sections[1].questions.length*2)+(data.payload[0].survey_sections[2].questions.length*2)
+          // ? allCount
+          data.payload[0].question_count +
+            data.payload[0].survey_sections[1].questions.length * 2 +
+            data.payload[0].survey_sections[2].questions.length * 2
         );
         // console.log(data.payload[0].survey_sections[1]);
 
@@ -120,6 +114,8 @@ const QuestionContainer = (props) => {
   };
 
   const handleRadioChange = (ansId, quesId) => {
+    console.log(quesId, ansId);
+
     const RadioAns = { ...Ans, optionChoiceId: ansId, questionId: quesId };
 
     if (isQuesId(quesId).length >= 1) {
@@ -131,13 +127,15 @@ const QuestionContainer = (props) => {
   };
 
   const handleCheckChange = (quesId, answerId) => {
+    console.log(quesId, answerId);
+
     const isQuesId =
-      AnswerData.length &&
+      // AnswerData.length &&
       AnswerData.filter(
         (e) => e.questionId === quesId && e.optionChoiceId === answerId
       );
     const isQuesIdIndex = AnswerData.findIndex(
-      (e) => e.optionChoiceId === answerId
+      (e) => e.optionChoiceId === answerId && e.questionId === quesId
     );
     const CheckAns = { ...Ans, optionChoiceId: answerId, questionId: quesId };
     if (isQuesId.length >= 1) {
@@ -166,10 +164,6 @@ const QuestionContainer = (props) => {
   };
 
   const handleSelect = (quesId, e) => {
-    console.log(quesId);
-    console.log(e);
-    
-    
     setSelectedOption(e);
     if (e !== null) {
       let ansId = e.value;
@@ -245,7 +239,8 @@ const QuestionContainer = (props) => {
       setAnswerData(AnswerData);
     }
   };
-  const Data1 = surveyData.length&&surveyData[0].survey_sections[pageno].questions
+  const Data1 =
+    surveyData.length && surveyData[0].survey_sections[pageno].questions;
 
   // let flattened = surveyData.length&&Data1.reduce(function (accumulator, currentValue) {
   //   return accumulator.concat(currentValue);
@@ -254,9 +249,9 @@ const QuestionContainer = (props) => {
   const QuestionData =
     // surveyData.length&&AnswerData.length===0?
     //    surveyData[0].survey_sections[pageno].questions
-        
+
     //   :
-       Data1;
+    Data1;
 
   const filteredIndex = indexPage.filter((d) => d.page === pageno);
   var maxIndex =
@@ -286,8 +281,8 @@ const QuestionContainer = (props) => {
       .length;
     setTotal(total + AddedQuestionsLength);
   };
-const amountOfDevice=surveyData.length&&surveyData[0].amountOfDevice
-// console.log("----->", surveyData.length&&surveyData[0].survey_sections);
+  const amountOfDevice = surveyData.length && surveyData[0].amountOfDevice;
+  // console.log("----->", QuestionData);
 
   return IsLoading ? (
     <ESLoading />

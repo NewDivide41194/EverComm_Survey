@@ -3,8 +3,15 @@ import Select from "react-select";
 import * as Colors from "../config/Color.config";
 
 export const ESDropDown = (props) => {
-  const { options, quesId, _handleSelect, selectedOption,disabled } = props;
-console.log(selectedOption);
+  const {
+    options,
+    quesId,
+    _handleSelect,
+    selectedOption,
+    disabled,
+    notClearable,
+    id
+  } = props;
 
   const AnsSelected =
     selectedOption &&
@@ -24,16 +31,16 @@ console.log(selectedOption);
 
   return (
     <Select
-      isClearable={true}
+      isClearable={notClearable ? false : true}
       isDisabled={disabled}
-      id={`${quesId}`}
+      id={`${id?id:quesId}`}
       styles={customStyles}
       theme={(theme) => ({
         ...theme,
         colors: {
           ...theme.colors,
           // primary25: 'hotpink',
-           primary: Colors.PrimaryColor,
+          primary: Colors.PrimaryColor,
         },
       })}
       className="w-100"
@@ -42,7 +49,7 @@ console.log(selectedOption);
           ? selectedOption
           : AnsSelected
       }
-      onChange={(e) => _handleSelect(quesId, e)}
+      onChange={(e) => _handleSelect(quesId||id, e)}
       // value={selectedOption}
       options={options}
     />

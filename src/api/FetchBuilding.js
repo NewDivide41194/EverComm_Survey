@@ -8,6 +8,7 @@ export const BuildingFetch = (
     address,
     comment,
     country,
+    deviceData,
     userId,
     surveyHeaderId,
     token,
@@ -21,6 +22,7 @@ export const BuildingFetch = (
     address,
     comment,
     country,
+    deviceData,
     surveyHeaderId,
     userId
   );
@@ -40,6 +42,10 @@ export const BuildingFetch = (
       comment: comment,
       userId: userId,
       surveyHeaderId: surveyHeaderId,
+      chiller:deviceData.chiller,
+      condenser:deviceData.condenser,
+      evaporator:deviceData.evaporator,
+      coolingTower:deviceData.coolingTower
     }),
   })
     .then((res) => res.json())

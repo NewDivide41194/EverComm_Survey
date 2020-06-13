@@ -13,23 +13,24 @@ export const ESRadio = (props) => {
     },
   });
 
+  console.log(isAnswer);
+  
   
   return value.map((ans, k3) => (
     <label
-      id={`${ans.option_choice_id} div`}
-      className="flex-col w-50"
+      id={`${ans.option_choice_id+quesId} div`}
+      className="option flex-col w-50"
       key={k3}
       onMouseOver={() =>
         (document.getElementById(
-          `${ans.option_choice_id} div`
+          `${ans.option_choice_id+quesId} div`
         ).style.background = "rgb(211, 226, 237)")
       }
       onMouseLeave={() =>
         (document.getElementById(
-          `${ans.option_choice_id} div`
+          `${ans.option_choice_id+quesId} div`
         ).style.background = "none")
       }
-      htmlFor={ans.option_choice_id}
       style={{ cursor: "pointer" }}
     >
       <ThemeProvider theme={customTheme}>
@@ -37,10 +38,10 @@ export const ESRadio = (props) => {
           className="p-1"
           name={`${quesId}`}
           checked={
-            isAnswer.filter((d) => d === ans.option_choice_id).length > 0
+            isAnswer.filter((d) => d.optionChoiceId === ans.option_choice_id&&d.questionId===quesId).length > 0
           }
-          onChange={() => _handleRadioChange(ans.option_choice_id, quesId, 100)}
-          id={`${ans.option_choice_id}`}
+          onChange={() => _handleRadioChange(ans.option_choice_id, quesId)}
+          id={`${ans.option_choice_id+quesId}`}
           value={ans.option_choice_name}
         />
       </ThemeProvider>

@@ -12,7 +12,6 @@ const Building = (props) => {
     clientCompany,
     comment,
     country,
-    devices,
     handleBuildingNameChange,
     handlePostalChange,
     handleAddressChange,
@@ -20,28 +19,24 @@ const Building = (props) => {
     handleCommentChange,
     handleSelectCountry,
     CountryOptions,
-    handleSubmit,
+    handleNext,
     err,
     errStyle,
     isDisabled,
-    deviceOption
   } = props;
   const errClassName = "text-danger d-flex flex-row justify-content-end pb-1";
-  const amountOfDevice = 0;
-  
 
-  console.log(deviceOption);
 
   return (
-    <div className="container">
       <div className="row justify-content-center py-4">
-        <form className="col-lg-6 col-md-8" onSubmit={handleSubmit}>
+        <form className="col-lg-6 col-md-8" onSubmit={handleNext}>
           <div
             className="font-weight-bold text-center"
             style={{ fontSize: "25px" }}
           >
             Add Building for New Survey
           </div>
+          
           <div className="row form-group">
             <div className="py-2 col-12">
               <label htmlFor="clientCompany">Client Company</label>
@@ -108,70 +103,7 @@ const Building = (props) => {
                 onChange={(e) => handlePostalChange(e)}
               />
             </div>
-            {/* <div className="py-2 col-sm-12 col-lg-3">
-              <label htmlFor="country">Chiller</label>
-              {err.countryErr === undefined ? null : (
-                <div
-                  className={errClassName}
-                  style={{ ...errStyle, marginTop: "-25px" }}
-                >{`*${err.countryErr}`}</div>
-              )}
-              <ESDropDown
-                disabled={isDisabled}
-                id={"country"}
-                _handleSelect={handleSelectCountry}
-                options={devices}
-                value={country}
-              />
-            </div>
-            <div className="py-2 col-sm-12 col-lg-3">
-              <label htmlFor="country">Condenser</label>
-              {err.countryErr === undefined ? null : (
-                <div
-                  className={errClassName}
-                  style={{ ...errStyle, marginTop: "-25px" }}
-                >{`*${err.countryErr}`}</div>
-              )}
-              <ESDropDown
-                disabled={isDisabled}
-                id={"country"}
-                _handleSelect={handleSelectCountry}
-                options={devices}
-                value={country}
-              />
-            </div>
-            <div className="py-2 col-sm-12 col-lg-3">
-              <label htmlFor="country">Evaporator</label>
-              {err.countryErr === undefined ? null : (
-                <div
-                  className={errClassName}
-                  style={{ ...errStyle, marginTop: "-25px" }}
-                >{`*${err.countryErr}`}</div>
-              )}
-              <ESDropDown
-                disabled={isDisabled}
-                id={"country"}
-                _handleSelect={handleSelectCountry}
-                options={devices}
-                value={country}
-              />
-            </div>
-            <div className="py-2 col-sm-12 col-lg-3">
-              <label htmlFor="country">Cooling Tower</label>
-              {err.countryErr === undefined ? null : (
-                <div
-                  className={errClassName}
-                  style={{ ...errStyle, marginTop: "-25px" }}
-                >{`*${err.countryErr}`}</div>
-              )}
-              <ESDropDown
-                disabled={isDisabled}
-                id={"country"}
-                _handleSelect={handleSelectCountry}
-                options={devices}
-                value={country}
-              />
-            </div> */}
+
             <div className="py-2 col-12">
               <label htmlFor="address">Address</label>
               {err.addressErr === undefined ? null : (
@@ -210,14 +142,13 @@ const Building = (props) => {
                 id={"Next"}
                 text={"Next"}
                 type={"submit"}
-                onClick={handleSubmit}
+                onClick={handleNext}
                 small
               />
             </div>
           </div>
         </form>
       </div>
-    </div>
   );
 };
 export default Building;

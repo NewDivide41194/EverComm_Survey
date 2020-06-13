@@ -13,23 +13,27 @@ const ESCheckbox = (props) => {
       },
     },
   });
-  console.log("ANS",isAnswer.filter(d=>d.option_choice_id===40&&d.questionId===quesId));
+  // console.log("ANS",isAnswer.filter(d=>d.optionChoiceId===40&&d.questionId===quesId));
   // console.log("Ques",isQuestion.filter(d1=>d1===quesId));
-  console.log(isAnswer.filter(d=>d.optionChoiceId===40&&d.questionId===quesId).length>0)
+  // console.log(isAnswer.filter(d=>d.optionChoiceId===40&&d.questionId===quesId).length>0)
+  // console.log(isAnswer.filter(d=>d.optionChoiceId===40).length>0&&isAnswer.filter(q=>q.questionId===quesId).length>0);
+  // console.log(isAnswer);
+  
+  // console.log("Value",value);
   
   return value.map((ans, k3) => (
     <label
-      id={`${ans.option_choice_id} div`}
+      id={`${ans.option_choice_id+quesId} div`}
       className={`flex-column ${media.mobile ? "w-100" : "w-50"}`}
       key={k3}
       onMouseOver={() =>
         (document.getElementById(
-          `${ans.option_choice_id} div`
+          `${ans.option_choice_id+quesId} div`
         ).style.background = "rgb(211, 226, 237)")
       }
       onMouseLeave={() =>
         (document.getElementById(
-          `${ans.option_choice_id} div`
+          `${ans.option_choice_id+quesId} div`
         ).style.background = "none")
       }
       style={{ cursor: "pointer" }}
@@ -40,8 +44,9 @@ const ESCheckbox = (props) => {
           checked={
             // isAnswer.filter(d=>d===ans.option_choice_id).length>0&&isQuestion.filter(d1=>d1===quesId).length>0
             isAnswer.filter(d=>d.optionChoiceId===ans.option_choice_id&&d.questionId===quesId).length>0
+            // isAnswer.filter(d=>d.optionChoiceId===ans.option_choice_id).length>0&&isAnswer.filter(q=>q.questionId===quesId).length>0
           }
-          id={`${ans.option_choice_id}`}
+          id={`${ans.option_choice_id+quesId}`}
           value={ans.option_choice_id}
           onChange={() => _handleChange(quesId, ans.option_choice_id)}
           name={`${quesId}`}
