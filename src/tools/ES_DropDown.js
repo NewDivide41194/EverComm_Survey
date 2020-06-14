@@ -10,7 +10,8 @@ export const ESDropDown = (props) => {
     selectedOption,
     disabled,
     notClearable,
-    id
+    id,
+    defaultValue
   } = props;
 
   const AnsSelected =
@@ -35,6 +36,7 @@ export const ESDropDown = (props) => {
       isDisabled={disabled}
       id={`${id?id:quesId}`}
       styles={customStyles}
+      defaultValue={defaultValue}
       theme={(theme) => ({
         ...theme,
         colors: {

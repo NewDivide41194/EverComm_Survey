@@ -42,15 +42,13 @@ const QuestionContainer = (props) => {
     QuestionFetch(
       { userId, surveyHeaderId, buildingId, token },
       (err, data) => {
-      
         setSurveyData(data.payload);
         setAnswerData(data.payload[0].answers);
         setTotal(
           // data.payload[0].answers.length > 0
           // ? allCount
-          data.payload[0].question_count +
-            data.payload[0].survey_sections[1].questions.length * 2 +
-            data.payload[0].survey_sections[2].questions.length * 2
+          // data.payload[0].question_count +
+          //   data.payload[0].survey_sections[pageno - 1].questions.length * 2
         );
         // console.log(data.payload[0].survey_sections[1]);
 
@@ -282,7 +280,7 @@ const QuestionContainer = (props) => {
     setTotal(total + AddedQuestionsLength);
   };
   const amountOfDevice = surveyData.length && surveyData[0].amountOfDevice;
-  // console.log("----->", QuestionData);
+  console.log("----->", surveyData);
 
   return IsLoading ? (
     <ESLoading />

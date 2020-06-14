@@ -77,13 +77,13 @@ const QuestionCard = (props) => {
                       </i>
                     </div>
 
-                    {/* {AnswerData.map((v, k) => v.questionId).filter(
-                  (v) => v === ques.question_id
-                )[0] === ques.question_id ? (
+                    {AnswerData.map((v, k) => v.questionId).filter(
+                  (v) => v === remakeQuestionId
+                )[0] === remakeQuestionId ? (
                   <QuestionCardInfo info={"Answered"} media={media} />
                 ) : (
                   <QuestionCardInfo info={"Pending"} media={media} />
-                )} */}
+                )}
                   </div>
                 </div>
                 {ques.input_type_id === 1 ? (

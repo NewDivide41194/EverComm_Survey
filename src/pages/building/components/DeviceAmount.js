@@ -29,7 +29,7 @@ const DeviceAmount = (props) => {
           Please Select Amount of Devices
         </div>
         <div className="py-2 row form-group">
-          <div className="py-2 col-sm-12 col-lg-6">
+          <div className="pb-2 col-6">
             <label htmlFor="chiller">Chiller</label>
             <ESDropDown
               notClearable
@@ -39,9 +39,10 @@ const DeviceAmount = (props) => {
               _handleSelect={_handleDeviceChange}
               options={deviceOption}
               value={deviceData.chiller}
+              defaultValue={deviceOption[2]}
             />
           </div>
-          <div className="py-2 col-sm-12 col-lg-6">
+          <div className="pb-2 col-6">
             <label htmlFor="condenser">Condenser</label>
 
             <ESDropDown
@@ -52,11 +53,10 @@ const DeviceAmount = (props) => {
               _handleSelect={_handleDeviceChange}
               options={deviceOption}
               value={deviceData.condenser}
+              defaultValue={deviceOption[2]}
             />
           </div>
-        </div>
-        <div className="row">
-          <div className="col-sm-12 col-lg-6">
+          <div className="pb-2 col-6">
             <label htmlFor="evaporator">Evaporator</label>
 
             <ESDropDown
@@ -67,9 +67,10 @@ const DeviceAmount = (props) => {
               _handleSelect={_handleDeviceChange}
               options={deviceOption}
               value={deviceData.evaporator}
+              defaultValue={deviceOption[2]}
             />
           </div>
-          <div className="col-sm-12 col-lg-6">
+          <div className="pb-2 col-6">
             <label htmlFor="coolingTower">Cooling Tower</label>
 
             <ESDropDown
@@ -80,6 +81,7 @@ const DeviceAmount = (props) => {
               name="coolingTower"
               options={deviceOption}
               value={deviceData.coolingTower}
+              defaultValue={deviceOption[2]}
             />
           </div>
         </div>

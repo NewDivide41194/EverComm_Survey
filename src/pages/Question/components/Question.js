@@ -47,7 +47,7 @@ const Question = (props) => {
               media.mobile || "justify-content-center"
             }`}
           >
-            <div
+            {/* <div
               className={`px-${media.mobile ? 2 : 4} position-fixed`}
               style={{
                 minWidth: 160,
@@ -55,7 +55,7 @@ const Question = (props) => {
                 background: "rgba(0,0,0,0.7)",
                 zIndex: "1",
               }}
-            >{`${obtained || 0} of ${total} Answered`}</div>
+            >{`${obtained || 0} of ${total} Answered`}</div> */}
           </div>
           <div
             style={{
