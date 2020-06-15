@@ -38,142 +38,133 @@ const QuestionCard = (props) => {
 
   const pageDeviceIndex = pageno === 0 ? 1 : deviceIndexValue[pageno - 1];
 
-  const QuestionCards = new Array(
-    pageno === 0 ? 1 : deviceIndexValue[pageno - 1]
-  )
-    .fill(null)
-    .map((v, k3) => {
-      return (
-        <div key={k3}>
-          {QuestionData.map((ques, k2) => {
-            const remakeQuestionId =
-              pageDeviceIndex > 1
-                ? Object.keys(amountOfDevice[0])[pageno - 1] +
-                  addedQuestionId +
-                  buildingId +
-                  k3 +
-                  ques.question_id
-                : ques.question_id;
-            return (
+  const QuestionCards = new Array(pageDeviceIndex).fill(null).map((v, k3) => {
+    return (
+      <div key={k3}>
+        {QuestionData.map((ques, k2) => {
+          const remakeQuestionId =
+            pageDeviceIndex > 1
+              ? Object.keys(amountOfDevice[0])[pageno - 1] +
+                addedQuestionId +
+                buildingId +
+                k3 +
+                ques.question_id
+              : ques.question_id.toString();
+          return (
+            <div
+              className="d-flex flex-row flex-fill flex-wrap w-100 p-3 py-3 mb-3 rounded"
+              key={k2}
+              id={ques.questionId}
+              style={{
+                fontSize: media.mobile ? "12px" : "15px",
+                background: "#f0f0f0",
+              }}
+            >
               <div
-                className="d-flex flex-row flex-fill flex-wrap w-100 p-3 py-3 mb-3 rounded"
+                className="d-flex flex-row flex-wrap w-100"
                 key={k2}
-                id={ques.questionId}
-                style={{
-                  fontSize: media.mobile ? "12px" : "15px",
-                  background: "#f0f0f0",
-                }}
+                style={{ fontSize: media.mobile ? "15px" : "18px" }}
               >
-                <div
-                  className="d-flex flex-row flex-wrap w-100"
-                  key={k2}
-                  style={{ fontSize: media.mobile ? "15px" : "18px" }}
-                >
-                  <div className="d-flex flex-row pb-3 w-100  justify-content-between">
-                    <div>
-                      {k2 + 1}. {ques.question_name}
-                      <i className="text-info pl-2">
-                        {k3 === 0 ? null : `Device No.` + (k3 + 1)}
-                      </i>
-                    </div>
-
-                    {AnswerData.map((v, k) => v.questionId).filter(
-                  (v) => v === remakeQuestionId
-                )[0] === remakeQuestionId ? (
-                  <QuestionCardInfo info={"Answered"} media={media} />
-                ) : (
-                  <QuestionCardInfo info={"Pending"} media={media} />
-                )}
+                <div className="d-flex flex-row pb-3 w-100  justify-content-between">
+                  <div>
+                    {k2 + 1}. {ques.question_name}
+                    <i className="text-info pl-2">
+                      {k3 === 0 ? null : `Device No.` + (k3 + 1)}
+                    </i>
                   </div>
+
+                  {AnswerData.map((v, k) => v.questionId).filter(
+                    (v) => v === remakeQuestionId
+                  )[0] === remakeQuestionId ? (
+                    <QuestionCardInfo info={"Answered"} media={media} />
+                  ) : (
+                    <QuestionCardInfo info={"Pending"} media={media} />
+                  )}
                 </div>
-                {ques.input_type_id === 1 ? (
-                  <ESCheckBox
-                    quesId={remakeQuestionId}
-                    value={ques.option_choices}
-                    _handleChange={_handleCheckChange}
-                    isAnswer={AnswerData}
-                    isQuestion={isQuestion}
-                  />
-                ) : ques.input_type_id === 2 ? (
-                  <ESRadio
-                    value={ques.option_choices}
-                    _handleRadioChange={_handleRadioChange}
-                    quesId={remakeQuestionId}
-                    isAnswer={AnswerData}
-                    isQuestion={isQuestion}
-                  />
-                ) : ques.input_type_id === 5 ? (
-                  <ESDropDown
-                    quesId={remakeQuestionId}
-                    options={ques.option_choices.map((v, k) => ({
-                      value: v.option_choice_id,
-                      label: v.option_choice_name,
-                    }))}
-                    _handleSelect={_handleSelect}
-                    selectedOption={
-                      AnswerData.filter(
-                        (d) => d.questionId === remakeQuestionId
-                      )
-                        ? AnswerData.filter(
-                            (d) => d.questionId === remakeQuestionId
-                          ).map(
-                            (v, k) =>
-                              ques.option_choices.filter(
-                                (x, y) =>
-                                  x.option_choice_id === v.optionChoiceId
-                              )[0]
-                          )
-                        : selectedOption
-                    }
-                  />
-                ) : ques.input_type_id === 4 ? (
-                  <ESInput
-                    placeHolder={"Fill Your Answer"}
-                    id={remakeQuestionId}
-                    value={AnswerData.filter(
-                      (d) => d.questionId === remakeQuestionId
-                    ).map((v, k) => v.other)}
-                    onChange={(e) => {
-                      _handleInputChange(e, remakeQuestionId);
-                    }}
-                  />
-                ) : ques.input_type_id === 6 ? (
-                  <ESDatePicker
-                    quesId={remakeQuestionId}
-                    startDate={
-                      AnswerData.filter(
-                        (d) => d.questionId === remakeQuestionId
-                      ).length && AnswerData.length
-                        ? AnswerData.filter(
-                            (d) => d.questionId === remakeQuestionId
-                          ).map(
-                            (v, k) =>
-                              new Date(JSON.parse(v.other).YearOfManufacturing)
-                          )[0]
-                        : null
-                    }
-                    endDate={
-                      AnswerData.filter(
-                        (d) => d.questionId === remakeQuestionId
-                      ).length && AnswerData.length
-                        ? AnswerData.filter(
-                            (d) => d.questionId === remakeQuestionId
-                          ).map(
-                            (v, k) =>
-                              new Date(JSON.parse(v.other).YearOfInstallation)
-                          )[0]
-                        : null
-                    }
-                    _handleEndChange={_handleEndChange}
-                    _handleStartChange={_handleStartChange}
-                  />
-                ) : null}
               </div>
-            );
-          })}
-        </div>
-      );
-    });
+              {ques.input_type_id === 1 ? (
+                <ESCheckBox
+                  quesId={remakeQuestionId}
+                  value={ques.option_choices}
+                  _handleChange={_handleCheckChange}
+                  isAnswer={AnswerData}
+                  isQuestion={isQuestion}
+                />
+              ) : ques.input_type_id === 2 ? (
+                <ESRadio
+                  value={ques.option_choices}
+                  _handleRadioChange={_handleRadioChange}
+                  quesId={remakeQuestionId}
+                  isAnswer={AnswerData}
+                  isQuestion={isQuestion}
+                />
+              ) : ques.input_type_id === 5 ? (
+                <ESDropDown
+                  quesId={remakeQuestionId}
+                  options={ques.option_choices.map((v, k) => ({
+                    value: v.option_choice_id,
+                    label: v.option_choice_name,
+                  }))}
+                  _handleSelect={_handleSelect}
+                  selectedOption={
+                    AnswerData.filter((d) => d.questionId === remakeQuestionId)
+                      ? AnswerData.filter(
+                          (d) => d.questionId === remakeQuestionId
+                        ).map(
+                          (v, k) =>
+                            ques.option_choices.filter(
+                              (x, y) => x.option_choice_id === v.optionChoiceId
+                            )[0]
+                        )
+                      : selectedOption
+                  }
+                />
+              ) : ques.input_type_id === 4 ? (
+                <ESInput
+                  placeHolder={"Fill Your Answer"}
+                  id={remakeQuestionId}
+                  value={AnswerData.filter(
+                    (d) => d.questionId === remakeQuestionId
+                  ).map((v, k) => v.other)}
+                  onChange={(e) => {
+                    _handleInputChange(e, remakeQuestionId);
+                  }}
+                />
+              ) : ques.input_type_id === 6 ? (
+                <ESDatePicker
+                  quesId={remakeQuestionId}
+                  startDate={
+                    AnswerData.filter((d) => d.questionId === remakeQuestionId)
+                      .length && AnswerData.length
+                      ? AnswerData.filter(
+                          (d) => d.questionId === remakeQuestionId
+                        ).map(
+                          (v, k) =>
+                            new Date(JSON.parse(v.other).YearOfManufacturing)
+                        )[0]
+                      : null
+                  }
+                  endDate={
+                    AnswerData.filter((d) => d.questionId === remakeQuestionId)
+                      .length && AnswerData.length
+                      ? AnswerData.filter(
+                          (d) => d.questionId === remakeQuestionId
+                        ).map(
+                          (v, k) =>
+                            new Date(JSON.parse(v.other).YearOfInstallation)
+                        )[0]
+                      : null
+                  }
+                  _handleEndChange={_handleEndChange}
+                  _handleStartChange={_handleStartChange}
+                />
+              ) : null}
+            </div>
+          );
+        })}
+      </div>
+    );
+  });
   return QuestionCards;
 };
 

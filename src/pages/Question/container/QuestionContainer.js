@@ -23,10 +23,10 @@ const QuestionContainer = (props) => {
   const [indexPage, setIndexPage] = useState([{ pageno: pageno, index: 1 }]);
   const [index, setIndex] = useState(1);
   const token = localStorage.getItem("token");
-  const userId = localStorage.getItem("userId");
-  const buildingId = localStorage.getItem("buildingId");
+  const userId = parseInt(localStorage.getItem("userId"));
+  const buildingId = parseInt(localStorage.getItem("buildingId"));
   const buildingName = localStorage.getItem("buildingName");
-  const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
+  const surveyHeaderId = parseInt(localStorage.getItem("SurveyHeaderId"));
   const Ans = {
     other: "",
     optionChoiceId: null,
