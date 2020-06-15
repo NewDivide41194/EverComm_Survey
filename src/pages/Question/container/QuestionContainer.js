@@ -7,6 +7,7 @@ import ESLoading from "../../../tools/ES_Loading.js";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import moment from "moment";
+import Surveylist from "../../surveylist/component/Surveylist";
 
 const QuestionContainer = (props) => {
   const { history } = props;
@@ -37,6 +38,24 @@ const QuestionContainer = (props) => {
   };
   // const totalByUser=parseInt(localStorage.getItem(buildingId))
 
+  const amountOfDevice = surveyData.length && surveyData[0].amountOfDevice;
+  const deviceAmounts =
+    amountOfDevice.length && Object.values(amountOfDevice[0]);
+  const questionslength =
+    surveyData.length &&
+    surveyData[0].survey_sections.map((v) => v.questions.length);
+
+  const idx = [0, 5];
+  const totalQues = idx.map((i) => questionslength[i]).reduce((p, c) => p + c);
+  const totalQuesCount =
+    deviceAmounts &&
+    deviceAmounts
+      .map(
+        (v, k) =>
+          questionslength && questionslength.slice(1, 5).map((v1, k1) => v * v1)
+      )[0]
+      .reduce((a, b) => a + b, 0) + totalQues;
+  console.log(totalQuesCount);
   useEffect(() => {
     setIsLoading(true);
     QuestionFetch(
@@ -44,24 +63,18 @@ const QuestionContainer = (props) => {
       (err, data) => {
         setSurveyData(data.payload);
         setAnswerData(data.payload[0].answers);
-        setTotal(
-          // data.payload[0].answers.length > 0
-          // ? allCount
-          // data.payload[0].question_count +
-          //   data.payload[0].survey_sections[pageno - 1].questions.length * 2
-        );
-        // console.log(data.payload[0].survey_sections[1]);
-
         setIsLoading(false);
       }
     );
-  }, []);
+    setTotal(totalQuesCount);
+  }, [totalQuesCount]);
 
   const obtained = AnswerCount(AnswerData).length;
 
   const percent = (obtained * 100) / total;
   const oneQuestion = total - obtained === 1;
   const fullQuestion = total - obtained === 0;
+
 
   const _handleNext = () => {
     setPageno(pageno + 1);
@@ -279,8 +292,6 @@ const QuestionContainer = (props) => {
       .length;
     setTotal(total + AddedQuestionsLength);
   };
-  const amountOfDevice = surveyData.length && surveyData[0].amountOfDevice;
-  console.log("----->", surveyData);
 
   return IsLoading ? (
     <ESLoading />

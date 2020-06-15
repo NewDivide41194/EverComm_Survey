@@ -131,6 +131,8 @@ const CollapseSurveyList = (props) => {
     HoverBgColor,
   } = props;
   const [expend, setIsExpend] = useState(false);
+  console.log("=====>",SurveyData);
+
   return (
     <div className="">
       <div
