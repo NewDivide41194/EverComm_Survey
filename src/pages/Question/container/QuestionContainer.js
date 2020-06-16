@@ -49,13 +49,19 @@ const QuestionContainer = (props) => {
   const totalQues = idx.map((i) => questionslength[i]).reduce((p, c) => p + c);
   const totalQuesCount =
     deviceAmounts &&
-    deviceAmounts
-      .map(
-        (v, k) =>
-          questionslength && questionslength.slice(1, 5).map((v1, k1) => v * v1)
-      )[0]
-      .reduce((a, b) => a + b, 0) + totalQues;
-  console.log(totalQuesCount);
+    deviceAmounts.reduce((r, a, i) => {
+      return r + a * questionslength.slice(1, 5)[i];
+    }, 0) + totalQues;
+
+  console.log(
+    "Multiply--->",
+    deviceAmounts &&
+      deviceAmounts.reduce((r, a, i) => {
+        return r + a * questionslength.slice(1, 5)[i];
+      }, 0)
+  );
+  console.log(deviceAmounts, questionslength && questionslength.slice(1, 5));
+
   useEffect(() => {
     setIsLoading(true);
     QuestionFetch(
@@ -74,7 +80,6 @@ const QuestionContainer = (props) => {
   const percent = (obtained * 100) / total;
   const oneQuestion = total - obtained === 1;
   const fullQuestion = total - obtained === 0;
-
 
   const _handleNext = () => {
     setPageno(pageno + 1);
@@ -101,7 +106,7 @@ const QuestionContainer = (props) => {
           label: "Submit",
           onClick: () => {
             setIsLoading(true);
-            PostAnswer({ data: AnswerData, token }, (err, data) => {
+            PostAnswer({ data: AnswerData,total, token }, (err, data) => {
               setIsLoading(false);
               history.push("/finalPage");
               // localStorage.setItem(`${buildingId}`,total)

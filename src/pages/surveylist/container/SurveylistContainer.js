@@ -36,11 +36,11 @@ const SurveylistContainer = (props) => {
 
   const PendingSurvey =
     BuildingSurveyData.length &&
-    BuildingSurveyData.filter((v, k) => v.answers !== v.questions);
+    BuildingSurveyData.filter((v, k) => v.answers !== v.total_question_count);
 
   const CompletedSurvey =
     BuildingSurveyData.length &&
-    BuildingSurveyData.filter((v, k) => v.answers === v.questions);
+    BuildingSurveyData.filter((v, k) => v.answers === v.total_question_count);
   const SurveyHeaderName = localStorage.getItem("SurveyHeaderName");
 
   var ReduceData = ["building_id", "building_name"];
@@ -166,14 +166,14 @@ const CollapseSurveyList = (props) => {
               key={k}
               id={v.building_id}
               progress={
-                v.answers !== undefined && v.answers === v.questions ? (
+                v.answers !== undefined && v.answers === v.total_question_count ? (
                   <i className="fa fa-check" id={v.building_id}>
                     {" "}
                     Completed
                   </i>
                 ) : (
                   <i className="fa fa-edit" id={v.building_id}>
-                    &nbsp;{v.answers ? v.answers : "0"} Answered
+                    &nbsp;{v.answers ? v.answers : "0"} of {v.total_question_count} Answered
                   </i>
                 )
               }
