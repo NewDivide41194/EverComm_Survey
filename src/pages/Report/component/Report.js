@@ -55,7 +55,7 @@ const Report = (props) => {
               )}
             {viewType ? <div className='row justify-content-end text-dark'>{`View Type: ${viewType === "all" ? "All Users" : "Only Me"}`}</div> : null}
             <div className="py-3 row">
-              <div className="col-lg-6" style={{ height: 350 }}>
+              <div className="col-lg-6" style={{ height: 350 ,paddingBottom:"60px" }}>
                 <h2 style={{ color: Colors.PrimaryColor, fontSize: '20px' }}>
                   Type of Building
                 </h2>

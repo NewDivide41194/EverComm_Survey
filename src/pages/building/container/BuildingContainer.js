@@ -30,10 +30,12 @@ const BuildingContainer = (props) => {
 
   const errClassName = "text-danger d-flex flex-row justify-content-end pb-2";
 
-  useEffect(() => {
-    document.getElementById("clientCompany").focus();
-  }, []);
-
+  // useEffect(() => {
+  //   document.getElementById("clientCompany").focus();
+  // }, []);
+  const _handleBack=(e)=>{
+      setChillerPage(chillerPage-1)
+  }
   const _handleNext = (e) => {
     e.preventDefault();
     const data = {
@@ -44,6 +46,7 @@ const BuildingContainer = (props) => {
       address,
       comment,
     };
+  
     const validatedErr = BuildingFormValidation(data);
     setErr(validatedErr);
     if (validatedErr.clientCompanyErr) {
@@ -95,22 +98,28 @@ const BuildingContainer = (props) => {
     );
   };
   const _handleBuildingNameChange = (e) => {
+    setErr({});
     setBuildingName(e.target.value.replace(/\s+/g, " ").trimStart());
   };
   const _handlePostalChange = (e) => {
+    setErr({});
     setPostal(e.target.value.replace(/\s+/g, " ").trimStart());
   };
   const _handleAddressChange = (e) => {
+    setErr({});
     setAddress(e.target.value.replace(/\s+/g, " ").trimStart());
   };
   const _handleClientCompanyChange = (e) => {
+    setErr({});
     setClientCompany(e.target.value.replace(/\s+/g, " ").trimStart());
   };
   const _handleCommentChange = (e) => {
+    setErr({});
     setComment(e.target.value.replace(/\s+/g, " ").trimStart());
   };
 
   const _handleCountrySelect = (id, e) => {
+    setErr({});
     e !== null && setCountry(e.label);
     return;
   };
@@ -157,7 +166,7 @@ console.log(country);
         />
       ) : (
         <DeviceAmount
-          //handleDeviceSelect={_handleDeviceSelect}
+          _handleBack={_handleBack}
           deviceData={deviceData}
           err={err}
           errStyle={errStyle}

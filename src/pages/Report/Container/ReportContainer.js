@@ -14,7 +14,7 @@ const ReportContainer = (props) => {
   const endDate = urlParams.get("endDate");
   const userId = localStorage.getItem("userId");
   const viewType = localStorage.getItem("viewType");
-
+  const userLevel=parseInt(localStorage.getItem("userLevel"))
   useEffect(() => {
     UserReportAnswers(
       { userId, surveyHeaderId, startDate, endDate, viewType, token },
@@ -30,7 +30,7 @@ console.log("Report Data---->",reportData);
       reportData={reportData}
       startDate={startDate}
       endDate={endDate}
-      viewType={viewType}
+      viewType={userLevel===2?null: viewType}
     />
   );
 };

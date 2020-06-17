@@ -8,14 +8,14 @@ const DeviceAmount = (props) => {
     isDisabled,
     _handleSubmit,
     deviceData,
+    _handleBack,
   } = props;
-  console.log(deviceData);
 
-  const deviceOption =new Array(30)
+  const deviceOption = new Array(30)
     .fill(null)
-    .map((v, k) => ({ label: k + 1, value: k + 1}));
+    .map((v, k) => ({ label: k + 1, value: k + 1 }));
   console.log(deviceOption);
-  
+
   return (
     <div className="row justify-content-center py-5">
       <form className="col-lg-6 col-md-8" onSubmit={_handleSubmit}>
@@ -70,7 +70,8 @@ const DeviceAmount = (props) => {
               defaultValue={deviceOption[2]}
             />
           </div>
-          <div className="pb-2 col-6">
+          
+          <div className="pb-4 col-6">
             <label htmlFor="coolingTower">Cooling Tower</label>
 
             <ESDropDown
@@ -84,8 +85,16 @@ const DeviceAmount = (props) => {
               defaultValue={deviceOption[2]}
             />
           </div>
+          <div className="col-6">
+          <ESButton
+            disabled={isDisabled}
+            id={"back"}
+            text={"Back"}
+            onClick={_handleBack}
+            small
+          />
         </div>
-
+          <div className="col-6">
           <ESButton
             disabled={isDisabled}
             id={"submit"}
@@ -94,6 +103,11 @@ const DeviceAmount = (props) => {
             onClick={_handleSubmit}
             small
           />
+        </div>
+       
+
+        </div>
+         
       </form>
     </div>
   );
