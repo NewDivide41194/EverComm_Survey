@@ -1,90 +1,111 @@
 import React from "react";
 import * as Colors from "../../../config/Color.config";
 import { NotAnswered, Percentage } from "../../../helper/reportHelper";
-import PieChart from './Piechart';
-import Bar from './Barchart';
-//import Barchart from './RechartBar';
+import PieChart from "./Piechart";
+import Bar from "./Barchart";
 import moment from "moment";
-
+import withMedia from "react-media-query-hoc/dist/with-media";
 
 const Report = (props) => {
-  const { reportData, startDate, endDate, viewType } = props;
-  const TotalBuilding = reportData
-    ? reportData.map((v, k) => v.building_count[0].Number_of_buildings)[0]
-    : null;
-
-  const Buildingdata = reportData.map((v, k) =>
-    v.survey_sections[0].questions.map((v1, k1) => v1.option_choices)[0].map((v2, k2) => ({ name: v2.option_choice_name, value: v2.totalAns === null ? 0 : v2.totalAns }))
-  )[0]
-  console.log("building", Buildingdata);
-
-  const brandData = reportData.map((v, k) =>
-    v.survey_sections[0].questions.map((v1, k1) => v1.option_choices)[4].map((v2, k2) => ({ id: v2.option_choice_name, label: v2.option_choice_name, value: v2.totalAns === null ? 0 : v2.totalAns }))
-  )[0]
-  console.log("brand", brandData);
-
-  const AreaData = reportData.map((v, k) =>
-    v.survey_sections[0].questions.map((v1, k1) => v1.option_choices)[1].map((v2, k2) => ({ id: v2.option_choice_name, label: v2.option_choice_name, value: v2.totalAns === null ? 0 : v2.totalAns }))
-  )[0]
-
-  const BMSData = reportData.map((v, k) =>
-    v.survey_sections[0].questions.map((v1, k1) => v1.option_choices)[3].map((v2, k2) => ({ id: v2.option_choice_name, label: v2.option_choice_name, value: v2.totalAns === null ? 0 : v2.totalAns }))
-  )[0]
-
-  const AgeBuildingData = reportData.map((v, k) =>
-    v.survey_sections[0].questions.map((v1, k1) => v1.option_choices)[2].map((v2, k2) => ({ name: v2.option_choice_name, value: v2.totalAns === null ? 0 : v2.totalAns }))
-  )[0]
+  const { reportData, startDate, endDate, viewType, media } = props;
+  const halfPieStyle={position: 'absolute',
+  top: 90,
+  bottom: 0,
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  fontSize: 20,
+  color: "#000",
+  textAlign: "center",  
+  pointerEvents: "none",
+  marginLeft:'40%',
+}
+  const ChartData = (question_index, type) =>
+    type === "pie"
+      ? reportData.map((v, k) =>
+          v.survey_sections[0].questions
+            .map((v1, k1) => v1.option_choices)
+            [question_index].map((v2, k2) => ({
+              id: v2.option_choice_name,
+              label: v2.option_choice_name,
+              value: v2.totalAns === null ? 0 : v2.totalAns,
+            }))
+        )[0]
+      : reportData.map((v, k) =>
+          v.survey_sections[0].questions
+            .map((v1, k1) => v1.option_choices)
+            [question_index].map((v2, k2) => ({
+              name: v2.option_choice_name,
+              value: v2.totalAns === null ? 0 : v2.totalAns,
+            }))
+        )[0];
 
   return (
-    <div className="container py-2">
-
-      {reportData && reportData.length ? (
+    <div className="container apy-2">
+      {reportData.length ? (
         reportData.map((v, k) => (
-          <div className="mt-4" key={k}>
+          <div className="mt-4 border" key={k}>
             <h2 className="text-center " style={{ color: Colors.PrimaryColor }}>
               Report for {v.survey_name}
             </h2>
-            {/* <div className="text-center font-weight-bold"><p>Answered By {viewType}</p></div> */}
             {startDate ? (
               <h4 className="text-center text-secondary">
                 From {moment(startDate).format("YYYY-MMM-DD")} to{" "}
                 {moment(endDate).format("YYYY-MMM-DD")}
               </h4>
             ) : (
-                <h4 className="text-center text-secondary">Overall Report</h4>
-              )}
-            {viewType ? <div className='row justify-content-end text-dark'>{`View Type: ${viewType === "all" ? "All Users" : "Only Me"}`}</div> : null}
+              <h4 className="text-center text-secondary">Overall Report</h4>
+            )}
+            {viewType ? (
+              <div className="d-flex flex-row justify-content-end text-dark">{`View Type: ${
+                viewType === "all" ? "All Users" : "Only Me"
+              }`}</div>
+            ) : null}
             <div className="py-3 row">
-              <div className="col-lg-6" style={{ height: 350 ,paddingBottom:"60px" }}>
-                <h2 style={{ color: Colors.PrimaryColor, fontSize: '20px' }}>
+              <div
+                className="col-6"
+                style={{ height: 350, paddingBottom: 0 }}
+              >
+                <h2 style={{ color: Colors.PrimaryColor, fontSize: "20px" }}>
                   Type of Building
                 </h2>
-                <Bar data={Buildingdata} axisLeft={{
-                  tickSize: 5,
-                  tickPadding: 5,
-                  tickRotation: 0,
-                  legendPosition: 'middle',
-                  legendOffset: -25,
-                  legend: 'Amount of Buildings',
-                  
-                  tickValues:Buildingdata.length
+                <Bar
+                  data={ChartData(0)}
+                  axisLeft={{
+                    tickSize: 5,
+                    tickPadding: 5,
+                    tickRotation: 0,
+                    legendPosition: "middle",
+                    legendOffset: -25,
+                    legend: "#Amount of Buildings",
 
-                }}
-                
-                margin={{ top: 30, right: 35, bottom: 20, left: 35 }} />
+                    tickValues: ChartData(0).length,
+                  }}
+                  axisBottom={{
+                    tickRotation: -10,
+                    tickSize:0,
+                    legendPosition: "middle",
+                    legendOffset: 43,
+                    tickPadding:8,
+                    legend: "#Building Types",
+                  }}
+                  margin={{ top: 30, right: 35, bottom: 50, left: 35 }}
+                />
               </div>
               <div className="col-lg-6" style={{ height: 350 }}>
-                <h2 style={{ color: Colors.PrimaryColor, fontSize: '20px' }}>
+              <h2 style={{ color: Colors.PrimaryColor, fontSize: '20px' }}>
                   Brands of BMS
               </h2>
-                <PieChart data={brandData} startAngle={0} padAngle={0.7}
+                <PieChart data={ChartData(4,"pie")} startAngle={0} padAngle={0.7} enableRadialLabels={true}
                   legends={[
                     {
-                      anchor: 'bottom',
-                      direction: 'row',
-                      translateY: 56,
+                      anchor: 'left',
+                      direction: 'column',
+                      translateX: -30,
+                      translateY: 40,
                       itemWidth: 100,
-                      itemHeight: 18,
+                      itemHeight: 24,
                       itemTextColor: '#999',
                       symbolSize: 18,
                       symbolShape: 'circle',
@@ -100,21 +121,21 @@ const Report = (props) => {
                   ]}
                 />
               </div>
-              
             </div>
             <div className=" row pt-5 pb-0 mb-0">
-              <div className="col-lg-6" style={{ height: 275 }}>
+            <div className="col-lg-6" style={{ height: 275 }}>
                 <h2 style={{ color: Colors.PrimaryColor, fontSize: '20px' }}>
                   Building Area (sqm)
               </h2>
-                <PieChart data={AreaData} startAngle={90} endAngle={-90} innerRadius={0.75} cornerRadius={0}
+                <PieChart data={ChartData(1,"pie")} startAngle={90} endAngle={-90} innerRadius={0.75} cornerRadius={0} enableRadialLabels={false}
                   legends={[
                     {
-                      anchor: 'bottom',
-                      direction: 'row',
-                      translateY: 30,
-                      itemWidth: 100,
-                      itemHeight: 18,
+                      anchor: 'top-left',
+                      direction: 'column',
+                      translateX: -50,
+                      translateY: -40,
+                      itemWidth: 80,
+                      itemHeight: 23,
                       itemTextColor: '#999',
                       symbolSize: 18,
                       symbolShape: 'circle',
@@ -128,21 +149,26 @@ const Report = (props) => {
                       ]
                     }
                   ]}
-
                 />
+                 <div style={halfPieStyle}>
+                <span>Total Building</span>
+                <span className="font-weight-bold" style={{fontSize: 30}}>17</span>
+              </div>
               </div>
               <div className="col-lg-6" style={{ height: 350 }}>
                 <h2 style={{ color: Colors.PrimaryColor, fontSize: '20px' }}>
                   Building Management System (BMS)
               </h2>
-                <PieChart data={BMSData} innerRadius={0.75} cornerRadius={0}
+              
+                <PieChart data={ChartData(3,"pie")} innerRadius={0.75} cornerRadius={0} enableRadialLabels={false}
                   legends={[
                     {
                       anchor: 'left',
                       direction: 'column',
-                      translateY: 56,
+                      translateX: 10,
+                      translateY: 50,
                       itemWidth: 100,
-                      itemHeight: 18,
+                      itemHeight: 24,
                       itemTextColor: '#999',
                       symbolSize: 18,
                       symbolShape: 'circle',
@@ -157,122 +183,52 @@ const Report = (props) => {
                     }
                   ]}
                 />
+                <div style={{position: 'absolute',
+                              top: 25,
+                              bottom: 0,
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              fontSize: 50,
+                              color: "#4084d2",
+                              textAlign: "center",  
+                              pointerEvents: "none",
+                              marginLeft:'43%',
+        
+                            }}>
+                <span>5%</span>
+                
+              </div>
               </div>
             </div>
             <div className="row">
-              <div className="col-lg-6" style={{ height: 350 }}>
-                <h2 style={{ color: Colors.PrimaryColor, fontSize: '20px' }}>
+              <div className="col-6 pr-0" style={{ height: 350 }}>
+                <h2 style={{ color: Colors.PrimaryColor, fontSize: "20px" }}>
                   Age of Building
                 </h2>
-                <Bar data={AgeBuildingData} layout={"horizontal"}  axisBottom={{
+                <Bar
+                  data={ChartData(2)}
+                  layout={"horizontal"}
+                  axisBottom={{
                     tickSize: 5,
                     tickPadding: 5,
                     tickRotation: 0,
-                    legendPosition: 'middle',
+                    legendPosition: "middle",
                     legendOffset: 32,
-                    legend:"Amount of Buildings",
-                    tickValues:AgeBuildingData.length
-                  }}  
+                    legend: "Amount of Buildings",
+                    tickValues: ChartData(2).length,
+                  }}
                   margin={{ top: 5, right: 50, bottom: 40, left: 90 }}
                 />
               </div>
             </div>
-
-            {/*             
-            {v.survey_sections.map((v1, k1) => (
-              <div key={k1} className="text-dark">
-                <h4 className="pt-2" style={{ color: Colors.PrimaryColor }}>
-                  {v1.section_name}
-                </h4>
-                <hr />
-
-                <Barchart
-                  data={data}
-                 />
-                <div className="d-flex flex-row flex-wrap">
-                  {v1.questions
-                    ? v1.questions.map((v2, k2) => (
-                        <div key={k2} className="col-lg-6 pb-4">
-                          <div className="d-flex flex-row font-weight-bold pb-2">
-                            {k2 + 1}. {v2.question_name}
-                          </div>
-                          {v2.input_type_id !== 6 ? (
-                            <div className="d-flex flex-row font-weight-bold">
-                              <div className="w-50">Total Buildings</div>
-
-                          <div className="w-50">{`- ${TotalBuilding} ${TotalBuilding===0?"(0%)":"(100%)"} `}</div>
-                            </div>
-                          ) : null}
-
-                          {v2.option_choices.map((v3, k3) =>
-                            v2.input_type_id !== 6 ? (
-                              <div
-                                key={k3}
-                                className="d-flex flex-row flex-wrap"
-                              >
-                                <div className="w-50">
-                                  {v3.option_choice_name}
-                                </div>
-                                <div className="w-50">
-                                  {v3.totalAns == null
-                                    ? "- 0"
-                                    : `- ${v3.totalAns}`}{" "}
-                                  ({isNaN(Percentage(v3.totalAns, TotalBuilding))?0:Percentage(v3.totalAns, TotalBuilding)}%)
-                                </div>
-                              </div>
-                            ) : (
-                              <div
-                                key={k3}
-                                className="d-flex flex-row flex-wrap"
-                              >
-                                <div className="w-50 font-weight-bold">
-                                  {Object.keys(v3.other)[0]}
-                                </div>
-                                <div className="w-50 font-weight-bold">
-                                  {Object.keys(v3.other)[1]}
-                                </div>
-                                <div className="w-50">
-                                  {v3.other.YearOfManufacturing}
-                                </div>
-                                <div className="w-50">
-                                  {v3.other.YearOfInstallation}
-                                </div>
-                              </div>
-                            )
-                          )}
-
-                          {v2.input_type_id === 1 ||
-                          v2.input_type_id === 6 ? null : (
-                            <div className="d-flex flex-row flex-wrap">
-                              <div className="w-50">Not Answered</div>
-                              <div className="w-50">
-                                - {NotAnswered(v2.totalAnsCount, TotalBuilding)}{" "}
-                                (
-                                {isNaN(Percentage(
-                                  NotAnswered(v2.totalAnsCount, TotalBuilding),
-                                  TotalBuilding
-                                ))?0:Percentage(
-                                  NotAnswered(v2.totalAnsCount, TotalBuilding),
-                                  TotalBuilding
-                                )}
-                                %)
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      ))
-                    : null}
-                </div>
-              </div>
-            ))} */}
           </div>
         ))
       ) : (
-          <h3 className="mt-5 text-center text-warning">
-            No Data!
-          </h3>
-        )}
+        <h3 className="mt-5 text-center text-warning">No Data!</h3>
+      )}
     </div>
   );
 };
-export default Report;
+export default withMedia(Report);

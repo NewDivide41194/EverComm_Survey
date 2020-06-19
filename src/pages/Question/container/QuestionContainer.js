@@ -53,15 +53,6 @@ const QuestionContainer = (props) => {
       return r + a * questionslength.slice(1, 5)[i];
     }, 0) + totalQues;
 
-  console.log(
-    "Multiply--->",
-    deviceAmounts &&
-      deviceAmounts.reduce((r, a, i) => {
-        return r + a * questionslength.slice(1, 5)[i];
-      }, 0)
-  );
-  console.log(deviceAmounts, questionslength && questionslength.slice(1, 5));
-
   useEffect(() => {
     setIsLoading(true);
     QuestionFetch(
@@ -73,6 +64,7 @@ const QuestionContainer = (props) => {
       }
     );
     setTotal(totalQuesCount);
+    console.log("Render");
   }, [totalQuesCount]);
 
   const obtained = AnswerCount(AnswerData).length;
@@ -106,7 +98,7 @@ const QuestionContainer = (props) => {
           label: "Submit",
           onClick: () => {
             setIsLoading(true);
-            PostAnswer({ data: AnswerData,total, token }, (err, data) => {
+            PostAnswer({ data: AnswerData, total, token }, (err, data) => {
               setIsLoading(false);
               history.push("/finalPage");
               // localStorage.setItem(`${buildingId}`,total)
@@ -130,8 +122,6 @@ const QuestionContainer = (props) => {
   };
 
   const handleRadioChange = (ansId, quesId) => {
-    console.log(quesId, ansId);
-
     const RadioAns = { ...Ans, optionChoiceId: ansId, questionId: quesId };
 
     if (isQuesId(quesId).length >= 1) {
@@ -143,8 +133,6 @@ const QuestionContainer = (props) => {
   };
 
   const handleCheckChange = (quesId, answerId) => {
-    console.log(quesId, answerId);
-
     const isQuesId =
       // AnswerData.length &&
       AnswerData.filter(
@@ -298,35 +286,37 @@ const QuestionContainer = (props) => {
     setTotal(total + AddedQuestionsLength);
   };
 
-  return IsLoading ? (
-    <ESLoading />
-  ) : (
-    <Question
-      buildingName={buildingName}
-      surveyData={surveyData}
-      QuestionData={QuestionData}
-      userId={userId}
-      pageno={pageno}
-      AnswerData={AnswerData}
-      startDate={startDate}
-      endDate={endDate}
-      selectedOption={selectedOption}
-      obtained={obtained}
-      total={total}
-      percent={percent}
-      amountOfDevice={amountOfDevice}
-      _handleSelect={handleSelect}
-      _handleCheckChange={handleCheckChange}
-      _handleRadioChange={handleRadioChange}
-      _handleInputChange={handleInputChange}
-      _handleStartChange={handleStartChange}
-      _handleEndChange={handleEndChange}
-      _handleNext={_handleNext}
-      _handlePrevious={_handlePrevious}
-      _handleSubmit={_handleSubmit}
-      _handleAnotherDevice={_handleAnotherDevice}
-    />
-  );
+  if (IsLoading) {
+    return <ESLoading />;
+  } else {
+    return (
+      <Question
+        buildingName={buildingName}
+        surveyData={surveyData}
+        QuestionData={QuestionData}
+        userId={userId}
+        pageno={pageno}
+        AnswerData={AnswerData}
+        startDate={startDate}
+        endDate={endDate}
+        selectedOption={selectedOption}
+        obtained={obtained}
+        total={total}
+        percent={percent}
+        amountOfDevice={amountOfDevice}
+        _handleSelect={handleSelect}
+        _handleCheckChange={handleCheckChange}
+        _handleRadioChange={handleRadioChange}
+        _handleInputChange={handleInputChange}
+        _handleStartChange={handleStartChange}
+        _handleEndChange={handleEndChange}
+        _handleNext={_handleNext}
+        _handlePrevious={_handlePrevious}
+        _handleSubmit={_handleSubmit}
+        _handleAnotherDevice={_handleAnotherDevice}
+      />
+    );
+  }
 };
 
 export default QuestionContainer;

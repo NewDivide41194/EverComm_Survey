@@ -6,7 +6,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: 100vh;
 }
 
 code {
@@ -35,13 +34,14 @@ code {
 
 .scrollbar
 { scroll-behavior: smooth;
-	overflow-y: scroll;
-  max-height: 70vh;
+	overflow-y: auto;
+  height: 25rem;
 }
 
 .force-overflow
 {
-  min-height: 450px;
+  max-height: 450px;
+  overflow: hidden;
   transition: 2s;
 }
 
@@ -69,3 +69,10 @@ code {
 
 label{color:rgb(104, 104, 104)}
 
+.question_container{
+  overflow-y: hidden;
+}
+
+.invisible-scrollbar::-webkit-scrollbar {
+  display: none;
+}

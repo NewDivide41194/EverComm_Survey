@@ -7,7 +7,7 @@ import { ESButton } from "./ES_Button";
 import { withMedia } from "react-media-query-hoc";
 import { ESInput } from "./ES_Inputs";
 import ESDatePicker from "./ES_DatePicker";
-
+import moment from "moment"
 const QuestionCard = (props) => {
   const {
     QuestionData,
@@ -32,9 +32,8 @@ const QuestionCard = (props) => {
   const buildingId = localStorage.getItem("buildingId");
   const deviceIndexValue = Object.values(amountOfDevice[0]);
   const addedQuestionId = 1000;
-  console.log(AnswerData);
+console.log(AnswerData);
 
-  console.log("QuestionData--->", QuestionData);
 
   const pageDeviceIndex = pageno === 0 ? 1 : deviceIndexValue[pageno - 1];
 
@@ -140,7 +139,8 @@ const QuestionCard = (props) => {
                           (d) => d.questionId === remakeQuestionId
                         ).map(
                           (v, k) =>
-                            new Date(JSON.parse(v.other).YearOfManufacturing)
+                          moment(new Date(JSON.parse(v.other).YearOfManufacturing)).format("MM-dd-yyyy")
+                            
                         )[0]
                       : null
                   }
@@ -151,7 +151,7 @@ const QuestionCard = (props) => {
                           (d) => d.questionId === remakeQuestionId
                         ).map(
                           (v, k) =>
-                            new Date(JSON.parse(v.other).YearOfInstallation)
+                          moment(new Date(JSON.parse(v.other).YearOfInstallation)).format("MM-dd-yyyy")
                         )[0]
                       : null
                   }

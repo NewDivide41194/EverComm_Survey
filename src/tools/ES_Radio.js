@@ -13,7 +13,6 @@ export const ESRadio = (props) => {
     },
   });
 
-  console.log(isAnswer);
   
   
   return value.map((ans, k3) => (

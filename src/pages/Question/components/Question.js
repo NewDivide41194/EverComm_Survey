@@ -39,7 +39,7 @@ const Question = (props) => {
 
   return (
     surveyData.length && (
-      <div className="">
+      <div>
         <ESProgress Percent={percent} />
         <div className="container">
           <div
@@ -75,11 +75,8 @@ const Question = (props) => {
           >
             {surveyData[0].survey_sections[pageno].section_name}
           </div>
-          <div className="my-2 scrollbar w-100" id="style-1">
-            {/* <div className="force-overflow"> */}
+          {/* <div className="my-2 scrollbar w-100" id="style-1"> */}
 
-            {/* { deviceIndex[pageno].map((a, b) => (
-    <div key={b}> */}
             <QuestionCard
                 QuestionData={QuestionData}
                 pageno={pageno}
@@ -100,11 +97,9 @@ const Question = (props) => {
                 isAnswer={isAnswer}
                 isQuestion={isQuestion}
               />
-              {/* </div>
-              ))} */}
+      
             
-            {/* </div> */}
-          </div>
+          {/* </div> */}
           <div className="row justify-content-between">
             <div
               className="col-lg-6 align-self-center font-weight-bold"

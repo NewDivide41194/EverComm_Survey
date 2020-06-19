@@ -1,6 +1,7 @@
 import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment"
 // import "../App.css";
 
 const ESDatePicker = (props) => {
@@ -11,7 +12,7 @@ const ESDatePicker = (props) => {
     endDate,
     quesId,
   } = props;
-
+console.log(startDate,endDate)
   return (
     <div className="d-flex flex-row flex-wrap">
       <div className="flex-column px-2">

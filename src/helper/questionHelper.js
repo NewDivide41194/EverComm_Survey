@@ -7,7 +7,7 @@ const AnswerCount = (AnswerData) => [
 ];
 
 const windowScrollTop = () =>
-  (document.getElementById("style-1").scrollTop = 0);
+  // (document.getElementById("style-1").scrollTop = 0);
 window.scrollTo({
   top: 0,
   left: 0,
