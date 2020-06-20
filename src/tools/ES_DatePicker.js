@@ -12,7 +12,6 @@ const ESDatePicker = (props) => {
     endDate,
     quesId,
   } = props;
-console.log(startDate,endDate)
   return (
     <div className="d-flex flex-row flex-wrap">
       <div className="flex-column px-2">

@@ -42,13 +42,13 @@
 
 .DateInput_input {
   /* font-weight: normal; */
-  font-size: 19px;
-  height: 20px;
+  font-size: 18px;
+  height: 24px;
   color:black;
   background-color: inherit;
   width: 100%;
   padding: 11px 11px 9px;
-  /* border: 2px solid transparent; */
+   border: 2px solid transparent; 
 }
 .DateRangePickerInput__withBorder{
   border-radius: 5px;

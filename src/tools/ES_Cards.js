@@ -139,7 +139,7 @@ console.log(AnswerData);
                           (d) => d.questionId === remakeQuestionId
                         ).map(
                           (v, k) =>
-                          moment(new Date(JSON.parse(v.other).YearOfManufacturing)).format("MM-dd-yyyy")
+                         new Date(JSON.parse(v.other).YearOfManufacturing)
                             
                         )[0]
                       : null
@@ -151,7 +151,7 @@ console.log(AnswerData);
                           (d) => d.questionId === remakeQuestionId
                         ).map(
                           (v, k) =>
-                          moment(new Date(JSON.parse(v.other).YearOfInstallation)).format("MM-dd-yyyy")
+                         new Date(JSON.parse(v.other).YearOfInstallation)
                         )[0]
                       : null
                   }

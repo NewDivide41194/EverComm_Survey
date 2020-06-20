@@ -4,7 +4,7 @@ import * as Colors from "../config/Color.config";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 export const ESRadio = (props) => {
-  const { value, quesId, _handleRadioChange, isAnswer,isQuestion } = props;
+  const { value, quesId, _handleRadioChange, isAnswer,isQuestion,checked } = props;
   const customTheme = createMuiTheme({
     palette: {
       secondary: {
@@ -13,6 +13,7 @@ export const ESRadio = (props) => {
     },
   });
 
+  console.log(checked);
   
   
   return value.map((ans, k3) => (
@@ -36,7 +37,7 @@ export const ESRadio = (props) => {
         <Radio
           className="p-1"
           name={`${quesId}`}
-          checked={
+          checked={checked||
             isAnswer.filter((d) => d.optionChoiceId === ans.option_choice_id&&d.questionId===quesId).length > 0
           }
           onChange={() => _handleRadioChange(ans.option_choice_id, quesId)}

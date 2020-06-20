@@ -200,10 +200,10 @@ const QuestionContainer = (props) => {
       const StartDateAnswer = {
         ...Ans,
         other: JSON.stringify({
-          YearOfManufacturing: moment(date).format("YYYY-MMM-DD"),
+          YearOfManufacturing: moment(date).format("YYYY-MM-DD"),
           YearOfInstallation: endDate
-            ? moment(endDate).format("YYYY-MMM-DD")
-            : moment().format("YYYY-MMM-DD"),
+            ? moment(endDate).format("YYYY-MM-DD")
+            : moment().format("YYYY-MM-DD"),
         }),
         questionId: quesId,
       };
@@ -229,9 +229,9 @@ const QuestionContainer = (props) => {
         ...Ans,
         other: JSON.stringify({
           YearOfManufacturing: startDate
-            ? moment(startDate).format("YYYY-MMM-DD")
+            ? moment(startDate).format("YYYY-MM-DD")
             : moment(date).subtract(10, "days").calendar(),
-          YearOfInstallation: moment(date).format("YYYY-MMM-DD"),
+          YearOfInstallation: moment(date).format("YYYY-MM-DD"),
         }),
         questionId: quesId,
       };
