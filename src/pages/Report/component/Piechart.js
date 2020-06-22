@@ -5,8 +5,9 @@ const PieChart = ({ data,startAngle,endAngle,legends,innerRadius,cornerRadius,pa
     return(
     <ResponsivePie
         enableRadialLabels={enableRadialLabels}
+
         data={data}
-        margin={{ top: 40, right: 30, bottom: 80, left: 50 }}
+        margin={{ top: 10, right: 70, bottom: 70, left: 70 }}
         startAngle={startAngle}
         endAngle={endAngle}
         padAngle={padAngle}
