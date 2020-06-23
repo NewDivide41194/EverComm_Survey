@@ -32,7 +32,7 @@ const FinalPage= (props) => {
           />
         </div>
         <div className="col-md-3 col-sm-12 py-2">
-          <ESButton text={"Back to SurveyMenu"} onClick={() => _handleMenu()} 
+          <ESButton text={"Survey Menu"} onClick={() => _handleMenu()} 
             rightIcon={<i className="fa fa-caret-right pl-2" />}
             small />
         </div>

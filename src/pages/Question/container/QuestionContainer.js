@@ -186,7 +186,7 @@ const QuestionContainer = (props) => {
       AnswerData.splice(isQuesIdIndex(quesId), 1);
       setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
     }
-  };
+  }
 
   const handleStartChange = (date, quesId) => {
     if (date === null) {
