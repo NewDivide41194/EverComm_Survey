@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import ESCheckBox from "./ES_CheckBox";
 import { ESRadio } from "./ES_Radio";
 import { ESDropDown } from "./ES_DropDown";
@@ -26,6 +26,7 @@ const QuestionCard = (props) => {
     isAnswer,
     AnswerData,
     amountOfDevice,
+    value,
     startDate,
     endDate,
   } = props;

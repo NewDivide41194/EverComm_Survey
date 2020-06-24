@@ -152,7 +152,9 @@ const QuestionContainer = (props) => {
 
   const handleInputChange = (e, quesId) => {
     setValue(e.target.value);
-    const ImportText = e.target.value.replace(/\s+/g, " ").trimStart();
+    // setAnswerData(AnswerData)
+
+    const ImportText = e.target.value.replace(/\s+/g, " ").trimStart()
     const TextAnswer = {
       ...Ans,
       other: ImportText,
@@ -291,6 +293,7 @@ const QuestionContainer = (props) => {
   } else {
     return (
       <Question
+      value={value}
         buildingName={buildingName}
         surveyData={surveyData}
         QuestionData={QuestionData}

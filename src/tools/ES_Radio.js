@@ -11,10 +11,7 @@ export const ESRadio = (props) => {
         main: Colors.PrimaryColor,
       },
     },
-  });
-
-  console.log(checked);
-  
+  });  
   
   return value.map((ans, k3) => (
     <label

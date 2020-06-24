@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Logo from "../../assets/images/Logo.png";
 import { withRouter } from "react-router-dom";
 import withMedia from "react-media-query-hoc/dist/with-media";
@@ -80,10 +80,10 @@ const userLevel=parseInt(localStorage.getItem("userLevel"))
             Report Menu
           </button>
           <div className="dropdown-divider"></div>
-          <span className="dropdown-item text-light bg-dark" >
+          <div className="dropdown-item text-light bg-dark" >
             {/* <i className="text-light far fa-user-circle pr-2 text-secondary" /> */}
             {userLevel===1 ? "Admin" : userLevel===2 ?"User": userLevel===3 ? "Distributer":null}
-          </span>
+          </div>
           <button className="dropdown-item" onClick={_handleSignOut}>
             <i className="fa fa-reply pr-2 text-secondary" />
             Sign Out
