@@ -35,6 +35,7 @@ const QuestionContainer = (props) => {
     questionId: null,
     survey_headers_id: surveyHeaderId,
     building_id: buildingId,
+    keys: null,
   };
   // const totalByUser=parseInt(localStorage.getItem(buildingId))
 
@@ -64,7 +65,6 @@ const QuestionContainer = (props) => {
       }
     );
     setTotal(totalQuesCount);
-    console.log("Render");
   }, [totalQuesCount]);
 
   const obtained = AnswerCount(AnswerData).length;
@@ -121,8 +121,13 @@ const QuestionContainer = (props) => {
     return AnswerData.findIndex((e) => e.questionId === quesId);
   };
 
-  const handleRadioChange = (ansId, quesId) => {
-    const RadioAns = { ...Ans, optionChoiceId: ansId, questionId: quesId };
+  const handleRadioChange = (ansId, quesId, keys) => {
+    const RadioAns = {
+      ...Ans,
+      optionChoiceId: ansId,
+      questionId: quesId,
+      keys: keys,
+    };
 
     if (isQuesId(quesId).length >= 1) {
       AnswerData.splice(isQuesIdIndex(quesId), 1, RadioAns);
@@ -132,7 +137,7 @@ const QuestionContainer = (props) => {
     setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
   };
 
-  const handleCheckChange = (quesId, answerId) => {
+  const handleCheckChange = (quesId, answerId, keys) => {
     const isQuesId =
       // AnswerData.length &&
       AnswerData.filter(
@@ -141,7 +146,12 @@ const QuestionContainer = (props) => {
     const isQuesIdIndex = AnswerData.findIndex(
       (e) => e.optionChoiceId === answerId && e.questionId === quesId
     );
-    const CheckAns = { ...Ans, optionChoiceId: answerId, questionId: quesId };
+    const CheckAns = {
+      ...Ans,
+      optionChoiceId: answerId,
+      questionId: quesId,
+      keys: keys,
+    };
     if (isQuesId.length >= 1) {
       AnswerData.splice(isQuesIdIndex, 1);
     } else {
@@ -150,26 +160,30 @@ const QuestionContainer = (props) => {
     setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
   };
 
-  const handleInputChange = (e, quesId) => {
-    setValue(e.target.value);
+  const handleInputChange = (e, quesId, keys) => {
     // setAnswerData(AnswerData)
 
-    const ImportText = e.target.value.replace(/\s+/g, " ").trimStart()
+    const ImportText = e.target.value.replace(/\s+/g, " ").trimStart();
     const TextAnswer = {
       ...Ans,
       other: ImportText,
       questionId: quesId,
+      keys: keys,
     };
     if (ImportText === "" && isQuesId(quesId).length >= 1) {
+      // setValue(e.target.value);
+
       AnswerData.splice(isQuesIdIndex(quesId), 1);
     } else if (isQuesId(quesId).length >= 1) {
+      setValue(e.target.value);
       AnswerData.splice(isQuesIdIndex(quesId), 1, TextAnswer);
     } else {
+      setValue(e.target.value);
       AnswerData.push(TextAnswer);
     }
   };
 
-  const handleSelect = (quesId, e) => {
+  const handleSelect = (quesId, e, keys) => {
     setSelectedOption(e);
     if (e !== null) {
       let ansId = e.value;
@@ -177,6 +191,7 @@ const QuestionContainer = (props) => {
         ...Ans,
         optionChoiceId: ansId,
         questionId: quesId,
+        keys: keys,
       };
       if (isQuesId(quesId).length >= 1) {
         AnswerData.splice(isQuesIdIndex(quesId), 1, SelectAnswer);
@@ -188,9 +203,9 @@ const QuestionContainer = (props) => {
       AnswerData.splice(isQuesIdIndex(quesId), 1);
       setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
     }
-  }
+  };
 
-  const handleStartChange = (date, quesId) => {
+  const handleStartChange = (date, quesId, keys) => {
     if (date === null) {
       AnswerData.splice(isQuesIdIndex(quesId), 1);
       setStartDate(null);
@@ -208,17 +223,18 @@ const QuestionContainer = (props) => {
             : moment().format("YYYY-MM-DD"),
         }),
         questionId: quesId,
+        keys: keys,
       };
       if (isQuesId(quesId).length >= 1) {
         AnswerData.splice(isQuesIdIndex(quesId), 1, StartDateAnswer);
       } else {
         AnswerData.push(StartDateAnswer);
       }
-      setAnswerData(AnswerData);
+      // setAnswerData(AnswerData);
     }
   };
 
-  const handleEndChange = (date, quesId) => {
+  const handleEndChange = (date, quesId, keys) => {
     if (date === null) {
       AnswerData.splice(isQuesIdIndex(quesId), 1);
       setEndDate(null);
@@ -236,13 +252,14 @@ const QuestionContainer = (props) => {
           YearOfInstallation: moment(date).format("YYYY-MM-DD"),
         }),
         questionId: quesId,
+        keys: keys,
       };
       if (isQuesId(quesId).length >= 1) {
         AnswerData.splice(isQuesIdIndex(quesId), 1, EndDateAnswer);
       } else {
         AnswerData.push(EndDateAnswer);
       }
-      setAnswerData(AnswerData);
+      // setAnswerData(AnswerData);
     }
   };
   const Data1 =
@@ -293,7 +310,7 @@ const QuestionContainer = (props) => {
   } else {
     return (
       <Question
-      value={value}
+        value={value}
         buildingName={buildingName}
         surveyData={surveyData}
         QuestionData={QuestionData}
@@ -318,6 +335,7 @@ const QuestionContainer = (props) => {
         _handleSubmit={_handleSubmit}
         _handleAnotherDevice={_handleAnotherDevice}
       />
+    
     );
   }
 };

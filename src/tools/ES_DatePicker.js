@@ -11,6 +11,7 @@ const ESDatePicker = (props) => {
     startDate,
     endDate,
     quesId,
+    keys
   } = props;
   return (
     <div className="d-flex flex-row flex-wrap">
@@ -19,13 +20,14 @@ const ESDatePicker = (props) => {
         <DatePicker
           className="form-control"
           selected={startDate}
-          onChange={(date) => _handleStartChange(date, quesId)}
+          onChange={(date) => _handleStartChange(date, quesId,keys)}
           selectsStart
           // isClearable
           placeholderText={"Year Of Manufacturing"}
           startDate={startDate}
           maxDate={new Date()}
           endDate={endDate}
+          keys={keys}
         />
       </div>
       <div className="flex-column px-2">
@@ -33,7 +35,7 @@ const ESDatePicker = (props) => {
         <DatePicker
           className="form-control"
           selected={endDate}
-          onChange={(date) => _handleEndChange(date, quesId)}
+          onChange={(date) => _handleEndChange(date, quesId,keys)}
           selectsEnd
           // isClearable
           placeholderText={"Year Of Installation"}

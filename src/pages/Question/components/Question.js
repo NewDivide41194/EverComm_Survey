@@ -28,14 +28,12 @@ const Question = (props) => {
     _handleInputChange,
     _handleStartChange,
     _handleEndChange,
-    _handleAnotherDevice,
     amountOfDevice,
     percent,
   } = props;
 
-  const isAnswer = AnswerData.map((v, k) => v.optionChoiceId);
-  const isQuestion = AnswerData.map((v, k) => v.questionId);
-  const deviceAmount=amountOfDevice&& Object.values(amountOfDevice[0])[pageno - 1]
+  const deviceAmount =
+    amountOfDevice && Object.values(amountOfDevice[0])[pageno - 1];
   return (
     surveyData.length && (
       <div>
@@ -76,8 +74,8 @@ const Question = (props) => {
               {surveyData[0].survey_sections[pageno].section_name}
             </div>
             <div>
-              {deviceAmount}{" "}
-              {Object.keys(amountOfDevice[0])[pageno - 1]}{deviceAmount>1?"s":null}
+              {deviceAmount} {Object.keys(amountOfDevice[0])[pageno - 1]}
+              {deviceAmount > 1 ? "s" : null}
             </div>
           </div>
           {/* <div className="my-2 scrollbar w-100" id="style-1"> */}
@@ -92,15 +90,9 @@ const Question = (props) => {
             _handleSelect={_handleSelect}
             _handleStartChange={_handleStartChange}
             _handleEndChange={_handleEndChange}
-            _handleAnotherDevice={_handleAnotherDevice}
-            _handleNext={_handleNext}
             userId={userId}
             selectedOption={selectedOption}
             AnswerData={AnswerData}
-            startDate={startDate}
-            endDate={endDate}
-            isAnswer={isAnswer}
-            isQuestion={isQuestion}
           />
 
           {/* </div> */}

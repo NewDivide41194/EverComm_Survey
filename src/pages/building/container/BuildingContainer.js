@@ -89,6 +89,8 @@ const BuildingContainer = (props) => {
         } else {
           localStorage.setItem("buildingName", buildingName);
           localStorage.setItem("buildingId", data.payload.insertId);
+          console.log(data.payload.insertId);
+          
           props.history.push(
             `/question/${userId}/${surveyHeaderId}/${buildingId}`
           );

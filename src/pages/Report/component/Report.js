@@ -123,7 +123,7 @@ const Report = (props) => {
                 />
               </div>
               <div
-                className="p-3"
+                className="row p-3"
                 style={{
                   height: window.innerWidth <= 980 ? 300 : 310,
                   width: "50%",
@@ -159,7 +159,7 @@ const Report = (props) => {
                 />
               </div>
             </div>
-            <div className=" row pt-5 pb-0 mb-0">
+            <div className="row pt-5 pb-0 mb-0">
               <div
                 className="p-3"
                 style={{
