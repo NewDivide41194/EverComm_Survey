@@ -35,7 +35,7 @@ const QuestionContainer = (props) => {
     questionId: null,
     survey_headers_id: surveyHeaderId,
     building_id: buildingId,
-    keys: null,
+    keyValue: null,
   };
   // const totalByUser=parseInt(localStorage.getItem(buildingId))
 
@@ -100,7 +100,7 @@ const QuestionContainer = (props) => {
             setIsLoading(true);
             PostAnswer({ data: AnswerData, total, token }, (err, data) => {
               setIsLoading(false);
-              history.push("/finalPage");
+              // history.push("/finalPage");
               // localStorage.setItem(`${buildingId}`,total)
             });
           },
@@ -126,7 +126,7 @@ const QuestionContainer = (props) => {
       ...Ans,
       optionChoiceId: ansId,
       questionId: quesId,
-      keys: keys,
+      keyValue: keys,
     };
 
     if (isQuesId(quesId).length >= 1) {
@@ -150,7 +150,7 @@ const QuestionContainer = (props) => {
       ...Ans,
       optionChoiceId: answerId,
       questionId: quesId,
-      keys: keys,
+      keyValue: keys,
     };
     if (isQuesId.length >= 1) {
       AnswerData.splice(isQuesIdIndex, 1);
@@ -168,7 +168,7 @@ const QuestionContainer = (props) => {
       ...Ans,
       other: ImportText,
       questionId: quesId,
-      keys: keys,
+      keyValue: keys,
     };
     if (ImportText === "" && isQuesId(quesId).length >= 1) {
       // setValue(e.target.value);
@@ -191,7 +191,7 @@ const QuestionContainer = (props) => {
         ...Ans,
         optionChoiceId: ansId,
         questionId: quesId,
-        keys: keys,
+        keyValue: keys,
       };
       if (isQuesId(quesId).length >= 1) {
         AnswerData.splice(isQuesIdIndex(quesId), 1, SelectAnswer);
@@ -223,7 +223,7 @@ const QuestionContainer = (props) => {
             : moment().format("YYYY-MM-DD"),
         }),
         questionId: quesId,
-        keys: keys,
+        keyValue: keys,
       };
       if (isQuesId(quesId).length >= 1) {
         AnswerData.splice(isQuesIdIndex(quesId), 1, StartDateAnswer);
@@ -252,7 +252,7 @@ const QuestionContainer = (props) => {
           YearOfInstallation: moment(date).format("YYYY-MM-DD"),
         }),
         questionId: quesId,
-        keys: keys,
+        keyValue: keys,
       };
       if (isQuesId(quesId).length >= 1) {
         AnswerData.splice(isQuesIdIndex(quesId), 1, EndDateAnswer);

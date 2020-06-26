@@ -1,9 +1,9 @@
 import React from "react";
-import * as Colors from "../../../config/Color.config";
-import { NotAnswered, Percentage } from "../../../helper/reportHelper";
-import PieChart from "./charts/Piechart";
-import Bar from "./charts/Barchart";
-import Logo from "../../../assets/images/Logo.png";
+import * as Colors from "../../../../config/Color.config";
+import { NotAnswered, Percentage } from "../../../../helper/reportHelper";
+import PieChart from "../charts/Piechart";
+import Bar from "../charts/Barchart";
+import Logo from "../../../../assets/images/Logo.png";
 import withMedia from "react-media-query-hoc/dist/with-media";
 
 const Report = (props) => {
