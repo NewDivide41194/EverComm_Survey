@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import ESCheckBox from "./ES_CheckBox";
 import { ESRadio } from "./ES_Radio";
 import { ESDropDown } from "./ES_DropDown";
 import { ESButton } from "./ES_Button";
 
 import { withMedia } from "react-media-query-hoc";
-import { ESInput } from "./ES_Inputs";
+import{ESInput} from "./ES_Inputs";
 import ESDatePicker from "./ES_DatePicker";
 import moment from "moment"
 const QuestionCard = (props) => {
@@ -17,22 +17,16 @@ const QuestionCard = (props) => {
     _handleStartChange,
     _handleSelect,
     _handleEndChange,
-    _handleAnotherDevice,
-    _handleNext,
     isQuestion,
     pageno,
     media,
     selectedOption,
-    isAnswer,
     AnswerData,
     amountOfDevice,
-    startDate,
-    endDate,
   } = props;
   const buildingId = localStorage.getItem("buildingId");
-  const deviceIndexValue = Object.values(amountOfDevice[0]);
+  const deviceIndexValue = amountOfDevice&&Object.values(amountOfDevice[0]);
   const addedQuestionId = 1000;
-console.log(AnswerData);
 
 
   const pageDeviceIndex = pageno === 0 ? 1 : deviceIndexValue[pageno - 1];
@@ -40,7 +34,7 @@ console.log(AnswerData);
   const QuestionCards = new Array(pageDeviceIndex).fill(null).map((v, k3) => {
     return (
       <div key={k3}>
-        {QuestionData.map((ques, k2) => {
+        {QuestionData&&QuestionData.map((ques, k2) => {
           const remakeQuestionId =
             pageDeviceIndex > 1
               ? Object.keys(amountOfDevice[0])[pageno - 1] +
@@ -88,6 +82,7 @@ console.log(AnswerData);
                   _handleChange={_handleCheckChange}
                   isAnswer={AnswerData}
                   isQuestion={isQuestion}
+                  keys={ques.question_id}
                 />
               ) : ques.input_type_id === 2 ? (
                 <ESRadio
@@ -96,6 +91,7 @@ console.log(AnswerData);
                   quesId={remakeQuestionId}
                   isAnswer={AnswerData}
                   isQuestion={isQuestion}
+                  keys={ques.question_id}
                 />
               ) : ques.input_type_id === 5 ? (
                 <ESDropDown
@@ -117,6 +113,7 @@ console.log(AnswerData);
                         )
                       : selectedOption
                   }
+                  keys={ques.question_id}
                 />
               ) : ques.input_type_id === 4 ? (
                 <ESInput
@@ -126,7 +123,7 @@ console.log(AnswerData);
                     (d) => d.questionId === remakeQuestionId
                   ).map((v, k) => v.other)}
                   onChange={(e) => {
-                    _handleInputChange(e, remakeQuestionId);
+                    _handleInputChange(e, remakeQuestionId,ques.question_id);
                   }}
                 />
               ) : ques.input_type_id === 6 ? (
@@ -157,6 +154,7 @@ console.log(AnswerData);
                   }
                   _handleEndChange={_handleEndChange}
                   _handleStartChange={_handleStartChange}
+                  keys={ques.question_id}
                 />
               ) : null}
             </div>

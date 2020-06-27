@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ESButton } from "../../../tools/ES_Button";
-import { ESInput } from "../../../tools/ES_Inputs";
+import{ESInput}from "../../../tools/ES_Inputs";
 import { ESDropDown } from "../../../tools/ES_DropDown";
 import { ESTextfield } from "../../../tools/ES_TextField";
 

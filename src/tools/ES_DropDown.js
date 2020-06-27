@@ -11,7 +11,8 @@ export const ESDropDown = (props) => {
     disabled,
     notClearable,
     id,
-    defaultValue
+    defaultValue,
+    keys
   } = props;
 
   const AnsSelected =
@@ -51,7 +52,7 @@ export const ESDropDown = (props) => {
           ? selectedOption
           : AnsSelected
       }
-      onChange={(e) => _handleSelect(quesId||id, e)}
+      onChange={(e) => _handleSelect(quesId||id, e,keys)}
       // value={selectedOption}
       options={options}
     />

@@ -1,6 +1,6 @@
 import React from "react";
 import { ESButton } from "../../../tools/ES_Button";
-import { ESInput } from "../../../tools/ES_Inputs";
+import{ESInput}from "../../../tools/ES_Inputs";
 
 const Login = props => {
   const { handleSubmit, userName, handleChange } = props;

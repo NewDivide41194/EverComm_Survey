@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ESInput } from "../../../../../src/tools/ES_Inputs.js";
+import{ESInput}from "../../../../../src/tools/ES_Inputs.js";
 import { ESButton } from "../../../../../src/tools/ES_Button.js";
 import * as Colors from "../../../../config/Color.config";
 
@@ -44,7 +44,7 @@ const Account = (props) => {
         <form>
         <div className="py-3 col-lg-12">
           <span style={span} onClick={edit ? handleIsEdit : null}>
-            Account Setting and profile >
+            Account Setting and profile {">"}
           </span>
           {edit && !accountsetting && (
             <span style={span} className="font-weight-bold">

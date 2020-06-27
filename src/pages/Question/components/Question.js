@@ -4,7 +4,6 @@ import { ESButton } from "../../../tools/ES_Button";
 import { withMedia } from "react-media-query-hoc";
 import ESProgress from "../../../tools/ES_Progress";
 import * as Color from "../../../config/Color.config";
-import { withRouter } from "react-router-dom";
 
 const Question = (props) => {
   const {
@@ -29,14 +28,12 @@ const Question = (props) => {
     _handleInputChange,
     _handleStartChange,
     _handleEndChange,
-    _handleAnotherDevice,
     amountOfDevice,
     percent,
   } = props;
 
-  const isAnswer = AnswerData.map((v, k) => v.optionChoiceId);
-  const isQuestion = AnswerData.map((v, k) => v.questionId);
-
+  const deviceAmount =
+    amountOfDevice && Object.values(amountOfDevice[0])[pageno - 1];
   return (
     surveyData.length && (
       <div>
@@ -70,35 +67,34 @@ const Question = (props) => {
           </div>
 
           <div
-            className="my-2"
+            className="d-flex flex-row flex-wrap justify-content-between pt-2"
             style={{ fontSize: media.mobile ? "18px" : "20px" }}
           >
-            {surveyData[0].survey_sections[pageno].section_name}
+            <div className="font-weight-bold">
+              {surveyData[0].survey_sections[pageno].section_name}
+            </div>
+            <div>
+              {deviceAmount} {Object.keys(amountOfDevice[0])[pageno - 1]}
+              {deviceAmount > 1 ? "s" : null}
+            </div>
           </div>
           {/* <div className="my-2 scrollbar w-100" id="style-1"> */}
 
-            <QuestionCard
-                QuestionData={QuestionData}
-                pageno={pageno}
-                amountOfDevice={amountOfDevice}
-                _handleCheckChange={_handleCheckChange}
-                _handleRadioChange={_handleRadioChange}
-                _handleInputChange={_handleInputChange}
-                _handleSelect={_handleSelect}
-                _handleStartChange={_handleStartChange}
-                _handleEndChange={_handleEndChange}
-                _handleAnotherDevice={_handleAnotherDevice}
-                _handleNext={_handleNext}
-                userId={userId}
-                selectedOption={selectedOption}
-                AnswerData={AnswerData}
-                startDate={startDate}
-                endDate={endDate}
-                isAnswer={isAnswer}
-                isQuestion={isQuestion}
-              />
-      
-            
+          <QuestionCard
+            QuestionData={QuestionData}
+            pageno={pageno}
+            amountOfDevice={amountOfDevice}
+            _handleCheckChange={_handleCheckChange}
+            _handleRadioChange={_handleRadioChange}
+            _handleInputChange={_handleInputChange}
+            _handleSelect={_handleSelect}
+            _handleStartChange={_handleStartChange}
+            _handleEndChange={_handleEndChange}
+            userId={userId}
+            selectedOption={selectedOption}
+            AnswerData={AnswerData}
+          />
+
           {/* </div> */}
           <div className="row justify-content-between">
             <div
@@ -150,4 +146,4 @@ const Question = (props) => {
   );
 };
 
-export default withRouter(withMedia(Question));
+export default withMedia(Question);
