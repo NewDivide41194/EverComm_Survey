@@ -38,6 +38,7 @@ const QuestionContainer = (props) => {
     keyValue: null,
   };
   // const totalByUser=parseInt(localStorage.getItem(buildingId))
+  // console.log(AnswerData);
 
   const amountOfDevice = surveyData.length && surveyData[0].amountOfDevice;
   const deviceAmounts =
@@ -335,7 +336,6 @@ const QuestionContainer = (props) => {
         _handleSubmit={_handleSubmit}
         _handleAnotherDevice={_handleAnotherDevice}
       />
-    
     );
   }
 };
