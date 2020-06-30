@@ -292,6 +292,7 @@ const Report = (props) => {
             <div style={{ height: 400 }}>
               <StackedBar data={data1} />
             </div>
+         
           </div>
         ))
       ) : (

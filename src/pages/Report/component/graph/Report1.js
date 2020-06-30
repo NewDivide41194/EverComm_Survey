@@ -3,6 +3,7 @@ import * as Colors from "../../../../config/Color.config";
 import ResponsiveBar from "../charts/Barchart";
 import Logo from "../../../../assets/images/Logo.png";
 import withMedia from "react-media-query-hoc/dist/with-media";
+import RadialChart from "../charts/radialbarchart";
 
 const Report1 = (props) => {
   const { reportData, media } = props;
@@ -113,6 +114,9 @@ const Report1 = (props) => {
               margin={{ top: 5, right: 40, bottom: 45, left: 95 }}
             />
           </div>
+          <div style={{ height: 400 }}>
+              <RadialChart />
+            </div>
         </div>
       </div>
     </div>
