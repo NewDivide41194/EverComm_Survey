@@ -7,15 +7,14 @@ const Bar = ({ data,reverse,axisLeft,layout,margin,legends,axisBottom}) => (
     <ResponsiveBar
         data={data}
         keys={[ 'value']}
-        // gridYValues={1}
-        
+        enableGridY={false}        
         indexBy="name"
         margin={margin}
-        padding={0.6}
+        padding={0.2}
         layout={layout}
         reverse={reverse}
         colors={["#4084d2","#56afff","#898989","#dedede","#8ecc6a"]}
-
+        
         borderColor={{ from: 'color', modifiers: [ [ 'darker', 1.6 ] ] }}
         axisTop={null}
         axisRight={null}

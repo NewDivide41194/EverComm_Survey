@@ -5,7 +5,8 @@ import ReactToPrint from "react-to-print";
 import { ESButton } from "../../../tools/ES_Button";
 import Cover from "../component/Cover";
 import BackCover from "../component/BackCover";
-import Text from "../component/text/textReport"
+import Text from "../component/text/TextReport";
+import Report1 from "../component/graph/Report1";
 const ReportContainer = (props) => {
   const [reportData, setReportData] = useState([]);
   // const [dateReportData,setDateReportData]=useState([])
@@ -56,7 +57,7 @@ const ReportContainer = (props) => {
           <div className="mt-4">
             <ReactToPrint
               trigger={() => (
-                <div className="col-3 py-2 px-0" style={{minWidth:172}}>
+                <div className="col-3 py-2 px-0" style={{ minWidth: 172 }}>
                   <ESButton
                     text={"Print"}
                     small
@@ -74,14 +75,17 @@ const ReportContainer = (props) => {
                 endDate={endDate}
                 viewType={userLevel === 2 ? null : viewType}
               />
-              <Text reportData={reportData}
+              <Text
+                reportData={reportData}
                 startDate={startDate}
                 endDate={endDate}
-                viewType={userLevel === 2 ? null : viewType}/>
-                <BackCover
-              reportData={reportData}
-              startDate={startDate}
-              endDate={endDate}/>
+                viewType={userLevel === 2 ? null : viewType}
+              />
+              <BackCover
+                reportData={reportData}
+                startDate={startDate}
+                endDate={endDate}
+              />
             </div>
           </div>
         </div>
@@ -89,7 +93,7 @@ const ReportContainer = (props) => {
           <div className="mt-4">
             <ReactToPrint
               trigger={() => (
-                <div className="col-3 py-2 px-0" style={{minWidth:172}}>
+                <div className="col-3 py-2 px-0" style={{ minWidth: 172 }}>
                   <ESButton
                     text={"Print"}
                     small
@@ -114,10 +118,12 @@ const ReportContainer = (props) => {
                 endDate={endDate}
                 viewType={userLevel === 2 ? null : viewType}
               />
+              <Report1 reportData={reportData} />
               <BackCover
-              reportData={reportData}
-              startDate={startDate}
-              endDate={endDate}/>
+                reportData={reportData}
+                startDate={startDate}
+                endDate={endDate}
+              />
             </div>
           </div>
         </div>
