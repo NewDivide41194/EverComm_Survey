@@ -29,7 +29,6 @@ const ReportMenu = (props) => {
   } = props;
   const userLevel = localStorage.getItem("userLevel");
   const isOutsideRange = (day) => !isInclusivelyBeforeDay(day, moment());
-  console.log("Level", userLevel);
 
   return (
     <div className="container">

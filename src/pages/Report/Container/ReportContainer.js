@@ -6,7 +6,7 @@ import { ESButton } from "../../../tools/ES_Button";
 import Cover from "../component/Cover";
 import BackCover from "../component/BackCover";
 import Text from "../component/text/TextReport";
-import Report1 from "../component/graph/Report1";
+import Report1 from "../component/text/Report1";
 const ReportContainer = (props) => {
   const [reportData, setReportData] = useState([]);
   // const [dateReportData,setDateReportData]=useState([])
@@ -32,6 +32,11 @@ const ReportContainer = (props) => {
   console.log("Report Data---->", reportData);
   const componentRefChart = useRef();
   const componentRefTest = useRef();
+  const range = (start, stop, step = 1) =>
+    Array(Math.ceil((stop - start) / step))
+      .fill(start)
+      .map((x, y) => x + y * step);
+
   return (
     <div className="container">
       <h3 className="text-primary">Report</h3>
@@ -75,12 +80,36 @@ const ReportContainer = (props) => {
                 endDate={endDate}
                 viewType={userLevel === 2 ? null : viewType}
               />
-              <Text
-                reportData={reportData}
+              {/* <Text reportData={reportData}
                 startDate={startDate}
                 endDate={endDate}
-                viewType={userLevel === 2 ? null : viewType}
-              />
+                viewType={userLevel === 2 ? null : viewType}/> */}
+              {reportData.map((s, k) => {
+                const surveyRange = range(0, s.survey_sections.length, 8);
+                return surveyRange.map((r, index) => {
+                  return s.survey_sections
+                    .slice(surveyRange[index], surveyRange[index + 1])
+                    .map((survey, kk) => (
+                      // <Report1 surveySection={survey}
+                      //      reportData={s}
+                      //      startDate={startDate}
+                      //      endDate={endDate}
+                      //      viewType={userLevel === 2 ? null : viewType}/>
+                      <Report1
+                        surveySection={survey}
+                        reportData={s}
+                        startDate={startDate}
+                        endDate={endDate}
+                        viewType={userLevel === 2 ? null : viewType}
+                      />
+                    ));
+                });
+              })}
+              {/* <Report2 reportData={reportData}
+                startDate={startDate}
+                endDate={endDate}
+                viewType={userLevel === 2 ? null : viewType}/> */}
+
               <BackCover
                 reportData={reportData}
                 startDate={startDate}
@@ -118,7 +147,7 @@ const ReportContainer = (props) => {
                 endDate={endDate}
                 viewType={userLevel === 2 ? null : viewType}
               />
-              <Report1 reportData={reportData} />
+              {/* <Report1 reportData={reportData} /> */}
               <BackCover
                 reportData={reportData}
                 startDate={startDate}

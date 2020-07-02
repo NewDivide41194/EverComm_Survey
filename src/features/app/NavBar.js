@@ -8,7 +8,7 @@ const NavBar = (props) => {
   const userId = localStorage.getItem("userId");
   const email = localStorage.getItem("email");
   const { media } = props;
-const userLevel=parseInt(localStorage.getItem("userLevel"))
+  const userLevel = parseInt(localStorage.getItem("userLevel"));
   const _handleSignOut = () => {
     Auth.signout(() => {
       props.history.push("/");
@@ -31,14 +31,14 @@ const userLevel=parseInt(localStorage.getItem("userLevel"))
     }
   };
   const _handlesurveyMenu = () => {
-   props.history.push(`/surveyMenu/${userId}`);  
+    props.history.push(`/surveyMenu/${userId}`);
   };
-  const _handleReportMenu=()=>{
-      props.history.push(`/reportMenu/${userId}`);
+  const _handleReportMenu = () => {
+    props.history.push(`/reportMenu/${userId}`);
   };
   return (
     <div
-      style={{ zIndex: 97,background:"white" }}
+      style={{ zIndex: 97, background: "white" }}
       className="d-flex flex-row flex-wrap py-2 px-4 sticky-top justify-content-between"
     >
       <img
@@ -66,7 +66,6 @@ const userLevel=parseInt(localStorage.getItem("userLevel"))
             </button>
           )}
         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        
           <button className="dropdown-item" onClick={_handleAccount}>
             <i className="fas fa-user-cog pr-2 text-secondary" />
             Account Setting
@@ -80,17 +79,21 @@ const userLevel=parseInt(localStorage.getItem("userLevel"))
             Report Menu
           </button>
           <div className="dropdown-divider"></div>
-          <div className="dropdown-item text-light bg-dark" >
+          <div className="dropdown-item text-light bg-dark">
             {/* <i className="text-light far fa-user-circle pr-2 text-secondary" /> */}
-            {userLevel===1 ? "Admin" : userLevel===2 ?"User": userLevel===3 ? "Distributer":null}
+            {userLevel === 1
+              ? "Admin"
+              : userLevel === 2
+              ? "User"
+              : userLevel === 3
+              ? "Distributer"
+              : null}
           </div>
           <button className="dropdown-item" onClick={_handleSignOut}>
             <i className="fa fa-reply pr-2 text-secondary" />
             Sign Out
           </button>
-          
         </div>
-        
       </div>
     </div>
   );

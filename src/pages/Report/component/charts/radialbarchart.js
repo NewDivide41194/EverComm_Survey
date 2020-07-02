@@ -3,10 +3,10 @@ import { RadialBarChart, RadialBar, Legend } from 'recharts';
 
 const data = [
     {
-        name: 'less than 10', uv: 6,  fill: '#82c937',
+        name: 'less than 10', uv: 6,  fill: '#9e9e9e',
     },
     {
-        name: '10-20', uv:5, fill: '#7bbf34',
+        name: '10-20', uv:5, fill: '#7e7e7e',
     },
     {
         name: '20-30', uv: 4,  fill: '#fae3b2',
