@@ -123,8 +123,6 @@ const ReportMenu = (props) => {
 
 const ReportDetail = (props) => {
   const { ReportDetailData, surveyId } = props;
-  // console.log(ReportDetailData);
-
   const filteredData =
     ReportDetailData &&
     ReportDetailData.filter((R) => R.survey_header_id === surveyId);

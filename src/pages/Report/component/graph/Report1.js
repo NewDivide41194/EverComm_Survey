@@ -88,6 +88,8 @@ const Report1 = (props) => {
             <h2 style={{ color: Colors.PrimaryColor, fontSize: "20px" }}>
               Brands of Chillers
             </h2>
+            <RadialChart />
+
             <ResponsiveBar
               dotSize={0}
               enableGridX={false}
@@ -115,7 +117,6 @@ const Report1 = (props) => {
             />
           </div>
           <div style={{ height: 400 }}>
-              <RadialChart />
             </div>
         </div>
       </div>

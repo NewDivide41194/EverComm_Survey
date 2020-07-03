@@ -1,11 +1,10 @@
 import React from "react";
 import * as Colors from "../../../../config/Color.config";
 import { NotAnswered, Percentage } from "../../../../helper/reportHelper";
-import withMedia from "react-media-query-hoc/dist/with-media";
 import Logo from "../../../../assets/images/Logo.png";
 
 const Text = (props) => {
-  const { reportData, startDate, endDate, viewType, media } = props;
+  const { reportData, startDate, endDate, viewType } = props;
   const TotalBuilding =
     reportData &&
     reportData.map((v, k) => v.building_count[0].Number_of_buildings)[0];
@@ -37,12 +36,8 @@ const Text = (props) => {
             }}
           >
             <div className="row justify-content-between border-bottom">
-              <div
-                className=""
-                style={{ fontSize: media.mobile ? "15px" : "15px" }}
-              >
+             
                 Cooling System
-              </div>
               <div className="text-right " style={{ width: "50%" }}>
                 <img
                   src={Logo}
@@ -170,7 +165,7 @@ const Text = (props) => {
     </div>
   );
 };
-export default withMedia(Text);
+export default Text;
 // import React from "react";
 // import * as Colors from "../../../../config/Color.config";
 // import { NotAnswered, Percentage } from "../../../../helper/reportHelper";

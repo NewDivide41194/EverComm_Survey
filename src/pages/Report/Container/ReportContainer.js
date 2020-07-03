@@ -9,7 +9,6 @@ import Text from "../component/text/TextReport";
 import Report1 from "../component/text/Report1";
 const ReportContainer = (props) => {
   const [reportData, setReportData] = useState([]);
-  // const [dateReportData,setDateReportData]=useState([])
   const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
   const token = localStorage.getItem("token");
 
@@ -58,7 +57,7 @@ const ReportContainer = (props) => {
         </li>
       </ul>
       <div className="tab-content">
-        <div className="tab-pane active" id="reportTest">
+        <div className="tab-pane" id="reportTest">
           <div className="mt-4">
             <ReactToPrint
               trigger={() => (
@@ -80,21 +79,14 @@ const ReportContainer = (props) => {
                 endDate={endDate}
                 viewType={userLevel === 2 ? null : viewType}
               />
-              {/* <Text reportData={reportData}
-                startDate={startDate}
-                endDate={endDate}
-                viewType={userLevel === 2 ? null : viewType}/> */}
+
               {reportData.map((s, k) => {
                 const surveyRange = range(0, s.survey_sections.length, 8);
                 return surveyRange.map((r, index) => {
                   return s.survey_sections
                     .slice(surveyRange[index], surveyRange[index + 1])
                     .map((survey, kk) => (
-                      // <Report1 surveySection={survey}
-                      //      reportData={s}
-                      //      startDate={startDate}
-                      //      endDate={endDate}
-                      //      viewType={userLevel === 2 ? null : viewType}/>
+
                       <Report1
                         surveySection={survey}
                         reportData={s}
@@ -105,10 +97,6 @@ const ReportContainer = (props) => {
                     ));
                 });
               })}
-              {/* <Report2 reportData={reportData}
-                startDate={startDate}
-                endDate={endDate}
-                viewType={userLevel === 2 ? null : viewType}/> */}
 
               <BackCover
                 reportData={reportData}
@@ -118,7 +106,7 @@ const ReportContainer = (props) => {
             </div>
           </div>
         </div>
-        <div className="tab-pane" id="reportChart">
+        <div className="tab-pane active" id="reportChart">
           <div className="mt-4">
             <ReactToPrint
               trigger={() => (
