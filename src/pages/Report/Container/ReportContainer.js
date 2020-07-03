@@ -57,7 +57,7 @@ const ReportContainer = (props) => {
         </li>
       </ul>
       <div className="tab-content">
-        <div className="tab-pane active" id="reportTest">
+        <div className="tab-pane" id="reportTest">
           <div className="mt-4">
             <ReactToPrint
               trigger={() => (
@@ -106,7 +106,7 @@ const ReportContainer = (props) => {
             </div>
           </div>
         </div>
-        <div className="tab-pane" id="reportChart">
+        <div className="tab-pane active" id="reportChart">
           <div className="mt-4">
             <ReactToPrint
               trigger={() => (
