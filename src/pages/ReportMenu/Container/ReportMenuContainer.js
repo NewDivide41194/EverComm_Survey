@@ -18,7 +18,7 @@ const ReportMenuContainer = (props) => {
   const EndDate = endDate && moment(endDate._d).format("YYYY-MM-DD");
 
   const _handleReport = () => {
-     window.open(startDate === null && endDate === null ? '/report/totalReport' : `/report/?startDate=${StartDate}&endDate=${StartDate}`)
+     window.open(startDate === null && endDate === null ? '/report/totalReport' : `/report/?startDate=${StartDate}&endDate=${EndDate}`)
   };
   useEffect(() => {
     surveyId && setIsDisable(false);

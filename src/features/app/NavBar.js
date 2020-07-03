@@ -9,6 +9,11 @@ const NavBar = (props) => {
   const email = localStorage.getItem("email");
   const { media } = props;
   const userLevel = parseInt(localStorage.getItem("userLevel"));
+  const queryString = window.location.search;
+
+  const urlParams = new URLSearchParams(queryString);
+  const startDate = urlParams.get("startDate");
+  const endDate = urlParams.get("endDate");
   const _handleSignOut = () => {
     Auth.signout(() => {
       props.history.push("/");
@@ -36,8 +41,9 @@ const NavBar = (props) => {
   const _handleReportMenu = () => {
     props.history.push(`/reportMenu/${userId}`);
   };
-  return (
-    <div
+  console.log(props.location.pathname);
+  const Nav = () => {
+    return (<div
       style={{ zIndex: 97, background: "white" }}
       className="d-flex flex-row flex-wrap py-2 px-4 sticky-top justify-content-between"
     >
@@ -68,34 +74,44 @@ const NavBar = (props) => {
         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <button className="dropdown-item" onClick={_handleAccount}>
             <i className="fas fa-user-cog pr-2 text-secondary" />
-            Account Setting
-          </button>
+        Account Setting
+      </button>
           <button className="dropdown-item" onClick={_handlesurveyMenu}>
             <i className="fa fa-list-ul pr-2 text-secondary" />
-            Survey Menu
-          </button>
+        Survey Menu
+      </button>
           <button className="dropdown-item" onClick={_handleReportMenu}>
             <i className="fa fa-chart-line pr-2 text-secondary" />
-            Report Menu
-          </button>
+        Report Menu
+      </button>
           <div className="dropdown-divider"></div>
           <div className="dropdown-item text-light bg-dark">
             {/* <i className="text-light far fa-user-circle pr-2 text-secondary" /> */}
             {userLevel === 1
               ? "Admin"
               : userLevel === 2
-              ? "User"
-              : userLevel === 3
-              ? "Distributer"
-              : null}
+                ? "User"
+                : userLevel === 3
+                  ? "Distributer"
+                  : null}
           </div>
           <button className="dropdown-item" onClick={_handleSignOut}>
             <i className="fa fa-reply pr-2 text-secondary" />
-            Sign Out
-          </button>
+        Sign Out
+      </button>
         </div>
       </div>
-    </div>
+    </div>)
+  }
+  return (
+    props.location.pathname ===
+      "/report/totalReport" ? null :
+      props.location.pathname ===
+        `/report/`
+
+        ? null : <Nav />
+
+
   );
 };
 

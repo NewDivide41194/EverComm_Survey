@@ -43,11 +43,11 @@ export default {
     [RouteName.routeRegisterPage]: { component: RegisterContainer },
     [RouteName.routeAdminPage]: { component: AdminContainer },
     [RouteName.routeMenuPage]: { component: MenuContainer },
-    [RouteName.routeSurveyMenuPage]: {component: SurveryMenuContainer},
+    [RouteName.routeSurveyMenuPage]: { component: SurveryMenuContainer },
     [RouteName.routeAccountPage]: { component: AccountContainer },
     [RouteName.routeBuildingPage]: { component: BuildingContainer },
     [RouteName.routeSurveylistPage]: { component: SurveylistContainer },
-    [RouteName.routeFinalPage]:{component:FinalPageContainer}
+    [RouteName.routeFinalPage]: { component: FinalPageContainer }
   },
   default: RouteName.routeFirstPage,
 };

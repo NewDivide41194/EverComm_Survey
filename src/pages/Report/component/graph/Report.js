@@ -6,6 +6,7 @@ import Bar from "../charts/Barchart";
 import Logo from "../../../../assets/images/Logo.png";
 import withMedia from "react-media-query-hoc/dist/with-media";
 import { StackedBar } from "../charts/StackedBar";
+import RadialChart from "../charts/radialbarchart";
 const Report = (props) => {
   const { reportData, startDate, endDate, viewType, media } = props;
   const TotalBuilding = reportData
@@ -289,10 +290,12 @@ const Report = (props) => {
                 ]}
               />
             </div> */}
+            <div className="py-3">
+                        <RadialChart/>
+</div>
             <div style={{ height: 400 }}>
               <StackedBar data={data1} />
             </div>
-         
           </div>
         ))
       ) : (
