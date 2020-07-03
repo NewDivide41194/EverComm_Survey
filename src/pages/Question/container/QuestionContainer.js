@@ -101,8 +101,8 @@ const QuestionContainer = (props) => {
             setIsLoading(true);
             PostAnswer({ data: AnswerData, total, token }, (err, data) => {
               setIsLoading(false);
-              // history.push("/finalPage");
-              // localStorage.setItem(`${buildingId}`,total)
+              history.push("/finalPage");
+              localStorage.setItem(`${buildingId}`,total)
             });
           },
         },
