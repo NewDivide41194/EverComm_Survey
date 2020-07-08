@@ -11,7 +11,7 @@ export const StackedBar = ({ data /* see data tab */ }) => (
         keys={[ 'Office Building', 'Hotel', 'ShoppingMall', 'Residential Building', 'Factory' ]}
         indexBy="Area"
         margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
-        
+        maxValue={data.length}
         padding={0.5}
         enableGridY={false}
         // layout="horizontal"

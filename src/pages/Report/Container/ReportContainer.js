@@ -1,17 +1,17 @@
 import React, { useEffect, useState, useRef } from "react";
 import Report from "../component/graph/Report";
-import { UserReportAnswers } from "../../../api/FetchReportAnswers";
+import { UserReportAnswers,FetchTypeAndBuilding } from "../../../api/FetchReportAnswers";
 import ReactToPrint from "react-to-print";
 import { ESButton } from "../../../tools/ES_Button";
 import Cover from "../component/Cover";
 import BackCover from "../component/BackCover";
-import Text from "../component/text/TextReport";
+// import Text from "../component/text/TextReport";
 import Report1 from "../component/text/Report1";
 const ReportContainer = (props) => {
   const [reportData, setReportData] = useState([]);
   const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
   const token = localStorage.getItem("token");
-
+  const [TypeAndArea,setTypeAndArea]=useState([])
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const startDate = urlParams.get("startDate");
@@ -26,9 +26,15 @@ const ReportContainer = (props) => {
         setReportData(data.payload);
       }
     );
+    FetchTypeAndBuilding(token,(err,data)=>{
+      setTypeAndArea(data.payload)
+    })
   }, []);
 
-  console.log("Report Data---->", reportData);
+
+// const some=Math.max.apply(Math, above.map(function(o) { return o.optionCount; }));
+// console.log(some)
+
   const componentRefChart = useRef();
   const componentRefTest = useRef();
   const range = (start, stop, step = 1) =>
@@ -57,8 +63,7 @@ const ReportContainer = (props) => {
         </li>
       </ul>
       <div className="tab-content">
-        <div className="tab-pane" id="reportTest">
-          <div className="mt-4">
+        <div className="mt-4 tab-pane" id="reportTest">
             <ReactToPrint
               trigger={() => (
                 <div className="col-3 py-2 px-0" style={{ minWidth: 172 }}>
@@ -86,7 +91,6 @@ const ReportContainer = (props) => {
                   return s.survey_sections
                     .slice(surveyRange[index], surveyRange[index + 1])
                     .map((survey, kk) => (
-
                       <Report1
                         surveySection={survey}
                         reportData={s}
@@ -97,14 +101,12 @@ const ReportContainer = (props) => {
                     ));
                 });
               })}
-
               <BackCover
                 reportData={reportData}
                 startDate={startDate}
                 endDate={endDate}
               />
             </div>
-          </div>
         </div>
         <div className="tab-pane active" id="reportChart">
           <div className="mt-4">
@@ -131,6 +133,7 @@ const ReportContainer = (props) => {
               />
               <Report
                 reportData={reportData}
+                typeAndArea={TypeAndArea}
                 startDate={startDate}
                 endDate={endDate}
                 viewType={userLevel === 2 ? null : viewType}

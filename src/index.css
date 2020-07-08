@@ -76,3 +76,5 @@ label{color:rgb(104, 104, 104)}
 .invisible-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+.pdfBg{-webkit-print-color-adjust: exact}

@@ -9,47 +9,22 @@ const Cover = (props) => {
 
   return (
 
-    <div className="container"
+    <div className="container shadow"
       style={{
-        border: "0.1px solid #cecece",
         width: "8.27in",
         height: "15.66in",
-        // paddingLeft: "0.5in",
-        // paddingTop: "0.2in",
-        // paddingRight: "0.5in",
-        // paddingBottom: "0.3in",
-        backgroundColor: ""
-      }} >
+          }} >
 
 
-<div className="text-left" style={{width:""}}>
         <img
         src={Logo}
+        className="mt-3 ml-4"
         style={{
           height: "30px",
           // cursor: "pointer",
         }}
         alt="logo"
       />
-        </div>
-      {/* <div className="row justify-content-between border-bottom">
-        <div className="" style={{ fontSize: media.mobile ? "15px" : "15px" }}>Cooling System</div>
-        <div className="text-right " style={{ width: "50%" }}>
-          <img
-            src={Logo}
-            style={{
-              height: "18px",
-              // cursor: "pointer",
-            }}
-            alt="logo"
-          />
-        </div>
-      </div> */}
-      {/* <div className="row border-bottom ">
-        <h5 style={{ color: Colors.PrimaryColor, fontSize: media.mobile ? "20px" : "25px" }}>
-          Basic Information</h5>
-
-    </div> */}
       {
         reportData && reportData.length ? (
           reportData.map((v, k) => (

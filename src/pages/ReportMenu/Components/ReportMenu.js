@@ -4,7 +4,7 @@ import "react-dates/lib/css/_datepicker.css";
 import { ESButton } from "../../../tools/ES_Button";
 import { ESDropDown } from "../../../tools/ES_DropDown";
 import { withRouter } from "react-router-dom";
-import {ESRadio} from "../../../tools/ES_Radio"
+import { ESRadio } from "../../../tools/ES_Radio";
 import * as Colors from "../../../config/Color.config";
 import "react-dates/initialize";
 import { DateRangePicker, isInclusivelyBeforeDay } from "react-dates";
@@ -47,7 +47,6 @@ const ReportMenu = (props) => {
               onChange={_handleSelectChange}
               checked={viewType === "all"}
             />
-            
             All users
           </div>
           <div className="pl-2 ">

@@ -46,7 +46,6 @@ const Report1 = (props) => {
               className="row d-fle
                 x flex-row flex-wrap"
             >
-              {" "}
               <div className="col-12 font-weight-bold text-success">
 
               <div>
