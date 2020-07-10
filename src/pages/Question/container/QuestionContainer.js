@@ -37,8 +37,17 @@ const QuestionContainer = (props) => {
     building_id: buildingId,
     keyValue: null,
   };
-  // const totalByUser=parseInt(localStorage.getItem(buildingId))
-  // console.log(AnswerData);
+  const building = AnswerData.length && AnswerData[0].optionChoiceId;
+  const buildingType =
+    building === 1
+      ? "Office Building"
+      : building === 2
+      ? "Hotel"
+      : building === 3
+      ? "Shopping Mall"
+      : building === 4
+      ? "Residential Building"
+      : "Factory";
 
   const amountOfDevice = surveyData.length && surveyData[0].amountOfDevice;
   const deviceAmounts =
@@ -99,10 +108,10 @@ const QuestionContainer = (props) => {
           label: "Submit",
           onClick: () => {
             setIsLoading(true);
-            PostAnswer({ data: AnswerData, total, token }, (err, data) => {
+            PostAnswer({ data: AnswerData, total, buildingType,token }, (err, data) => {
               setIsLoading(false);
-              // history.push("/finalPage");
-              // localStorage.setItem(`${buildingId}`,total)
+              history.push("/finalPage");
+              localStorage.setItem(`${buildingId}`, total);
             });
           },
         },
@@ -162,8 +171,6 @@ const QuestionContainer = (props) => {
   };
 
   const handleInputChange = (e, quesId, keys) => {
-    // setAnswerData(AnswerData)
-
     const ImportText = e.target.value.replace(/\s+/g, " ").trimStart();
     const TextAnswer = {
       ...Ans,
@@ -172,8 +179,6 @@ const QuestionContainer = (props) => {
       keyValue: keys,
     };
     if (ImportText === "" && isQuesId(quesId).length >= 1) {
-      // setValue(e.target.value);
-
       AnswerData.splice(isQuesIdIndex(quesId), 1);
     } else if (isQuesId(quesId).length >= 1) {
       setValue(e.target.value);
@@ -231,7 +236,6 @@ const QuestionContainer = (props) => {
       } else {
         AnswerData.push(StartDateAnswer);
       }
-      // setAnswerData(AnswerData);
     }
   };
 
@@ -260,7 +264,6 @@ const QuestionContainer = (props) => {
       } else {
         AnswerData.push(EndDateAnswer);
       }
-      // setAnswerData(AnswerData);
     }
   };
   const Data1 =
@@ -305,6 +308,7 @@ const QuestionContainer = (props) => {
       .length;
     setTotal(total + AddedQuestionsLength);
   };
+  console.log("Answer----->");
 
   if (IsLoading) {
     return <ESLoading />;

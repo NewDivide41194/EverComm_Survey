@@ -15,17 +15,6 @@ export const BuildingFetch = (
   },
   callback
 ) => {
-  console.log(
-    clientCompany,
-    buildingName,
-    postal,
-    address,
-    comment,
-    country,
-    deviceData,
-    surveyHeaderId,
-    userId
-  );
   fetch(API.Building_Insert, {
     method: "POST",
     headers: {

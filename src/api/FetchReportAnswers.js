@@ -1,7 +1,7 @@
 import * as API from "./url";
 
 export const UserReportAnswers = (
-  { userId, surveyHeaderId, startDate, endDate,viewType, token },
+  { userId, surveyHeaderId, startDate, endDate, viewType, token },
   callback
 ) => {
   fetch(API.User_Report_Answer(surveyHeaderId), {
@@ -15,7 +15,7 @@ export const UserReportAnswers = (
       startDate: startDate,
       endDate: endDate,
       userId: userId,
-      viewType:viewType
+      viewType: viewType,
     }),
   })
     .then((res) => res.json())
@@ -39,6 +39,31 @@ export const FetchReportMenu = (
     body: JSON.stringify({
       startDate: StartDate,
       endDate: EndDate,
+      userId: userId,
+      viewType: viewType,
+    }),
+  })
+    .then((res) => res.json())
+    .then((data) => callback(null, data))
+    .catch((err) => console.log(err));
+};
+
+export const FetchGraphReport = (
+  { userId, surveyHeaderId, startDate, endDate, viewType, token },
+  callback
+) => {
+  console.log(token);
+
+  fetch(API.Graph_Report, {
+    method: `POST`,
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "*/*",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      startDate: startDate,
+      endDate: endDate,
       userId: userId,
       viewType: viewType,
     }),

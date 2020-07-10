@@ -18,21 +18,20 @@ const App = (history, props) => {
     <MediaQueryProvider queries={Media}>
       <NavBar />
       <Switch>
-        {" "}
         <Route exact path="/" component={LoginContainer} />
-        <Route path="/register" component={RegisterContainer} />{" "}
+        <Route path="/register" component={RegisterContainer} />
         {localStorage.getItem("authenticated") &&
-        localStorage.getItem("userId") ? (
-          Object.keys(routes.routes).map((v, k) => (
-            <Route
-              key={k}
-              path={`/${v}`}
-              component={routes.routes[v].component}
-            />
-          ))
-        ) : (
-          <Redirect to={routes.default} />
-        )}
+          localStorage.getItem("userId") ? (
+            Object.keys(routes.routes).map((v, k) => (
+              <Route
+                key={k}
+                path={`/${v}`}
+                component={routes.routes[v].component}
+              />
+            ))
+          ) : (
+            <Redirect to={routes.default} />
+          )}
         <Route
           path="*"
           component={() => <ErrorPage ErrorInfo={"Page Not Found!"} />}
