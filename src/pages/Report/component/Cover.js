@@ -9,7 +9,7 @@ const Cover = (props) => {
 
   return (
 
-    <div className="container shadow"
+    <div className="container border"
       style={{
         width: "8.27in",
         height: "15.66in",

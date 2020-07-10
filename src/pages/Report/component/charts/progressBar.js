@@ -76,7 +76,7 @@ class ProgressBar extends Component {
 
     var valueLabel = series.bullets.push(new am4charts.LabelBullet());
     valueLabel.label.text ="{data} ({percentage}%)"
-
+    valueLabel.label.paddingLeft=5
     valueLabel.label.fontSize = 10;
     // valueLabel.label.fill = "#dedede";
     valueLabel.label.horizontalCenter = "left";

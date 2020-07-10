@@ -48,10 +48,10 @@ export const FetchReportMenu = (
     .catch((err) => console.log(err));
 };
 
-export const FetchTypeAndBuilding = (token, callback) => {
+export const FetchGraphReport = (token, callback) => {
   console.log(token);
   
-  fetch(API.TypeAndArea, {
+  fetch(API.Graph_Report, {
     headers: {
       // "Content-Type": "application/json",
       // Accept: "*/*",

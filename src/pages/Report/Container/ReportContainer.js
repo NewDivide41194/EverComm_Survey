@@ -1,17 +1,22 @@
 import React, { useEffect, useState, useRef } from "react";
 import Report from "../component/graph/Report";
-import { UserReportAnswers,FetchTypeAndBuilding } from "../../../api/FetchReportAnswers";
+import {
+  UserReportAnswers,
+  FetchGraphReport,
+} from "../../../api/FetchReportAnswers";
 import ReactToPrint from "react-to-print";
 import { ESButton } from "../../../tools/ES_Button";
 import Cover from "../component/Cover";
 import BackCover from "../component/BackCover";
 // import Text from "../component/text/TextReport";
 import Report1 from "../component/text/Report1";
+import { ChartTheme1 } from "../../../config/Color.config";
 const ReportContainer = (props) => {
   const [reportData, setReportData] = useState([]);
   const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
   const token = localStorage.getItem("token");
-  const [TypeAndArea,setTypeAndArea]=useState([])
+  const [typeAndArea, setTypeAndArea] = useState([]);
+  const [BMS, setBMS] = useState([]);
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const startDate = urlParams.get("startDate");
@@ -19,6 +24,7 @@ const ReportContainer = (props) => {
   const userId = localStorage.getItem("userId");
   const viewType = localStorage.getItem("viewType");
   const userLevel = parseInt(localStorage.getItem("userLevel"));
+
   useEffect(() => {
     UserReportAnswers(
       { userId, surveyHeaderId, startDate, endDate, viewType, token },
@@ -26,15 +32,30 @@ const ReportContainer = (props) => {
         setReportData(data.payload);
       }
     );
-    FetchTypeAndBuilding(token,(err,data)=>{
-      setTypeAndArea(data.payload)
-    })
+    FetchGraphReport(token, (err, data) => {
+      setTypeAndArea(data.payload[1]);
+      setBMS(data.payload[2]);
+    });
   }, []);
 
+  const BMSdata = BMS.map((v, k) => ({
+    y: v.y,
+    color: ChartTheme1[k],
+    drilldown: { name: v.name, categories: v.categories, data: v.data },
+  }));
+  console.log("BMS====>", BMSdata);
+  const TypeData = typeAndArea.map((v, k) => ({
+    Area: v.option_choice_name,
+    Factory: v.categories.Factory,
+    ShoppingMall: v.categories.ShoppingMall,
+    Hotel: v.categories.Hotel,
+    "Residential Building": v.categories.ResidentialBuilding,
+    "Office Building": v.categories.OfficeBuilding,
+  }));
+  console.log("Type", TypeData);
 
-// const some=Math.max.apply(Math, above.map(function(o) { return o.optionCount; }));
-// console.log(some)
-
+  const categoriesData = BMS.map((v, k) => v.name);
+  // console.log("cat-->",categories);
   const componentRefChart = useRef();
   const componentRefTest = useRef();
   const range = (start, stop, step = 1) =>
@@ -64,49 +85,50 @@ const ReportContainer = (props) => {
       </ul>
       <div className="tab-content">
         <div className="mt-4 tab-pane" id="reportTest">
-            <ReactToPrint
-              trigger={() => (
-                <div className="col-3 py-2 px-0" style={{ minWidth: 172 }}>
-                  <ESButton
-                    text={"Print"}
-                    small
-                    leftIcon={<i className="fa fa-print pr-2" />}
-                  />
-                </div>
-              )}
-              content={() => componentRefTest.current}
-              pageStyle="{ size: A4 portrait;}"
+          <ReactToPrint
+            trigger={() => (
+              <div className="col-3 py-2 px-0" style={{ minWidth: 172 }}>
+                <ESButton
+                  text={"Print"}
+                  small
+                  leftIcon={<i className="fa fa-print pr-2" />}
+                />
+              </div>
+            )}
+            content={() => componentRefTest.current}
+            pageStyle="{ size: A4 portrait;}"
+          />
+          <div ref={componentRefTest} componentRef={componentRefTest}>
+            <Cover
+              reportData={reportData}
+              startDate={startDate}
+              endDate={endDate}
+              viewType={userLevel === 2 ? null : viewType}
             />
-            <div ref={componentRefTest} componentRef={componentRefTest}>
-              <Cover
-                reportData={reportData}
-                startDate={startDate}
-                endDate={endDate}
-                viewType={userLevel === 2 ? null : viewType}
-              />
 
-              {reportData.map((s, k) => {
-                const surveyRange = range(0, s.survey_sections.length, 8);
-                return surveyRange.map((r, index) => {
-                  return s.survey_sections
-                    .slice(surveyRange[index], surveyRange[index + 1])
-                    .map((survey, kk) => (
-                      <Report1
-                        surveySection={survey}
-                        reportData={s}
-                        startDate={startDate}
-                        endDate={endDate}
-                        viewType={userLevel === 2 ? null : viewType}
-                      />
-                    ));
-                });
-              })}
-              <BackCover
-                reportData={reportData}
-                startDate={startDate}
-                endDate={endDate}
-              />
-            </div>
+            {reportData.map((s, k) => {
+              const surveyRange = range(0, s.survey_sections.length, 8);
+              return surveyRange.map((r, index) => {
+                return s.survey_sections
+                  .slice(surveyRange[index], surveyRange[index + 1])
+                  .map((survey, kk) => (
+                    <Report1
+                      key={kk}
+                      surveySection={survey}
+                      reportData={s}
+                      startDate={startDate}
+                      endDate={endDate}
+                      viewType={userLevel === 2 ? null : viewType}
+                    />
+                  ));
+              });
+            })}
+            <BackCover
+              reportData={reportData}
+              startDate={startDate}
+              endDate={endDate}
+            />
+          </div>
         </div>
         <div className="tab-pane active" id="reportChart">
           <div className="mt-4">
@@ -133,7 +155,9 @@ const ReportContainer = (props) => {
               />
               <Report
                 reportData={reportData}
-                typeAndArea={TypeAndArea}
+                BMSdata={BMSdata}
+                categories={categoriesData}
+                typeAndArea={TypeData}
                 startDate={startDate}
                 endDate={endDate}
                 viewType={userLevel === 2 ? null : viewType}

@@ -29,5 +29,5 @@ export const User_Report_Answer = (surveyHeaderId) =>
   export const Report_Menu = (userId) =>
  ` ${serverURL}/api/v1/report/reportMenu/${userId}`
 
- export const TypeAndArea = 
- `${serverURL}/api/v1/report/typeAndArea`;
+ export const Graph_Report = 
+ `${serverURL}/api/v1/report/graphReportApi`

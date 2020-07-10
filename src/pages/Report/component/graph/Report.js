@@ -9,7 +9,7 @@ import { StackedBar } from "../charts/StackedBar";
 import RadialChart from "../charts/radialbarchart";
 import { ESIcon } from "../../../../tools/ES_Icon";
 import ProgressBar from "../charts/progressBar";
-// import Sunburst from "../charts/Sunburst";
+import Sunburst from "../charts/Sunburst";
 const Report = (props) => {
   const {
     reportData,
@@ -17,17 +17,13 @@ const Report = (props) => {
     endDate,
     viewType,
     typeAndArea,
+    categories,
+    BMSdata,
     media,
   } = props;
   const TotalBuilding = reportData
     ? reportData.map((v, k) => v.building_count[0].Number_of_buildings)[0]
     : null;
-
-  const typesOfBuildings = reportData.map((v, k) =>
-    v.survey_sections[0].questions[0].option_choices.map(
-      (v, k) => v.option_choice_name
-    )
-  )[0];
 
   const ChartData = (question_index, type) =>
     reportData.map((v, k) =>
@@ -62,40 +58,7 @@ const Report = (props) => {
               }
         )
     )[0];
-    console.log("RP------>",reportData);
 
-  const below2000 =
-    typeAndArea && typeAndArea.filter((v) => v.option_choice_id === 6);
-  const to5000 =
-    typeAndArea && typeAndArea.filter((v) => v.option_choice_id === 7);
-  const to10000 =
-    typeAndArea && typeAndArea.filter((v) => v.option_choice_id === 8);
-  const to15000 =
-    typeAndArea && typeAndArea.filter((v) => v.option_choice_id === 9);
-  const above =
-    typeAndArea && typeAndArea.filter((v) => v.option_choice_id === 10);
-console.log(">>>>>>",typeAndArea);
-
-    const to5000OptionCount = (type) =>
-    to5000.length &&
-    to5000.filter((v) => v.building_type === type)[0].optionCount;
-
-    const belowOptionCount = (type) =>
-    below2000.length &&
-    below2000.filter((v) => v.building_type === type)[0].optionCount;
-
-    const to10000OptionCount = (type) =>
-    to10000.length &&
-    to10000.filter((v) => v.building_type === type)[0].optionCount;
-
-    const to15000OptionCount = (type) =>
-    to15000.length &&
-    to15000.filter((v) => v.building_type === type)[0].optionCount;
-
-    const above15000OptionCount = (type) =>
-    above.length &&
-    above.filter((v) => v.building_type === type)[0].optionCount;
-    
   function getUnique(arr, index) {
     const unique = arr
       .map((e) => e[index])
@@ -110,51 +73,9 @@ console.log(">>>>>>",typeAndArea);
     return unique;
   }
 
-  const modifiedTypeData = getUnique(typeAndArea, "option_choice_id").map(
-    (v, k) => {
-      return {
-        Area: v.option_choice_name,
-        "Office Building":
-        //   v.option_choice_name === "below 2000"
-        //     ? belowOptionCount("Office Building")
-            //  v.option_choice_name === "2000-5000"
-            // ? to5000OptionCount("Office Building")
-             v.option_choice_name === "5000 - 10000"
-            ? to10000OptionCount("Office Building")
-             :v.option_choice_name === "Above 15000"
-            ? above15000OptionCount("Office Building")
-            : 0,
-        Factory:
-          v.option_choice_name === "below 2000"
-            ? belowOptionCount("Factory")
-             :v.option_choice_name === "2000-5000"
-            ? to5000OptionCount("Factory")
-            : v.option_choice_name === "5000 - 10000"
-            ? to10000OptionCount("Factory")
-             :v.option_choice_name === "Above 15000"
-            ? above15000OptionCount("Factory")
-            : 0,
-            ShoppingMall:
-        v.option_choice_name === "10000 - 15000"
-          ? to15000OptionCount("Shopping Mall")
-          : 0,
-          Hotel:
-        v.option_choice_name === "below 2000"
-          ? belowOptionCount("Hotel")
-          : 0,
-          "Residential Building":v.option_choice_name === "below 2000"
-          ? belowOptionCount("Residential Building")
-          : 0,
-      };
-    }
-  );
-  
-
-  console.log("======>", ChartData(0));
-
   return (
     <div
-      className="container shadow"
+      className="container border"
       style={{
         width: "8.27in",
         height: "15.66in",
@@ -167,7 +88,7 @@ console.log(">>>>>>",typeAndArea);
           <img
             src={Logo}
             style={{
-              height: "30px",
+              height: "40px",
             }}
             alt="logo"
           />
@@ -199,41 +120,45 @@ console.log(">>>>>>",typeAndArea);
         reportData.map((v, k) => (
           <div className="mt-4 px-4" key={k}>
             <div
-              className="justify-contents-center row"
+              className="row justify-contents-center"
               style={{ minWidth: 150 }}
             >
               <div className="w-50">
-                <h2 style={{ color: Colors.PrimaryColor, fontSize: "20px" }}>
+              <ESIcon
+                  size={"40px"}
+                  Icon={
+                    <i class="fa fa-city" aria-hidden="true"></i>
+                  }
+                />
+                <h2 className="pt-1" style={{ color: Colors.PrimaryColor, fontSize: "20px" }}>
                   Type of Building
                 </h2>
                 <ProgressBar data={ChartData(0)}/>
               </div>
               <div className="w-50">
                 <ESIcon
-                  size={"30px"}
+                  size={"40px"}
                   Icon={
                     <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
                   }
                 />
-                <h2 style={{ color: Colors.PrimaryColor, fontSize: "20px" }}>
+                <h2 className="pt-1" style={{ color: Colors.PrimaryColor, fontSize: "20px" }}>
                   Age of buildings
                 </h2>
                 <RadialChart data={ChartData(2, "radial")} />
               </div>
             </div>
             <div className="row pt-5 pb-0 mb-0">
-              <div
-                className="p-3"
-                style={{
-                  height: window.innerWidth <= 980 ? 300 : 310,
-                  width: "50%",
-                }}
-              >
-                <h2 style={{ color: Colors.PrimaryColor, fontSize: "20px" }}>
+            <ESIcon
+                  size={"40px"}
+                  Icon={
+                    <i class="fa fa-building" aria-hidden="true"></i>
+                  }
+                />
+                <h2 className="pt-1" style={{ color: Colors.PrimaryColor, fontSize: "20px" }}>
                   Building Management System (BMS)
                 </h2>
-                {/* <Sunburst/> */}
-              </div>
+                { categories && categories.length>0 && <Sunburst categories={categories} BMSdata={BMSdata} totalBuilding={TotalBuilding}/> }
             </div>
             <div
               className="w-100"
@@ -242,16 +167,16 @@ console.log(">>>>>>",typeAndArea);
               }}
             >
               <ESIcon
-                size={"30px"}
+                size={"40px"}
                 Icon={<i class="pt-1 fas fa-expand-arrows-alt"></i>}
               />
 
-              <h2 style={{ color: Colors.PrimaryColor, fontSize: "20px" }}>
+              <h2 className="pt-1" style={{ color: Colors.PrimaryColor, fontSize: "20px" }}>
                 Area of Building
               </h2>
 
               <div style={{ height: 400 }}>
-                <StackedBar data={modifiedTypeData} />
+                <StackedBar data={typeAndArea} />
               </div>
             </div>
           </div>
@@ -260,7 +185,7 @@ console.log(">>>>>>",typeAndArea);
         <h3 className="mt-5 text-center text-warning">No Data!</h3>
       )}
       <div
-        className="row justify-content-center py-2 text-light"
+        className="row justify-content-center py-2 text-light pdfBg"
         style={{
           background: Colors.PrimaryColor,
           position: "absolute",

@@ -31,6 +31,7 @@ const QuestionCard = (props) => {
 
   const pageDeviceIndex = pageno === 0 ? 1 : deviceIndexValue[pageno - 1];
 
+
   const QuestionCards = new Array(pageDeviceIndex).fill(null).map((v, k3) => {
     return (
       <div key={k3}>

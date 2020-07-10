@@ -7,7 +7,7 @@ const style = {
     top: 0,
     left: 200,
     lineHeight: '18px',
-    fontSize:12
+    fontSize:12,
 };
 
 const RadialChart = ({data}) => {

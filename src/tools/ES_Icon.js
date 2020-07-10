@@ -5,9 +5,11 @@ export const ESIcon = (props) => {
         Icon } = props
     const defaultStyle = {
         borderRadius: '40px',
+        paddingTop:6
+
     }
     return (
-        <div className='float-left mr-2 text-center text-light' style={{ ...defaultStyle, background: Colors.PrimaryColor, width: size, height: size }}>
+        <div className='float-left mr-2 text-center text-light pdfBg' style={{ ...defaultStyle, background: Colors.PrimaryColor, width: size, height: size,fontSize:18 }}>
             {Icon}
         </div>
     )
