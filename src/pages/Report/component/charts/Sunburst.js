@@ -9,7 +9,7 @@ class Sunburst extends Component {
   }
 
   componentDidMount() {
-    var categories = this.props.categories,
+    var categories = this.props.categories.sort(),
       data = this.props.BMSdata,
       TypeData = [],
       BMSData = [],
@@ -128,20 +128,20 @@ class Sunburst extends Component {
         <div
           className="text-center"
           style={{
-            width: 150,
+            width: 110,
             position: "absolute",
             marginTop: "-250px",
-            marginLeft: "279px",
+            marginLeft: "290px",
             fontWeight: "bold",
           }}
         >
           <img
             src={Building}
-            className="w-75"
+            className="w-100"
             style={{ opacity: 0.7 }}
             alt="building"
           />
-          <span className="w-100">Total Building {this.props.totalBuilding}</span>
+          <div className="w-100">Total Building {this.props.totalBuilding}</div>
         </div>
       </div>
     );

@@ -6,6 +6,8 @@ import {
 } from "../../../api/FetchReportAnswers";
 import ReactToPrint from "react-to-print";
 import { ESButton } from "../../../tools/ES_Button";
+import * as Colors from "../../../config/Color.config";
+
 import Cover from "../component/Cover";
 import BackCover from "../component/BackCover";
 // import Text from "../component/text/TextReport";
@@ -17,6 +19,8 @@ const ReportContainer = (props) => {
   const token = localStorage.getItem("token");
   const [typeAndArea, setTypeAndArea] = useState([]);
   const [BMS, setBMS] = useState([]);
+  const [ageData,setAgeData]=useState([])
+
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const startDate = urlParams.get("startDate");
@@ -32,12 +36,18 @@ const ReportContainer = (props) => {
         setReportData(data.payload);
       }
     );
-    FetchGraphReport(token, (err, data) => {
-      setTypeAndArea(data.payload[1]);
-      setBMS(data.payload[2]);
-    });
-  }, []);
+    FetchGraphReport(
+      { userId, surveyHeaderId, startDate, endDate, viewType, token },
+      (err, data) => {
+        setTypeAndArea(data.payload[1]);
+        setBMS(data.payload[2]);
+        setAgeData(data.payload[0])
 
+      }
+    );
+  }, []);
+  const modifiedAgeData=ageData&&ageData.map((v,k)=>({name:v.optionChoiceName,uv:v.optionCount, fill: Colors.ChartTheme1[k],
+  }))
   const BMSdata = BMS.map((v, k) => ({
     y: v.y,
     color: ChartTheme1[k],
@@ -96,7 +106,7 @@ const ReportContainer = (props) => {
               </div>
             )}
             content={() => componentRefTest.current}
-            pageStyle="{ size: A4 portrait;}"
+            // pageStyle=
           />
           <div ref={componentRefTest} componentRef={componentRefTest}>
             <Cover
@@ -105,7 +115,6 @@ const ReportContainer = (props) => {
               endDate={endDate}
               viewType={userLevel === 2 ? null : viewType}
             />
-
             {reportData.map((s, k) => {
               const surveyRange = range(0, s.survey_sections.length, 8);
               return surveyRange.map((r, index) => {
@@ -145,6 +154,7 @@ const ReportContainer = (props) => {
               content={() => componentRefChart.current}
               // ref={el => (this.componentRef = el)}
               pageStyle="{ size: A4 portrait;}"
+              // removeAfterPrint={true}
             />
             <div ref={componentRefChart} componentRef={componentRefChart}>
               <Cover
@@ -155,6 +165,7 @@ const ReportContainer = (props) => {
               />
               <Report
                 reportData={reportData}
+                modifiedAgeData={modifiedAgeData}
                 BMSdata={BMSdata}
                 categories={categoriesData}
                 typeAndArea={TypeData}

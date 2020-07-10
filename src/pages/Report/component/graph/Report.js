@@ -20,6 +20,7 @@ const Report = (props) => {
     categories,
     BMSdata,
     media,
+    modifiedAgeData
   } = props;
   const TotalBuilding = reportData
     ? reportData.map((v, k) => v.building_count[0].Number_of_buildings)[0]
@@ -42,15 +43,7 @@ const Report = (props) => {
                 uv: v2.totalAns,
                 fill: Colors.ChartTheme1[k2],
               }
-            : type === "stackedBar"
-            ? {
-                Area: v2.option_choice_name,
-                "Office Building": v2.totalAns,
-                Hotel: v2.totalAns,
-                ShoppingMall: v2.totalAns,
-                "Residential Building": v2.totalAns,
-                Factory: 158,
-              }
+            
             : {
                 name: v2.option_choice_name,
                 data: v2.totalAns === null ? 0 : v2.totalAns,
@@ -145,7 +138,7 @@ const Report = (props) => {
                 <h2 className="pt-1" style={{ color: Colors.PrimaryColor, fontSize: "20px" }}>
                   Age of buildings
                 </h2>
-                <RadialChart data={ChartData(2, "radial")} />
+                <RadialChart data={modifiedAgeData} />
               </div>
             </div>
             <div className="row pt-5 pb-0 mb-0">

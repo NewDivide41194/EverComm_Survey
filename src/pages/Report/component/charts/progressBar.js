@@ -146,7 +146,7 @@ console.log("=====>", valueLabel.label.text);
       div id = "chartdiv"
       style = {
         {
-          width: "400px",
+          width: "450px",
           height: "232px"
         }
       } /> 
