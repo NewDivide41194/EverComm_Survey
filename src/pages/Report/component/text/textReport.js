@@ -18,14 +18,14 @@ const Text = (props) => {
     reportData &&
     reportData.map((v, k) => v.building_count[0].cooling_tower)[0];
   return (
-    <div className="container">
+    <div className="container pt-4">
       {reportData.length &&
         reportData[0].survey_sections.map((v1, k1) => (
           <div
             key={k1}
             className="container text-dark"
             style={{
-              border: "0.1px solid #cecece",
+              // border: "0.1px solid #cecece",
               width: "8.27in",
               height: "15.66in",
               paddingLeft: "0.5in",
@@ -36,7 +36,6 @@ const Text = (props) => {
             }}
           >
             <div className="row justify-content-between border-bottom">
-             
                 Cooling System
               <div className="text-right " style={{ width: "50%" }}>
                 <img
@@ -56,7 +55,6 @@ const Text = (props) => {
               className="row d-fle
                 x flex-row flex-wrap"
             >
-              {" "}
               <div className="col-12 font-weight-bold text-success">
                 {v1.survey_section_id === 1 ? (
                   <div>
@@ -96,7 +94,7 @@ const Text = (props) => {
                 )}
               </div>
               {v1.questions.map((v2, k2) => (
-                <div key={k2} className="col-lg-6 py-2">
+                <div key={k2} className="col-6 py-2">
                   <div className="d-flex flex-row font-weight-bold pb-2">
                     {k2 + 1}. {v2.question_name}
                   </div>

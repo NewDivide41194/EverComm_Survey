@@ -10,7 +10,7 @@ const BackCover = (props) => {
 
   return (
     <div
-      className="container border"
+      className="container border pt-4"
       style={{
         border: "0.1px solid #cecece",
         width: "8.27in",

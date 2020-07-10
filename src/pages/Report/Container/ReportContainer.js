@@ -10,7 +10,7 @@ import * as Colors from "../../../config/Color.config";
 
 import Cover from "../component/Cover";
 import BackCover from "../component/BackCover";
-// import Text from "../component/text/TextReport";
+import Text from "../component/text/textReport";
 import Report1 from "../component/text/Report1";
 import { ChartTheme1 } from "../../../config/Color.config";
 const ReportContainer = (props) => {
@@ -19,7 +19,7 @@ const ReportContainer = (props) => {
   const token = localStorage.getItem("token");
   const [typeAndArea, setTypeAndArea] = useState([]);
   const [BMS, setBMS] = useState([]);
-  const [ageData,setAgeData]=useState([])
+  const [ageData, setAgeData] = useState([]);
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -41,13 +41,17 @@ const ReportContainer = (props) => {
       (err, data) => {
         setTypeAndArea(data.payload[1]);
         setBMS(data.payload[2]);
-        setAgeData(data.payload[0])
-
+        setAgeData(data.payload[0]);
       }
     );
   }, []);
-  const modifiedAgeData=ageData&&ageData.map((v,k)=>({name:v.optionChoiceName,uv:v.optionCount, fill: Colors.ChartTheme1[k],
-  }))
+  const modifiedAgeData =
+    ageData &&
+    ageData.map((v, k) => ({
+      name: v.optionChoiceName,
+      uv: v.optionCount,
+      fill: Colors.ChartTheme1[k],
+    }));
   const BMSdata = BMS.map((v, k) => ({
     y: v.y,
     color: ChartTheme1[k],
@@ -94,7 +98,7 @@ const ReportContainer = (props) => {
         </li>
       </ul>
       <div className="tab-content">
-        <div className="mt-4 tab-pane" id="reportTest">
+        <div className="mt-4 tab-pane active" id="reportTest">
           <ReactToPrint
             trigger={() => (
               <div className="col-3 py-2 px-0" style={{ minWidth: 172 }}>
@@ -106,7 +110,7 @@ const ReportContainer = (props) => {
               </div>
             )}
             content={() => componentRefTest.current}
-            // pageStyle=
+            pageStyle="{ size: A4 portrait;}"
           />
           <div ref={componentRefTest} componentRef={componentRefTest}>
             <Cover
@@ -115,23 +119,25 @@ const ReportContainer = (props) => {
               endDate={endDate}
               viewType={userLevel === 2 ? null : viewType}
             />
-            {reportData.map((s, k) => {
+            {/* {reportData.map((s, k) => {
               const surveyRange = range(0, s.survey_sections.length, 8);
               return surveyRange.map((r, index) => {
                 return s.survey_sections
                   .slice(surveyRange[index], surveyRange[index + 1])
                   .map((survey, kk) => (
-                    <Report1
-                      key={kk}
-                      surveySection={survey}
-                      reportData={s}
-                      startDate={startDate}
-                      endDate={endDate}
-                      viewType={userLevel === 2 ? null : viewType}
+                    <Text
+                    reportData={reportData}
+                      // key={kk}
+                      // surveySection={survey}
+                      // reportData={s}
+                      // startDate={startDate}
+                      // endDate={endDate}
+                      // viewType={userLevel === 2 ? null : viewType}
                     />
                   ));
               });
-            })}
+            })} */}
+            <Text reportData={reportData} />
             <BackCover
               reportData={reportData}
               startDate={startDate}
@@ -139,7 +145,7 @@ const ReportContainer = (props) => {
             />
           </div>
         </div>
-        <div className="tab-pane active" id="reportChart">
+        <div className="tab-pane " id="reportChart">
           <div className="mt-4">
             <ReactToPrint
               trigger={() => (
