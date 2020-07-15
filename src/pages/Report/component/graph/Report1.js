@@ -1,126 +1,140 @@
 import React from "react";
 import * as Colors from "../../../../config/Color.config";
-import ResponsiveBar from "../charts/Barchart";
+import { NotAnswered, Percentage } from "../../../../helper/reportHelper";
 import Logo from "../../../../assets/images/Logo.png";
 import withMedia from "react-media-query-hoc/dist/with-media";
-import RadialChart from "../charts/radialbarchart";
+import { ESIcon } from "../../../../tools/ES_Icon";
+import TreeMap from "../charts/treeMap"
+import ColumnBar from "../../component/charts/columnbar"
 
 const Report1 = (props) => {
-  const { reportData, media } = props;
-  const TotalBuilding = reportData
-    ? reportData.map((v, k) => v.building_count[0].Number_of_buildings)[0]
-    : null;
+  const {
+    reportData,
+    TreeData,
+    BarData,
+    media,
+  } = props;
 
-  const ChartData = (question_index, type) =>
-    type === "pie"
-      ? reportData.map((v, k) =>
-          v.survey_sections[2].questions
-            .map((v1, k1) => v1.option_choices)
-            [question_index].map((v2, k2) => ({
-              id: v2.option_choice_name,
-              label: v2.option_choice_name,
-              value: v2.totalAns === null ? 2 : v2.totalAns,
-            }))
-        )[0]
-      : reportData.map((v, k) =>
-          v.survey_sections[2].questions
-            .map((v1, k1) => v1.option_choices)
-            [question_index].map((v2, k2) => ({
-              name: v2.option_choice_name,
-              value: v2.totalAns === null ? 2 : v2.totalAns,
-            }))
-        )[0];
+  function getUnique(arr, index) {
+    const unique = arr
+      .map((e) => e[index])
 
-  console.log(ChartData(0));
+      // store the keys of the unique objects
+      .map((e, i, final) => final.indexOf(e) === i && i)
+
+      // eliminate the dead keys & store unique objects
+      .filter((e) => arr[e])
+      .map((e) => arr[e]);
+
+    return unique;
+  }
 
   return (
     <div
-      className="container"
+      className="container border"
       style={{
-        border: "0.1px solid #cecece",
         width: "8.27in",
         height: "15.66in",
-        paddingLeft: "0.5in",
-        paddingTop: "0.3in",
-        paddingRight: "0.5in",
-        paddingBottom: "0.3in",
-        backgroundColor: "",
+        position: "relative",
+        // boxShadow:"0px 10 4px 0"
       }}
     >
-      <div className="row justify-content-between border-bottom">
-        <div className="" style={{ fontSize: media.mobile ? "15px" : "15px" }}>
-          Cooling System
-        </div>
-        <div className="text-right " style={{ width: "50%" }}>
+      <div className="row py-3 justify-content-between border-bottom">
+        <div className="pl-4" style={{ width: "50%" }}>
           <img
             src={Logo}
             style={{
-              height: "18px",
+              height: "40px",
             }}
             alt="logo"
           />
         </div>
-      </div>
-      <div className="row border-bottom ">
-        <h5
+        <div
+          className="pr-4 pt-2"
           style={{
-            color: Colors.PrimaryColor,
-            fontSize: media.mobile ? "20px" : "25px",
+            fontSize: media.mobile ? "10px" : "15px",
+            color: Colors.SecondaryColor,
+          }}
+        >
+          COOLING SYSTEM
+        </div>
+      </div>
+      <div
+        className="py-2 px-4 row border-bottom pdfBg"
+        style={{ background: Colors.PrimaryColor }}
+      >
+        <span
+          style={{
+            color: "#fafafa",
+            fontSize: media.mobile ? "18px" : "20px",
           }}
         >
           Chiller Information
-        </h5>
+        </span>
       </div>
-
-      <div className="mt-4">
-        <div
-          className="justify-contents-center row"
-          style={{ minWidth: 150 }}
-        ></div>
-        <div className="row">
-          <div
-            className="p-3"
-            style={{
-              height: window.innerWidth <= 980 ? 300 : 300,
-              width: "100%",
-            }}
-          >
-            <h2 style={{ color: Colors.PrimaryColor, fontSize: "20px" }}>
-              Brands of Chillers
-            </h2>
-            <RadialChart />
-
-            <ResponsiveBar
-              dotSize={0}
-              enableGridX={false}
-              enableGridY={false}
-              data={ChartData(0)}
-              layout="horizontal"
-              padding={0.1}
-              axisLeft={{
-                tickSize: 3,
-                tickPadding: 5,
-                tickRotation: 1,
-                legend: "",
-                legendPosition: "middle",
-                legendOffset: -40,
-              }}
-              axisBottom={{
-                tickSize: 5,
-                tickPadding: 5,
-                // tickRotation: -20,
-                legendPosition: "middle",
-                legendOffset: 32,
-                // tickValues: ChartData(0).length,
-              }}
-              margin={{ top: 5, right: 40, bottom: 45, left: 95 }}
-            />
-          </div>
-          <div style={{ height: 400 }}>
+      {reportData && reportData.length ? (
+        reportData.map((v, k) => (
+          <div className="mt-4 px-4" key={k}>
+            <div
+              className="row justify-contents-center"
+              style={{ minWidth: 150 }}
+            >
+              <div className="w-50">
+                <ESIcon
+                  size={"40px"}
+                  Icon={
+                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                  }
+                />
+                
+                <h2 className="pt-1" style={{ color: Colors.PrimaryColor, fontSize: "20px" }}>
+                  Age of buildings
+                </h2>
+                {TreeData && Object.keys(TreeData).length&&
+                <TreeMap data={TreeData}/>
+                }
+                {/* <TreeMap /> */}
+               
+                {/* <RadialChart data={modifiedAgeData} /> */}
+              </div>
             </div>
-        </div>
+            <div className="row pt-5 pb-0 mb-0">
+            <ESIcon
+                  size={"40px"}
+                  Icon={
+                    <i class="fa fa-building" aria-hidden="true"></i>
+                  }
+                />
+                <h2 className="pt-1" style={{ color: Colors.PrimaryColor, fontSize: "20px" }}>
+                  Building Management System (BMS)
+                </h2>
+                
+                <div style = {{width: 750, height: 400}}>
+                  <ColumnBar data = {BarData}/></div>
+            </div>
+
+          </div>
+        ))
+      ) : 
+      (
+        <h3 className="mt-5 text-center text-warning">No Data!</h3>
+      )
+      }
+      <div
+        className="row justify-content-center py-2 text-light pdfBg"
+        style={{
+          background: Colors.PrimaryColor,
+          position: "absolute",
+          bottom: 0,
+          width: "100%",
+          fontSize: 12,
+        }}
+      >
+        Page-2
       </div>
     </div>
   );
 };
+
+
 export default withMedia(Report1);
