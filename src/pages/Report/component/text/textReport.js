@@ -18,12 +18,12 @@ const Text = (props) => {
     reportData &&
     reportData.map((v, k) => v.building_count[0].cooling_tower)[0];
   return (
-    <div className="container pt-4">
+    <div className="">
       {reportData.length &&
         reportData[0].survey_sections.map((v1, k1) => (
           <div
             key={k1}
-            className="container text-dark"
+            className="container my-4 text-dark border"
             style={{
               // border: "0.1px solid #cecece",
               width: "8.27in",

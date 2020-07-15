@@ -9,7 +9,7 @@ class Sunburst extends Component {
   }
 
   componentDidMount() {
-    var categories = this.props.categories.sort(),
+    var categories = this.props.categories,
       data = this.props.BMSdata,
       TypeData = [],
       BMSData = [],
@@ -18,6 +18,7 @@ class Sunburst extends Component {
       dataLen = data.length,
       drillDataLen,
       brightness;
+console.log("=====>",data);
 
     // Build the data arrays
     for (i = 0; i < dataLen; i += 1) {
@@ -27,7 +28,6 @@ class Sunburst extends Component {
         y: data[i].y,
         color: data[i].color,
       });
-      
 
       // add version data
       drillDataLen = data[i].drilldown.data.length;
@@ -49,7 +49,6 @@ class Sunburst extends Component {
 
       plotOptions: {
         pie: {
-        
           startAngle: -120,
           endAngle: 120,
           shadow: false,
@@ -88,7 +87,7 @@ class Sunburst extends Component {
             formatter: function () {
               // display only if larger than 1
               return this.y > 0
-                 ?"<b>" + this.point.name + ":</b> " + this.y + "%"
+                ? "<b>" + this.point.name + ":</b> " + this.y + "%"
                 : null;
             },
           },

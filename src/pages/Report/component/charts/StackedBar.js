@@ -7,15 +7,16 @@ import * as Colors from "../../../../config/Color.config"
 // website examples showcase many properties,
 // you'll often use just a few of them.
 export const StackedBar = ({ data /* see data tab */ }) => (
+  
   <ResponsiveBar
     data={data}
     keys={[
-      "Office Building",
-      "ShoppingMall",
       "Hotel",
       "Factory",
+      "ShoppingMall",
       "Residential Building",
-    ].sort()}
+      "Office Building",
+    ]}
     indexBy="Area"
     margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
     maxValue={data.length}

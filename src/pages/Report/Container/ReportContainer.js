@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import Report from "../component/graph/Report";
+import Report from "../component/graph/graphReport";
 import {
   UserReportAnswers,
   FetchGraphReport,
@@ -13,6 +13,7 @@ import BackCover from "../component/BackCover";
 import Text from "../component/text/textReport";
 import Report1 from "../component/text/Report1";
 import { ChartTheme1 } from "../../../config/Color.config";
+
 const ReportContainer = (props) => {
   const [reportData, setReportData] = useState([]);
   const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
@@ -57,19 +58,16 @@ const ReportContainer = (props) => {
     color: ChartTheme1[k],
     drilldown: { name: v.name, categories: v.categories, data: v.data },
   }));
-  console.log("BMS====>", BMSdata);
   const TypeData = typeAndArea.map((v, k) => ({
     Area: v.option_choice_name,
     Factory: v.categories.Factory,
-    ShoppingMall: v.categories.ShoppingMall,
     Hotel: v.categories.Hotel,
+    ShoppingMall: v.categories.ShoppingMall,
     "Residential Building": v.categories.ResidentialBuilding,
     "Office Building": v.categories.OfficeBuilding,
   }));
-  console.log("Type", TypeData);
 
   const categoriesData = BMS.map((v, k) => v.name);
-  // console.log("cat-->",categories);
   const componentRefChart = useRef();
   const componentRefTest = useRef();
   const range = (start, stop, step = 1) =>
@@ -77,22 +75,24 @@ const ReportContainer = (props) => {
       .fill(start)
       .map((x, y) => x + y * step);
 
+  console.log(TypeData);
+
   return (
     <div className="container">
       <h3 className="text-primary">Report</h3>
-      <ul class="nav nav-tabs" role="tablist">
-        <li class="nav-item">
+      <ul className="nav nav-tabs" role="tablist">
+        <li className="nav-item">
           <a
             href="#reportTest"
             role="tab"
-            class="nav-link active"
+            className="nav-link active"
             data-toggle="tab"
           >
             Report with Text
           </a>
         </li>
-        <li class="nav-item">
-          <a href="#reportChart" role="tab" class="nav-link" data-toggle="tab">
+        <li className="nav-item">
+          <a href="#reportChart" role="tab" className="nav-link" data-toggle="tab">
             Report
           </a>
         </li>
@@ -110,9 +110,9 @@ const ReportContainer = (props) => {
               </div>
             )}
             content={() => componentRefTest.current}
-            pageStyle="{ size: A4 portrait;}"
+            pageStyle="{size: A4 portrait;}"
           />
-          <div ref={componentRefTest} componentRef={componentRefTest}>
+          <div ref={componentRefTest} componentref={componentRefTest}>
             <Cover
               reportData={reportData}
               startDate={startDate}
@@ -160,7 +160,7 @@ const ReportContainer = (props) => {
               content={() => componentRefChart.current}
               // ref={el => (this.componentRef = el)}
               pageStyle="{ size: A4 portrait;}"
-              // removeAfterPrint={true}
+              removeAfterPrint={true}
             />
             <div ref={componentRefChart} componentRef={componentRefChart}>
               <Cover
