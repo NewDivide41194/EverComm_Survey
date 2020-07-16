@@ -9,7 +9,7 @@ const style = {
 };
 
 const RadialChart = ({ data }) => {
-    console.log(data);
+    console.log("RadialBarChart is =>",data);
 
   return (
     <RadialBarChart

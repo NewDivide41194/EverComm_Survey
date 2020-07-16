@@ -89,7 +89,7 @@ const SurveylistContainer = (props) => {
           surveyName={"New Survey"}
           BgColor={Colors.PrimaryColor}
           TxtColor={"white"}
-          HoverBgColor={Colors.skyBlue}
+          HoverBgColor={Colors.purple}
           handleCardClick={handleCardClick}
         />
       ) : null}
@@ -143,7 +143,7 @@ const CollapseSurveyList = (props) => {
         aria-controls="collapseExample"
         onClick={() => setIsExpend(!expend)}
         style={{
-          borderBottom: `1px solid ${Colors.skyBlue}`,
+          borderBottom: `1px solid ${Colors.purple}`,
           fontSize: "18px",
           color: `${Colors.PrimaryColor}`,
           fontWeight: "bold",

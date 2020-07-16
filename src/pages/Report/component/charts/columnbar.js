@@ -12,7 +12,7 @@ const ColumnBar = ({ data /* see data tab */ }) => (
         data={data}
         keys={[ 'Daikin', 'York', 'Trane','Carrier','Haier', 'Mitsubishi','Johnson Controls','Ingersoll' ]}
         indexBy="years"
-        margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+        margin={{ top: 50, right: 50, bottom: 50, left: 60 }}
         padding={0.3}
         groupMode="grouped"
         colors={Colors.ChartTheme1}
@@ -24,7 +24,7 @@ const ColumnBar = ({ data /* see data tab */ }) => (
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: 'Years',
+            // legend: 'Years',
             legendPosition: 'middle',
             legendOffset: 32
         }}
@@ -42,17 +42,17 @@ const ColumnBar = ({ data /* see data tab */ }) => (
         legends={[
             {
                 dataFrom: 'keys',
-                anchor: 'bottom-right',
-                direction: 'column',
+                anchor: 'bottom',
+                direction: 'row',
                 justify: false,
-                translateX: 120,
-                translateY: 0,
-                itemsSpacing: 2,
-                itemWidth: 100,
-                itemHeight: 20,
+                translateX: 23,
+                translateY: 44,
+                itemsSpacing: 0,
+                itemWidth: 80,
+                itemHeight: 10,
                 itemDirection: 'left-to-right',
                 itemOpacity: 0.85,
-                symbolSize: 20,
+                symbolSize: 17,
                 effects: [
                     {
                         on: 'hover',
