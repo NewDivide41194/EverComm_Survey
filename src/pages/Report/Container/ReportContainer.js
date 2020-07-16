@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import ReportG1 from "../component/graph/Report1"
 import Report from "../component/graph/Report";
 import {
   UserReportAnswers,
@@ -20,6 +21,8 @@ const ReportContainer = (props) => {
   const [typeAndArea, setTypeAndArea] = useState([]);
   const [BMS, setBMS] = useState([]);
   const [ageData, setAgeData] = useState([]);
+  const [TreeMapData, setTreeData] = useState([]);
+  const [Bardata, setBarData] = useState([]);
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -42,6 +45,8 @@ const ReportContainer = (props) => {
         setTypeAndArea(data.payload[1]);
         setBMS(data.payload[2]);
         setAgeData(data.payload[0]);
+        setTreeData(data.payload[3]);
+        setBarData(data.payload[4]);
       }
     );
   }, []);
@@ -67,6 +72,33 @@ const ReportContainer = (props) => {
     "Office Building": v.categories.OfficeBuilding,
   }));
   console.log("Type", TypeData);
+
+  const BarData = Bardata.map((v, k) => ({
+    years: v.years,
+    Daikin: v.categories.Daikin,
+    York: v.categories.York,
+    Trane: v.categories.Trane,
+    Carrier: v.categories.Carrier,
+    Haier:v.categories.Haier,
+    Mitsubishi: v.categories.Mitsubishi,
+    "Johnson Controls": v.categories.JohnsonControls,
+    Ingersoll:v.categories.Ingersoll
+    // "Office Building": v.categories.OfficeBuilding,
+  }));
+
+  console.log("BarData", BarData);
+
+
+  // const TreeMapData = TreeMapData.map((v, k) => ({
+  //   Chiller: v.option_choice_name,
+  //   Factory: v.categories.Factory,
+  //   ShoppingMall: v.categories.ShoppingMall,
+  //   Hotel: v.categories.Hotel,
+  //   "Residential Building": v.categories.ResidentialBuilding,
+  //   "Office Building": v.categories.OfficeBuilding,
+  // }));
+
+  // console.log("TreeMapData", TreeMapData);
 
   const categoriesData = BMS.map((v, k) => v.name);
   // console.log("cat-->",categories);
@@ -160,7 +192,7 @@ const ReportContainer = (props) => {
               content={() => componentRefChart.current}
               // ref={el => (this.componentRef = el)}
               pageStyle="{ size: A4 portrait;}"
-              // removeAfterPrint={true}
+            // removeAfterPrint={true}
             />
             <div ref={componentRefChart} componentRef={componentRefChart}>
               <Cover
@@ -175,10 +207,17 @@ const ReportContainer = (props) => {
                 BMSdata={BMSdata}
                 categories={categoriesData}
                 typeAndArea={TypeData}
+                // TreeData={TreeMapData}
                 startDate={startDate}
                 endDate={endDate}
                 viewType={userLevel === 2 ? null : viewType}
               />
+              <ReportG1
+                reportData={reportData}
+                TreeData={TreeMapData}
+                BarData= {BarData}
+              />
+
               {/* <Report1 reportData={reportData} /> */}
               <BackCover
                 reportData={reportData}

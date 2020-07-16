@@ -2,6 +2,9 @@
 const serverURL = "http://172.105.123.57:1212";
 // const serverURL = "http://localhost:7878";
 
+// @hmh
+// const serverURL = "http://localhost:7878";
+
 export const RegisterAPI = `${serverURL}/api/v1/user/register`;
 
 export const LoginAPI = `${serverURL}/api/v1/login/userlogin`;

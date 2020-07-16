@@ -10,6 +10,7 @@ import RadialChart from "../charts/radialbarchart";
 import { ESIcon } from "../../../../tools/ES_Icon";
 import ProgressBar from "../charts/progressBar";
 import Sunburst from "../charts/Sunburst";
+// import TreeMap from "../charts/treeMap"
 const Report = (props) => {
   const {
     reportData,
@@ -17,6 +18,7 @@ const Report = (props) => {
     endDate,
     viewType,
     typeAndArea,
+    // TreeData,
     categories,
     BMSdata,
     media,
@@ -25,6 +27,8 @@ const Report = (props) => {
   const TotalBuilding = reportData
     ? reportData.map((v, k) => v.building_count[0].Number_of_buildings)[0]
     : null;
+
+    // console.log(">>>>>>>>>>>>>>>>",TreeData)
 
   const ChartData = (question_index, type) =>
     reportData.map((v, k) =>
