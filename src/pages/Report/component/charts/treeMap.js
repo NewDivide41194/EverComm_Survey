@@ -16,10 +16,10 @@ class Treemap extends Component {
       if (target instanceof am4core.ColorSet) {
         target.list = [
           am4core.color("#276bb9"),
-          am4core.color("#45a1e0"),
+          am4core.color("#8c41bd"),
           am4core.color("grey"),
-          am4core.color("hsl(0,0%,90%)"),
           am4core.color("#f7c972"),
+          am4core.color("#7bbf34"),
           am4core.color("#fae3b2"),
           am4core.color("#33cc33"),
           am4core.color("#7bbf34"),

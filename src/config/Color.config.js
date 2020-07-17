@@ -4,7 +4,7 @@ export const SecondaryColor="#A2A2A2"
 
 export const Gray="#757575"
 
-export const skyBlue="#45a1e0"
+export const purple="#8c41bd"
 
 export const MoonLight="#d8b26b"
 
@@ -14,4 +14,4 @@ export const SparkGreen="#7bbf34"
 
 export const PaleGreen="#82c937"
 
-export const ChartTheme1=[PrimaryColor,skyBlue,MoonLight,SparkGreen,Gray,PaleYellow,PaleGreen,SecondaryColor]
+export const ChartTheme1=[PrimaryColor,purple,MoonLight,SparkGreen,Gray,PaleYellow,PaleGreen,SecondaryColor]

@@ -7,6 +7,7 @@ import { ESIcon } from "../../../../tools/ES_Icon";
 import TreeMap from "../charts/treeMap"
 import ColumnBar from "../../component/charts/columnbar"
 
+
 const Report1 = (props) => {
   const {
     reportData,
@@ -14,6 +15,12 @@ const Report1 = (props) => {
     BarData,
     media,
   } = props;
+  const TotalBuilding = reportData
+    ? reportData.map((v, k) => v.building_count[0].Number_of_buildings)[0]
+    : null;
+    const TotalChiller = reportData
+    ? reportData.map((v, k) => v.building_count[0].chiller)[0]
+    : null;
 
   function getUnique(arr, index) {
     const unique = arr
@@ -75,6 +82,36 @@ const Report1 = (props) => {
       {reportData && reportData.length ? (
         reportData.map((v, k) => (
           <div className="mt-4 px-4" key={k}>
+            <div className="row py-3">
+                
+                <div className="mx-2 pt-2 border border-dark col-4 justify-content-start" 
+                  style={{ color:"#1e0707", fontSize: "20px" }}
+                >
+                  <ESIcon
+                  size={"40px"}
+                  Icon={
+                    <i class="fa fa-city" aria-hidden="true"></i>
+                  }
+                />
+                  Total Buildings
+                  <div className="text-right font-weight-bold" style={{ color:"#1e0707", fontSize: "40px" }}>
+                  {`  ${TotalBuilding} `}</div>
+                </div>
+                <div className="mx-2 pt-2 border border-dark col-4 justify-content-start" 
+                  style={{ color:"#1e0707", fontSize: "20px" }}
+                >
+                  <ESIcon
+                  size={"40px"}
+                  Icon={
+                    <i class="fas fa-fan"></i>
+                  }
+                />
+                  Total Chiller
+                  <div className="text-right font-weight-bold" style={{ color:"#1e0707", fontSize: "40px" }}>
+
+                  {`  ${TotalChiller} `}</div>
+                </div>
+           </div>
             <div
               className="row justify-contents-center"
               style={{ minWidth: 150 }}
@@ -83,12 +120,12 @@ const Report1 = (props) => {
                 <ESIcon
                   size={"40px"}
                   Icon={
-                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                    <i class="fas fa-fan"></i>
                   }
                 />
                 
-                <h2 className="pt-1" style={{ color: Colors.PrimaryColor, fontSize: "20px" }}>
-                  Age of buildings
+                <h2 className="" style={{ color: Colors.PrimaryColor, fontSize: "20px" }}>
+                  Brands of Chiller
                 </h2>
                 {TreeData && Object.keys(TreeData).length&&
                 <TreeMap data={TreeData}/>
@@ -102,11 +139,12 @@ const Report1 = (props) => {
             <ESIcon
                   size={"40px"}
                   Icon={
-                    <i class="fa fa-building" aria-hidden="true"></i>
+                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
                   }
                 />
+                
                 <h2 className="pt-1" style={{ color: Colors.PrimaryColor, fontSize: "20px" }}>
-                  Building Management System (BMS)
+                  Year of Installation
                 </h2>
                 
                 <div style = {{width: 750, height: 400}}>
