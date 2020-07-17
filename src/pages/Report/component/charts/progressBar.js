@@ -21,7 +21,7 @@ class ProgressBar extends Component {
      * Chart design taken from Samsung health app
      */
 
-    var chart = am4core.create("chartdiv", am4charts.XYChart);
+    var chart = am4core.create("chartdiv1", am4charts.XYChart);
     chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
     // chart.disabled = true;
 
@@ -143,7 +143,7 @@ console.log("=====>", valueLabel.label.text);
 
   render() {
     return ( <
-      div id = "chartdiv"
+      div id = "chartdiv1"
       style = {
         {
           minWidth: "450px",
