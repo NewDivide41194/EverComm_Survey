@@ -28,7 +28,6 @@ const Report = (props) => {
     ? reportData.map((v, k) => v.building_count[0].Number_of_buildings)[0]
     : null;
 
-    // console.log(">>>>>>>>>>>>>>>>",TreeData)
 
   const ChartData = (question_index, type) =>
     reportData.map((v, k) =>
@@ -142,7 +141,7 @@ const Report = (props) => {
                 <h2 className="pt-1" style={{ color: Colors.PrimaryColor, fontSize: "20px" }}>
                   Age of buildings
                 </h2>
-                <RadialChart data={modifiedAgeData} />
+                {modifiedAgeData&& modifiedAgeData.length&&<RadialChart data={modifiedAgeData} />}
               </div>
             </div>
             <div className="row pt-5 pb-0 mb-0">

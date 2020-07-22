@@ -9,6 +9,7 @@ class Sunburst extends Component {
   }
 
   componentDidMount() {
+    var TotalBuilding=this.props.totalBuilding
     var categories = this.props.categories.sort(),
       data = this.props.BMSdata,
       TypeData = [],
@@ -27,7 +28,7 @@ class Sunburst extends Component {
         y: data[i].y,
         color: data[i].color,
       });
-      
+
 
       // add version data
       drillDataLen = data[i].drilldown.data.length;
@@ -42,23 +43,23 @@ class Sunburst extends Component {
     }
 
     // Create the chart
-    Highcharts.chart("container", {
+    Highcharts.chart("sunBurst", {
       chart: {
         type: "pie",
       },
 
       plotOptions: {
         pie: {
-        
+
           startAngle: -120,
           endAngle: 120,
           shadow: false,
           center: ["50%", "50%"],
         },
       },
-      tooltip: {
-        valueSuffix: "%",
-      },
+      // tooltip: {
+      //   valueSuffix: "%",
+      // },
       title: {
         text: undefined,
       },
@@ -73,10 +74,13 @@ class Sunburst extends Component {
           innerSize: "70%",
           dataLabels: {
             formatter: function () {
-              return this.y > 0 ? this.point.name : null;
+              return this.y > 0
+                ? "<b>" + this.point.name + ":</b> " + this.y + "("+((this.y * 100) / TotalBuilding).toFixed(2) + "%"+")"
+                : null;
             },
-            color: "#ffffff",
+            color: "black",
             distance: -30,
+            rotation: -10
           },
         },
         {
@@ -88,7 +92,7 @@ class Sunburst extends Component {
             formatter: function () {
               // display only if larger than 1
               return this.y > 0
-                 ?"<b>" + this.point.name + ":</b> " + this.y + "%"
+                ? "<b>" + this.point.name + ":</b> " + this.y
                 : null;
             },
           },
@@ -124,7 +128,7 @@ class Sunburst extends Component {
   render() {
     return (
       <div style={{ height: 410, width: 700 }} className="py-2">
-        <div id="container"></div>
+        <div id="sunBurst"></div>
         <div
           className="text-center"
           style={{

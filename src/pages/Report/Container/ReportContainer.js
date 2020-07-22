@@ -14,6 +14,8 @@ import BackCover from "../component/BackCover";
 import Text from "../component/text/textReport";
 import Report1 from "../component/text/Report1";
 import { ChartTheme1 } from "../../../config/Color.config";
+import { map } from "highcharts";
+import { object } from "@amcharts/amcharts4/core";
 const ReportContainer = (props) => {
   const [reportData, setReportData] = useState([]);
   const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
@@ -50,19 +52,25 @@ const ReportContainer = (props) => {
       }
     );
   }, []);
-  const modifiedAgeData =
-    ageData &&
-    ageData.map((v, k) => ({
-      name: v.optionChoiceName,
-      uv: v.optionCount,
-      fill: Colors.ChartTheme1[k],
-    }));
+  const modifiedAgeData = ageData.length && ageData.map((v, k) => ({
+    name: v.option_choice_name,
+    data: Object.keys(v.categories).map((v1, k1) => (v1 === "Factory"
+      ? Object.values(v.categories)[k1] : v1 === "OfficeBuilding"
+        ? Object.values(v.categories)[k1] : v1 === "ShoppingMall"
+          ? Object.values(v.categories)[k1] : v1 === "Hotel"
+            ? Object.values(v.categories)[k1] : v1 === "ResidentialBuilding"
+             ? Object.values(v.categories)[k1] : 0))
+
+  }
+  ))
+
+  console.log("5555555", modifiedAgeData);
   const BMSdata = BMS.map((v, k) => ({
     y: v.y,
     color: ChartTheme1[k],
     drilldown: { name: v.name, categories: v.categories, data: v.data },
   }));
-  console.log("BMS====>", BMSdata);
+  console.log("AGE====>", ageData);
   const TypeData = typeAndArea.map((v, k) => ({
     Area: v.option_choice_name,
     Factory: v.categories.Factory,
@@ -71,7 +79,6 @@ const ReportContainer = (props) => {
     "Residential Building": v.categories.ResidentialBuilding,
     "Office Building": v.categories.OfficeBuilding,
   }));
-  console.log("Type", TypeData);
 
   const BarData = Bardata.map((v, k) => ({
     years: v.years,
@@ -79,14 +86,12 @@ const ReportContainer = (props) => {
     York: v.categories.York,
     Trane: v.categories.Trane,
     Carrier: v.categories.Carrier,
-    Haier:v.categories.Haier,
+    Haier: v.categories.Haier,
     Mitsubishi: v.categories.Mitsubishi,
     "Johnson Controls": v.categories.JohnsonControls,
-    Ingersoll:v.categories.Ingersoll
+    Ingersoll: v.categories.Ingersoll
     // "Office Building": v.categories.OfficeBuilding,
   }));
-
-  console.log("BarData", BarData);
 
 
   // const TreeMapData = TreeMapData.map((v, k) => ({
@@ -108,7 +113,7 @@ const ReportContainer = (props) => {
     Array(Math.ceil((stop - start) / step))
       .fill(start)
       .map((x, y) => x + y * step);
-
+  console.log(ageData);
   return (
     <div className="container">
       <h3 className="text-primary">Report</h3>
@@ -215,7 +220,7 @@ const ReportContainer = (props) => {
               <ReportG1
                 reportData={reportData}
                 TreeData={TreeMapData}
-                BarData= {BarData}
+                BarData={BarData}
               />
 
               {/* <Report1 reportData={reportData} /> */}
