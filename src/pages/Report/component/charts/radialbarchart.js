@@ -1,49 +1,109 @@
-import React, { PureComponent } from "react";
-import { RadialBarChart, RadialBar, Legend } from "recharts";
+import React, { Component, useEffect, useState } from "react";
+import Highcharts from "highcharts/highcharts";
+import HighChartsMore from "highcharts/highcharts-more";
+import * as Colors from "../../../../config/Color.config";
 
-const style = {
-  top: 0,
-  left: 220,
-  lineHeight: "18px",
-  fontSize: 12,
-};
+class RadialBarChart extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-const RadialChart = ({ data }) => {
-    console.log("RadialBarChart is =>",data);
+  componentWillMount(){
 
-  return (
-    <RadialBarChart
-      width={200}
-      fontSize={10}
-      height={200}
-      cx={100}
-      cy={100}
-      innerRadius={20}
-      outerRadius={100}
-      barSize={20}
-      data={data}
-      startAngle={90}
-      endAngle={-180}
-    >
-      <RadialBar
-        minAngle={15}
-        label={{ position: "end", fill: "#000" }}
-        background
-        dataKey="uv"
-        
-      />
-      <Legend
-        iconSize={10}
-        width={200}
-        height={100}
-        layout="vertical"
-        verticalAlign="middle"
-        wrapperStyle={style}
-        iconType={"circle"}
-        
-      />
-    </RadialBarChart>
-  );
-};
+    HighChartsMore(Highcharts)
 
-export default RadialChart;
+  }
+
+  componentDidMount() {
+    console.log("777777", this.props.data);
+    Highcharts.chart("radialBar", {
+      colors: Colors.ChartTheme1,
+      chart: {
+        type: "column",
+        inverted: true,
+        polar: true,
+      },
+      dataLabels: [
+        {
+          enabled: true,
+          inside: true,
+          style: {
+            fontSize: "10px",
+          },
+        },
+      ],
+
+      title: {
+        text: undefined,
+      },
+      tooltip: {
+        // outside: true
+      },
+      credits: {
+        enabled: false,
+      },
+      pane: {
+        size: "90%",
+        innerSize: "15%",
+        endAngle: 270,
+      },
+      xAxis: {
+        tickInterval: 0,
+        labels: {
+          align: "right",
+          // useHTML: true,
+          allowOverlap: true,
+          step: 0,
+          y: 0,
+          style: {
+            fontSize: "10px",
+          },
+        },
+        lineWidth: 2,
+        categories: [
+          "Less than 10",
+          "10-20",
+          "20-30",
+          "30-40",
+          "40-50",
+          "More than 50",
+        ],
+      },
+      yAxis: {
+        crosshair: {
+          enabled: false,
+          color: "#333",
+        },
+        lineWidth: 0,
+        tickInterval: 0,
+        reversedStacks: true,
+        endOnTick: true,
+        showLastLabel: true,
+      },
+
+      plotOptions: {
+        column: {
+          stacking: "normal",
+          borderWidth: 0,
+          pointPadding: 0,
+          groupPadding: 0.1,
+          dataLabels: {
+            enabled: true,
+            allowOverlap: true,
+          },
+        },
+      },
+
+      series: this.props.data,
+    });
+  }
+
+  componentWillUnmount() {
+    this.chart.destroy();
+  }
+  render() {
+    return <div id="radialBar"></div>;
+  }
+}
+
+export default RadialBarChart;

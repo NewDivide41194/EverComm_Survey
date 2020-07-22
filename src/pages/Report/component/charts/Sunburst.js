@@ -9,7 +9,8 @@ class Sunburst extends Component {
   }
 
   componentDidMount() {
-    var categories = this.props.categories,
+    var TotalBuilding=this.props.totalBuilding
+    var categories = this.props.categories.sort(),
       data = this.props.BMSdata,
       TypeData = [],
       BMSData = [],
@@ -42,7 +43,7 @@ console.log("=====>",data);
     }
 
     // Create the chart
-    Highcharts.chart("container", {
+    Highcharts.chart("sunBurst", {
       chart: {
         type: "pie",
       },
@@ -55,9 +56,9 @@ console.log("=====>",data);
           center: ["50%", "50%"],
         },
       },
-      tooltip: {
-        valueSuffix: "%",
-      },
+      // tooltip: {
+      //   valueSuffix: "%",
+      // },
       title: {
         text: undefined,
       },
@@ -72,10 +73,13 @@ console.log("=====>",data);
           innerSize: "70%",
           dataLabels: {
             formatter: function () {
-              return this.y > 0 ? this.point.name : null;
+              return this.y > 0
+                ? "<b>" + this.point.name + ":</b> " + this.y + "("+((this.y * 100) / TotalBuilding).toFixed(2) + "%"+")"
+                : null;
             },
-            color: "#ffffff",
+            color: "black",
             distance: -30,
+            rotation: -10
           },
         },
         {
@@ -87,7 +91,7 @@ console.log("=====>",data);
             formatter: function () {
               // display only if larger than 1
               return this.y > 0
-                ? "<b>" + this.point.name + ":</b> " + this.y + "%"
+                ? "<b>" + this.point.name + ":</b> " + this.y
                 : null;
             },
           },
@@ -123,7 +127,7 @@ console.log("=====>",data);
   render() {
     return (
       <div style={{ height: 410, width: 700 }} className="py-2">
-        <div id="container"></div>
+        <div id="sunBurst"></div>
         <div
           className="text-center"
           style={{

@@ -50,18 +50,30 @@ const ReportContainer = (props) => {
       }
     );
   }, []);
-  const modifiedAgeData =
-    ageData &&
-    ageData.map((v, k) => ({
-      name: v.optionChoiceName,
-      uv: v.optionCount,
-      fill: Colors.ChartTheme1[k],
-    }));
+ 
+
+  const AgeData1 =
+    ageData.length && ageData.map((v, k) => ( v.categories ))
+
+  const AgeData2 =
+    new Array(5).fill(null).map((v, k) => ({"less than 10":0,"10-20":0,"20-30":0,"30-40":0,"40-50":0,"More than 50":0 }));
+
+    let AgeData3 = AgeData2.length&&AgeData2.map((item, i) => Object.assign({}, item, AgeData1[i]));
+
+  console.log("5555555", AgeData1,AgeData3);
   const BMSdata = BMS.map((v, k) => ({
     y: v.y,
     color: ChartTheme1[k],
     drilldown: { name: v.name, categories: v.categories, data: v.data },
   }));
+
+  const modifiedAgeData =
+  ageData.length &&
+  ageData.map((v, k) => ({
+    name: v.building_type,
+    data: AgeData3.map((v1,k1)=>Object.values(v1))[k],
+  }));
+  console.log("AGE====>", modifiedAgeData);
   const TypeData = typeAndArea.map((v, k) => ({
     Area: v.option_choice_name,
     Factory: v.categories.Factory,
@@ -83,7 +95,16 @@ const ReportContainer = (props) => {
     Ingersoll: v.categories.Ingersoll,
   }));
 
-  console.log("BarData", BarData);
+  // const TreeMapData = TreeMapData.map((v, k) => ({
+  //   Chiller: v.option_choice_name,
+  //   Factory: v.categories.Factory,
+  //   ShoppingMall: v.categories.ShoppingMall,
+  //   Hotel: v.categories.Hotel,
+  //   "Residential Building": v.categories.ResidentialBuilding,
+  //   "Office Building": v.categories.OfficeBuilding,
+  // }));
+
+  // console.log("TreeMapData", TreeMapData);
 
   const categoriesData = BMS.map((v, k) => v.name);
   const componentRefChart = useRef();
@@ -92,8 +113,7 @@ const ReportContainer = (props) => {
     Array(Math.ceil((stop - start) / step))
       .fill(start)
       .map((x, y) => x + y * step);
-
-  console.log(TypeData);
+  console.log(ageData);
 
   return (
     <div className="container">
