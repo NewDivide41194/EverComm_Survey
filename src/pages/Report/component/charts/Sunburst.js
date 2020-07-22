@@ -1,6 +1,6 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { Component } from "react";
+
 import Highcharts from "highcharts/highcharts";
-import HighchartsReact from "highcharts-react-official";
 import Building from "../../../../assets/images/building.png";
 
 class Sunburst extends Component {

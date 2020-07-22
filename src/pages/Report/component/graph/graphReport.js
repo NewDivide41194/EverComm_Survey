@@ -1,8 +1,7 @@
 import React from "react";
 import * as Colors from "../../../../config/Color.config";
-import { NotAnswered, Percentage } from "../../../../helper/reportHelper";
-import PieChart from "../charts/Piechart";
-import Bar from "../charts/Barchart";
+import { Percentage } from "../../../../helper/reportHelper";
+
 import Logo from "../../../../assets/images/Logo.png";
 import withMedia from "react-media-query-hoc/dist/with-media";
 import { StackedBar } from "../charts/StackedBar";
@@ -10,15 +9,11 @@ import RadialChart from "../charts/radialbarchart";
 import { ESIcon } from "../../../../tools/ES_Icon";
 import ProgressBar from "../charts/progressBar";
 import Sunburst from "../charts/Sunburst";
-// import TreeMap from "../charts/treeMap"
+
 const Report = (props) => {
   const {
     reportData,
-    startDate,
-    endDate,
-    viewType,
     typeAndArea,
-    // TreeData,
     categories,
     BMSdata,
     media,
@@ -54,20 +49,6 @@ const Report = (props) => {
               }
         )
     )[0];
-
-  function getUnique(arr, index) {
-    const unique = arr
-      .map((e) => e[index])
-
-      // store the keys of the unique objects
-      .map((e, i, final) => final.indexOf(e) === i && i)
-
-      // eliminate the dead keys & store unique objects
-      .filter((e) => arr[e])
-      .map((e) => arr[e]);
-
-    return unique;
-  }
 
   return (
     <div

@@ -1,13 +1,9 @@
 import React from "react";
 import { ResponsiveBar } from "@nivo/bar";
-import * as Colors from "../../../../config/Color.config"
-// make sure parent container have a defined height when using
-// responsive component, otherwise height will be 0 and
-// no chart will be rendered.
-// website examples showcase many properties,
-// you'll often use just a few of them.
+
+import * as Colors from "../../../../config/Color.config";
+
 export const StackedBar = ({ data /* see data tab */ }) => (
-  
   <ResponsiveBar
     data={data}
     keys={[
@@ -22,43 +18,8 @@ export const StackedBar = ({ data /* see data tab */ }) => (
     maxValue={data.length}
     padding={0.5}
     enableGridY={false}
-  
     // layout="horizontal"
     colors={Colors.ChartTheme1}
-    // defs={[
-    //     {
-    //         id: 'dots',
-    //         type: 'patternDots',
-    //         background: 'inherit',
-    //         color: '#38bcb2',
-    //         size: 4,
-    //         padding: 1,
-    //         stagger: true
-    //     },
-    //     {
-    //         id: 'lines',
-    //         type: 'patternLines',
-    //         background: 'inherit',
-    //         color: '#eed312',
-    //         rotation: -45,
-    //         lineWidth: 6,
-    //         spacing: 10
-    //     }
-    // ]}
-    // fill={[
-    //     {
-    //         match: {
-    //             id: 'Factory'
-    //         },
-    //         id: 'dots'
-    //     },
-    //     {
-    //         match: {
-    //             id: 'ShoppingMall'
-    //         },
-    //         id: 'lines'
-    //     }
-    // ]}
     borderColor={{ from: "color", modifiers: [["darker", 1.6]] }}
     axisTop={null}
     axisRight={null}
@@ -78,7 +39,6 @@ export const StackedBar = ({ data /* see data tab */ }) => (
       legendPosition: "middle",
       legendOffset: -40,
       format: (e) => Math.floor(e) === e && e,
-
     }}
     labelSkipWidth={12}
     labelSkipHeight={12}

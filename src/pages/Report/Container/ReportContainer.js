@@ -12,7 +12,6 @@ import * as Colors from "../../../config/Color.config";
 import Cover from "../component/Cover";
 import BackCover from "../component/BackCover";
 import Text from "../component/text/textReport";
-import Report1 from "../component/text/Report1";
 import { ChartTheme1 } from "../../../config/Color.config";
 
 const ReportContainer = (props) => {
@@ -143,24 +142,6 @@ const ReportContainer = (props) => {
               endDate={endDate}
               viewType={userLevel === 2 ? null : viewType}
             />
-            {/* {reportData.map((s, k) => {
-              const surveyRange = range(0, s.survey_sections.length, 8);
-              return surveyRange.map((r, index) => {
-                return s.survey_sections
-                  .slice(surveyRange[index], surveyRange[index + 1])
-                  .map((survey, kk) => (
-                    <Text
-                    reportData={reportData}
-                      // key={kk}
-                      // surveySection={survey}
-                      // reportData={s}
-                      // startDate={startDate}
-                      // endDate={endDate}
-                      // viewType={userLevel === 2 ? null : viewType}
-                    />
-                  ));
-              });
-            })} */}
             <Text reportData={reportData} />
             <BackCover
               reportData={reportData}
@@ -199,10 +180,6 @@ const ReportContainer = (props) => {
                 BMSdata={BMSdata}
                 categories={categoriesData}
                 typeAndArea={TypeData}
-                // TreeData={TreeMapData}
-                startDate={startDate}
-                endDate={endDate}
-                viewType={userLevel === 2 ? null : viewType}
               />
               <ReportG1
                 reportData={reportData}
