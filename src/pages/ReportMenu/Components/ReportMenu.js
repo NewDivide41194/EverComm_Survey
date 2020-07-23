@@ -125,7 +125,6 @@ const ReportDetail = (props) => {
   const filteredData =
     ReportDetailData &&
     ReportDetailData.filter((R) => R.survey_header_id === surveyId);
-  console.log(filteredData);
 
   return (
     <div className="">

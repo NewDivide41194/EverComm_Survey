@@ -308,7 +308,6 @@ const QuestionContainer = (props) => {
       .length;
     setTotal(total + AddedQuestionsLength);
   };
-  console.log("Answer----->");
 
   if (IsLoading) {
     return <ESLoading />;

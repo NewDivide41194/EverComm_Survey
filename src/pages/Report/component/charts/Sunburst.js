@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import Highcharts from "highcharts/highcharts";
 import Building from "../../../../assets/images/building.png";
+import * as Colors from "../../../../config/Color.config";
 
 class Sunburst extends Component {
   constructor(props) {
@@ -10,7 +11,7 @@ class Sunburst extends Component {
 
   componentDidMount() {
     var TotalBuilding=this.props.totalBuilding
-    var categories = this.props.categories.sort(),
+    var categories = this.props.categories,
       data = this.props.BMSdata,
       TypeData = [],
       BMSData = [],
@@ -19,7 +20,6 @@ class Sunburst extends Component {
       dataLen = data.length,
       drillDataLen,
       brightness;
-console.log("=====>",data);
 
     // Build the data arrays
     for (i = 0; i < dataLen; i += 1) {
@@ -33,15 +33,19 @@ console.log("=====>",data);
       // add version data
       drillDataLen = data[i].drilldown.data.length;
       for (j = 0; j < drillDataLen; j += 1) {
-        brightness = 0.2 - j / drillDataLen / 5;
+        brightness = 0.1 - j / drillDataLen / 5;
+        const d=new Map()
+        d.set("red","green","blue")
         BMSData.push({
           name: data[i].drilldown.categories[j],
           y: data[i].drilldown.data[j],
-          color: Highcharts.color(data[i].color).brighten(brightness).get(),
+          color: Colors.ChartTheme1.map((v,k)=>v)[j],
+          
+          // Highcharts.color(data[i].color).brighten(brightness).get(),
         });
       }
     }
-
+    
     // Create the chart
     Highcharts.chart("sunBurst", {
       chart: {
@@ -79,7 +83,7 @@ console.log("=====>",data);
             },
             color: "black",
             distance: -30,
-            rotation: -10
+            rotation: 0
           },
         },
         {
@@ -125,6 +129,7 @@ console.log("=====>",data);
     this.chart.destroy();
   }
   render() {
+    
     return (
       <div style={{ height: 410, width: 700 }} className="py-2">
         <div id="sunBurst"></div>

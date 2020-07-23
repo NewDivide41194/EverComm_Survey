@@ -91,7 +91,7 @@ const Report1 = (props) => {
                 <ESIcon
                   size={"40px"}
                   Icon={
-                    <i class="fa fa-city" aria-hidden="true"></i>
+                    <i className="fa fa-city" aria-hidden="true"></i>
                   }
                 />
                   Total Buildings
@@ -104,7 +104,7 @@ const Report1 = (props) => {
                 <ESIcon
                   size={"40px"}
                   Icon={
-                    <i class="fas fa-fan"></i>
+                    <i className="fas fa-fan"></i>
                   }
                 />
                   Total Chiller
@@ -121,7 +121,7 @@ const Report1 = (props) => {
                 <ESIcon
                   size={"40px"}
                   Icon={
-                    <i class="fas fa-fan"></i>
+                    <i className="fas fa-fan"></i>
                   }
                 />
 
@@ -147,7 +147,7 @@ const Report1 = (props) => {
               <ESIcon
                 size={"40px"}
                 Icon={
-                  <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                  <i className="fa fa-calendar-check-o" aria-hidden="true"></i>
                 }
               />
 

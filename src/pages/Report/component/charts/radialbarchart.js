@@ -3,19 +3,15 @@ import Highcharts from "highcharts/highcharts";
 import HighChartsMore from "highcharts/highcharts-more";
 import * as Colors from "../../../../config/Color.config";
 
+HighChartsMore(Highcharts);
+
 class RadialBarChart extends Component {
   constructor(props) {
     super(props);
   }
 
-  componentWillMount(){
-
-    HighChartsMore(Highcharts)
-
-  }
-
   componentDidMount() {
-    console.log("777777", this.props.data);
+    HighChartsMore(Highcharts);
     Highcharts.chart("radialBar", {
       colors: Colors.ChartTheme1,
       chart: {
@@ -59,7 +55,7 @@ class RadialBarChart extends Component {
             fontSize: "10px",
           },
         },
-        lineWidth: 2,
+        lineWidth: 4,
         categories: [
           "Less than 10",
           "10-20",
@@ -86,7 +82,7 @@ class RadialBarChart extends Component {
           stacking: "normal",
           borderWidth: 0,
           pointPadding: 0,
-          groupPadding: 0.1,
+          groupPadding: 0,
           dataLabels: {
             enabled: true,
             allowOverlap: true,
@@ -98,9 +94,9 @@ class RadialBarChart extends Component {
     });
   }
 
-  componentWillUnmount() {
-    this.chart.destroy();
-  }
+  // componentWillUnmount() {
+  //   this.chart.destroy();
+  // }
   render() {
     return <div id="radialBar"></div>;
   }

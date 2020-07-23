@@ -89,7 +89,6 @@ const BuildingContainer = (props) => {
         } else {
           localStorage.setItem("buildingName", buildingName);
           localStorage.setItem("buildingId", data.payload.insertId);
-          console.log(data.payload.insertId);
           
           props.history.push(
             `/question/${userId}/${surveyHeaderId}/${buildingId}`
@@ -127,7 +126,6 @@ const BuildingContainer = (props) => {
   };
 
   const _handleDeviceChange = (id,e) => {
-  console.log(id,e);
 
       const value=e.value
     setDeviceData(
@@ -135,8 +133,6 @@ const BuildingContainer = (props) => {
     [id]:value}
   )  
 };
-console.log(country);
-
 
   const CountryOptions = Countries.countries.map((v, k) => ({
     value: v.code,

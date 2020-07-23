@@ -81,10 +81,6 @@ class ProgressBar extends Component {
     // valueLabel.label.fill = "#dedede";
     valueLabel.label.horizontalCenter = "left";
 
-
-console.log("=====>", valueLabel.label.text);
-
-
     var columnTemplate = series.columns.template;
     columnTemplate.height = am4core.percent(30);
     columnTemplate.maxHeight = 100;

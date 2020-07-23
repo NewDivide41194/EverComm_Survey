@@ -41,7 +41,6 @@ const NavBar = (props) => {
   const _handleReportMenu = () => {
     props.history.push(`/reportMenu/${userId}`);
   };
-  console.log(props.location.pathname);
   const Nav = () => {
     return (<div
       style={{ zIndex: 97, background: "white" }}

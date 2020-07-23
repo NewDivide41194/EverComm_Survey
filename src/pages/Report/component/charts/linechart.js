@@ -4,7 +4,6 @@ import * as Colors from "../../../../config/Color.config"
 
 
 const ResponsiveLine1 = ({ data /* see data tab */ }) => {
-    console.log("Line chat", data)
     return(
     
         <ResponsiveLine

@@ -28,7 +28,6 @@ const SurveyMenuContainer = props => {
       window.location.reload()
     });
   };
-console.log("Menu----->",menuData);
 
   return (
     

@@ -1,8 +1,8 @@
-export const PrimaryColor="#276bb9"
+export const PrimaryColor="#3b8bbe"
 
 export const SecondaryColor="#A2A2A2"
 
-export const Gray="#757575"
+export const Gray="#5b5b5b"
 
 export const purple="#8c41bd"
 
@@ -14,4 +14,4 @@ export const SparkGreen="#7bbf34"
 
 export const PaleGreen="#82c937"
 
-export const ChartTheme1=[PrimaryColor,purple,MoonLight,SparkGreen,Gray,PaleYellow,PaleGreen,SecondaryColor]
+export const ChartTheme1=["#004ea8",PrimaryColor,MoonLight,PaleYellow,Gray,SecondaryColor]

@@ -7,12 +7,12 @@ export const StackedBar = ({ data /* see data tab */ }) => (
   <ResponsiveBar
     data={data}
     keys={[
-      "Hotel",
       "Factory",
+      "Hotel",
       "ShoppingMall",
-      "Residential Building",
       "Office Building",
-    ]}
+      "Residential Building",
+    ].sort()}
     indexBy="Area"
     margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
     maxValue={data.length}
