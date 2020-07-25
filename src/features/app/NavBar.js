@@ -91,7 +91,7 @@ const NavBar = (props) => {
               : userLevel === 2
                 ? "User"
                 : userLevel === 3
-                  ? "Distributer"
+                  ? "Distributor"
                   : null}
           </div>
           <button className="dropdown-item" onClick={_handleSignOut}>

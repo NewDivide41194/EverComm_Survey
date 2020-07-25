@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import ReportG1 from "../component/graph/Report1";
+import ReportG1 from "../component/graph/graphReport1";
 import Report from "../component/graph/graphReport";
 import {
   UserReportAnswers,
@@ -7,12 +7,11 @@ import {
 } from "../../../api/FetchReportAnswers";
 import ReactToPrint from "react-to-print";
 import { ESButton } from "../../../tools/ES_Button";
-import * as Colors from "../../../config/Color.config";
-
 import Cover from "../component/Cover";
 import BackCover from "../component/BackCover";
 import Text from "../component/text/textReport";
 import { ChartTheme1 } from "../../../config/Color.config";
+import ESLoading from "../../../tools/ES_Loading";
 
 const ReportContainer = (props) => {
   const [reportData, setReportData] = useState([]);
@@ -22,7 +21,8 @@ const ReportContainer = (props) => {
   const [BMS, setBMS] = useState([]);
   const [ageData, setAgeData] = useState([]);
   const [TreeMapData, setTreeData] = useState([]);
-  const [Bardata, setBarData] = useState([]);
+  const [chillerInstallation, setChillerInstallation] = useState([]);
+  const [isLoading,setIsLoading]=useState(false)
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -46,23 +46,21 @@ const ReportContainer = (props) => {
         setBMS(data.payload[2]);
         setAgeData(data.payload[0]);
         setTreeData(data.payload[3]);
-        setBarData(data.payload[4]);
+        setChillerInstallation(data.payload[4]);
       }
     );
   }, []);
-
+  
   const AgeData1 = ageData.length && ageData.map((v, k) => v.categories);
 
-  const AgeData2 = new Array(5)
-    .fill(null)
-    .map((v, k) => ({
-      "less than 10": 0,
-      "10-20": 0,
-      "20-30": 0,
-      "30-40": 0,
-      "40-50": 0,
-      "More than 50": 0,
-    }));
+  const AgeData2 = new Array(5).fill(null).map((v, k) => ({
+    "less than 10": 0,
+    "10-20": 0,
+    "20-30": 0,
+    "30-40": 0,
+    "40-50": 0,
+    "More than 50": 0,
+  }));
 
   let AgeData3 =
     AgeData2.length &&
@@ -84,12 +82,12 @@ const ReportContainer = (props) => {
     Area: v.option_choice_name,
     Factory: v.categories.Factory,
     Hotel: v.categories.Hotel,
-    ShoppingMall: v.categories.ShoppingMall,
     "Residential Building": v.categories.ResidentialBuilding,
     "Office Building": v.categories.OfficeBuilding,
+    ShoppingMall: v.categories.ShoppingMall
   }));
 
-  const BarData = Bardata.map((v, k) => ({
+  const chillerInstallationData = chillerInstallation.map((v, k) => ({
     years: v.years,
     Daikin: v.categories.Daikin,
     York: v.categories.York,
@@ -98,35 +96,28 @@ const ReportContainer = (props) => {
     Haier: v.categories.Haier,
     Mitsubishi: v.categories.Mitsubishi,
     "Johnson Controls": v.categories.JohnsonControls,
-    Ingersoll: v.categories.Ingersoll,
+    Ingersoll: v.categories.Ingersoll
   }));
 
-  // const TreeMapData = TreeMapData.map((v, k) => ({
-  //   Chiller: v.option_choice_name,
-  //   Factory: v.categories.Factory,
-  //   ShoppingMall: v.categories.ShoppingMall,
-  //   Hotel: v.categories.Hotel,
-  //   "Residential Building": v.categories.ResidentialBuilding,
-  //   "Office Building": v.categories.OfficeBuilding,
-  // }));
+  const yearCount=Math.max.apply(Math, chillerInstallation.map(function(o) { return o.count; }))
+  const typeCount=Math.max.apply(Math, typeAndArea.map(function(o) { return o.count; }))
 
-  // console.log("TreeMapData", TreeMapData);
-
+console.log("TC",typeCount,yearCount);
   const categoriesData = BMS.map((v, k) => v.name);
-  const componentRefChart = useRef();
-  const componentRefTest = useRef();
+  const componentGraphRef = useRef();
+  const componentTextRef = useRef();
   const range = (start, stop, step = 1) =>
     Array(Math.ceil((stop - start) / step))
       .fill(start)
       .map((x, y) => x + y * step);
-
+console.log("===>",modifiedAgeData);
   return (
     <div className="container">
       <h3 className="text-primary">Report</h3>
       <ul className="nav nav-tabs" role="tablist">
         <li className="nav-item">
           <a
-            href="#reportTest"
+            href="#reportText"
             role="tab"
             className="nav-link active"
             data-toggle="tab"
@@ -136,7 +127,7 @@ const ReportContainer = (props) => {
         </li>
         <li className="nav-item">
           <a
-            href="#reportChart"
+            href="#reportGraph"
             role="tab"
             className="nav-link"
             data-toggle="tab"
@@ -146,7 +137,7 @@ const ReportContainer = (props) => {
         </li>
       </ul>
       <div className="tab-content">
-        <div className="mt-4 tab-pane active" id="reportTest">
+        <div className="mt-4 tab-pane active" id="reportText">
           <ReactToPrint
             trigger={() => (
               <div className="col-3 py-2 px-0" style={{ minWidth: 172 }}>
@@ -157,10 +148,10 @@ const ReportContainer = (props) => {
                 />
               </div>
             )}
-            content={() => componentRefTest.current}
+            content={() => componentTextRef.current}
             pageStyle="{size: A4 portrait;}"
           />
-          <div ref={componentRefTest} componentref={componentRefTest}>
+          <div ref={componentTextRef}>
             <Cover
               reportData={reportData}
               startDate={startDate}
@@ -175,8 +166,7 @@ const ReportContainer = (props) => {
             />
           </div>
         </div>
-        <div className="tab-pane " id="reportChart">
-          <div className="mt-4">
+          <div className="tab-pane mt-4" id="reportGraph">
             <ReactToPrint
               trigger={() => (
                 <div className="col-3 py-2 px-0" style={{ minWidth: 172 }}>
@@ -187,12 +177,12 @@ const ReportContainer = (props) => {
                   />
                 </div>
               )}
-              content={() => componentRefChart.current}
+              content={() => componentGraphRef.current}
               // ref={el => (this.componentRef = el)}
               pageStyle="{ size: A4 portrait;}"
               // removeAfterPrint={true}
             />
-            <div ref={componentRefChart} componentRef={componentRefChart}>
+            <div ref={componentGraphRef} >
               <Cover
                 reportData={reportData}
                 startDate={startDate}
@@ -205,21 +195,20 @@ const ReportContainer = (props) => {
                 BMSdata={BMSdata}
                 categories={categoriesData}
                 typeAndArea={TypeData}
+                buildingTypeCount={typeCount}
               />
               <ReportG1
                 reportData={reportData}
                 TreeData={TreeMapData}
-                BarData={BarData}
+                BarData={chillerInstallationData}
+                yearCount={yearCount}
               />
-
-              {/* <Report1 reportData={reportData} /> */}
               <BackCover
                 reportData={reportData}
                 startDate={startDate}
                 endDate={endDate}
               />
             </div>
-          </div>
         </div>
       </div>
     </div>

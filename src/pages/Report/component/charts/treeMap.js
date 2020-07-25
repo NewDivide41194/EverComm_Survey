@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import * as Colors from "../../../../config/Color.config";
 
 
 class Treemap extends Component {
@@ -14,16 +15,7 @@ class Treemap extends Component {
 
     function am4themes_animated(target) {
       if (target instanceof am4core.ColorSet) {
-        target.list = [
-          am4core.color("#276bb9"),
-          am4core.color("#8c41bd"),
-          am4core.color("grey"),
-          am4core.color("#f7c972"),
-          am4core.color("#7bbf34"),
-          am4core.color("#fae3b2"),
-          am4core.color("#33cc33"),
-          am4core.color("#7bbf34"),
-        ];
+        target.list = Colors.ChartTheme1.map(v=>am4core.color(v))
       }
     }
     am4core.useTheme(am4themes_animated)
@@ -33,7 +25,6 @@ class Treemap extends Component {
 
 
     var data = this.props.data
-
     function processData(data) {
       var treeData = [];
 
@@ -81,7 +72,7 @@ class Treemap extends Component {
 
     // level 0 series template
     var level0SeriesTemplate = chart.seriesTemplates.create("0");
-    level0SeriesTemplate.strokeWidth = 2;
+    level0SeriesTemplate.strokeWidth = 4;
 
     // by default only current level series bullets are visible, but as we need brand bullets to be visible all the time, we modify it's hidden state
     level0SeriesTemplate.bulletsContainer.hiddenState.properties.opacity = 1;
@@ -126,13 +117,20 @@ class Treemap extends Component {
     var bullet1 = level1SeriesTemplate.bullets.push(new am4charts.LabelBullet());
     bullet1.locationX = 0.5;
     bullet1.locationY = 0.5;
-    bullet1.label.text = "{name}";
-    bullet1.label.fill = am4core.color("#ffffff");
-    bullet1.label.fontSize = 9;
-    bullet1.label.fillOpacity = 0.7;
+    bullet1.label.text = "{name} : {value}";
+    bullet1.label.fill = am4core.color("#000000");
+    bullet1.label.background.fill=am4core.color("#ffffff")
+    bullet1.label.fontSize = 12;
+    bullet1.label.truncate=false
+    // bullet1.label.fullWords
+
+    // bullet1.label.fillOpacity = 0.7;
 
     chart.data = processData(data);
     chart.logo.disabled = true;
+    console.log(chart.data);
+
+    chart.sorting="none"
   }
   omponentWillUnmount() {
     if (this.chart) {

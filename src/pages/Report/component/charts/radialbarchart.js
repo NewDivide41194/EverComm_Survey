@@ -9,11 +9,10 @@ class RadialBarChart extends Component {
   constructor(props) {
     super(props);
   }
-
   componentDidMount() {
     HighChartsMore(Highcharts);
     Highcharts.chart("radialBar", {
-      colors: Colors.ChartTheme1,
+      colors: Colors.ChartTheme2,
       chart: {
         type: "column",
         inverted: true,
@@ -39,7 +38,7 @@ class RadialBarChart extends Component {
         enabled: false,
       },
       pane: {
-        size: "90%",
+        size: "100%",
         innerSize: "15%",
         endAngle: 270,
       },
@@ -47,7 +46,7 @@ class RadialBarChart extends Component {
         tickInterval: 0,
         labels: {
           align: "right",
-          // useHTML: true,
+          useHTML: true,
           allowOverlap: true,
           step: 0,
           y: 0,
@@ -76,7 +75,7 @@ class RadialBarChart extends Component {
         endOnTick: true,
         showLastLabel: true,
       },
-
+      legend: { padding: 0,enabled:false },
       plotOptions: {
         column: {
           stacking: "normal",
@@ -90,7 +89,7 @@ class RadialBarChart extends Component {
         },
       },
 
-      series: this.props.data,
+      series: this.props.data.reverse(),
     });
   }
 
@@ -98,7 +97,8 @@ class RadialBarChart extends Component {
   //   this.chart.destroy();
   // }
   render() {
-    return <div id="radialBar"></div>;
+
+    return <div className="w-100" id="radialBar" style={{height:280}}></div>;
   }
 }
 

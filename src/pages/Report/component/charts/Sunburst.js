@@ -24,22 +24,40 @@ class Sunburst extends Component {
     // Build the data arrays
     for (i = 0; i < dataLen; i += 1) {
       // add browser data
+              brightness = 0.3 - i / drillDataLen / 5;
+
       TypeData.push({
         name: categories[i],
         y: data[i].y,
-        color: data[i].color,
+        color:"#6d6f77",
       });
 
       // add version data
       drillDataLen = data[i].drilldown.data.length;
+      const BMSColorIndex = (type) => {
+        switch (type) {
+          case "Factory":
+            return 0;
+          case "Hotel":
+            return 1;
+            case "Office Building":
+            return 2;
+            case "Residential Building":
+            return 3;
+            case "Shopping Mall":
+            return 4;
+          default:
+            return 0;
+        }
+      };
+      console.log(BMSColorIndex("Hotel"));
+  
       for (j = 0; j < drillDataLen; j += 1) {
-        brightness = 0.1 - j / drillDataLen / 5;
-        const d=new Map()
-        d.set("red","green","blue")
+
         BMSData.push({
           name: data[i].drilldown.categories[j],
           y: data[i].drilldown.data[j],
-          color: Colors.ChartTheme1.map((v,k)=>v)[j],
+          color: Colors.ChartTheme1.map((v,k)=>v)[BMSColorIndex(data[i].drilldown.categories[j])],
           
           // Highcharts.color(data[i].color).brighten(brightness).get(),
         });

@@ -18,11 +18,11 @@ const Report = (props) => {
     BMSdata,
     media,
     modifiedAgeData,
+    buildingTypeCount
   } = props;
   const TotalBuilding = reportData
     ? reportData.map((v, k) => v.building_count[0].Number_of_buildings)[0]
     : null;
-
 
   const ChartData = (question_index, type) =>
     reportData.map((v, k) =>
@@ -60,7 +60,7 @@ const Report = (props) => {
       }}
     >
       <div className="row py-3 justify-content-between border-bottom">
-        <div className="pl-4" style={{ width: "50%" }}>
+        <div className="pl-4 w-50">
           <img
             src={Logo}
             style={{
@@ -80,17 +80,13 @@ const Report = (props) => {
         </div>
       </div>
       <div
-        className="py-2 px-4 row border-bottom pdfBg"
-        style={{ background: Colors.PrimaryColor }}
+        className="py-2 px-4 row border-bottom pdfBg text-light"
+        style={{
+          background: Colors.PrimaryColor,
+          fontSize: media.mobile ? "18px" : "20px",
+        }}
       >
-        <span
-          style={{
-            color: "#fafafa",
-            fontSize: media.mobile ? "18px" : "20px",
-          }}
-        >
-          Basic Information
-        </span>
+        Basic Information
       </div>
       {reportData && reportData.length ? (
         reportData.map((v, k) => (
@@ -116,7 +112,10 @@ const Report = (props) => {
                 <ESIcon
                   size={"40px"}
                   Icon={
-                    <i className="fa fa-calendar-check-o" aria-hidden="true"></i>
+                    <i
+                      className="fa fa-calendar-check-o"
+                      aria-hidden="true"
+                    ></i>
                   }
                 />
                 <h2
@@ -125,7 +124,9 @@ const Report = (props) => {
                 >
                   Age of buildings
                 </h2>
-                {modifiedAgeData&& modifiedAgeData.length&&<RadialChart data={modifiedAgeData} />}
+                {modifiedAgeData && modifiedAgeData.length && (
+                  <RadialChart data={modifiedAgeData} />
+                )}
               </div>
             </div>
             <div className="row pt-4 pb-0 mb-2 border-bottom">
@@ -166,7 +167,21 @@ const Report = (props) => {
               </h2>
 
               <div style={{ height: 400 }}>
-                <StackedBar data={typeAndArea} />
+                <StackedBar
+                  maxCount={buildingTypeCount}
+                  chartTheme={Colors.ChartTheme1}
+                  data={typeAndArea}
+                  index={"Area"}
+                  bottomLegend={"#Area of Buildings"}
+                  leftLegend={"#Amount of Buildings"}
+                  dataKeys={[
+                    "Factory",
+                    "Hotel",
+                    "Office Building",
+                    "Residential Building",
+                    "ShoppingMall",
+                  ]}
+                />
               </div>
             </div>
           </div>

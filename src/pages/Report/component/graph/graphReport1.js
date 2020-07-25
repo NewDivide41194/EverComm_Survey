@@ -4,18 +4,12 @@ import { NotAnswered, Percentage } from "../../../../helper/reportHelper";
 import Logo from "../../../../assets/images/Logo.png";
 import withMedia from "react-media-query-hoc/dist/with-media";
 import { ESIcon } from "../../../../tools/ES_Icon";
-import TreeMap from "../charts/treeMap"
-import ColumnBar from "../../component/charts/columnbar"
+import TreeMap from "../charts/treeMap";
 import ResponsiveLine1 from "../charts/linechart";
-
+import { StackedBar } from "../charts/StackedBar";
 
 const Report1 = (props) => {
-  const {
-    reportData,
-    TreeData,
-    BarData,
-    media,
-  } = props;
+  const { reportData, TreeData, BarData,yearCount, media } = props;
   const TotalBuilding = reportData
     ? reportData.map((v, k) => v.building_count[0].Number_of_buildings)[0]
     : null;
@@ -84,33 +78,34 @@ const Report1 = (props) => {
         reportData.map((v, k) => (
           <div className="mt-4 px-4" key={k}>
             <div className="row py-3">
-
-              <div className="mx-2 pt-2 border border-dark col-4 justify-content-start"
+              <div
+                className="mx-2 pt-2 border border-dark col-4 justify-content-start"
                 style={{ color: "#1e0707", fontSize: "20px" }}
               >
                 <ESIcon
                   size={"40px"}
-                  Icon={
-                    <i className="fa fa-city" aria-hidden="true"></i>
-                  }
+                  Icon={<i className="fa fa-city" aria-hidden="true"></i>}
                 />
-                  Total Buildings
-                  <div className="text-right font-weight-bold" style={{ color: "#1e0707", fontSize: "40px" }}>
-                  {`  ${TotalBuilding} `}</div>
+                Total Buildings
+                <div
+                  className="text-right font-weight-bold"
+                  style={{ color: "#1e0707", fontSize: "40px" }}
+                >
+                  {`  ${TotalBuilding} `}
+                </div>
               </div>
-              <div className="mx-2 pt-2 border border-dark col-4 justify-content-start"
+              <div
+                className="mx-2 pt-2 border border-dark col-4 justify-content-start"
                 style={{ color: "#1e0707", fontSize: "20px" }}
               >
-                <ESIcon
-                  size={"40px"}
-                  Icon={
-                    <i className="fas fa-fan"></i>
-                  }
-                />
-                  Total Chiller
-                  <div className="text-right font-weight-bold" style={{ color: "#1e0707", fontSize: "40px" }}>
-
-                  {`  ${TotalChiller} `}</div>
+                <ESIcon size={"40px"} Icon={<i className="fas fa-fan"></i>} />
+                Total Chiller
+                <div
+                  className="text-right font-weight-bold"
+                  style={{ color: "#1e0707", fontSize: "40px" }}
+                >
+                  {`  ${TotalChiller} `}
+                </div>
               </div>
             </div>
             <div
@@ -118,32 +113,21 @@ const Report1 = (props) => {
               style={{ minWidth: 150 }}
             >
               <div className="w-50">
-                <ESIcon
-                  size={"40px"}
-                  Icon={
-                    <i className="fas fa-fan"></i>
-                  }
-                />
+                <ESIcon size={"40px"} Icon={<i className="fas fa-fan"></i>} />
 
-                <h2 className="" style={{ color: Colors.PrimaryColor, fontSize: "20px" }}>
+                <h2
+                  className=""
+                  style={{ color: Colors.PrimaryColor, fontSize: "20px" }}
+                >
                   Brands of Chiller
                 </h2>
-                {TreeData && Object.keys(TreeData).length &&
+                {TreeData && Object.keys(TreeData).length && (
                   <TreeMap data={TreeData} />
-                }
-                
-                {/* <TreeMap /> */}
-
-                {/* <RadialChart data={modifiedAgeData} /> */}
+                )}
               </div>
             </div>
-            
-                
-                {/* <TreeMap /> */}
 
-                {/* <RadialChart data={modifiedAgeData} /> */}
-              
-            <div className="row pt-5 pb-0 mb-0">
+            <div className="row pt-2 pb-0 mt-2 border-top">
               <ESIcon
                 size={"40px"}
                 Icon={
@@ -151,21 +135,40 @@ const Report1 = (props) => {
                 }
               />
 
-              <h2 className="pt-1" style={{ color: Colors.PrimaryColor, fontSize: "20px" }}>
+              <h2
+                className="pt-1"
+                style={{ color: Colors.PrimaryColor, fontSize: "20px" }}
+              >
                 Year of Installation
-                </h2>
+              </h2>
 
               <div style={{ width: 750, height: 400 }}>
-                <ResponsiveLine1 data={data} /></div>
+                <StackedBar
+                  data={BarData}
+                  index={"years"}
+                  horizontal
+                  chartTheme={Colors.ChartTheme3}
+                  bottomLegend={"#Amount of Buildings"}
+                  leftLegend={"#Years"}
+                  maxCount={yearCount}
+                  dataKeys={[
+                    "Daikin",
+                    "York",
+                    "Trane",
+                    "Carrier",
+                    "Haier",
+                    "Mitsubishi",
+                    "Johnson Controls",
+                    "Ingersoll",
+                  ]}
+                />
+              </div>
             </div>
-
           </div>
         ))
-      ) :
-        (
-          <h3 className="mt-5 text-center text-warning">No Data!</h3>
-        )
-      }
+      ) : (
+        <h3 className="mt-5 text-center text-warning">No Data!</h3>
+      )}
       <div
         className="row justify-content-center py-2 text-light pdfBg"
         style={{
@@ -181,199 +184,192 @@ const Report1 = (props) => {
     </div>
   );
 };
-
 const data = [
   {
-    "id": "Office Building",
-    "data": [
+    id: "Office Building",
+    data: [
       {
-        "x": "Daikin",
-        "y": 10
+        x: "Daikin",
+        y: 10,
       },
       {
-        "x": "York",
-        "y": 21
+        x: "York",
+        y: 21,
       },
       {
-        "x": "Trane",
-        "y": 31
+        x: "Trane",
+        y: 31,
       },
       {
-        "x": "Carrier",
-        "y": 22
+        x: "Carrier",
+        y: 22,
       },
       {
-        "x": "Haier",
-        "y": 34
+        x: "Haier",
+        y: 34,
       },
       {
-        "x": "Mitsubishi",
-        "y": 11
+        x: "Mitsubishi",
+        y: 11,
       },
       {
-        "x": "Johnson Controls",
-        "y": 13
+        x: "Johnson Controls",
+        y: 13,
       },
       {
-        "x": "Ingersoll",
-        "y": 19
-      }
-      
-    ]
+        x: "Ingersoll",
+        y: 19,
+      },
+    ],
   },
   {
-    "id": "Hotel",
-    "data": [
+    id: "Hotel",
+    data: [
       {
-        "x": "Daikin",
-        "y": 10
+        x: "Daikin",
+        y: 10,
       },
       {
-        "x": "York",
-        "y": 11
+        x: "York",
+        y: 11,
       },
       {
-        "x": "Trane",
-        "y": 32
+        x: "Trane",
+        y: 32,
       },
       {
-        "x": "Carrier",
-        "y": 38
+        x: "Carrier",
+        y: 38,
       },
       {
-        "x": "Haier",
-        "y": 35
+        x: "Haier",
+        y: 35,
       },
       {
-        "x": "Mitsubishi",
-        "y": 17
+        x: "Mitsubishi",
+        y: 17,
       },
       {
-        "x": "Johnson Controls",
-        "y": 24
+        x: "Johnson Controls",
+        y: 24,
       },
       {
-        "x": "Ingersoll",
-        "y": 21
-      }
-      
-    ]
+        x: "Ingersoll",
+        y: 21,
+      },
+    ],
   },
   {
-    "id": "Shopping Mall",
-    "data": [
+    id: "Shopping Mall",
+    data: [
       {
-        "x": "Daikin",
-        "y": 8
+        x: "Daikin",
+        y: 8,
       },
       {
-        "x": "York",
-        "y": 29
+        x: "York",
+        y: 29,
       },
       {
-        "x": "Trane",
-        "y": 13
+        x: "Trane",
+        y: 13,
       },
       {
-        "x": "Carrier",
-        "y": 24
+        x: "Carrier",
+        y: 24,
       },
       {
-        "x": "Haier",
-        "y": 29
+        x: "Haier",
+        y: 29,
       },
       {
-        "x": "Mitsubishi",
-        "y": 31
+        x: "Mitsubishi",
+        y: 31,
       },
       {
-        "x": "Johnson Controls",
-        "y": 36
+        x: "Johnson Controls",
+        y: 36,
       },
       {
-        "x": "Ingersoll",
-        "y": 26
-      }
-      
-    ]
+        x: "Ingersoll",
+        y: 26,
+      },
+    ],
   },
   {
-    "id": "Residential Building",
-    "data": [
+    id: "Residential Building",
+    data: [
       {
-        "x": "Daikin",
-        "y": 16
+        x: "Daikin",
+        y: 16,
       },
       {
-        "x": "York",
-        "y": 18
+        x: "York",
+        y: 18,
       },
       {
-        "x": "Trane",
-        "y": 25
+        x: "Trane",
+        y: 25,
       },
       {
-        "x": "Carrier",
-        "y": 14
+        x: "Carrier",
+        y: 14,
       },
       {
-        "x": "Haier",
-        "y": 38
+        x: "Haier",
+        y: 38,
       },
       {
-        "x": "Mitsubishi",
-        "y": 14
+        x: "Mitsubishi",
+        y: 14,
       },
       {
-        "x": "Johnson Controls",
-        "y": 17
+        x: "Johnson Controls",
+        y: 17,
       },
       {
-        "x": "Ingersoll",
-        "y": 19
-      }
-      
-    ]
+        x: "Ingersoll",
+        y: 19,
+      },
+    ],
   },
   {
-    "id": "Factory",
-    "data": [
+    id: "Factory",
+    data: [
       {
-        "x": "Daikin",
-        "y": 28
+        x: "Daikin",
+        y: 28,
       },
       {
-        "x": "York",
-        "y": 17
+        x: "York",
+        y: 17,
       },
       {
-        "x": "Trane",
-        "y": 17
+        x: "Trane",
+        y: 17,
       },
       {
-        "x": "Carrier",
-        "y": 29
+        x: "Carrier",
+        y: 29,
       },
       {
-        "x": "Haier",
-        "y": 11
+        x: "Haier",
+        y: 11,
       },
       {
-        "x": "Mitsubishi",
-        "y": 15
+        x: "Mitsubishi",
+        y: 15,
       },
       {
-        "x": "Johnson Controls",
-        "y": 19
+        x: "Johnson Controls",
+        y: 19,
       },
       {
-        "x": "Ingersoll",
-        "y": 17
-      }
-      
-    ]
-  }
-]
-
+        x: "Ingersoll",
+        y: 17,
+      },
+    ],
+  },
+];
 
 export default withMedia(Report1);
