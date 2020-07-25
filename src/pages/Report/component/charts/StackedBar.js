@@ -1,83 +1,45 @@
 import React from "react";
 import { ResponsiveBar } from "@nivo/bar";
-import * as Colors from "../../../../config/Color.config"
-// make sure parent container have a defined height when using
-// responsive component, otherwise height will be 0 and
-// no chart will be rendered.
-// website examples showcase many properties,
-// you'll often use just a few of them.
-export const StackedBar = ({ data /* see data tab */ }) => (
+
+export const StackedBar = ({ data, horizontal, dataKeys, index, bottomLegend, leftLegend, chartTheme,maxCount /* see data tab */ }) => (
+  console.log("Stack bar is ", maxCount),
   <ResponsiveBar
     data={data}
-    keys={[
-      "Office Building",
-      "ShoppingMall",
-      "Hotel",
-      "Factory",
-      "Residential Building",
-    ].sort()}
-    indexBy="Area"
+    keys={dataKeys}
+    indexBy={index}
     margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
-    maxValue={data.length}
-    padding={0.5}
+    maxValue={maxCount}
+    padding={0.3}
     enableGridY={false}
-  
-    // layout="horizontal"
-    colors={Colors.ChartTheme1}
-    // defs={[
-    //     {
-    //         id: 'dots',
-    //         type: 'patternDots',
-    //         background: 'inherit',
-    //         color: '#38bcb2',
-    //         size: 4,
-    //         padding: 1,
-    //         stagger: true
-    //     },
-    //     {
-    //         id: 'lines',
-    //         type: 'patternLines',
-    //         background: 'inherit',
-    //         color: '#eed312',
-    //         rotation: -45,
-    //         lineWidth: 6,
-    //         spacing: 10
-    //     }
-    // ]}
-    // fill={[
-    //     {
-    //         match: {
-    //             id: 'Factory'
-    //         },
-    //         id: 'dots'
-    //     },
-    //     {
-    //         match: {
-    //             id: 'ShoppingMall'
-    //         },
-    //         id: 'lines'
-    //     }
-    // ]}
+    layout={horizontal ? "horizontal" : "vertical"}
+    colors={chartTheme}
     borderColor={{ from: "color", modifiers: [["darker", 1.6]] }}
     axisTop={null}
     axisRight={null}
+    
     axisBottom={{
+      xAxis: {
+        allowDecimals: false
+      },
       tickSize: 5,
       tickPadding: 5,
       tickRotation: 0,
-      legend: "#Building Area",
+      legend:  bottomLegend ,
       legendPosition: "middle",
       legendOffset: 32,
+      format: horizontal?(e) => Math.floor(e) === e && e:e=>e,
     }}
     axisLeft={{
+      xAxis: {
+        allowDecimals: false
+      },
       tickSize: 5,
       tickPadding: 5,
       tickRotation: 0,
-      legend: "#Amount of Building",
+      legend:  leftLegend ,
       legendPosition: "middle",
       legendOffset: -40,
-      format: (e) => Math.floor(e) === e && e,
-
+      format: horizontal?e=>e:(e) => Math.floor(e) === e && e,
     }}
     labelSkipWidth={12}
     labelSkipHeight={12}
@@ -91,7 +53,7 @@ export const StackedBar = ({ data /* see data tab */ }) => (
         translateX: 120,
         translateY: 0,
         itemsSpacing: 2,
-        itemWidth: 100,
+        itemWidth: 100, 
         itemHeight: 20,
         itemDirection: "left-to-right",
         itemOpacity: 0.85,

@@ -27,7 +27,6 @@ const RegisterContainer = (props) => {
   const _handleSubmit = (e) => {
     e.preventDefault();
     const data = { eMail, password, firstName, lastName, companyName };
-    console.log(RegisterFormValidation(data));
     const validedErr = RegisterFormValidation(data);
     setErr(validedErr);
     if (validedErr.firstNameErr) {

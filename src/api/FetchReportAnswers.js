@@ -27,7 +27,6 @@ export const FetchReportMenu = (
   { userId, StartDate, EndDate, viewType, token },
   callback
 ) => {
-  console.log(userId, StartDate, EndDate, viewType, token);
 
   fetch(API.Report_Menu(userId), {
     method: `POST`,
@@ -52,7 +51,6 @@ export const FetchGraphReport = (
   { userId, surveyHeaderId, startDate, endDate, viewType, token },
   callback
 ) => {
-  console.log(token);
 
   fetch(API.Graph_Report, {
     method: `POST`,

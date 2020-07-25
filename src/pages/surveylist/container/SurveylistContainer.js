@@ -61,9 +61,6 @@ const SurveylistContainer = (props) => {
         return newo;
       }, {});
     });
-  console.log("Filter=====>", NewSurvey);
-  console.log("surveyList---->", surveyList);
-  console.log("Building----->", buildingList);
 
   return (
     <div className="container">
@@ -131,7 +128,6 @@ const CollapseSurveyList = (props) => {
     HoverBgColor,
   } = props;
   const [expend, setIsExpend] = useState(false);
-  console.log("=====>",SurveyData);
 
   return (
     <div className="">

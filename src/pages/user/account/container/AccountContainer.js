@@ -38,11 +38,9 @@ const AccountContainer = (props) => {
       newPassword,
       ReEnterPassword,
     };
-    console.log("data", data);
     console.log(AccountSettingValidataion(data));
     const validedErr = AccountSettingValidataion(data);
     setErr(validedErr);
-    console.log("valided err", validedErr);
 
     if (validedErr.NameErr) {
       document.getElementById("Name").focus();

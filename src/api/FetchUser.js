@@ -4,7 +4,6 @@ export const RegisterFetch = (
   callback
 ) => {
 const userName=firstName.trim()+' '+lastName.trim()
-console.log(userName, eMail, password, companyName);
 
   fetch(API.RegisterAPI, {
     method: "POST", 
@@ -26,7 +25,6 @@ console.log(userName, eMail, password, companyName);
 };
 
 export const UpdateUserInfo=({Name,eMail,newPassword,token },callback)=>{
-        console.log(Name,eMail,newPassword);
         
     fetch(UpdateUserInfo,
     {

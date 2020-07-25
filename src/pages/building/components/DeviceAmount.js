@@ -14,7 +14,6 @@ const DeviceAmount = (props) => {
   const deviceOption = new Array(30)
     .fill(null)
     .map((v, k) => ({ label: k + 1, value: k + 1 }));
-  console.log(deviceOption);
 
   return (
     <div className="row justify-content-center py-5">

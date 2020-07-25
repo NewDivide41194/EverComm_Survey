@@ -41,7 +41,6 @@ const NavBar = (props) => {
   const _handleReportMenu = () => {
     props.history.push(`/reportMenu/${userId}`);
   };
-  console.log(props.location.pathname);
   const Nav = () => {
     return (<div
       style={{ zIndex: 97, background: "white" }}
@@ -92,7 +91,7 @@ const NavBar = (props) => {
               : userLevel === 2
                 ? "User"
                 : userLevel === 3
-                  ? "Distributer"
+                  ? "Distributor"
                   : null}
           </div>
           <button className="dropdown-item" onClick={_handleSignOut}>

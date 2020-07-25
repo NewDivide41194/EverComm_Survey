@@ -11,9 +11,23 @@ class ProgressBar extends Component {
     super(props)
   }
   componentDidMount() {
+    
+      function am4themes_mytheme(target) {
+        if (target instanceof am4core.ColorSet) {
+          target.list = [
+            am4core.color(""),
+            am4core.color("#E7DA4F"),
+            am4core.color("blue"),
+            am4core.color("#DF3520"),
+            am4core.color("#64297B"),
+            am4core.color("#232555")
+          ];
+        }
+      }
+      
 
 
-    am4core.useTheme(am4themes_animated);
+    am4core.useTheme(am4themes_mytheme);
     
     // Themes end
 
@@ -71,6 +85,11 @@ class ProgressBar extends Component {
     // series.calculatePercent = true; //
     series.columnsContainer.zIndex = 100;
     am4core.percent(60);
+  
+    series.columns.template.adapter.add("fill", (fill, target) => {
+      return target.dataItem ? chart.colors.getIndex(target.dataItem.index) : fill;
+    });
+    
   // series.columns.template.tooltipText = "[bold]{name}[/]\n[font-size:14px]{data.va}: [bold]{valueY.percent}%[/] ({valueY}M)";
     // series.disabled = true;
 
@@ -78,22 +97,27 @@ class ProgressBar extends Component {
     valueLabel.label.text ="{data} ({percentage}%)"
     valueLabel.label.paddingLeft=5
     valueLabel.label.fontSize = 10;
-    // valueLabel.label.fill = "#dedede";
     valueLabel.label.horizontalCenter = "left";
-
-
-console.log("=====>", valueLabel.label.text);
-
+    valueLabel.label.truncate=false
 
     var columnTemplate = series.columns.template;
-    columnTemplate.height = am4core.percent(30);
-    columnTemplate.maxHeight = 100;
+    columnTemplate.height = 10;
     columnTemplate.column.cornerRadius(60, 10, 60, 10);
     columnTemplate.strokeOpacity = 0;
-    columnTemplate.fill = "#006bb3";
+    chart.colors.list = [
+      
+      am4core.color("#fae3b2"),
+      am4core.color("#d8b26b"),
+      am4core.color('#3b8bbe'),
+      am4core.color("#004ea8"),
+      am4core.color("#7bbf34"),
+      
+    ];
+    //  columnTemplate.fill =am4core.useTheme('bvlue');
+    // series.heatRules.push({ target: columnTemplate, property: "fill", dataField: "valueX", min: am4core.color("blue"), max: am4core.color("#5faa46") });
     // columnTemplate.disabled = true;
 
-    /* series.heatRules.push({ target: columnTemplate, property: "fill", dataField: "valueX", min: am4core.color("#99ccff"), max: am4core.color("#0066cc") }); */
+    // series.heatRules.push({ target: columnTemplate, property: "fill", dataField: "valueX", min: am4core.useTheme(am4themes_myTheme), max: am4core.color("#0066cc") });
     series.mainContainer.mask = undefined;
 
     var cursor = new am4charts.XYCursor();
@@ -102,6 +126,7 @@ console.log("=====>", valueLabel.label.text);
     cursor.lineY.disabled = true;
     cursor.behavior = "none";
     cursor.disabled = true;
+    var hoverState = columnTemplate.states.create("hover");
 
     var bullet = columnTemplate.createChild(am4charts.CircleBullet);
     bullet.circle.radius = 8;
@@ -146,8 +171,7 @@ console.log("=====>", valueLabel.label.text);
       div id = "chartdiv1"
       style = {
         {
-          width: "450px",
-          height: "232px"
+          height: 280
         }
       } /> 
     );

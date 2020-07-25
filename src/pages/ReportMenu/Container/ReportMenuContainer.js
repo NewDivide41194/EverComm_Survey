@@ -30,7 +30,6 @@ const ReportMenuContainer = (props) => {
       }
     );
   }, [surveyId, startDate, endDate, viewType]);
-  console.log("view type..", viewType);
 
   const SurveyNameOptions =
     menuData &&
@@ -39,7 +38,6 @@ const ReportMenuContainer = (props) => {
       label: v.survey_name,
       isDisabled: v.amount_of_survey <= 0,
     }));
-  console.log("------>", SurveyNameOptions);
 
   const _handleSelectChange = (e) => {
     setViewType(e.target.value);

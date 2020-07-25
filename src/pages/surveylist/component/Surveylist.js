@@ -19,7 +19,6 @@ const Surveylist = (props) => {
     Card.className =
       "d-flex flex-row p-3 rounded justify-content-between my-2 shadow-sm";
     Card.style.background = HoverBgColor;
-    console.log("buildingName",buildingName);
   };
    
   const _handleMouseLeave = () => {
