@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { ESButton } from "../../../tools/ES_Button";
 import{ESInput}from "../../../tools/ES_Inputs";
 import { ESDropDown } from "../../../tools/ES_DropDown";
+import {ESDropDownBuilding} from "../../../tools/ES_DropDown(Building)"
 import { ESTextfield } from "../../../tools/ES_TextField";
 
 const Building = (props) => {
   const {
     buildingName,
+    buildingType,
     postal,
     address,
     clientCompany,
@@ -18,15 +20,16 @@ const Building = (props) => {
     handleClientCompanyChange,
     handleCommentChange,
     handleSelectCountry,
+    handleBuildingTypeChange,
+    handleInputBuildingTypeChange,
     CountryOptions,
+    BuildingOption,
     handleNext,
     err,
     errStyle,
     isDisabled,
   } = props;
   const errClassName = "text-danger d-flex flex-row justify-content-end pb-1";
-
-
   return (
       <div className="row justify-content-center py-4">
         <form className="col-lg-6 col-md-8" onSubmit={handleNext}>
@@ -36,8 +39,42 @@ const Building = (props) => {
           >
             Add Building for New Survey
           </div>
-          
           <div className="row form-group">
+            <div className="py-2 col-12">
+                <label htmlFor="buildingName">Building Name</label>
+                {err.buildingNameErr === undefined ? null : (
+                  <div
+                    className={errClassName}
+                    style={{ ...errStyle }}
+                  >{`*${err.buildingNameErr}`}</div>
+                )}
+                <ESInput
+                  disabled={isDisabled}
+                  id={"buildingName"}
+                  placeHolder={"Building Name"}
+                  value={buildingName}
+                  onChange={(e) => handleBuildingNameChange(e)}
+                />
+              </div>
+              <div className="py-2 col-12">
+              <label htmlFor="#">Building Type</label>
+              {err.buildingTypeErr === undefined ? null : (
+                <div
+                  className={errClassName}
+                  style={{ ...errStyle, marginTop: "-25px" }}
+                >{`*${err.buildingTypeErr}`}</div>
+              )}
+              <ESDropDownBuilding
+                disabled={isDisabled}
+                notClearable
+                id={"BuildingType"}
+                _handleSelect={handleBuildingTypeChange}
+                options={BuildingOption}
+                onInputChange={handleInputBuildingTypeChange}
+                value={buildingType}
+                placeHolder={"If other, you can create"}
+              />
+            </div>
             <div className="py-2 col-12">
               <label htmlFor="clientCompany">Client Company</label>
               {err.clientCompanyErr === undefined ? null : (
@@ -54,23 +91,7 @@ const Building = (props) => {
                 onChange={(e) => handleClientCompanyChange(e)}
               />
             </div>
-
-            <div className="py-2 col-12">
-              <label htmlFor="buildingName">Building Name</label>
-              {err.buildingNameErr === undefined ? null : (
-                <div
-                  className={errClassName}
-                  style={{ ...errStyle }}
-                >{`*${err.buildingNameErr}`}</div>
-              )}
-              <ESInput
-                disabled={isDisabled}
-                id={"buildingName"}
-                placeHolder={"Building Name"}
-                value={buildingName}
-                onChange={(e) => handleBuildingNameChange(e)}
-              />
-            </div>
+            
             <div className="py-2 col-sm-12 col-lg-6">
               <label htmlFor="country">Country</label>
               {err.countryErr === undefined ? null : (
@@ -82,6 +103,7 @@ const Building = (props) => {
               <ESDropDown
                 disabled={isDisabled}
                 id={"country"}
+                notClearable
                 _handleSelect={handleSelectCountry}
                 options={CountryOptions}
                 value={country}

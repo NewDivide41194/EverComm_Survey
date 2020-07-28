@@ -2,13 +2,17 @@ import React, { useState, useEffect } from "react";
 import Building from "../components/Building.js";
 import DeviceAmount from "../components/DeviceAmount.js";
 import Countries from "../../../assets/Countries.json";
-import { BuildingFetch } from "../../../api/FetchBuilding";
+// import BuildingType from "../../../assets/BuildingType.json";
+import { BuildingFetch, GetBuildingType } from "../../../api/FetchBuilding";
 import { withRouter } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { BuildingFormValidation } from "../../../helper/formValidation.js";
 
 const BuildingContainer = (props) => {
   const [country, setCountry] = useState("");
+  const [buildingTypeData, setBuildingTypeData] = useState([]);
+  const [buildingType, setBuildingType] = useState("");
+  const [buildingTypeId,setBuildingTypeId]=useState(null)
   const [buildingName, setBuildingName] = useState("");
   const [postal, setPostal] = useState("");
   const [address, setAddress] = useState("");
@@ -22,7 +26,12 @@ const BuildingContainer = (props) => {
   const buildingId = localStorage.getItem("buildingId");
   const userId = localStorage.getItem("userId");
   const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
-  const [deviceData, setDeviceData] = useState({chiller:3,condenser:3,evaporator:3,coolingTower:3});
+  const [deviceData, setDeviceData] = useState({
+    chiller: 3,
+    condenser: 3,
+    evaporator: 3,
+    coolingTower: 3,
+  });
   const errStyle = {
     marginTop: "-25px",
     fontSize: 12,
@@ -30,23 +39,30 @@ const BuildingContainer = (props) => {
 
   const errClassName = "text-danger d-flex flex-row justify-content-end pb-2";
 
-  // useEffect(() => {
-  //   document.getElementById("clientCompany").focus();
-  // }, []);
-  const _handleBack=(e)=>{
-      setChillerPage(chillerPage-1)
-  }
+  useEffect(() => {
+    // document.getElementById("clientCompany").focus();
+    GetBuildingType(token,(err, data) => {
+      setBuildingTypeData(data);
+    }); 
+  }, []);
+
+
+  const _handleBack = (e) => {
+    setChillerPage(chillerPage - 1);
+  };
   const _handleNext = (e) => {
     e.preventDefault();
     const data = {
-      clientCompany,
       buildingName,
+      buildingType,
+      buildingTypeId,
+      clientCompany,
       country,
       postal,
       address,
       comment,
     };
-  
+
     const validatedErr = BuildingFormValidation(data);
     setErr(validatedErr);
     if (validatedErr.clientCompanyErr) {
@@ -59,6 +75,8 @@ const BuildingContainer = (props) => {
       document.getElementById("address").focus();
     } else if (validatedErr.commentErr) {
       document.getElementById("comment").focus();
+    } else if (validatedErr.buildingTypeErr) {
+      document.getElementById("buildingType");
     }
     if (Object.keys(validatedErr).length === 0) {
       setErr({});
@@ -66,13 +84,14 @@ const BuildingContainer = (props) => {
     }
   };
 
-  
   const _handleSubmit = (e) => {
     e.preventDefault();
     BuildingFetch(
       {
         clientCompany,
         buildingName,
+        buildingType,
+        buildingTypeId,
         postal,
         address,
         comment,
@@ -89,7 +108,7 @@ const BuildingContainer = (props) => {
         } else {
           localStorage.setItem("buildingName", buildingName);
           localStorage.setItem("buildingId", data.payload.insertId);
-          
+
           props.history.push(
             `/question/${userId}/${surveyHeaderId}/${buildingId}`
           );
@@ -125,31 +144,50 @@ const BuildingContainer = (props) => {
     return;
   };
 
-  const _handleDeviceChange = (id,e) => {
+  const _handleBuildingTypeSelect = (id, e) => {
+    console.log(e);
+    setErr({});
+    e !== null && setBuildingType(e.label);
+    setBuildingTypeId(typeof(e.value)==="string"?6:e.value)
+    return;
+  };
 
-      const value=e.value
-    setDeviceData(
-    {...deviceData,
-    [id]:value}
-  )  
-};
+  const _handleDeviceChange = (id, e) => {
+    const value = e.value;
+    setDeviceData({ ...deviceData, [id]: value });
+  };
+
+  const _handleInputBuildingTypeChange = (v, k) => {
+    console.log(v,k);
+    setBuildingTypeId(6)
+    setBuildingType(v)
+  };
 
   const CountryOptions = Countries.countries.map((v, k) => ({
     value: v.code,
     label: v.name,
   }));
-  
+
+  const BuildingOptions = buildingTypeData.map((v, k) => ({
+    value: v.id,
+    label: v.building_type,
+  }));
+console.log(buildingTypeId,buildingType);
   return (
     <div className="container">
       {chillerPage === 1 ? (
         <Building
           buildingName={buildingName}
+          buildingType={buildingType}
           postal={postal}
           address={address}
           clientCompany={clientCompany}
           comment={comment}
           CountryOptions={CountryOptions}
+          BuildingOption={BuildingOptions}
           country={country}
+          handleBuildingTypeChange={_handleBuildingTypeSelect}
+          handleInputBuildingTypeChange={_handleInputBuildingTypeChange}
           handleBuildingNameChange={_handleBuildingNameChange}
           handlePostalChange={_handlePostalChange}
           handleAddressChange={_handleAddressChange}
@@ -172,7 +210,6 @@ const BuildingContainer = (props) => {
           isDisabled={isDisabled}
           _handleDeviceChange={_handleDeviceChange}
           _handleSubmit={_handleSubmit}
-          country={country}
         />
       )}
     </div>

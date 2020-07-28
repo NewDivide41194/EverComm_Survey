@@ -51,12 +51,15 @@ export const RegisterFormValidation = (data) => {
 
 export const BuildingFormValidation = (data) => {
   const err = {};
-  const { clientCompany, buildingName, country, postal, address,comment } = data;
+  const { clientCompany,buildingType, buildingName, country, postal, address,comment } = data;
 
   if (clientCompany === "") {
     err.clientCompanyErr = "Fill Client Company!";
   } else if (specialCharacterRegx.test(clientCompany)) {
     err.clientCompanyErr = "Not Allow Special Characters";
+  }
+  if (buildingType === "") {
+    err.buildingTypeErr = "Building Type Required!";
   }
   if (buildingName === "") {
     err.buildingNameErr = "Fill Building Name!";
@@ -67,7 +70,7 @@ export const BuildingFormValidation = (data) => {
     err.countryErr = "Select Country!";
   } 
   if (postal === "") {
-    err.postalErr = "Fill Email Address!";
+    err.postalErr = "Fill Postal Code!";
   }
   if (address === "") {
     err.addressErr = "Fill Address!";
