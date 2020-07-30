@@ -8,6 +8,7 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import moment from "moment";
 import Surveylist from "../../surveylist/component/Surveylist";
+import { Survey_List } from "../../../api/url";
 
 const QuestionContainer = (props) => {
   const { history } = props;
@@ -25,8 +26,10 @@ const QuestionContainer = (props) => {
   const [index, setIndex] = useState(1);
   const token = localStorage.getItem("token");
   const userId = parseInt(localStorage.getItem("userId"));
+  const bTypeId = localStorage.getItem("bTypeId");
   const buildingId = parseInt(localStorage.getItem("buildingId"));
   const buildingName = localStorage.getItem("buildingName");
+  const buildingType=  localStorage.getItem("buildingType");
   const surveyHeaderId = parseInt(localStorage.getItem("SurveyHeaderId"));
   const Ans = {
     other: "",
@@ -38,16 +41,16 @@ const QuestionContainer = (props) => {
     keyValue: null,
   };
   const building = AnswerData.length && AnswerData[0].optionChoiceId;
-  const buildingType =
-    building === 1
-      ? "Office Building"
-      : building === 2
-      ? "Hotel"
-      : building === 3
-      ? "Shopping Mall"
-      : building === 4
-      ? "Residential Building"
-      : "Factory";
+  // const buildingType =
+  //   building === 1
+  //     ? "Office Building"
+  //     : building === 2
+  //     ? "Hotel"
+  //     : building === 3
+  //     ? "Shopping Mall"
+  //     : building === 4
+  //     ? "Residential Building"
+  //     : "Factory";
 
   const amountOfDevice = surveyData.length && surveyData[0].amountOfDevice;
   const deviceAmounts =
@@ -67,7 +70,7 @@ const QuestionContainer = (props) => {
   useEffect(() => {
     setIsLoading(true);
     QuestionFetch(
-      { userId, surveyHeaderId, buildingId, token },
+      { userId, surveyHeaderId, buildingId,bTypeId, token },
       (err, data) => {
         setSurveyData(data.payload);
         setAnswerData(data.payload[0].answers);
@@ -178,6 +181,7 @@ const QuestionContainer = (props) => {
       questionId: quesId,
       keyValue: keys,
     };
+  
     if (ImportText === "" && isQuesId(quesId).length >= 1) {
       AnswerData.splice(isQuesIdIndex(quesId), 1);
     } else if (isQuesId(quesId).length >= 1) {
@@ -210,6 +214,7 @@ const QuestionContainer = (props) => {
       setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
     }
   };
+  console.log("===>",AnswerData);
 
   const handleStartChange = (date, quesId, keys) => {
     if (date === null) {
@@ -268,6 +273,7 @@ const QuestionContainer = (props) => {
   };
   const Data1 =
     surveyData.length && surveyData[0].survey_sections[pageno].questions;
+    
 
   // let flattened = surveyData.length&&Data1.reduce(function (accumulator, currentValue) {
   //   return accumulator.concat(currentValue);
@@ -298,6 +304,7 @@ const QuestionContainer = (props) => {
       ...surveyData[0].survey_sections[pageno].devicesQuestions[maxIndex]
         .questions
     );
+    
     //Remove Question
     const isActionIndex = QuestionData.findIndex((d) => d.input_type_id === 8);
     QuestionData.splice(isActionIndex, 1);
@@ -320,6 +327,7 @@ const QuestionContainer = (props) => {
         QuestionData={QuestionData}
         userId={userId}
         pageno={pageno}
+        buildingType={buildingType}
         AnswerData={AnswerData}
         startDate={startDate}
         endDate={endDate}

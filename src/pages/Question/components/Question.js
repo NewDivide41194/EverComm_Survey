@@ -4,11 +4,11 @@ import { ESButton } from "../../../tools/ES_Button";
 import { withMedia } from "react-media-query-hoc";
 import ESProgress from "../../../tools/ES_Progress";
 import * as Color from "../../../config/Color.config";
-import CompoundCard from "../../../tools/ES_CompoundCard";
 
 const Question = (props) => {
   const {
     buildingName,
+    buildingType,
     surveyData,
     media,
     userId,
@@ -20,6 +20,7 @@ const Question = (props) => {
     selectedOption,
     obtained,
     total,
+    bTypeId,
     _handleNext,
     _handlePrevious,
     _handleSubmit,
@@ -32,7 +33,7 @@ const Question = (props) => {
     amountOfDevice,
     percent,
   } = props;
-
+console.log('Hi',surveyData);
   const deviceAmount =
     amountOfDevice && Object.values(amountOfDevice[0])[pageno - 1];
   return (
@@ -64,7 +65,8 @@ const Question = (props) => {
             className="d-flex flex-row flex-wrap justify-content-between pt-2"
           >
             <div>{surveyData[0].survey_name}</div>
-            <div>{buildingName}</div>
+            <div>{buildingName} <span style={{ fontSize: "15px"}}>({buildingType})</span></div>
+            {/* <div style={{fontSize: medium,}}>({buildingType})</div> */}
           </div>
 
           <div
@@ -74,14 +76,16 @@ const Question = (props) => {
             <div className="font-weight-bold">
               {surveyData[0].survey_sections[pageno].section_name}
             </div>
+            
             <div>
               {deviceAmount} {Object.keys(amountOfDevice[0])[pageno - 1]}
               {deviceAmount > 1 ? "s" : null}
+              
             </div>
           </div>
           {/* <div className="my-2 scrollbar w-100" id="style-1"> */}
 
-          {/* <QuestionCard
+          <QuestionCard
             QuestionData={QuestionData}
             pageno={pageno}
             amountOfDevice={amountOfDevice}
@@ -94,23 +98,9 @@ const Question = (props) => {
             userId={userId}
             selectedOption={selectedOption}
             AnswerData={AnswerData}
-          /> */}
-
-          <CompoundCard
-            QuestionData={QuestionData}
-            pageno={pageno}
-            amountOfDevice={amountOfDevice}
-            _handleCheckChange={_handleCheckChange}
-            _handleRadioChange={_handleRadioChange}
-            _handleInputChange={_handleInputChange}
-            _handleSelect={_handleSelect}
-            _handleStartChange={_handleStartChange}
-            _handleEndChange={_handleEndChange}
-            userId={userId}
-            selectedOption={selectedOption}
-            AnswerData={AnswerData}
+            sessionId={surveyData[0].survey_sections[pageno].survey_section_id}
           />
-          {/* </div> */}
+
           <div className="row justify-content-between">
             <div
               className="col-lg-6 align-self-center font-weight-bold"
@@ -148,7 +138,7 @@ const Question = (props) => {
                       text={"NEXT"}
                       onClick={_handleNext}
                       small
-                      rightIcon={<i className="fa fa-caret-right pl-2" />}
+                      rightIcon={<i className="fa fa-caret-right pl-2"/>}
                     />
                   )}
                 </div>
