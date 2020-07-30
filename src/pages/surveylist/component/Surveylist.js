@@ -6,14 +6,19 @@ const Surveylist = (props) => {
   const {
     progress,
     buildingName,
+    buildingType,
     BgColor,
     TxtColor,
     HoverBgColor,
     handleCardClick,
+    bTypeId,
     id,
   } = props;
   const _handleMouseOver = (e,buildingName) => {
-    localStorage.setItem("buildingName",buildingName)    
+    localStorage.setItem("buildingName",buildingName) 
+    localStorage.setItem("buildingType",buildingType)   
+    localStorage.setItem("bTypeId",bTypeId)   
+
     localStorage.setItem("buildingId", e.target.id);    
     const Card = document.getElementById(id);
     Card.className =
@@ -41,15 +46,16 @@ const Surveylist = (props) => {
       onMouseLeave={_handleMouseLeave}
       onClick={(e)=>handleCardClick(e)}
     >
-      <span
+      <div
       id={id}
         style={{
           fontSize: "22px",
           // fontWeight:"bold",
         }}
       >
-        {buildingName}
-      </span>
+        {buildingName}   <span style={{ fontSize: "15px"}}>({buildingType})</span>
+        
+      </div>
 
       <span id={id}> {progress}</span>
     </div>

@@ -14,8 +14,8 @@ export const Trancate_Answers = `${serverURL}/api/v1/survey/`;
 
 export const Building_Insert = `${serverURL}/api/v1/building/addBuilding`;
 
-export const QuestionAPI = (userId, surveyHeaderId, buildingId) =>
-  `${serverURL}/api/v1/survey/questions/${userId}/${surveyHeaderId}/${buildingId}`;
+export const QuestionAPI = (userId, surveyHeaderId, buildingId,bTypeId) =>
+  `${serverURL}/api/v1/survey/questions/${userId}/${surveyHeaderId}/${buildingId}/${bTypeId}`;
 
 export const Survey_List = (userId, surveyHeaderId) =>
   `${serverURL}/api/v1/survey/surveyList/${userId}/${surveyHeaderId}`;

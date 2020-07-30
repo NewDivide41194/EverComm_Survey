@@ -3,11 +3,14 @@ import Surveylist from "../component/Surveylist";
 import { ESButton } from "../../../tools/ES_Button";
 import * as Colors from "../../../config/Color.config";
 import { SurveyListFetch } from "../../../api/FetchSurveyList";
+import { Building_Type } from "../../../api/url";
 const SurveylistContainer = (props) => {
   const [surveyList, setSurveyList] = useState([]);
   const [buildingList, setBuildingList] = useState([]);
-
+  const [buildingType, setBuildingType]=useState(null);
   const userId = localStorage.getItem("userId");
+  const bTypeId = localStorage.getItem("bTypeId");
+
   const SurveyHeaderId = localStorage.getItem("SurveyHeaderId");
   const token = localStorage.getItem("token");
 
@@ -17,7 +20,7 @@ const SurveylistContainer = (props) => {
 
   const handleCardClick = () => {
     const buildingId = localStorage.getItem("buildingId");
-    props.history.push(`/question/${userId}/${SurveyHeaderId}/${buildingId}`);
+    props.history.push(`/question/${userId}/${SurveyHeaderId}/${buildingId}/${bTypeId}`);
   };
 
   useEffect(() => {
@@ -43,7 +46,7 @@ const SurveylistContainer = (props) => {
     BuildingSurveyData.filter((v, k) => v.answers === v.total_question_count);
   const SurveyHeaderName = localStorage.getItem("SurveyHeaderName");
 
-  var ReduceData = ["building_id", "building_name"];
+  var ReduceData = ["building_id", "building_name","building_type","building_type_id"];
 
   var NewSurvey = buildingList
     .filter(function (o1) {
@@ -128,7 +131,7 @@ const CollapseSurveyList = (props) => {
     HoverBgColor,
   } = props;
   const [expend, setIsExpend] = useState(false);
-
+console.log(SurveyData);
   return (
     <div className="">
       <div
@@ -159,6 +162,8 @@ const CollapseSurveyList = (props) => {
           SurveyData.map((v, k) => (
             <Surveylist
               buildingName={v.building_name}
+              buildingType={v.building_type}
+              bTypeId={v.building_type_id}
               key={k}
               id={v.building_id}
               progress={

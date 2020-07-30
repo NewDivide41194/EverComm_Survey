@@ -1,8 +1,8 @@
 import * as API from "./url";
 
-export const QuestionFetch = ({userId,surveyHeaderId,buildingId,token}, callback) => {
+export const QuestionFetch = ({userId,surveyHeaderId,buildingId,bTypeId,token}, callback) => {
   
-  fetch(API.QuestionAPI(userId,surveyHeaderId,buildingId,token),
+  fetch(API.QuestionAPI(userId,surveyHeaderId,buildingId,bTypeId,token),
   {headers: {
     "Content-Type": "application/json",
     Accept: "*/*",
