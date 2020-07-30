@@ -157,12 +157,6 @@ const BuildingContainer = (props) => {
     setDeviceData({ ...deviceData, [id]: value });
   };
 
-  const _handleInputBuildingTypeChange = (v, k) => {
-    console.log(v,k);
-    setBuildingTypeId(6)
-    setBuildingType(v)
-  };
-
   const CountryOptions = Countries.countries.map((v, k) => ({
     value: v.code,
     label: v.name,
@@ -187,8 +181,7 @@ console.log(buildingTypeId,buildingType);
           BuildingOption={BuildingOptions}
           country={country}
           handleBuildingTypeChange={_handleBuildingTypeSelect}
-          handleInputBuildingTypeChange={_handleInputBuildingTypeChange}
-          handleBuildingNameChange={_handleBuildingNameChange}
+            handleBuildingNameChange={_handleBuildingNameChange}
           handlePostalChange={_handlePostalChange}
           handleAddressChange={_handleAddressChange}
           handleClientCompanyChange={_handleClientCompanyChange}

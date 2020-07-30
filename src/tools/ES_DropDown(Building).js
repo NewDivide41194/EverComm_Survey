@@ -52,13 +52,12 @@ export const ESDropDownBuilding =(props) => {
         },
       })}
       className="w-100"
-      value={
-        selectedOption && selectedOption.length === 0
-          ? selectedOption
-          : AnsSelected
-      }
+      
+      // value={
+
+      // }
       onChange={(e) => _handleSelect(quesId||id, e,keys)}
-      onInputChange={onInputChange}
+      // onInputChange={onInputChange}
       // value={selectedOption}
       options={options}
       placeholder={placeHolder}

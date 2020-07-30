@@ -4,6 +4,7 @@ import { ESButton } from "../../../tools/ES_Button";
 import { withMedia } from "react-media-query-hoc";
 import ESProgress from "../../../tools/ES_Progress";
 import * as Color from "../../../config/Color.config";
+import CompoundCard from "../../../tools/ES_CompoundCard";
 
 const Question = (props) => {
   const {
@@ -80,7 +81,22 @@ const Question = (props) => {
           </div>
           {/* <div className="my-2 scrollbar w-100" id="style-1"> */}
 
-          <QuestionCard
+          {/* <QuestionCard
+            QuestionData={QuestionData}
+            pageno={pageno}
+            amountOfDevice={amountOfDevice}
+            _handleCheckChange={_handleCheckChange}
+            _handleRadioChange={_handleRadioChange}
+            _handleInputChange={_handleInputChange}
+            _handleSelect={_handleSelect}
+            _handleStartChange={_handleStartChange}
+            _handleEndChange={_handleEndChange}
+            userId={userId}
+            selectedOption={selectedOption}
+            AnswerData={AnswerData}
+          /> */}
+
+          <CompoundCard
             QuestionData={QuestionData}
             pageno={pageno}
             amountOfDevice={amountOfDevice}
@@ -94,7 +110,6 @@ const Question = (props) => {
             selectedOption={selectedOption}
             AnswerData={AnswerData}
           />
-
           {/* </div> */}
           <div className="row justify-content-between">
             <div
