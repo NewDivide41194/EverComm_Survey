@@ -27,6 +27,22 @@ const QuestionCard1 = (props) => {
   const deviceIndexValue = amountOfDevice && Object.values(amountOfDevice[0]);
   const addedQuestionId = 1000;
 
+  const value1 = QuestionData.map((v, k) => v.option_choices);
+
+  const value2 = value1.reduce(function (accumulator, currentValue) {
+    return accumulator.concat(currentValue);
+  }, []);
+
+  const OtherQuestion = value2
+    .filter((v) => v.option_choice_name === "Other")
+    .map((v, k) => v.option_choice_id);
+
+  // const OtherQuestion = QuestionData.map((v, k) => v.option_choices)[pageno].filter(v => v.option_choice_name === "Other")[0]
+  // console.log(AnswerData.filter(a => a.optionChoiceId === OtherQuestion));
+  console.log("ggwp is undefined", AnswerData.optionChoiceId);
+
+  console.log("Zzzzzzzz");
+
   const deviceOption = new Array(99)
     .fill(null)
     .map((v, k) => ({ label: k + 1, value: k + 1 }));
@@ -42,8 +58,8 @@ const QuestionCard1 = (props) => {
               pageDeviceIndex > 1
                 ? Object.keys(amountOfDevice[0])[pageno - 1] +
                   addedQuestionId +
-                  buildingId +
                   k3 +
+                  buildingId +
                   ques.question_id
                 : ques.question_id.toString();
             return (
@@ -51,16 +67,9 @@ const QuestionCard1 = (props) => {
                 className="d-flex flex-row flex-fill flex-wrap w-100 p-3 py-3 mb-3 rounded bg-light border"
                 key={k2}
                 id={ques.questionId}
-                style={{
-                  fontSize: media.mobile ? "12px" : "15px",
-                }}
               >
-                <div
-                  className="d-flex flex-row flex-wrap w-100"
-                  key={k2}
-                  style={{ fontSize: media.mobile ? "15px" : "18px" }}
-                >
-                  <div className="d-flex flex-row pb-3 w-100  justify-content-between">
+                <div className="d-flex flex-row flex-wrap w-100" key={k2}>
+                  <div className="d-flex flex-row pb-3 w-100 justify-content-between">
                     <div>
                       {k2 + 1}. {ques.question_name}
                       <i className="text-info pl-2">
@@ -87,6 +96,7 @@ const QuestionCard1 = (props) => {
                     keys={ques.question_id}
                   />
                 ) : ques.input_type_id === 2 ? (
+                  // AnswerData === OtherQuestion ?
                   <ESRadio
                     value={ques.option_choices}
                     _handleRadioChange={_handleRadioChange}
@@ -96,23 +106,38 @@ const QuestionCard1 = (props) => {
                     keys={ques.question_id}
                   />
                 ) : ques.input_type_id === 5 ? (
-                  <ESDropDown
-                    // quesId={remakeQuestionId}
-                    // options={deviceOption}
-                    // _handleSelect={_handleSelect}
-                    // keys={ques.question_id}
 
-                    quesId={remakeQuestionId}
-                    options={ques.option_choices.map((v, k) => ({
-                      value: v.option_choice_id,
-                      label: v.option_choice_name,
-                    }))}
-                    _handleSelect={_handleSelect}
-                    selectedOption={
-                      AnswerData.filter(
+                  ques.option_choices.length === 1 ?
+
+                    (<ESDropDown
+                      quesId={remakeQuestionId}
+                      options={deviceOption}
+                      _handleSelect={_handleSelect}
+                      selectedOption={AnswerData.filter(
                         (d) => d.questionId === remakeQuestionId
                       )
                         ? AnswerData.filter(
+                          (d) => d.questionId === remakeQuestionId
+                        ).map(
+                          (v, k) => v.other
+                        )
+                        : selectedOption
+                      }
+                      keys={ques.question_id}
+                    />)
+                    :
+                    (<ESDropDown
+                      quesId={remakeQuestionId}
+                      options={ques.option_choices.map((v, k) => ({
+                        value: v.option_choice_id,
+                        label: v.option_choice_name,
+                      }))}
+                      _handleSelect={_handleSelect}
+                      selectedOption={
+                        AnswerData.filter(
+                          (d) => d.questionId === remakeQuestionId
+                        )
+                          ? AnswerData.filter(
                             (d) => d.questionId === remakeQuestionId
                           ).map(
                             (v, k) =>
@@ -121,11 +146,11 @@ const QuestionCard1 = (props) => {
                                   x.option_choice_id === v.optionChoiceId
                               )[0]
                           )
-                        : selectedOption
-                    }
-                    keys={ques.question_id}
-                  />
-                ) : ques.input_type_id === 4 ? (
+                          : selectedOption
+                      }
+                      keys={ques.question_id}
+                    />)
+                ): ques.input_type_id === 4 ? (
                   <ESInput
                     maxLength={10}
                     placeHolder={"Fill Your Answer"}
@@ -193,7 +218,7 @@ const QuestionCardInfo = (props) => {
         className={`fa ${
           info === "Answered"
             ? "fa-check text-success"
-            : "fa-exclamation text-warning"
+            : "fa-exclamation-circle text-warning"
         }`}
         title="Answered"
       />

@@ -15,8 +15,6 @@ const Question = (props) => {
     pageno,
     AnswerData,
     QuestionData,
-    startDate,
-    endDate,
     selectedOption,
     obtained,
     total,
@@ -33,7 +31,7 @@ const Question = (props) => {
     amountOfDevice,
     percent,
   } = props;
-console.log('Hi',surveyData);
+
   const deviceAmount =
     amountOfDevice && Object.values(amountOfDevice[0])[pageno - 1];
   return (
@@ -94,7 +92,6 @@ console.log('Hi',surveyData);
             _handleInputChange={_handleInputChange}
             _handleSelect={_handleSelect}
             _handleStartChange={_handleStartChange}
-            _handleEndChange={_handleEndChange}
             userId={userId}
             selectedOption={selectedOption}
             AnswerData={AnswerData}

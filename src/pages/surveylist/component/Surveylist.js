@@ -14,18 +14,18 @@ const Surveylist = (props) => {
     bTypeId,
     id,
   } = props;
-  const _handleMouseOver = (e,buildingName) => {
-    localStorage.setItem("buildingName",buildingName) 
-    localStorage.setItem("buildingType",buildingType)   
-    localStorage.setItem("bTypeId",bTypeId)   
+  const _handleMouseOver = (e, buildingName) => {
+    localStorage.setItem("buildingName", buildingName);
+    localStorage.setItem("buildingType", buildingType);
+    localStorage.setItem("bTypeId", bTypeId);
 
-    localStorage.setItem("buildingId", e.target.id);    
+    localStorage.setItem("buildingId", e.target.id);
     const Card = document.getElementById(id);
     Card.className =
       "d-flex flex-row p-3 rounded justify-content-between my-2 shadow-sm";
     Card.style.background = HoverBgColor;
   };
-   
+
   const _handleMouseLeave = () => {
     const Card = document.getElementById(id);
     Card.className = "d-flex flex-row p-3 rounded justify-content-between my-2";
@@ -40,21 +40,23 @@ const Surveylist = (props) => {
       style={{
         background: BgColor,
         color: TxtColor,
-        cursor:"pointer"
+        cursor: "pointer",
       }}
-      onMouseOver={(e)=>_handleMouseOver(e,buildingName)}
+      onMouseOver={(e) => _handleMouseOver(e, buildingName)}
       onMouseLeave={_handleMouseLeave}
-      onClick={(e)=>handleCardClick(e)}
+      onClick={(e) => handleCardClick(e)}
     >
       <div
-      id={id}
+        id={id}
         style={{
           fontSize: "22px",
           // fontWeight:"bold",
         }}
       >
-        {buildingName}   <span style={{ fontSize: "15px"}}>({buildingType})</span>
-        
+        {buildingName}{" "}
+        <span id={id} style={{ fontSize: "15px" }}>
+          ({buildingType})
+        </span>
       </div>
 
       <span id={id}> {progress}</span>

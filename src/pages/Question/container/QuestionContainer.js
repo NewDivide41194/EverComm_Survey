@@ -13,7 +13,7 @@ import { Survey_List } from "../../../api/url";
 const QuestionContainer = (props) => {
   const { history } = props;
   const [surveyData, setSurveyData] = useState([]);
-  const [pageno, setPageno] = useState(0);
+  const [pageno, setPageno] = useState(1);
   const [AnswerData, setAnswerData] = useState([]);
   const [value, setValue] = useState("");
   const [startDate, setStartDate] = useState(new Date());
@@ -29,7 +29,7 @@ const QuestionContainer = (props) => {
   const bTypeId = localStorage.getItem("bTypeId");
   const buildingId = parseInt(localStorage.getItem("buildingId"));
   const buildingName = localStorage.getItem("buildingName");
-  const buildingType=  localStorage.getItem("buildingType");
+  const buildingType = localStorage.getItem("buildingType");
   const surveyHeaderId = parseInt(localStorage.getItem("SurveyHeaderId"));
   const Ans = {
     other: "",
@@ -40,17 +40,6 @@ const QuestionContainer = (props) => {
     building_id: buildingId,
     keyValue: null,
   };
-  const building = AnswerData.length && AnswerData[0].optionChoiceId;
-  // const buildingType =
-  //   building === 1
-  //     ? "Office Building"
-  //     : building === 2
-  //     ? "Hotel"
-  //     : building === 3
-  //     ? "Shopping Mall"
-  //     : building === 4
-  //     ? "Residential Building"
-  //     : "Factory";
 
   const amountOfDevice = surveyData.length && surveyData[0].amountOfDevice;
   const deviceAmounts =
@@ -70,7 +59,7 @@ const QuestionContainer = (props) => {
   useEffect(() => {
     setIsLoading(true);
     QuestionFetch(
-      { userId, surveyHeaderId, buildingId,bTypeId, token },
+      { userId, surveyHeaderId, buildingId, bTypeId, token },
       (err, data) => {
         setSurveyData(data.payload);
         setAnswerData(data.payload[0].answers);
@@ -111,11 +100,14 @@ const QuestionContainer = (props) => {
           label: "Submit",
           onClick: () => {
             setIsLoading(true);
-            PostAnswer({ data: AnswerData, total, buildingType,token }, (err, data) => {
-              setIsLoading(false);
-              history.push("/finalPage");
-              localStorage.setItem(`${buildingId}`, total);
-            });
+            PostAnswer(
+              { data: AnswerData, total, buildingType, token },
+              (err, data) => {
+                setIsLoading(false);
+                history.push("/finalPage");
+                localStorage.setItem(`${buildingId}`, total);
+              }
+            );
           },
         },
         {
@@ -181,7 +173,7 @@ const QuestionContainer = (props) => {
       questionId: quesId,
       keyValue: keys,
     };
-  
+
     if (ImportText === "" && isQuesId(quesId).length >= 1) {
       AnswerData.splice(isQuesIdIndex(quesId), 1);
     } else if (isQuesId(quesId).length >= 1) {
@@ -192,14 +184,29 @@ const QuestionContainer = (props) => {
       AnswerData.push(TextAnswer);
     }
   };
-
   const handleSelect = (quesId, e, keys) => {
     setSelectedOption(e);
-    if (e !== null) {
+    if (e !== null && typeof(e.label) == "string") {
+      console.log("E is ",typeof(e.label))
       let ansId = e.value;
       const SelectAnswer = {
         ...Ans,
         optionChoiceId: ansId,
+        questionId: quesId,
+        keyValue: keys,
+      };
+      if (isQuesId(quesId).length >= 1) {
+        AnswerData.splice(isQuesIdIndex(quesId), 1, SelectAnswer);
+      } else {
+        AnswerData.push(SelectAnswer);
+      }
+      setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
+    }else if (e !== null && e.label != "string") {
+      let ansId = e.value;
+      console.log("E is ",typeof(e.label))
+      const SelectAnswer = {
+        ...Ans,
+        other: ansId,
         questionId: quesId,
         keyValue: keys,
       };
@@ -214,25 +221,37 @@ const QuestionContainer = (props) => {
       setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
     }
   };
-  console.log("===>",AnswerData);
+  console.log(moment(startDate).format("yyyy"));
+  console.log(moment(endDate).format("yyyy"));
 
-  const handleStartChange = (date, quesId, keys) => {
-    if (date === null) {
-      AnswerData.splice(isQuesIdIndex(quesId), 1);
-      setStartDate(null);
-      setEndDate(null);
-    } else if (endDate !== null && endDate < date) {
+  const handleStartChange = (date, quesId, keys, type) => {
+    //  const sliceQuestionId= quesId.slice(0,-keys.toString().length)
+    //  const answeredQusetionId=AnswerData.filter(v=>v.questionId===quesId)
+    //  const sliceAnsweredQuestionId=answeredQusetionId.length&&answeredQusetionId[0].questionId.slice(0,-keys.toString().length)
+    //  console.log(answeredQusetionId.length&&answeredQusetionId[0].questionId,answeredQusetionId.length&&answeredQusetionId[0].other);
+    //   console.log(moment(date).format("yyyy"));
+    console.log(type);
+    if ( endDate < date) {
       alert("Year of Installation is Later Than Year of Manufacturing!");
-    } else {
+    }
+      if (type === "Year of Manufacture") {
       setStartDate(date);
       const StartDateAnswer = {
         ...Ans,
-        other: JSON.stringify({
-          YearOfManufacturing: moment(date).format("YYYY-MM-DD"),
-          YearOfInstallation: endDate
-            ? moment(endDate).format("YYYY-MM-DD")
-            : moment().format("YYYY-MM-DD"),
-        }),
+        other: moment(date).format("yyyy"),
+        questionId: quesId,
+        keyValue: keys,
+      };
+      if (isQuesId(quesId).length >= 1) {
+        AnswerData.splice(isQuesIdIndex(quesId), 1, StartDateAnswer);
+      } else {
+        AnswerData.push(StartDateAnswer);
+      }
+    } else {
+      setEndDate(date);
+      const StartDateAnswer = {
+        ...Ans,
+        other: moment(date).format("yyyy"),
         questionId: quesId,
         keyValue: keys,
       };
@@ -242,79 +261,28 @@ const QuestionContainer = (props) => {
         AnswerData.push(StartDateAnswer);
       }
     }
+    // if (endDate !== null && endDate < startDate) {
+    //   alert("Year of Installation is Later Than Year of Manufacturing!");
+    // } else {
+    //   setStartDate(date);
+    //   const StartDateAnswer = {
+    //     ...Ans,
+    //     other: moment(date).format("yyyy"),
+    //     questionId: quesId,
+    //     keyValue: keys,
+    //   };
+    //   if (isQuesId(quesId).length >= 1) {
+    //     AnswerData.splice(isQuesIdIndex(quesId), 1, StartDateAnswer);
+    //   } else {
+    //     AnswerData.push(StartDateAnswer);
+    //   }
+    // }
   };
 
-  const handleEndChange = (date, quesId, keys) => {
-    if (date === null) {
-      AnswerData.splice(isQuesIdIndex(quesId), 1);
-      setEndDate(null);
-      setStartDate(null);
-    } else if (startDate !== null && startDate > date) {
-      alert("Year of Installation is Older Than Year of Manufacturing");
-    } else {
-      setEndDate(date);
-      const EndDateAnswer = {
-        ...Ans,
-        other: JSON.stringify({
-          YearOfManufacturing: startDate
-            ? moment(startDate).format("YYYY-MM-DD")
-            : moment(date).subtract(10, "days").calendar(),
-          YearOfInstallation: moment(date).format("YYYY-MM-DD"),
-        }),
-        questionId: quesId,
-        keyValue: keys,
-      };
-      if (isQuesId(quesId).length >= 1) {
-        AnswerData.splice(isQuesIdIndex(quesId), 1, EndDateAnswer);
-      } else {
-        AnswerData.push(EndDateAnswer);
-      }
-    }
-  };
   const Data1 =
     surveyData.length && surveyData[0].survey_sections[pageno].questions;
-    
 
-  // let flattened = surveyData.length&&Data1.reduce(function (accumulator, currentValue) {
-  //   return accumulator.concat(currentValue);
-  // }, []);
-  // console.log(Data1);
-  const QuestionData =
-    // surveyData.length&&AnswerData.length===0?
-    //    surveyData[0].survey_sections[pageno].questions
-
-    //   :
-    Data1;
-
-  const filteredIndex = indexPage.filter((d) => d.page === pageno);
-  var maxIndex =
-    filteredIndex.length === 0
-      ? 1
-      : Math.max.apply(
-          Math,
-          filteredIndex.map((o) => o.index)
-        );
-
-  const _handleAnotherDevice = () => {
-    indexPage.push({ page: pageno, index: maxIndex + 1 });
-    setIndex(index + 1);
-
-    //Add Questions
-    QuestionData.push(
-      ...surveyData[0].survey_sections[pageno].devicesQuestions[maxIndex]
-        .questions
-    );
-    
-    //Remove Question
-    const isActionIndex = QuestionData.findIndex((d) => d.input_type_id === 8);
-    QuestionData.splice(isActionIndex, 1);
-    //Add Question Count
-    const AddedQuestionsLength = surveyData[0].survey_sections[
-      pageno
-    ].devicesQuestions[maxIndex].questions.filter((v) => v.input_type_id !== 8)
-      .length;
-    setTotal(total + AddedQuestionsLength);
-  };
+  const QuestionData = Data1;
 
   if (IsLoading) {
     return <ESLoading />;
@@ -329,8 +297,6 @@ const QuestionContainer = (props) => {
         pageno={pageno}
         buildingType={buildingType}
         AnswerData={AnswerData}
-        startDate={startDate}
-        endDate={endDate}
         selectedOption={selectedOption}
         obtained={obtained}
         total={total}
@@ -341,11 +307,9 @@ const QuestionContainer = (props) => {
         _handleRadioChange={handleRadioChange}
         _handleInputChange={handleInputChange}
         _handleStartChange={handleStartChange}
-        _handleEndChange={handleEndChange}
         _handleNext={_handleNext}
         _handlePrevious={_handlePrevious}
         _handleSubmit={_handleSubmit}
-        _handleAnotherDevice={_handleAnotherDevice}
       />
     );
   }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Select from "react-select";
 import * as Colors from "../config/Color.config";
 
@@ -8,34 +8,49 @@ export const ESDropDown = (props) => {
     quesId,
     _handleSelect,
     selectedOption,
+    value,
     disabled,
     notClearable,
     id,
     defaultValue,
-    keys
+    keys,
   } = props;
 
+  const value1 = parseInt(value);
   const AnsSelected =
-    selectedOption &&
-    selectedOption.map((v, k) => ({
-      value: v.option_choice_id,
-      label: v.option_choice_name,
-    }));
-
+  selectedOption &&
+  selectedOption.map((v, k) => ({
+    value: v.option_choice_id || selectedOption[0],
+    label: v.option_choice_name || selectedOption[0],
+  }));
   const customStyles = {
-    option: (provided, state) => ({
+    control: (provided,state) => ({
+      ...provided,           
+      height: 10,
+      margin: 0,
+      marginLeft: 0,
+      border: state.isSelected ? '2px solid red' : `2px solid ${Colors.SecondaryColor}` ,
+      backgroundColor: 'white',
+      outline: 'none'            
+  }),
+  option: (provided, state) => ({
       ...provided,
-      // color: state.isSelected ? "white" : "black",
-      // fontWeight: state.isSelected && "bold",
+      color: state.isSelected ? "white" : "black",
+      fontWeight: state.isSelected && "bold",
       padding: 10,
-    }),
+    })
+    // option: (provided, state) => ({
+    //   ...provided,
+    //   // color: state.isSelected ? "white" : "black",
+    //   // fontWeight: state.isSelected && "bold",
+    //   padding: 10,
+    // }),
   };
-
-  return (
+return (
     <Select
       isClearable={notClearable ? false : true}
       isDisabled={disabled}
-      id={`${id?id:quesId}`}
+      id={`${id ? id : quesId}`}
       styles={customStyles}
       defaultValue={defaultValue}
       theme={(theme) => ({
@@ -51,8 +66,9 @@ export const ESDropDown = (props) => {
         selectedOption && selectedOption.length === 0
           ? selectedOption
           : AnsSelected
+
       }
-      onChange={(e) => _handleSelect(quesId||id, e,keys)}
+      onChange={(e) => _handleSelect(quesId || id, e, keys)}
       // value={selectedOption}
       options={options}
     />
