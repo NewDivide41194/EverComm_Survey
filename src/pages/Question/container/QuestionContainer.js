@@ -29,7 +29,7 @@ const QuestionContainer = (props) => {
   const bTypeId = localStorage.getItem("bTypeId");
   const buildingId = parseInt(localStorage.getItem("buildingId"));
   const buildingName = localStorage.getItem("buildingName");
-  const buildingType=  localStorage.getItem("buildingType");
+  const buildingType = localStorage.getItem("buildingType");
   const surveyHeaderId = parseInt(localStorage.getItem("SurveyHeaderId"));
   const Ans = {
     other: "",
@@ -70,7 +70,7 @@ const QuestionContainer = (props) => {
   useEffect(() => {
     setIsLoading(true);
     QuestionFetch(
-      { userId, surveyHeaderId, buildingId,bTypeId, token },
+      { userId, surveyHeaderId, buildingId, bTypeId, token },
       (err, data) => {
         setSurveyData(data.payload);
         setAnswerData(data.payload[0].answers);
@@ -103,15 +103,15 @@ const QuestionContainer = (props) => {
         oneQuestion
           ? "One question Remains to Answer!"
           : fullQuestion
-          ? "All questions are Answered!"
-          : `${total - obtained} questions are Remain to Answer!`
-      } `,
+            ? "All questions are Answered!"
+            : `${total - obtained} questions are Remain to Answer!`
+        } `,
       buttons: [
         {
           label: "Submit",
           onClick: () => {
             setIsLoading(true);
-            PostAnswer({ data: AnswerData, total, buildingType,token }, (err, data) => {
+            PostAnswer({ data: AnswerData, total, buildingType, token }, (err, data) => {
               setIsLoading(false);
               history.push("/finalPage");
               localStorage.setItem(`${buildingId}`, total);
@@ -181,7 +181,7 @@ const QuestionContainer = (props) => {
       questionId: quesId,
       keyValue: keys,
     };
-  
+
     if (ImportText === "" && isQuesId(quesId).length >= 1) {
       AnswerData.splice(isQuesIdIndex(quesId), 1);
     } else if (isQuesId(quesId).length >= 1) {
@@ -195,11 +195,27 @@ const QuestionContainer = (props) => {
 
   const handleSelect = (quesId, e, keys) => {
     setSelectedOption(e);
-    if (e !== null) {
+    if (e !== null && typeof(e.label) == "string") {
+      console.log("E is ",typeof(e.label))
       let ansId = e.value;
       const SelectAnswer = {
         ...Ans,
         optionChoiceId: ansId,
+        questionId: quesId,
+        keyValue: keys,
+      };
+      if (isQuesId(quesId).length >= 1) {
+        AnswerData.splice(isQuesIdIndex(quesId), 1, SelectAnswer);
+      } else {
+        AnswerData.push(SelectAnswer);
+      }
+      setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
+    }else if (e !== null && e.label != "string") {
+      let ansId = e.value;
+      console.log("E is ",typeof(e.label))
+      const SelectAnswer = {
+        ...Ans,
+        other: ansId,
         questionId: quesId,
         keyValue: keys,
       };
@@ -214,7 +230,6 @@ const QuestionContainer = (props) => {
       setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
     }
   };
-  console.log("===>",AnswerData);
 
   const handleStartChange = (date, quesId, keys) => {
     if (date === null) {
@@ -273,7 +288,7 @@ const QuestionContainer = (props) => {
   };
   const Data1 =
     surveyData.length && surveyData[0].survey_sections[pageno].questions;
-    
+
 
   // let flattened = surveyData.length&&Data1.reduce(function (accumulator, currentValue) {
   //   return accumulator.concat(currentValue);
@@ -291,9 +306,9 @@ const QuestionContainer = (props) => {
     filteredIndex.length === 0
       ? 1
       : Math.max.apply(
-          Math,
-          filteredIndex.map((o) => o.index)
-        );
+        Math,
+        filteredIndex.map((o) => o.index)
+      );
 
   const _handleAnotherDevice = () => {
     indexPage.push({ page: pageno, index: maxIndex + 1 });
@@ -304,7 +319,7 @@ const QuestionContainer = (props) => {
       ...surveyData[0].survey_sections[pageno].devicesQuestions[maxIndex]
         .questions
     );
-    
+
     //Remove Question
     const isActionIndex = QuestionData.findIndex((d) => d.input_type_id === 8);
     QuestionData.splice(isActionIndex, 1);

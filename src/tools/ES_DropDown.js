@@ -12,15 +12,16 @@ export const ESDropDown = (props) => {
     notClearable,
     id,
     defaultValue,
-    keys
+    keys,
   } = props;
 
   const AnsSelected =
     selectedOption &&
     selectedOption.map((v, k) => ({
-      value: v.option_choice_id,
-      label: v.option_choice_name,
+      value: v.option_choice_id || selectedOption[0],
+      label: v.option_choice_name || selectedOption[0],
     }));
+
 
   const customStyles = {
     option: (provided, state) => ({
@@ -35,7 +36,7 @@ export const ESDropDown = (props) => {
     <Select
       isClearable={notClearable ? false : true}
       isDisabled={disabled}
-      id={`${id?id:quesId}`}
+      id={`${id ? id : quesId}`}
       styles={customStyles}
       defaultValue={defaultValue}
       theme={(theme) => ({
@@ -51,8 +52,9 @@ export const ESDropDown = (props) => {
         selectedOption && selectedOption.length === 0
           ? selectedOption
           : AnsSelected
+
       }
-      onChange={(e) => _handleSelect(quesId||id, e,keys)}
+      onChange={(e) => _handleSelect(quesId || id, e, keys)}
       // value={selectedOption}
       options={options}
     />

@@ -5,7 +5,7 @@ import * as Colors from "../config/Color.config";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 const ESCheckbox = (props) => {
-  const { value, _handleChange, quesId, media, isAnswer ,keys} = props;
+  const { value, _handleChange, quesId, media, isAnswer, keys } = props;
   const customTheme = createMuiTheme({
     palette: {
       secondary: {
@@ -18,22 +18,22 @@ const ESCheckbox = (props) => {
   // console.log(isAnswer.filter(d=>d.optionChoiceId===40&&d.questionId===quesId).length>0)
   // console.log(isAnswer.filter(d=>d.optionChoiceId===40).length>0&&isAnswer.filter(q=>q.questionId===quesId).length>0);
   // console.log(isAnswer);
-  
+
   // console.log("Value",value);
-  
+
   return value.map((ans, k3) => (
     <label
-      id={`${ans.option_choice_id+quesId} div`}
+      id={`${ans.option_choice_id + quesId} div`}
       className={`flex-column ${media.mobile ? "w-100" : "w-50"}`}
       key={k3}
       onMouseOver={() =>
         (document.getElementById(
-          `${ans.option_choice_id+quesId} div`
+          `${ans.option_choice_id + quesId} div`
         ).style.background = "rgb(211, 226, 237)")
       }
       onMouseLeave={() =>
         (document.getElementById(
-          `${ans.option_choice_id+quesId} div`
+          `${ans.option_choice_id + quesId} div`
         ).style.background = "none")
       }
       style={{ cursor: "pointer" }}
@@ -43,12 +43,12 @@ const ESCheckbox = (props) => {
           className="p-1"
           checked={
             // isAnswer.filter(d=>d===ans.option_choice_id).length>0&&isQuestion.filter(d1=>d1===quesId).length>0
-            isAnswer.filter(d=>d.optionChoiceId===ans.option_choice_id&&d.questionId===quesId).length>0
+            isAnswer.filter(d => d.optionChoiceId === ans.option_choice_id && d.questionId === quesId).length > 0
             // isAnswer.filter(d=>d.optionChoiceId===ans.option_choice_id).length>0&&isAnswer.filter(q=>q.questionId===quesId).length>0
           }
-          id={`${ans.option_choice_id+quesId}`}
+          id={`${ans.option_choice_id + quesId}`}
           value={ans.option_choice_id}
-          onChange={() => _handleChange(quesId, ans.option_choice_id,keys)}
+          onChange={() => _handleChange(quesId, ans.option_choice_id, keys)}
           name={`${quesId}`}
         />
       </ThemeProvider>

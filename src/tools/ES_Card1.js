@@ -27,6 +27,11 @@ const QuestionCard1 = (props) => {
   const deviceIndexValue = amountOfDevice && Object.values(amountOfDevice[0]);
   const addedQuestionId = 1000;
 
+
+  const OtherQuestion = QuestionData.map((v, k) => v.option_choices)[pageno].filter(v => v.option_choice_name === "Other")[0].option_choice_id
+  const OtherAns = AnswerData.filter(a => a.optionChoiceId === OtherQuestion)
+  console.log(QuestionData)
+
   const deviceOption = new Array(99)
     .fill(null)
     .map((v, k) => ({ label: k + 1, value: k + 1 }));
@@ -41,10 +46,10 @@ const QuestionCard1 = (props) => {
             const remakeQuestionId =
               pageDeviceIndex > 1
                 ? Object.keys(amountOfDevice[0])[pageno - 1] +
-                  addedQuestionId +
-                  buildingId +
-                  k3 +
-                  ques.question_id
+                addedQuestionId +
+                buildingId +
+                k3 +
+                ques.question_id
                 : ques.question_id.toString();
             return (
               <div
@@ -71,13 +76,14 @@ const QuestionCard1 = (props) => {
                     {AnswerData.map((v, k) => v.questionId).filter(
                       (v) => v === remakeQuestionId
                     )[0] === remakeQuestionId ? (
-                      <QuestionCardInfo info={"Answered"} media={media} />
-                    ) : (
-                      <QuestionCardInfo info={"Pending"} media={media} />
-                    )}
+                        <QuestionCardInfo info={"Answered"} media={media} />
+                      ) : (
+                        <QuestionCardInfo info={"Pending"} media={media} />
+                      )}
                   </div>
                 </div>
                 {ques.input_type_id === 1 ? (
+
                   <ESCheckBox
                     quesId={remakeQuestionId}
                     value={ques.option_choices}
@@ -87,32 +93,50 @@ const QuestionCard1 = (props) => {
                     keys={ques.question_id}
                   />
                 ) : ques.input_type_id === 2 ? (
-                  <ESRadio
-                    value={ques.option_choices}
-                    _handleRadioChange={_handleRadioChange}
-                    quesId={remakeQuestionId}
-                    isAnswer={AnswerData}
-                    isQuestion={isQuestion}
-                    keys={ques.question_id}
-                  />
+                  <div>
+                    <ESRadio
+                      value={ques.option_choices}
+                      _handleRadioChange={_handleRadioChange}
+                      quesId={remakeQuestionId}
+                      isAnswer={AnswerData}
+                      isQuestion={isQuestion}
+                      keys={ques.question_id}
+                    />
+                    {OtherAns.length ? <ESInput /> : null}
+                  </div>
                 ) : ques.input_type_id === 5 ? (
-                  <ESDropDown
-                    // quesId={remakeQuestionId}
-                    // options={deviceOption}
-                    // _handleSelect={_handleSelect}
-                    // keys={ques.question_id}
 
-                    quesId={remakeQuestionId}
-                    options={ques.option_choices.map((v, k) => ({
-                      value: v.option_choice_id,
-                      label: v.option_choice_name,
-                    }))}
-                    _handleSelect={_handleSelect}
-                    selectedOption={
-                      AnswerData.filter(
+                  ques.option_choices.length === 1 ?
+
+                    (<ESDropDown
+                      quesId={remakeQuestionId}
+                      options={deviceOption}
+                      _handleSelect={_handleSelect}
+                      selectedOption={AnswerData.filter(
                         (d) => d.questionId === remakeQuestionId
                       )
                         ? AnswerData.filter(
+                          (d) => d.questionId === remakeQuestionId
+                        ).map(
+                          (v, k) => v.other
+                        )
+                        : selectedOption
+                      }
+                      keys={ques.question_id}
+                    />)
+                    :
+                    (<ESDropDown
+                      quesId={remakeQuestionId}
+                      options={ques.option_choices.map((v, k) => ({
+                        value: v.option_choice_id,
+                        label: v.option_choice_name,
+                      }))}
+                      _handleSelect={_handleSelect}
+                      selectedOption={
+                        AnswerData.filter(
+                          (d) => d.questionId === remakeQuestionId
+                        )
+                          ? AnswerData.filter(
                             (d) => d.questionId === remakeQuestionId
                           ).map(
                             (v, k) =>
@@ -121,10 +145,10 @@ const QuestionCard1 = (props) => {
                                   x.option_choice_id === v.optionChoiceId
                               )[0]
                           )
-                        : selectedOption
-                    }
-                    keys={ques.question_id}
-                  />
+                          : selectedOption
+                      }
+                      keys={ques.question_id}
+                    />)
                 ) : ques.input_type_id === 4 ? (
                   <ESInput
                     maxLength={10}
@@ -145,11 +169,11 @@ const QuestionCard1 = (props) => {
                         (d) => d.questionId === remakeQuestionId
                       ).length && AnswerData.length
                         ? AnswerData.filter(
-                            (d) => d.questionId === remakeQuestionId
-                          ).map(
-                            (v, k) =>
-                              new Date(JSON.parse(v.other).YearOfManufacturing)
-                          )[0]
+                          (d) => d.questionId === remakeQuestionId
+                        ).map(
+                          (v, k) =>
+                            new Date(JSON.parse(v.other).YearOfManufacturing)
+                        )[0]
                         : null
                     }
                     endDate={
@@ -157,11 +181,11 @@ const QuestionCard1 = (props) => {
                         (d) => d.questionId === remakeQuestionId
                       ).length && AnswerData.length
                         ? AnswerData.filter(
-                            (d) => d.questionId === remakeQuestionId
-                          ).map(
-                            (v, k) =>
-                              new Date(JSON.parse(v.other).YearOfInstallation)
-                          )[0]
+                          (d) => d.questionId === remakeQuestionId
+                        ).map(
+                          (v, k) =>
+                            new Date(JSON.parse(v.other).YearOfInstallation)
+                        )[0]
                         : null
                     }
                     _handleEndChange={_handleEndChange}
@@ -194,7 +218,7 @@ const QuestionCardInfo = (props) => {
           info === "Answered"
             ? "fa-check text-success"
             : "fa-exclamation text-warning"
-        }`}
+          }`}
         title="Answered"
       />
     </div>
