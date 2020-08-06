@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import QuestionCard from "../../../tools/ES_Cards";
+import QuestionCard from "../../../tools/ES_CompoundCard";
 import { ESButton } from "../../../tools/ES_Button";
 import { withMedia } from "react-media-query-hoc";
 import ESProgress from "../../../tools/ES_Progress";

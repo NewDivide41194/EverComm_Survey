@@ -92,9 +92,9 @@ const QuestionContainer = (props) => {
         oneQuestion
           ? "One question Remains to Answer!"
           : fullQuestion
-            ? "All questions are Answered!"
-            : `${total - obtained} questions are Remain to Answer!`
-        } `,
+          ? "All questions are Answered!"
+          : `${total - obtained} questions are Remain to Answer!`
+      } `,
       buttons: [
         {
           label: "Submit",
@@ -187,8 +187,7 @@ const QuestionContainer = (props) => {
   };
   const handleSelect = (quesId, e, keys) => {
     setSelectedOption(e);
-    if (e !== null && typeof (e.label) == "string") {
-      console.log("E is ", typeof (e.label))
+    if (e !== null && typeof e.label == "string") {
       let ansId = e.value;
       const SelectAnswer = {
         ...Ans,
@@ -202,9 +201,8 @@ const QuestionContainer = (props) => {
         AnswerData.push(SelectAnswer);
       }
       setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
-    } else if (e !== null && e.label != "string") {
+    } else if (e !== null && e.label !== "string") {
       let ansId = e.value;
-      console.log("E is ", typeof (e.label))
       const SelectAnswer = {
         ...Ans,
         other: ansId,
@@ -282,26 +280,32 @@ const QuestionContainer = (props) => {
 
   const QuestionData = Data1;
 
-
-  
-
   const OtherQuestion = (QuesId) => {
-    return QuestionData && QuestionData.map((v, k) => v.option_choices)
-    [QuesId].filter(v => v.option_choice_name === "Other")
-  }
+    return (
+      QuestionData &&
+      QuestionData.map((v, k) => v.option_choices)[QuesId].filter(
+        (v) => v.option_choice_name === "Other"
+      )
+    );
+  };
 
-
-  const OtherAns = (QuesId, OptionId) => {
-    return AnswerData.filter(a => a.keyValue === QuesId && a.optionChoiceId === OptionId)
-  }
+  const OtherAns = (remakeQuesId, QuesId, OptionId) => {
+    return AnswerData.filter(
+      (a) =>
+        a.keyValue === QuesId &&
+        a.optionChoiceId === OptionId &&
+        a.questionId === remakeQuesId
+    );
+  };
 
   const otherOfQuestion = (index) => {
-    const isOther = QuestionData && QuestionData.map((v, k) => v.option_choices)[index].filter(d => d.option_choice_name === "Other")
-    console.log("---------->", QuestionData && QuestionData.map((v, k) => v.option_choices)[index].filter(d => d.option_choice_name === "Other"));
-    return isOther.length > 0 ? isOther[0].option_choice_id : null
-  }
-
-
+    const isOther =
+      QuestionData &&
+      QuestionData.map((v, k) => v.option_choices)[index].filter(
+        (d) => d.option_choice_name === "Other"
+      );
+    return isOther.length > 0 ? isOther[0].option_choice_id : null;
+  };
 
   if (IsLoading) {
     return <ESLoading />;
