@@ -13,7 +13,7 @@ import { Survey_List } from "../../../api/url";
 const QuestionContainer = (props) => {
   const { history } = props;
   const [surveyData, setSurveyData] = useState([]);
-  const [pageno, setPageno] = useState(1);
+  const [pageno, setPageno] = useState(0);
   const [AnswerData, setAnswerData] = useState([]);
   const [value, setValue] = useState("");
   const [startDate, setStartDate] = useState(new Date());
@@ -92,9 +92,9 @@ const QuestionContainer = (props) => {
         oneQuestion
           ? "One question Remains to Answer!"
           : fullQuestion
-          ? "All questions are Answered!"
-          : `${total - obtained} questions are Remain to Answer!`
-      } `,
+            ? "All questions are Answered!"
+            : `${total - obtained} questions are Remain to Answer!`
+        } `,
       buttons: [
         {
           label: "Submit",
@@ -165,11 +165,12 @@ const QuestionContainer = (props) => {
     setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
   };
 
-  const handleInputChange = (e, quesId, keys) => {
+  const handleInputChange = (e, quesId, keys, optionId) => {
     const ImportText = e.target.value.replace(/\s+/g, " ").trimStart();
     const TextAnswer = {
       ...Ans,
       other: ImportText,
+      optionChoiceId: optionId || null,
       questionId: quesId,
       keyValue: keys,
     };
@@ -186,8 +187,8 @@ const QuestionContainer = (props) => {
   };
   const handleSelect = (quesId, e, keys) => {
     setSelectedOption(e);
-    if (e !== null && typeof(e.label) == "string") {
-      console.log("E is ",typeof(e.label))
+    if (e !== null && typeof (e.label) == "string") {
+      console.log("E is ", typeof (e.label))
       let ansId = e.value;
       const SelectAnswer = {
         ...Ans,
@@ -201,9 +202,9 @@ const QuestionContainer = (props) => {
         AnswerData.push(SelectAnswer);
       }
       setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
-    }else if (e !== null && e.label != "string") {
+    } else if (e !== null && e.label != "string") {
       let ansId = e.value;
-      console.log("E is ",typeof(e.label))
+      console.log("E is ", typeof (e.label))
       const SelectAnswer = {
         ...Ans,
         other: ansId,
@@ -221,8 +222,6 @@ const QuestionContainer = (props) => {
       setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
     }
   };
-  console.log(moment(startDate).format("yyyy"));
-  console.log(moment(endDate).format("yyyy"));
 
   const handleStartChange = (date, quesId, keys, type) => {
     //  const sliceQuestionId= quesId.slice(0,-keys.toString().length)
@@ -230,11 +229,10 @@ const QuestionContainer = (props) => {
     //  const sliceAnsweredQuestionId=answeredQusetionId.length&&answeredQusetionId[0].questionId.slice(0,-keys.toString().length)
     //  console.log(answeredQusetionId.length&&answeredQusetionId[0].questionId,answeredQusetionId.length&&answeredQusetionId[0].other);
     //   console.log(moment(date).format("yyyy"));
-    console.log(type);
-    if ( endDate < date) {
+    if (endDate < date) {
       alert("Year of Installation is Later Than Year of Manufacturing!");
     }
-      if (type === "Year of Manufacture") {
+    if (type === "Year of Manufacture") {
       setStartDate(date);
       const StartDateAnswer = {
         ...Ans,
@@ -284,6 +282,27 @@ const QuestionContainer = (props) => {
 
   const QuestionData = Data1;
 
+
+  
+
+  const OtherQuestion = (QuesId) => {
+    return QuestionData && QuestionData.map((v, k) => v.option_choices)
+    [QuesId].filter(v => v.option_choice_name === "Other")
+  }
+
+
+  const OtherAns = (QuesId, OptionId) => {
+    return AnswerData.filter(a => a.keyValue === QuesId && a.optionChoiceId === OptionId)
+  }
+
+  const otherOfQuestion = (index) => {
+    const isOther = QuestionData && QuestionData.map((v, k) => v.option_choices)[index].filter(d => d.option_choice_name === "Other")
+    console.log("---------->", QuestionData && QuestionData.map((v, k) => v.option_choices)[index].filter(d => d.option_choice_name === "Other"));
+    return isOther.length > 0 ? isOther[0].option_choice_id : null
+  }
+
+
+
   if (IsLoading) {
     return <ESLoading />;
   } else {
@@ -302,6 +321,9 @@ const QuestionContainer = (props) => {
         total={total}
         percent={percent}
         amountOfDevice={amountOfDevice}
+        otherQuestion={OtherQuestion}
+        otherAns={OtherAns}
+        otherOfQuestion={otherOfQuestion}
         _handleSelect={handleSelect}
         _handleCheckChange={handleCheckChange}
         _handleRadioChange={handleRadioChange}

@@ -30,6 +30,9 @@ const Question = (props) => {
     _handleEndChange,
     amountOfDevice,
     percent,
+    otherQuestion,
+    otherAns,
+    otherOfQuestion
   } = props;
 
   const deviceAmount =
@@ -96,6 +99,9 @@ const Question = (props) => {
             selectedOption={selectedOption}
             AnswerData={AnswerData}
             sessionId={surveyData[0].survey_sections[pageno].survey_section_id}
+            otherAns={otherAns}
+            otherQuestion={otherQuestion}
+            otherOfQuestion={otherOfQuestion}
           />
 
           <div className="row justify-content-between">
