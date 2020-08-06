@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Select from "react-select";
 import * as Colors from "../config/Color.config";
 
@@ -8,6 +8,7 @@ export const ESDropDown = (props) => {
     quesId,
     _handleSelect,
     selectedOption,
+    value,
     disabled,
     notClearable,
     id,
@@ -15,24 +16,37 @@ export const ESDropDown = (props) => {
     keys,
   } = props;
 
+  const value1 = parseInt(value);
   const AnsSelected =
-    selectedOption &&
-    selectedOption.map((v, k) => ({
-      value: v.option_choice_id || selectedOption[0],
-      label: v.option_choice_name || selectedOption[0],
-    }));
-
-
+  selectedOption &&
+  selectedOption.map((v, k) => ({
+    value: v.option_choice_id || selectedOption[0],
+    label: v.option_choice_name || selectedOption[0],
+  }));
   const customStyles = {
-    option: (provided, state) => ({
+    control: (provided,state) => ({
+      ...provided,           
+      height: 10,
+      margin: 0,
+      marginLeft: 0,
+      border: state.isSelected ? '2px solid red' : `2px solid ${Colors.SecondaryColor}` ,
+      backgroundColor: 'white',
+      outline: 'none'            
+  }),
+  option: (provided, state) => ({
       ...provided,
-      // color: state.isSelected ? "white" : "black",
-      // fontWeight: state.isSelected && "bold",
+      color: state.isSelected ? "white" : "black",
+      fontWeight: state.isSelected && "bold",
       padding: 10,
-    }),
+    })
+    // option: (provided, state) => ({
+    //   ...provided,
+    //   // color: state.isSelected ? "white" : "black",
+    //   // fontWeight: state.isSelected && "bold",
+    //   padding: 10,
+    // }),
   };
-
-  return (
+return (
     <Select
       isClearable={notClearable ? false : true}
       isDisabled={disabled}

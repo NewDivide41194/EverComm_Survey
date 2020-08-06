@@ -1,50 +1,30 @@
 import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import moment from "moment"
-// import "../App.css";
 
 const ESDatePicker = (props) => {
   const {
     _handleStartChange,
-    _handleEndChange,
+    placeHolder,
     startDate,
-    endDate,
     quesId,
+    type,
     keys
   } = props;
   return (
-    <div className="d-flex flex-row flex-wrap">
-      <div className="flex-column px-2">
-        <div>Year of Manufacturing</div>
         <DatePicker
-          className="form-control"
+          // className="form-control"
           selected={startDate}
-          onChange={(date) => _handleStartChange(date, quesId,keys)}
+          onChange={(date) => _handleStartChange(date, quesId,keys,type)}
           selectsStart
-          // isClearable
-          placeholderText={"Year Of Manufacturing"}
+          placeholderText={placeHolder}
           startDate={startDate}
           maxDate={new Date()}
-          endDate={endDate}
+          // endDate={endDate}
+          showYearPicker
+          dateFormat="yyyy"
           keys={keys}
         />
-      </div>
-      <div className="flex-column px-2">
-        <div className="">Year of Installation</div>
-        <DatePicker
-          className="form-control"
-          selected={endDate}
-          onChange={(date) => _handleEndChange(date, quesId,keys)}
-          selectsEnd
-          // isClearable
-          placeholderText={"Year Of Installation"}
-          startDate={startDate}
-          maxDate={new Date()}
-          endDate={endDate}
-        />
-      </div>
-    </div>
   );
 };
 

@@ -40,17 +40,6 @@ const QuestionContainer = (props) => {
     building_id: buildingId,
     keyValue: null,
   };
-  const building = AnswerData.length && AnswerData[0].optionChoiceId;
-  // const buildingType =
-  //   building === 1
-  //     ? "Office Building"
-  //     : building === 2
-  //     ? "Hotel"
-  //     : building === 3
-  //     ? "Shopping Mall"
-  //     : building === 4
-  //     ? "Residential Building"
-  //     : "Factory";
 
   const amountOfDevice = surveyData.length && surveyData[0].amountOfDevice;
   const deviceAmounts =
@@ -111,11 +100,14 @@ const QuestionContainer = (props) => {
           label: "Submit",
           onClick: () => {
             setIsLoading(true);
-            PostAnswer({ data: AnswerData, total, buildingType, token }, (err, data) => {
-              setIsLoading(false);
-              history.push("/finalPage");
-              localStorage.setItem(`${buildingId}`, total);
-            });
+            PostAnswer(
+              { data: AnswerData, total, buildingType, token },
+              (err, data) => {
+                setIsLoading(false);
+                history.push("/finalPage");
+                localStorage.setItem(`${buildingId}`, total);
+              }
+            );
           },
         },
         {
@@ -173,11 +165,12 @@ const QuestionContainer = (props) => {
     setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
   };
 
-  const handleInputChange = (e, quesId, keys) => {
+  const handleInputChange = (e, quesId, keys, optionId) => {
     const ImportText = e.target.value.replace(/\s+/g, " ").trimStart();
     const TextAnswer = {
       ...Ans,
       other: ImportText,
+      optionChoiceId: optionId || null,
       questionId: quesId,
       keyValue: keys,
     };
@@ -192,11 +185,10 @@ const QuestionContainer = (props) => {
       AnswerData.push(TextAnswer);
     }
   };
-
   const handleSelect = (quesId, e, keys) => {
     setSelectedOption(e);
-    if (e !== null && typeof(e.label) == "string") {
-      console.log("E is ",typeof(e.label))
+    if (e !== null && typeof (e.label) == "string") {
+      console.log("E is ", typeof (e.label))
       let ansId = e.value;
       const SelectAnswer = {
         ...Ans,
@@ -210,9 +202,9 @@ const QuestionContainer = (props) => {
         AnswerData.push(SelectAnswer);
       }
       setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
-    }else if (e !== null && e.label != "string") {
+    } else if (e !== null && e.label != "string") {
       let ansId = e.value;
-      console.log("E is ",typeof(e.label))
+      console.log("E is ", typeof (e.label))
       const SelectAnswer = {
         ...Ans,
         other: ansId,
@@ -231,23 +223,33 @@ const QuestionContainer = (props) => {
     }
   };
 
-  const handleStartChange = (date, quesId, keys) => {
-    if (date === null) {
-      AnswerData.splice(isQuesIdIndex(quesId), 1);
-      setStartDate(null);
-      setEndDate(null);
-    } else if (endDate !== null && endDate < date) {
+  const handleStartChange = (date, quesId, keys, type) => {
+    //  const sliceQuestionId= quesId.slice(0,-keys.toString().length)
+    //  const answeredQusetionId=AnswerData.filter(v=>v.questionId===quesId)
+    //  const sliceAnsweredQuestionId=answeredQusetionId.length&&answeredQusetionId[0].questionId.slice(0,-keys.toString().length)
+    //  console.log(answeredQusetionId.length&&answeredQusetionId[0].questionId,answeredQusetionId.length&&answeredQusetionId[0].other);
+    //   console.log(moment(date).format("yyyy"));
+    if (endDate < date) {
       alert("Year of Installation is Later Than Year of Manufacturing!");
-    } else {
+    }
+    if (type === "Year of Manufacture") {
       setStartDate(date);
       const StartDateAnswer = {
         ...Ans,
-        other: JSON.stringify({
-          YearOfManufacturing: moment(date).format("YYYY-MM-DD"),
-          YearOfInstallation: endDate
-            ? moment(endDate).format("YYYY-MM-DD")
-            : moment().format("YYYY-MM-DD"),
-        }),
+        other: moment(date).format("yyyy"),
+        questionId: quesId,
+        keyValue: keys,
+      };
+      if (isQuesId(quesId).length >= 1) {
+        AnswerData.splice(isQuesIdIndex(quesId), 1, StartDateAnswer);
+      } else {
+        AnswerData.push(StartDateAnswer);
+      }
+    } else {
+      setEndDate(date);
+      const StartDateAnswer = {
+        ...Ans,
+        other: moment(date).format("yyyy"),
         questionId: quesId,
         keyValue: keys,
       };
@@ -257,79 +259,49 @@ const QuestionContainer = (props) => {
         AnswerData.push(StartDateAnswer);
       }
     }
+    // if (endDate !== null && endDate < startDate) {
+    //   alert("Year of Installation is Later Than Year of Manufacturing!");
+    // } else {
+    //   setStartDate(date);
+    //   const StartDateAnswer = {
+    //     ...Ans,
+    //     other: moment(date).format("yyyy"),
+    //     questionId: quesId,
+    //     keyValue: keys,
+    //   };
+    //   if (isQuesId(quesId).length >= 1) {
+    //     AnswerData.splice(isQuesIdIndex(quesId), 1, StartDateAnswer);
+    //   } else {
+    //     AnswerData.push(StartDateAnswer);
+    //   }
+    // }
   };
 
-  const handleEndChange = (date, quesId, keys) => {
-    if (date === null) {
-      AnswerData.splice(isQuesIdIndex(quesId), 1);
-      setEndDate(null);
-      setStartDate(null);
-    } else if (startDate !== null && startDate > date) {
-      alert("Year of Installation is Older Than Year of Manufacturing");
-    } else {
-      setEndDate(date);
-      const EndDateAnswer = {
-        ...Ans,
-        other: JSON.stringify({
-          YearOfManufacturing: startDate
-            ? moment(startDate).format("YYYY-MM-DD")
-            : moment(date).subtract(10, "days").calendar(),
-          YearOfInstallation: moment(date).format("YYYY-MM-DD"),
-        }),
-        questionId: quesId,
-        keyValue: keys,
-      };
-      if (isQuesId(quesId).length >= 1) {
-        AnswerData.splice(isQuesIdIndex(quesId), 1, EndDateAnswer);
-      } else {
-        AnswerData.push(EndDateAnswer);
-      }
-    }
-  };
   const Data1 =
     surveyData.length && surveyData[0].survey_sections[pageno].questions;
 
+  const QuestionData = Data1;
 
-  // let flattened = surveyData.length&&Data1.reduce(function (accumulator, currentValue) {
-  //   return accumulator.concat(currentValue);
-  // }, []);
-  // console.log(Data1);
-  const QuestionData =
-    // surveyData.length&&AnswerData.length===0?
-    //    surveyData[0].survey_sections[pageno].questions
 
-    //   :
-    Data1;
+  
 
-  const filteredIndex = indexPage.filter((d) => d.page === pageno);
-  var maxIndex =
-    filteredIndex.length === 0
-      ? 1
-      : Math.max.apply(
-        Math,
-        filteredIndex.map((o) => o.index)
-      );
+  const OtherQuestion = (QuesId) => {
+    return QuestionData && QuestionData.map((v, k) => v.option_choices)
+    [QuesId].filter(v => v.option_choice_name === "Other")
+  }
 
-  const _handleAnotherDevice = () => {
-    indexPage.push({ page: pageno, index: maxIndex + 1 });
-    setIndex(index + 1);
 
-    //Add Questions
-    QuestionData.push(
-      ...surveyData[0].survey_sections[pageno].devicesQuestions[maxIndex]
-        .questions
-    );
+  const OtherAns = (QuesId, OptionId) => {
+    return AnswerData.filter(a => a.keyValue === QuesId && a.optionChoiceId === OptionId)
+  }
 
-    //Remove Question
-    const isActionIndex = QuestionData.findIndex((d) => d.input_type_id === 8);
-    QuestionData.splice(isActionIndex, 1);
-    //Add Question Count
-    const AddedQuestionsLength = surveyData[0].survey_sections[
-      pageno
-    ].devicesQuestions[maxIndex].questions.filter((v) => v.input_type_id !== 8)
-      .length;
-    setTotal(total + AddedQuestionsLength);
-  };
+  const otherOfQuestion = (index) => {
+    const isOther = QuestionData && QuestionData.map((v, k) => v.option_choices)[index].filter(d => d.option_choice_name === "Other")
+    console.log("---------->", QuestionData && QuestionData.map((v, k) => v.option_choices)[index].filter(d => d.option_choice_name === "Other"));
+    return isOther.length > 0 ? isOther[0].option_choice_id : null
+  }
+
+
 
   if (IsLoading) {
     return <ESLoading />;
@@ -344,23 +316,22 @@ const QuestionContainer = (props) => {
         pageno={pageno}
         buildingType={buildingType}
         AnswerData={AnswerData}
-        startDate={startDate}
-        endDate={endDate}
         selectedOption={selectedOption}
         obtained={obtained}
         total={total}
         percent={percent}
         amountOfDevice={amountOfDevice}
+        otherQuestion={OtherQuestion}
+        otherAns={OtherAns}
+        otherOfQuestion={otherOfQuestion}
         _handleSelect={handleSelect}
         _handleCheckChange={handleCheckChange}
         _handleRadioChange={handleRadioChange}
         _handleInputChange={handleInputChange}
         _handleStartChange={handleStartChange}
-        _handleEndChange={handleEndChange}
         _handleNext={_handleNext}
         _handlePrevious={_handlePrevious}
         _handleSubmit={_handleSubmit}
-        _handleAnotherDevice={_handleAnotherDevice}
       />
     );
   }

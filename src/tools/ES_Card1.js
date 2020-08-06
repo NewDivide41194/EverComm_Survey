@@ -6,6 +6,7 @@ import { ESDropDown } from "./ES_DropDown";
 import { withMedia } from "react-media-query-hoc";
 import { ESInput } from "./ES_Inputs";
 import ESDatePicker from "./ES_DatePicker";
+import { components } from "react-select";
 
 const QuestionCard1 = (props) => {
   const {
@@ -22,15 +23,20 @@ const QuestionCard1 = (props) => {
     selectedOption,
     AnswerData,
     amountOfDevice,
+    otherQuestion,
+    otherAns,
+    otherOfQuestion
   } = props;
+
+  // const otherOfQuestion = (index) => {
+  //   const isOther = QuestionData && QuestionData.map((v, k) => v.option_choices)[index].filter(d => d.option_choice_name === "Other")
+  //   console.log("---------->", QuestionData && QuestionData.map((v, k) => v.option_choices)[index].filter(d => d.option_choice_name === "Other"));
+  //   return isOther ? isOther[0].option_choice_id : null
+  // }
+
   const buildingId = localStorage.getItem("buildingId");
   const deviceIndexValue = amountOfDevice && Object.values(amountOfDevice[0]);
   const addedQuestionId = 1000;
-
-
-  const OtherQuestion = QuestionData.map((v, k) => v.option_choices)[pageno].filter(v => v.option_choice_name === "Other")[0].option_choice_id
-  const OtherAns = AnswerData.filter(a => a.optionChoiceId === OtherQuestion)
-  console.log(QuestionData)
 
   const deviceOption = new Array(99)
     .fill(null)
@@ -83,7 +89,6 @@ const QuestionCard1 = (props) => {
                   </div>
                 </div>
                 {ques.input_type_id === 1 ? (
-
                   <ESCheckBox
                     quesId={remakeQuestionId}
                     value={ques.option_choices}
@@ -93,7 +98,8 @@ const QuestionCard1 = (props) => {
                     keys={ques.question_id}
                   />
                 ) : ques.input_type_id === 2 ? (
-                  <div>
+
+                  < div className="w-50" >
                     <ESRadio
                       value={ques.option_choices}
                       _handleRadioChange={_handleRadioChange}
@@ -102,7 +108,15 @@ const QuestionCard1 = (props) => {
                       isQuestion={isQuestion}
                       keys={ques.question_id}
                     />
-                    {OtherAns.length ? <ESInput /> : null}
+                    {(otherAns(ques.question_id, otherOfQuestion(k2)).length > 0 && otherQuestion(ques.question_id - 1).length > 0) ? <ESInput maxLength={10}
+                      placeHolder={"Fill Your Answer"}
+                      id={remakeQuestionId}
+                      value={AnswerData.filter(
+                        (d) => d.questionId === remakeQuestionId
+                      ).map((v, k) => v.other)}
+                      onChange={(e) => {
+                        _handleInputChange(e, remakeQuestionId, ques.question_id, otherOfQuestion(k2));
+                      }} /> : null}
                   </div>
                 ) : ques.input_type_id === 5 ? (
 
@@ -125,30 +139,49 @@ const QuestionCard1 = (props) => {
                       keys={ques.question_id}
                     />)
                     :
-                    (<ESDropDown
-                      quesId={remakeQuestionId}
-                      options={ques.option_choices.map((v, k) => ({
-                        value: v.option_choice_id,
-                        label: v.option_choice_name,
-                      }))}
-                      _handleSelect={_handleSelect}
-                      selectedOption={
-                        AnswerData.filter(
+                    <div className="w-50">
+                      <ESDropDown
+                        quesId={remakeQuestionId}
+                        options={ques.option_choices.map((v, k) => ({
+                          value: v.option_choice_id,
+                          label: v.option_choice_name,
+                        }))}
+                        _handleSelect={_handleSelect}
+                        selectedOption={
+                          AnswerData.filter(
+                            (d) => d.questionId === remakeQuestionId
+                          )
+                            ? AnswerData.filter(
+                              (d) => d.questionId === remakeQuestionId
+                            ).map(
+                              (v, k) =>
+                                ques.option_choices.filter(
+                                  (x, y) =>
+                                    x.option_choice_id === v.optionChoiceId
+                                )[0]
+                            )
+                            : selectedOption
+                        }
+                        keys={ques.question_id}
+
+                      />
+                      {(otherAns(ques.question_id, otherOfQuestion(k2)).length > 0 && otherQuestion(ques.question_id - 1).length > 0) ? <ESInput maxLength={10}
+                        placeHolder={"Fill Your Answer"}
+                        id={remakeQuestionId}
+                        value={AnswerData.filter(
                           (d) => d.questionId === remakeQuestionId
-                        )
+                        ).length && AnswerData.length
                           ? AnswerData.filter(
                             (d) => d.questionId === remakeQuestionId
                           ).map(
                             (v, k) =>
-                              ques.option_choices.filter(
-                                (x, y) =>
-                                  x.option_choice_id === v.optionChoiceId
-                              )[0]
-                          )
-                          : selectedOption
-                      }
-                      keys={ques.question_id}
-                    />)
+                              v.other
+                          )[0]
+                          : null}
+                        onChange={(e) => {
+                          _handleInputChange(e, remakeQuestionId, ques.question_id, otherOfQuestion(k2));
+                        }} /> : null}
+                    </div>
                 ) : ques.input_type_id === 4 ? (
                   <ESInput
                     maxLength={10}
@@ -195,8 +228,9 @@ const QuestionCard1 = (props) => {
                 ) : null}
               </div>
             );
-          })}
-      </div>
+          })
+        }
+      </div >
     );
   });
   return QuestionCards;
