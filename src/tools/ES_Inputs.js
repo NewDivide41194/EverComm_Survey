@@ -27,7 +27,7 @@ export const ESInput = (props) => {
     boxShadow: "none",
     shapeOutline: "none",
     outline: "none",
-    border: `2px solid ${Color.SecondaryColor}`,
+    border: `1px solid ${Color.SecondaryColor}`,
     borderRadius: 5,
   };
   const userStyle = style === undefined ? {} : style;
@@ -40,7 +40,7 @@ export const ESInput = (props) => {
   const __handleBlur = () => {
     document.getElementById(
       id
-    ).style.border = `2px solid ${Color.SecondaryColor}`;
+    ).style.border = `1px solid ${Color.SecondaryColor}`;
   };
 
   return (

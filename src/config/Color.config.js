@@ -1,6 +1,6 @@
 export const PrimaryColor="#3b8bbe"
 
-export const SecondaryColor="#A2A2A2"
+export const SecondaryColor="#d9d9d9"
 
 export const Gray="#5b5b5b"
 

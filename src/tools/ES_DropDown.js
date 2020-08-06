@@ -24,15 +24,16 @@ export const ESDropDown = (props) => {
     label: v.option_choice_name || selectedOption[0],
   }));
   const customStyles = {
-    control: (provided,state) => ({
-      ...provided,           
-      height: 10,
-      margin: 0,
-      marginLeft: 0,
-      border: state.isSelected ? '2px solid red' : `2px solid ${Colors.SecondaryColor}` ,
-      backgroundColor: 'white',
-      outline: 'none'            
-  }),
+  //   control: provided => ({
+  //     ...provided,           
+  //     height: 10,
+  //     margin: 0,
+  //     marginLeft: 0,
+  //     border: `2px solid ${Colors.SecondaryColor}` ,
+  //     fontSize: 13,
+  //     backgroundColor: 'white',
+  //     outline: 'none'            
+  // }),
   option: (provided, state) => ({
       ...provided,
       color: state.isSelected ? "white" : "black",

@@ -13,7 +13,7 @@ const ESDatePicker = (props) => {
   } = props;
   return (
         <DatePicker
-          // className="form-control"
+          className="form-control shadow-none border"
           selected={startDate}
           onChange={(date) => _handleStartChange(date, quesId,keys,type)}
           selectsStart
