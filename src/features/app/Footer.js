@@ -31,16 +31,10 @@ const Footer = (props) => {
     );
   };
   return (
-    // props.location.pathname === "/report/totalReport" ? null : props
-    //   .location.pathname === `/report/` ? null : (
-    <Foot
-      {...props}
-      style={{
-        marginTop:
-          props.location.pathname === "/" || "/register" ? "-30px" : null,
-      }}
-    />
-    // )
+    props.location.pathname === "/report/totalReport" ? null : props
+      .location.pathname === `/report/` ? null : (
+    <Foot />
+    )
   );
 };
 
