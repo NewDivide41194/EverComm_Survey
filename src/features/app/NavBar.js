@@ -12,8 +12,7 @@ const NavBar = (props) => {
   const queryString = window.location.search;
 
   const urlParams = new URLSearchParams(queryString);
-  const startDate = urlParams.get("startDate");
-  const endDate = urlParams.get("endDate");
+
   const _handleSignOut = () => {
     Auth.signout(() => {
       props.history.push("/");
@@ -42,11 +41,12 @@ const NavBar = (props) => {
     props.history.push(`/reportMenu/${userId}`);
   };
   const Nav = () => {
-    return (<div
-      style={{ zIndex: 97, background: "white" }}
-      className="d-flex flex-row flex-wrap py-2 px-4 sticky-top justify-content-between"
-    >
-      <img
+    return (
+      <div
+        style={{ zIndex: 98, background: "white" }}
+        className="d-flex flex-row flex-wrap py-2 px-4 sticky-top justify-content-between"
+      >
+        {/* <img
         src={Logo}
         style={{
           height: "30px",
@@ -54,63 +54,61 @@ const NavBar = (props) => {
         }}
         alt="logo"
         onClick={_handleMenu}
-      />
-      <div className="dropdown">
-        {props.location.pathname !== "/" &&
-          props.location.pathname !== "/register" && (
-            <button
-              className="btn dropdown-toggle"
-              style={{ boxShadow: "none" }}
-              type="button"
-              id="dropdownMenuButton"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              {email && <span>{email}</span>}{" "}
+      /> */}
+        <div></div>
+        <div className="dropdown">
+          {props.location.pathname !== "/" &&
+            props.location.pathname !== "/register" && (
+              <button
+                className="btn dropdown-toggle"
+                style={{ boxShadow: "none" }}
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                {email && <span>{email}</span>}{" "}
+              </button>
+            )}
+          <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <button className="dropdown-item" onClick={_handleAccount}>
+              <i className="fas fa-user-cog pr-2 text-secondary" />
+              Account Setting
             </button>
-          )}
-        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <button className="dropdown-item" onClick={_handleAccount}>
-            <i className="fas fa-user-cog pr-2 text-secondary" />
-        Account Setting
-      </button>
-          <button className="dropdown-item" onClick={_handlesurveyMenu}>
-            <i className="fa fa-list-ul pr-2 text-secondary" />
-        Survey Menu
-      </button>
-          <button className="dropdown-item" onClick={_handleReportMenu}>
-            <i className="fa fa-chart-line pr-2 text-secondary" />
-        Report Menu
-      </button>
-          <div className="dropdown-divider"></div>
-          <div className="dropdown-item text-light bg-dark">
-            {/* <i className="text-light far fa-user-circle pr-2 text-secondary" /> */}
-            {userLevel === 1
-              ? "Admin"
-              : userLevel === 2
+            <button className="dropdown-item" onClick={_handlesurveyMenu}>
+              <i className="fa fa-list-ul pr-2 text-secondary" />
+              Survey Menu
+            </button>
+            <button className="dropdown-item" onClick={_handleReportMenu}>
+              <i className="fa fa-chart-line pr-2 text-secondary" />
+              Report Menu
+            </button>
+            <div className="dropdown-divider"></div>
+            <div className="dropdown-item text-light bg-dark">
+              {/* <i className="text-light far fa-user-circle pr-2 text-secondary" /> */}
+              {userLevel === 1
+                ? "Admin"
+                : userLevel === 2
                 ? "User"
                 : userLevel === 3
-                  ? "Distributor"
-                  : null}
+                ? "Distributor"
+                : null}
+            </div>
+            <button className="dropdown-item" onClick={_handleSignOut}>
+              <i className="fa fa-reply pr-2 text-secondary" />
+              Sign Out
+            </button>
           </div>
-          <button className="dropdown-item" onClick={_handleSignOut}>
-            <i className="fa fa-reply pr-2 text-secondary" />
-        Sign Out
-      </button>
         </div>
       </div>
-    </div>)
-  }
-  return (
-    props.location.pathname ===
-      "/report/totalReport" ? null :
-      props.location.pathname ===
-        `/report/`
-
-        ? null : <Nav />
-
-
+    );
+  };
+  return props.location.pathname === "/report/totalReport" ? null : props
+      .location.pathname === `/report/` ? null : props.location.pathname ===
+    "/" ? null : props.location.pathname ===
+    "/register" ? null : (
+    <Nav />
   );
 };
 

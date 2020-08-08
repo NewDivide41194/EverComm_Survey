@@ -25,10 +25,10 @@ const Register = (props) => {
     isDisabled,
   } = props;
   return (
-    <div className="container py-4">
+    <div className="container py-4 fullHeight">
       <div className="row justify-content-center">
         <form className="col-lg-6 col-md-8">
-          <div className="pb-4 text-center ">
+          <div className="pb-3 text-center ">
             <div className="pb-2 font-weight-bold" style={{ fontSize: "25px" }}>
               ACCOUNT REGISTRATION
             </div>

@@ -48,14 +48,14 @@ const QuestionContainer = (props) => {
     surveyData.length &&
     surveyData[0].survey_sections.map((v) => v.questions.length);
 
-  const idx = [0, 5];
+  const idx = [0];
   const totalQues = idx.map((i) => questionslength[i]).reduce((p, c) => p + c);
   const totalQuesCount =
     deviceAmounts &&
     deviceAmounts.reduce((r, a, i) => {
-      return r + a * questionslength.slice(1, 5)[i];
-    }, 0) + totalQues;
-
+        return r + a * questionslength.slice(1)[i];}
+    , 0) + totalQues;
+console.log(questionslength);
   useEffect(() => {
     setIsLoading(true);
     QuestionFetch(
@@ -166,6 +166,8 @@ const QuestionContainer = (props) => {
   };
 
   const handleInputChange = (e, quesId, keys, optionId) => {
+    console.log(e.target.value);
+    console.log(AnswerData);
     const ImportText = e.target.value.replace(/\s+/g, " ").trimStart();
     const TextAnswer = {
       ...Ans,
@@ -176,6 +178,7 @@ const QuestionContainer = (props) => {
     };
 
     if (ImportText === "" && isQuesId(quesId).length >= 1) {
+      setValue(e.target.value);
       AnswerData.splice(isQuesIdIndex(quesId), 1);
     } else if (isQuesId(quesId).length >= 1) {
       setValue(e.target.value);
@@ -276,7 +279,9 @@ const QuestionContainer = (props) => {
   };
 
   const Data1 =
-    surveyData.length && surveyData[0].survey_sections[pageno].questions;
+    surveyData &&
+    surveyData.length &&
+    surveyData[0].survey_sections[pageno].questions;
 
   const QuestionData = Data1;
 

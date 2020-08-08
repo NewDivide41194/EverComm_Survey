@@ -10,7 +10,7 @@ const SurveylistContainer = (props) => {
   const [buildingType, setBuildingType]=useState(null);
   const userId = localStorage.getItem("userId");
   const bTypeId = localStorage.getItem("bTypeId");
-
+const [expend,setExpend]=useState(false)
   const SurveyHeaderId = localStorage.getItem("SurveyHeaderId");
   const token = localStorage.getItem("token");
 
@@ -33,6 +33,7 @@ const SurveylistContainer = (props) => {
     // });
   }, []);
 
+  const handleExpend=() => setExpend(!expend)
   const BuildingSurveyData =
     surveyList.length &&
     surveyList.filter((d) => d.survey_header_id === JSON.parse(SurveyHeaderId));
@@ -66,7 +67,7 @@ const SurveylistContainer = (props) => {
     });
 
   return (
-    <div className="container">
+    <div className={`${expend?'':'fullHeight'} container`}>
       <div className="row justify-content-between py-3">
         <div
           className="col-sm-12 col-lg-9 col-md-8"
@@ -91,6 +92,7 @@ const SurveylistContainer = (props) => {
           TxtColor={"white"}
           HoverBgColor={Colors.purple}
           handleCardClick={handleCardClick}
+          handleExpend={handleExpend}
         />
       ) : null}
       {PendingSurvey ? (
@@ -102,6 +104,7 @@ const SurveylistContainer = (props) => {
           TxtColor={Colors.PrimaryColor}
           HoverBgColor={Colors.PaleYellow}
           handleCardClick={handleCardClick}
+          handleExpend={handleExpend}
         />
       ) : null}
       {CompletedSurvey ? (
@@ -113,6 +116,7 @@ const SurveylistContainer = (props) => {
           TxtColor={"white"}
           HoverBgColor={Colors.PaleGreen}
           handleCardClick={handleCardClick}
+          handleExpend={handleExpend}
         />
       ) : null}
     </div>
@@ -129,8 +133,9 @@ const CollapseSurveyList = (props) => {
     BgColor,
     TxtColor,
     HoverBgColor,
+    handleExpend,
+    expend
   } = props;
-  const [expend, setIsExpend] = useState(false);
 console.log(SurveyData);
   return (
     <div className="">
@@ -140,7 +145,7 @@ console.log(SurveyData);
         href={`#${id}`}
         aria-expanded="false"
         aria-controls="collapseExample"
-        onClick={() => setIsExpend(!expend)}
+        onClick={handleExpend}
         style={{
           borderBottom: `1px solid ${Colors.purple}`,
           fontSize: "18px",

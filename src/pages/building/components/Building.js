@@ -4,6 +4,7 @@ import { ESInput } from "../../../tools/ES_Inputs";
 import { ESDropDown } from "../../../tools/ES_DropDown";
 import { ESDropDownBuilding } from "../../../tools/ES_DropDown(Building)";
 import { ESTextfield } from "../../../tools/ES_TextField";
+import ESCheckBox from "../../../tools/ES_CheckBox";
 
 const Building = (props) => {
   const {
@@ -27,7 +28,10 @@ const Building = (props) => {
     err,
     errStyle,
     isDisabled,
+    handleBMSCheck,
+    BMS
   } = props;
+console.log(BMS);
   const errClassName = "text-danger d-flex flex-row justify-content-end pb-1";
   return (
     <div className="row justify-content-center py-4">
@@ -154,6 +158,23 @@ const Building = (props) => {
               placeHolder={"Comment"}
               value={comment}
               onChange={(e) => handleCommentChange(e)}
+            />
+          </div>
+          <div className="py-2 col-12">
+            {err.commentErr === undefined ? null : (
+              <div
+                className={errClassName}
+                style={{ ...errStyle }}
+              >{`*${err.commentErr}`}</div>
+            )}
+            <ESCheckBox
+              disabled={isDisabled}
+              checked={BMS}
+              id={"comment"}
+              placeHolder={"Comment"}
+              value={[{option_choice_id:1,option_choice_name:"Building Management System Installed"}]}
+              _handleChange={(e) => handleBMSCheck(e)}
+              className={"w-100"}
             />
           </div>
           <div className="col-12 py-2">

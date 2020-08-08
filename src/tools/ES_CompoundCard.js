@@ -34,8 +34,10 @@ const QuestionCard = (props) => {
   //   return QuestionData && QuestionData.map((v, k) => v.option_choices)
   //   [QuesId].filter(v => v.option_choice_name === "Other")
   // }
-  // console.log(otherQuestion(12));
-  if (sessionId === 1) return <QuestionCard1 {...props} />
+  // console.log(QuestionData);
+  console.log("---------->", AnswerData);
+
+  if (sessionId === 1) return <QuestionCard1 {...props} />;
 
   const buildingId = localStorage.getItem("buildingId");
   const deviceIndexValue = amountOfDevice && Object.values(amountOfDevice[0]);
@@ -45,36 +47,45 @@ const QuestionCard = (props) => {
     .fill(null)
     .map((v, k) => ({ label: k + 1, value: k + 1 }));
 
-  const pageDeviceIndex = pageno === 0 ? 1 : deviceIndexValue[pageno - 1];
-
+  const pageDeviceIndex =
+    pageno === 0 ? 1 : 5 ? deviceIndexValue[0] : deviceIndexValue[pageno - 1];
+console.log("======>",pageDeviceIndex);
   const QuestionCards = new Array(pageDeviceIndex).fill(null).map((v, k3) => {
     return (
-      <div key={k3} className="d-flex my-3 pt-2 rounded bg-light border">
-        <div className="p-2 py-1">
-          <div className="font-weight-bold">{k3 + 1}.</div>
-        </div>
-        <div className="flex-fill px-2 ">
+      <div
+        key={k3}
+        className="d-flex my-3 p-2 pt-2 rounded bg-light border"
+        style={{
+          fontSize: media.mobile ? "12px" : "15px",
+        }}
+      >
+        <div className="font-weight-bold pt-2 pl-2  py-1">{k3 + 1}.</div>
+        <div className="flex-fill pr-2 ">
           <div className="py-2 font-weight-bold">{`Device No.` + (k3 + 1)}</div>
           {QuestionData &&
             QuestionData.map((ques, k2) => {
               const remakeQuestionId =
                 pageDeviceIndex > 1
-                  ? Object.keys(amountOfDevice[0])[pageno - 1] +
+                  ? Object.keys(amountOfDevice[0])[pageno===5?0:(pageno - 1)] +
                     addedQuestionId +
                     k3 +
                     buildingId +
                     ques.question_id
                   : ques.question_id.toString();
-              // console.log(ques.question_id);
               return (
                 <div
                   className="d-flex flex-row flex-fill flex-wrap w-100 py-0"
                   key={k2}
                   id={ques.questionId}
+                  style={{
+                    fontSize: media.mobile ? "12px" : "15px",
+                  }}
                 >
                   <div className="d-flex flex-row flex-wrap w-100" key={k2}>
-                    <div className="d-flex flex-row pb-3 w-100 justify-content-between">
-                      <div className="w-25">{ques.question_name}</div>
+                    <div className="d-flex flex-row pb-2 w-100 justify-content-between">
+                      <div className="w-25 align-self-center">
+                        {ques.question_name}
+                      </div>
                       <div className="w-75">
                         {ques.input_type_id === 1 ? (
                           <ESCheckBox
@@ -84,9 +95,19 @@ const QuestionCard = (props) => {
                             isAnswer={AnswerData}
                             isQuestion={isQuestion}
                             keys={ques.question_id}
+                            className={
+                              ques.option_group_id === 10
+                                ? `${
+                                    media.mobile ? null : "mr-4"
+                                  } text-center  font-weight-bold`
+                                : null
+                            }
+                            vertical={
+                              ques.option_group_id === 10 ? true : false
+                            }
                           />
                         ) : ques.input_type_id === 2 ? (
-                          <div className="w-50">
+                          <div>
                             <ESRadio
                               value={ques.option_choices}
                               _handleRadioChange={_handleRadioChange}
@@ -102,7 +123,7 @@ const QuestionCard = (props) => {
                             ).length > 0 ? (
                               <ESInput
                                 maxLength={10}
-                                placeHolder={"Fill Your Answer"}
+                                placeHolder={"Please Specify"}
                                 id={remakeQuestionId}
                                 value={AnswerData.filter(
                                   (d) => d.questionId === remakeQuestionId
@@ -119,7 +140,6 @@ const QuestionCard = (props) => {
                             ) : null}
                           </div>
                         ) : ques.input_type_id === 5 ? (
-                          (console.log("Other ans is"),
                           ques.option_choices.length === 1 ? (
                             <ESDropDown
                               quesId={remakeQuestionId}
@@ -137,7 +157,7 @@ const QuestionCard = (props) => {
                               keys={ques.question_id}
                             />
                           ) : (
-                            <div className="w-50">
+                            <div>
                               <ESDropDown
                                 quesId={remakeQuestionId}
                                 options={ques.option_choices.map((v, k) => ({
@@ -168,32 +188,34 @@ const QuestionCard = (props) => {
                                 ques.question_id,
                                 otherOfQuestion(k2)
                               ).length > 0 ? (
-                                <ESInput
-                                  maxLength={10}
-                                  placeHolder={"Fill Your Answer"}
-                                  id={remakeQuestionId}
-                                  value={
-                                    AnswerData.filter(
-                                      (d) => d.questionId === remakeQuestionId
-                                    ).length && AnswerData.length
-                                      ? AnswerData.filter(
-                                          (d) =>
-                                            d.questionId === remakeQuestionId
-                                        ).map((v, k) => v.other)[0]
-                                      : null
-                                  }
-                                  onChange={(e) => {
-                                    _handleInputChange(
-                                      e,
-                                      remakeQuestionId,
-                                      ques.question_id,
-                                      otherOfQuestion(k2)
-                                    );
-                                  }}
-                                />
+                                <div className="pt-2">
+                                  <ESInput
+                                    maxLength={10}
+                                    placeHolder={"Please Specify"}
+                                    id={remakeQuestionId}
+                                    value={
+                                      AnswerData.filter(
+                                        (d) => d.questionId === remakeQuestionId
+                                      ).length && AnswerData.length
+                                        ? AnswerData.filter(
+                                            (d) =>
+                                              d.questionId === remakeQuestionId
+                                          ).map((v, k) => v.other)[0]
+                                        : null
+                                    }
+                                    onChange={(e) => {
+                                      _handleInputChange(
+                                        e,
+                                        remakeQuestionId,
+                                        ques.question_id,
+                                        otherOfQuestion(k2)
+                                      );
+                                    }}
+                                  />
+                                </div>
                               ) : null}
                             </div>
-                          ))
+                          )
                         ) : ques.input_type_id === 4 ? (
                           <ESInput
                             maxLength={10}
@@ -229,7 +251,7 @@ const QuestionCard = (props) => {
                           />
                         ) : null}
                       </div>
-                      <div className="">
+                      <div>
                         {AnswerData.map((v, k) => v.questionId).filter(
                           (v) => v === remakeQuestionId
                         )[0] === remakeQuestionId ? (
@@ -350,7 +372,7 @@ export default withMedia(QuestionCard);
 const QuestionCardInfo = (props) => {
   const { info, media } = props;
   return (
-    <div>
+    <div className="self-align-center">
       {/* {media.mobile || (
         <span style={{ fontSize: 10 }} className="text-secondary pr-1">
           {info}

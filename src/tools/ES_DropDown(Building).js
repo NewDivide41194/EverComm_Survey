@@ -31,7 +31,7 @@ export const ESDropDownBuilding =(props) => {
       ...provided,
       // color: state.isSelected ? "white" : "black",
       // fontWeight: state.isSelected && "bold",
-      padding: 10,
+      padding: 10
     }),
   };
   
@@ -49,6 +49,7 @@ export const ESDropDownBuilding =(props) => {
           ...theme.colors,
           // primary25: 'hotpink',
           primary: Colors.PrimaryColor,
+          
         },
       })}
       className="w-100"

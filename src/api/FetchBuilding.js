@@ -13,7 +13,8 @@ export const BuildingFetch = (
     surveyHeaderId,
     token,
     buildingType,
-    buildingTypeId
+    buildingTypeId,
+    BMS
   },
   callback
 ) => {
@@ -38,7 +39,8 @@ export const BuildingFetch = (
       evaporator:deviceData.evaporator,
       coolingTower:deviceData.coolingTower,
       buildingType:buildingType,
-      buildingTypeId:buildingTypeId
+      buildingTypeId:buildingTypeId,
+      BMSInstalled:BMS?1:0
     }),
   })
     .then((res) => res.json())

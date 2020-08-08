@@ -39,7 +39,7 @@ const Question = (props) => {
     amountOfDevice && Object.values(amountOfDevice[0])[pageno - 1];
   return (
     surveyData.length && (
-      <div>
+      <div style={{marginBottom:32}}>
         <ESProgress Percent={percent} />
         <div className="container">
           <div

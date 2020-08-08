@@ -18,14 +18,14 @@ const UserLogin = (props) => {
   } = props;
 
   return (
-    <div className="row justify-content-center">
+    <div className="container fullHeight">
+      <div className="row justify-content-center">
       <form
         className="col-lg-3 col-md-8"
         style={{
-          marginTop: "53.26px",
-          position: "absolute",
-          top: "50%",
-          transform:"translateY(-50%)"
+          marginTop: "8rem",
+          // top: "50%",
+          // transform:"translateY(-50%)"
         }}
       >
         <div className="form-group text-center m-0 text-secondary">
@@ -104,6 +104,8 @@ const UserLogin = (props) => {
           </div>
         </div>
       </form>
+      </div>
+    
     </div>
   );
 };

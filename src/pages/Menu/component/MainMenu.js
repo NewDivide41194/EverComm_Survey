@@ -12,12 +12,12 @@ const MainMenu = (props) => {
 
   return (
     <div
-      className="w-100"
+      className="w-100 container fullHeight"
       style={{
-        marginTop:0,
-        top: "50%",
-        position: "absolute",
-        transform: "translateY(-50%)",
+        // marginTop:0,
+        marginTop: "8rem",
+        // position: "absolute",
+        // transform: "translateY(-50%)",
       }}
     >
       <div className="justify-content-center d-flex flex-row flex-fill flex-wrap">

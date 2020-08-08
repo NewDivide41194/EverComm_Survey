@@ -24,16 +24,17 @@ export const ESDropDown = (props) => {
     label: v.option_choice_name || selectedOption[0],
   }));
   const customStyles = {
-  //   control: provided => ({
-  //     ...provided,           
-  //     height: 10,
-  //     margin: 0,
-  //     marginLeft: 0,
-  //     border: `2px solid ${Colors.SecondaryColor}` ,
-  //     fontSize: 13,
-  //     backgroundColor: 'white',
-  //     outline: 'none'            
-  // }),
+    control: provided => ({
+      ...provided,
+    
+      // height: 10,
+      // margin: 0,
+      // marginLeft: 0,
+      // border: `2px solid ${Colors.SecondaryColor}` ,
+      // fontSize: 13,
+      // backgroundColor: 'white',
+      // outline: 'none'            
+  }),
   option: (provided, state) => ({
       ...provided,
       color: state.isSelected ? "white" : "black",
@@ -60,6 +61,7 @@ return (
           ...theme.colors,
           // primary25: 'hotpink',
           primary: Colors.PrimaryColor,
+          // zIndex:999
         },
       })}
       className="w-100"
@@ -67,7 +69,6 @@ return (
         selectedOption && selectedOption.length === 0
           ? selectedOption
           : AnsSelected
-
       }
       onChange={(e) => _handleSelect(quesId || id, e, keys)}
       // value={selectedOption}

@@ -13,6 +13,7 @@ const BuildingContainer = (props) => {
   const [buildingTypeData, setBuildingTypeData] = useState([]);
   const [buildingType, setBuildingType] = useState("");
   const [buildingTypeId,setBuildingTypeId]=useState(null)
+  const [BMS,setBMS]=useState(false)
   const [buildingName, setBuildingName] = useState("");
   const [postal, setPostal] = useState("");
   const [address, setAddress] = useState("");
@@ -46,7 +47,7 @@ const BuildingContainer = (props) => {
     }); 
   }, []);
 
-
+console.log(BMS);
   const _handleBack = (e) => {
     setChillerPage(chillerPage - 1);
   };
@@ -99,6 +100,7 @@ const BuildingContainer = (props) => {
         deviceData,
         userId,
         surveyHeaderId,
+        BMS,
         token,
       },
       (err, data) => {
@@ -138,6 +140,9 @@ const BuildingContainer = (props) => {
     setComment(e.target.value.replace(/\s+/g, " ").trimStart());
   };
 
+  const _handleBMSCheck=()=>{
+    setBMS(!BMS)
+  }
   const _handleCountrySelect = (id, e) => {
     setErr({});
     e !== null && setCountry(e.label);
@@ -181,13 +186,15 @@ console.log(buildingTypeId,buildingType);
           BuildingOption={BuildingOptions}
           country={country}
           handleBuildingTypeChange={_handleBuildingTypeSelect}
-            handleBuildingNameChange={_handleBuildingNameChange}
+          handleBuildingNameChange={_handleBuildingNameChange}
           handlePostalChange={_handlePostalChange}
           handleAddressChange={_handleAddressChange}
           handleClientCompanyChange={_handleClientCompanyChange}
           handleCommentChange={_handleCommentChange}
           handleSelectCountry={_handleCountrySelect}
           handleNext={_handleNext}
+          handleBMSCheck={_handleBMSCheck}
+          BMS={BMS}
           err={err}
           errStyle={errStyle}
           errClassName={errClassName}

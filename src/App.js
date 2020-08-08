@@ -6,6 +6,7 @@ import NavBar from "./features/app/NavBar";
 import RegisterContainer from "./pages/register/container/registerContainer";
 import LoginContainer from "./pages/login/container/LoginContainer";
 import ErrorPage from "./pages/error/errorPage";
+import Footer from "./features/app/Footer";
 
 const App = (history, props) => {
   const Media = {
@@ -37,6 +38,7 @@ const App = (history, props) => {
           component={() => <ErrorPage ErrorInfo={"Page Not Found!"} />}
         />
       </Switch>
+      <Footer/>
     </MediaQueryProvider>
   );
 };
