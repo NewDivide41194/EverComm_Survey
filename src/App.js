@@ -7,6 +7,7 @@ import RegisterContainer from "./pages/register/container/registerContainer";
 import LoginContainer from "./pages/login/container/LoginContainer";
 import ErrorPage from "./pages/error/errorPage";
 import Footer from "./features/app/Footer";
+import RightSideBar from "./features/app/RightSideBar";
 
 const App = (history, props) => {
   const Media = {
@@ -17,7 +18,11 @@ const App = (history, props) => {
 
   return (
     <MediaQueryProvider queries={Media}>
-      <NavBar />
+      <RightSideBar/>
+      <div id="outer-container">
+
+      <div id="page-wrap">
+        <NavBar />
       <Switch>
         <Route exact path="/" component={LoginContainer} />
         <Route path="/register" component={RegisterContainer} />
@@ -39,6 +44,8 @@ const App = (history, props) => {
         />
       </Switch>
       <Footer/>
+      </div>
+      </div>
     </MediaQueryProvider>
   );
 };

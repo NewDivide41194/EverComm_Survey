@@ -19,6 +19,7 @@ const AccountContainer = (props) => {
     fontSize: 12,
   };
 
+
   const errClassName = "text-danger d-flex flex-row justify-content-end pb-2";
   const NameRef = useRef(null);
 

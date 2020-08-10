@@ -4,7 +4,7 @@ import withMedia from "react-media-query-hoc/dist/with-media";
 import * as Colors from "../../config/Color.config";
 
 const Footer = (props) => {
-  const Foot = (props) => {
+  const Foot = () => {
     return (
       <footer
         style={{
