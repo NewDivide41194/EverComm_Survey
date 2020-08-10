@@ -18,7 +18,7 @@ const UserLogin = (props) => {
   } = props;
 
   return (
-    <div className="container fullHeight">
+    <div className="container">
       <div className="row justify-content-center">
       <form
         className="col-lg-3 col-md-8"

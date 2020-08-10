@@ -7,6 +7,7 @@ import RegisterContainer from "./pages/register/container/registerContainer";
 import LoginContainer from "./pages/login/container/LoginContainer";
 import ErrorPage from "./pages/error/errorPage";
 import Footer from "./features/app/Footer";
+import './App.css'
 
 const App = (history, props) => {
   const Media = {
@@ -17,28 +18,32 @@ const App = (history, props) => {
 
   return (
     <MediaQueryProvider queries={Media}>
+      <div className="page-container">
       <NavBar />
-      <Switch>
-        <Route exact path="/" component={LoginContainer} />
-        <Route path="/register" component={RegisterContainer} />
-        {localStorage.getItem("authenticated") &&
-          localStorage.getItem("userId") ? (
-            Object.keys(routes.routes).map((v, k) => (
-              <Route
-                key={k}
-                path={`/${v}`}
-                component={routes.routes[v].component}
-              />
-            ))
-          ) : (
-            <Redirect to={routes.default} />
-          )}
-        <Route
-          path="*"
-          component={() => <ErrorPage ErrorInfo={"Page Not Found!"} />}
-        />
-      </Switch>
+        <div className="content-wrap">
+          <Switch>
+            <Route exact path="/" component={LoginContainer} />
+            <Route path="/register" component={RegisterContainer} />
+            {localStorage.getItem("authenticated") &&
+              localStorage.getItem("userId") ? (
+                Object.keys(routes.routes).map((v, k) => (
+                  <Route
+                    key={k}
+                    path={`/${v}`}
+                    component={routes.routes[v].component}
+                  />
+                ))
+              ) : (
+                <Redirect to={routes.default} />
+              )}
+            <Route
+              path="*"
+              component={() => <ErrorPage ErrorInfo={"Page Not Found!"} />}
+            />
+          </Switch>
+        </div>
       <Footer/>
+      </div>
     </MediaQueryProvider>
   );
 };
