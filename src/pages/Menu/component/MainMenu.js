@@ -12,7 +12,7 @@ const MainMenu = (props) => {
 
   return (
     <div
-      className="w-100 container fullHeight"
+      className="w-100 container"
       style={{
         // marginTop:0,
         marginTop: "8rem",
