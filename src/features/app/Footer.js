@@ -2,10 +2,12 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import withMedia from "react-media-query-hoc/dist/with-media";
 import * as Colors from "../../config/Color.config";
+import '../../App.css'
 
 const Footer = (props) => {
   const Foot = () => {
     return (
+    <div className="main-footer">
       <footer
         style={{
           left: 0,
@@ -28,6 +30,7 @@ const Footer = (props) => {
           <i> EverComm</i>
         </strong>
       </footer>
+      </div>
     );
   };
   return (

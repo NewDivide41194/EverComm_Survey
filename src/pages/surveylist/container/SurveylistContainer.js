@@ -67,7 +67,8 @@ const SurveylistContainer = (props) => {
     });
 
   return (
-    <div className={`${expend?'':'fullHeight'} container`}>
+    // <div className={`${expend?'':'fullHeight'} container`}>
+      <div className="container">
       <div className="row justify-content-between py-3">
         <div
           className="col-sm-12 col-lg-9 col-md-8"
