@@ -14,7 +14,7 @@ export const RouteName = {
   routeFirstPage: "",
   routeRegisterPage: "register",
 
-  routeQuestionPage: "question/:userId/:surveyHeaderId/:buildingId/:buildingTypeId",
+  routeQuestionPage: "question/:userId/:surveyHeaderId/:buildingId",
   routeReportMenuPage: "reportMenu",
 
   routeReportPage: "report",

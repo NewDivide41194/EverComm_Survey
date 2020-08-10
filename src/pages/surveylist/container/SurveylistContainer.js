@@ -4,13 +4,13 @@ import { ESButton } from "../../../tools/ES_Button";
 import * as Colors from "../../../config/Color.config";
 import { SurveyListFetch } from "../../../api/FetchSurveyList";
 import { Building_Type } from "../../../api/url";
+
 const SurveylistContainer = (props) => {
   const [surveyList, setSurveyList] = useState([]);
   const [buildingList, setBuildingList] = useState([]);
   const [buildingType, setBuildingType]=useState(null);
   const userId = localStorage.getItem("userId");
-  const bTypeId = localStorage.getItem("bTypeId");
-const [expend,setExpend]=useState(false)
+  const [expend,setExpend]=useState(false)
   const SurveyHeaderId = localStorage.getItem("SurveyHeaderId");
   const token = localStorage.getItem("token");
 
@@ -20,7 +20,7 @@ const [expend,setExpend]=useState(false)
 
   const handleCardClick = () => {
     const buildingId = localStorage.getItem("buildingId");
-    props.history.push(`/question/${userId}/${SurveyHeaderId}/${buildingId}/${bTypeId}`);
+    props.history.push(`/question/${userId}/${SurveyHeaderId}/${buildingId}`);
   };
 
   useEffect(() => {
