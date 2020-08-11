@@ -23,9 +23,9 @@ const UserLogin = (props) => {
       <form
         className="col-lg-3 col-md-8"
         style={{
-          marginTop: "8rem",
-          // top: "50%",
-          // transform:"translateY(-50%)"
+          position: "absolute",
+          top: "50%",
+          transform:"translateY(-50%)"
         }}
       >
         <div className="form-group text-center m-0 text-secondary">
@@ -88,7 +88,6 @@ const UserLogin = (props) => {
             disabled={isDisabled}
             text={"LOGIN"}
             type={"submit"}
-            small
             id={"Login"}
             onClick={handleSubmit}
             rightIcon={

@@ -16,6 +16,7 @@
     "font-awesome": "^4.7.0",
     "highcharts": "^8.1.2",
     "highcharts-react-official": "^3.0.0",
+    "material-table": "latest",
     "material-ui-colors": "^1.0.0",
     "moment": "^2.27.0",
     "react": "^16.13.1",

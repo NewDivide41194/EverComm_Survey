@@ -69,3 +69,17 @@ export const LoginFetch = ({ eMail,password, token }, callback) => {
       .catch(err => console.log(err)
       );
   };
+
+
+  export const GetUser=(token,callback)=>{
+    fetch(API.Get_User,
+      {headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        Authorization: `Bearer ${token}`
+      }})
+        .then(res => res.json())
+        .then(data => callback(null, data))
+        .catch(err => console.log(err));
+    
+  }

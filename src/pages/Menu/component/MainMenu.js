@@ -12,12 +12,11 @@ const MainMenu = (props) => {
 
   return (
     <div
-      className="w-100 container"
+      className="w-100 "
       style={{
-        // marginTop:0,
-        marginTop: "8rem",
-        // position: "absolute",
-        // transform: "translateY(-50%)",
+        position: "absolute",
+        top: "50%",
+        transform: "translateY(-50%)"
       }}
     >
       <div className="justify-content-center d-flex flex-row flex-fill flex-wrap">
@@ -64,8 +63,8 @@ const MenuCard = (props) => {
         onMouseEnter={(e) => _handleMouseOver(e)}
         onMouseLeave={(e) => _handleMouseLeave(e)}
       >
-        <div className="py-1 card-header d-flex flex-row py-2" style={{borderBottom:`1px solid rgba(255,255,255,.3)`}}>
-        <i className={`${props.icon} pr-2 text-light`}></i><h4>{props.header}</h4>
+        <div className="py-1 card-header d-flex flex-row py-2" style={{ borderBottom: `1px solid rgba(255,255,255,.3)` }}>
+          <i className={`${props.icon} pr-2 text-light`}></i><h4>{props.header}</h4>
         </div>
 
         <div className="card-body">

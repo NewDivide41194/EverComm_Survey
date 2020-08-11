@@ -2,9 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import Account from "../component/Account";
 import { UpdateUserInfo } from "../../../../api/FetchUser";
 import { AccountSettingValidataion } from "../../../../helper/formValidation";
+import {GetUser} from "../../../../api/FetchUser"
 
 const AccountContainer = (props) => {
   const token = localStorage.getItem("token");
+  const [userData,setUserData]=useState([])
   const [edit, setEdit] = useState(false);
   const [Name, setName] = useState("");
   const [Mobile, setMobile] = useState("");
@@ -27,6 +29,8 @@ const AccountContainer = (props) => {
     if (edit) {
       NameRef.current.focus();
     }
+    GetUser(null,(err,data)=>{
+    setUserData(data.payload)})
   }, [edit]);
   const _handleSubmit = (e) => {
     e.preventDefault();
@@ -65,7 +69,7 @@ const AccountContainer = (props) => {
       });
     }
   };
-
+  console.log(userData);
   const _handleIsEdit = () => {
     setErr({});
     setEdit(!edit);
@@ -108,6 +112,7 @@ const AccountContainer = (props) => {
 
   return (
     <Account
+    userData={userData}
       err={err}
       edit={edit}
       Name={Name}
