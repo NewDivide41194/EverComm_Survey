@@ -15,76 +15,79 @@ const RightSideBar = () => {
       width: "25px",
       height: "25px",
       left: "20px",
-      top: "10px"
+      top: "10px",
     },
     bmBurgerBars: {
       background: Colors.PrimaryColor,
-    //   boxShadow: "1px 1px 1px gray"
+      //   boxShadow: "1px 1px 1px gray"
     },
     bmBurgerBarsHover: {
-      background: Colors.SecondaryColor
+      background: Colors.SecondaryColor,
     },
     bmCrossButton: {
       height: "24px",
-      width: "24px"
+      width: "24px",
     },
     bmCross: {
-      background: Colors.SecondaryColor
+      background: Colors.SecondaryColor,
     },
     bmMenuWrap: {
       position: "fixed",
       height: "100%",
-      top: 0
+      top: 0,
     },
     bmMenu: {
       background: Colors.PrimaryColor,
       padding: "2.5em .5em 0",
-      fontSize: "1.15em"
+      fontSize: "1.15em",
     },
     bmMorphShape: {
-    //   fill: "#373a47"
+      //   fill: "#373a47"
     },
     bmItemList: {
       color: "#b8b7ad",
-      padding: "0.8em"
+      padding: "0.8em",
     },
     bmItem: {
-      display: "inline-block"
+      display: "inline-block",
     },
     bmOverlay: {
       background: "rgb(0, 0, 0,0)",
-      zIndex: 5
-    }
+      zIndex: 5,
+    },
   };
-  const [MenuOpen,setMenuOpen]=useState(false)
+  const [MenuOpen, setMenuOpen] = useState(false);
 
-  const CloseMenu = ()=> {
-    setMenuOpen(!MenuOpen)
+  const CloseMenu = () => {
+    setMenuOpen(!MenuOpen);
     console.log(MenuOpen);
   };
 
-  const StateChange=(e)=>{setMenuOpen(e.isOpen)}
-const userId=localStorage.getItem("userId")
+  const StateChange = (e) => {
+    setMenuOpen(e.isOpen);
+  };
+  const userId = localStorage.getItem("userId");
   return (
     <Menu
       styles={styles}
       left
       isOpen={MenuOpen}
       pageWrapId={"page-wrap"}
-      outerContainerId={"outer-container"}      
+      outerContainerId={"outer-container"}
       onStateChange={(e) => StateChange(e)}
     >
-        <EverCommLink to={`/menu/${userId}`} text={"HOME"}/>
-        <EverCommLink to={`/surveyMenu/${userId}`} text={"SURVEY LIST"}/>
-        <EverCommLink to={`/reportMenu/${userId}`} text={"REPORTING"}/>
+      <EverCommLink to={`/menu/${userId}`} text={"HOME"} />
+      <hr/>
+      <ul>
+      <li><EverCommLink to={`/surveyMenu/${userId}`} text={"SURVEY LIST"} /></li>
+      <li><EverCommLink to={`/reportMenu/${userId}`} text={"REPORTING"} /></li>
+        <li><EverCommLink to={`/menu/${userId}`} text={"HOME"} /></li>
+      </ul>
 
-        <EverCommLink to={`/user/account`} text={"USER MANAGEMENT"}/>
-        <EverCommLink to={`menu/${userId}`} text={"MY ACCOUNT"}/>
+      <EverCommLink to={`/user/account`} text={"USER MANAGEMENT"} />
+      <EverCommLink to={`menu/${userId}`} text={"MY ACCOUNT"} />
 
-
-        
-
-          {/* <MyLink
+      {/* <MyLink
             to={"/"}
             className="text-center pb-2"
             style={{
