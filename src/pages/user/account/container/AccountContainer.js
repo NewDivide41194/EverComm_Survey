@@ -9,7 +9,7 @@ import { GetUser } from "../../../../api/FetchUser"
 
 const AccountContainer = (props) => {
   const token = localStorage.getItem("token");
-  const [userData, setUserData] = useState([])
+  const [userData, setUserData] = useState([]);
   const [edit, setEdit] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -22,6 +22,7 @@ const AccountContainer = (props) => {
   const [active, setActive] = useState(false);
   const [userLevel, setUserLevel] = useState("");
   const [surveyList, setSurveyList] = useState([]);
+  const [checkedList, setCheckedList] = useState([]);
   const [isAdd, setIsAdd] = useState(false)
 
   const errStyle = {
@@ -53,6 +54,7 @@ const AccountContainer = (props) => {
 
     })
   }, [edit]);
+  //console.log('survey list >> ', surveyList)
   const _handleSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -85,7 +87,7 @@ const AccountContainer = (props) => {
     }
     if (Object.keys(validedErr).length === 0) {
       setErr({});
-      RegisterFetch({ firstName, lastName, eMail, password, companyName, active, phone_number: Mobile, user_level: userLevel, token }, (err, data) => {
+      RegisterFetch({ firstName, lastName, eMail, password, companyName, active, Mobile, userLevel,surveyHeaderId:checkedList, token }, (err, data) => {
         if (data.success === false) {
           alert.error(data.message);
         } else {
@@ -152,6 +154,27 @@ const AccountContainer = (props) => {
     setActive(!active);
   }
 
+  const checkListFilter = (id) => {
+    return checkedList.filter((e) => e === id)
+  }
+
+  const checkListIndex = (id) => {
+    return checkedList.findIndex((e) => e === id)
+  }
+
+  const _handleCheckChange = (id) => {
+  
+      console.log(checkListIndex(id));
+      
+    if(checkListFilter(id) >= 1){
+      checkedList.splice(checkListIndex(id), 1)
+    } else {
+      checkedList.push(id)
+    }   
+    setCheckedList(checkedList.map(v => v)) 
+    console.log('checkedList >>>> ', checkedList)
+  }
+
   const _handleUserLevelSelect = (e) => {
     setErr({});
     e !== null && setUserLevel(e.value);
@@ -187,6 +210,7 @@ const AccountContainer = (props) => {
       handleRoleChange={_handleRoleChange}
       handlePasswordChange={_handlePasswordChange}
       handleActiveCheck={_handleActiveCheck}
+      handleCheckChange={_handleCheckChange}
       handleUserLevelSelect={_handleUserLevelSelect}
       NameRef={NameRef}
     />

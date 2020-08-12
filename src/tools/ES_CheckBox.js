@@ -31,7 +31,7 @@ const ESCheckbox = (props) => {
   // console.log(isAnswer.filter(d=>d.optionChoiceId===40).length>0&&isAnswer.filter(q=>q.questionId===quesId).length>0);
   // console.log(isAnswer);
 
-  console.log("Value", value);
+  //console.log("Value", value);
 
   return value.map((ans, k3) => (
     <label

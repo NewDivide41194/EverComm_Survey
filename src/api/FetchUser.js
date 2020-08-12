@@ -1,6 +1,6 @@
 import * as API from "./url";
 export const RegisterFetch = (
-  { firstName,lastName, eMail, password, companyName, active, phone_number, user_level, token },
+  { firstName,lastName, eMail, password, companyName, active, Mobile, userLevel, surveyHeaderId, token },
   callback
 ) => {
 const userName=firstName.trim()+' '+lastName.trim()
@@ -18,8 +18,9 @@ const userName=firstName.trim()+' '+lastName.trim()
       password: password,
       companyName: companyName,
       active: active,
-      phone_number: phone_number,
-      user_level: user_level
+      phone_number: Mobile,
+      user_level: userLevel,
+      surveyHeaderId: surveyHeaderId
     })
   })
     .then(res => res.json())

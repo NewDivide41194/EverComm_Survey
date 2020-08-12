@@ -32,6 +32,7 @@ const Account = (props) => {
     handlePasswordChange,
     handleUserLevelSelect,
     handleActiveCheck,
+    handleCheckChange,
     handleSubmit,
     handleCancel,
     handleIsEdit,
@@ -51,15 +52,21 @@ const Account = (props) => {
     fontSize: "15px",
   };
 
+  const [showForm, setShowForm] = useState(false)
+  const handleAddNewUser = () => {
+    setShowForm(!showForm)
+  }
   const [collapse, setCollapse] = useState(true)
   const isCollapse = () => { setCollapse(!collapse) }
   return (
     <div className="container">
       <div className="row p-3"> 
       <div className="w-100">
-          {userData && userData.length && <UserTable userData={userData} />}
+          {userData && userData.length && <UserTable userData={userData} handleAddNewUser={handleAddNewUser} showForm={showForm}/>}
         </div>
-         <div className="w-100">
+        {
+          showForm && 
+          <div className="w-100">
           <AddAccountForm 
             UserLevelOptions={UserLevelOptions}
             accountsetting = {accountsetting}
@@ -83,6 +90,7 @@ const Account = (props) => {
             handlePasswordChange={handlePasswordChange}
             handleUserLevelSelect = {handleUserLevelSelect}
             handleActiveCheck = {handleActiveCheck}
+            handleCheckChange={handleCheckChange}
             handleSubmit = {handleSubmit}
             handleCancel = {handleCancel}
             handleIsEdit = {handleIsEdit}
@@ -95,9 +103,9 @@ const Account = (props) => {
           />
           {/* <EditAccountForm/>  */}
         </div>
-        
-
-      </div>
+        }
+         
+    </div>
 
 
     </div>

@@ -6,8 +6,7 @@ import * as Colors from '../../../../config/Color.config'
 import { render } from '@testing-library/react';
 
 export default function UserTable(props) {
-    const { userData } = props
-    console.log(userData);
+    const { userData, handleAddNewUser, showForm } = props
     const theme = createMuiTheme({
         palette: {
             primary: {
@@ -49,13 +48,12 @@ export default function UserTable(props) {
         // ],
     });
     const AddUser=()=>{return(<div>Hello</div>)}
-    console.log(userData.map((v, k) => { return ({ name: v.user_name, eMail: v.email, company: v.company_name, }) }));
+    // console.log(userData.map((v, k) => { return ({ name: v.user_name, eMail: v.email, company: v.company_name, }) }));
     return (
         <MuiThemeProvider theme={theme}>
             <MaterialTable
                 padding
-
-                title={<ESButton text={"+ Add New User"} noShadow small/>}
+                title={<ESButton text={`${!showForm ? '+ Add New User' : 'Hide User Account Form'}`} onClick={handleAddNewUser} noShadow small/>}
                 columns={tableData.columns}
                 data={tableData.data}
                 // editable={{
