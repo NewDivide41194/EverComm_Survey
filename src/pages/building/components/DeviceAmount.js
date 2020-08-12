@@ -89,8 +89,7 @@ const DeviceAmount = (props) => {
             disabled={isDisabled}
             id={"back"}
             text={"Back"}
-            onClick={_handleBack}
-            small
+            onClick={_handleBack}            
           />
         </div>
           <div className="col-6">
@@ -99,8 +98,7 @@ const DeviceAmount = (props) => {
             id={"submit"}
             text={"Start Survey"}
             type={"submit"}
-            onClick={_handleSubmit}
-            small
+            onClick={_handleSubmit}            
           />
         </div>
        

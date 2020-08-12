@@ -9,6 +9,8 @@ import UserTable from "./UserTable.js";
 
 const Account = (props) => {
   const {
+    isAdd,
+    handleIsAdd,
     accountsetting,
     surveyList,
     edit,
@@ -28,7 +30,7 @@ const Account = (props) => {
     handleCompanyChange,
     handleMobileChange,
     handleEmailChange,
-    handleRoleChange,
+    handleRoleChange, 
     handlePasswordChange,
     handleUserLevelSelect,
     handleActiveCheck,
@@ -55,47 +57,48 @@ const Account = (props) => {
   const isCollapse = () => { setCollapse(!collapse) }
   return (
     <div className="container">
-      <div className="row p-3"> 
-      <div className="w-100">
-          {userData && userData.length && <UserTable userData={userData} />}
+      <div className="row p-3">
+        <div className="w-100">
+          {userData && userData.length && <UserTable userData={userData} handleIsAdd={handleIsAdd}
+            isAdd={isAdd} />}
         </div>
-         <div className="w-100">
-          <AddAccountForm 
+        {isAdd&&<div className="w-100">
+          <AddAccountForm
             UserLevelOptions={UserLevelOptions}
-            accountsetting = {accountsetting}
-            edit = {edit}
-            firstName = {firstName}
+            accountsetting={accountsetting}
+            edit={edit}
+            firstName={firstName}
             lastName={lastName}
             companyName={companyName}
-            mobile = {Mobile}
-            eMail = {eMail}
-            Role = {Role}
-            password = {password}
-            active = {active}
-            userLevel = {userLevel}
-            handleEditProfile ={handleEditProfile}
-            handleFirstNameChange = {handleFirstNameChange}
-            handleLastNameChange = {handleLastNameChange}
-            handleCompanyChange = {handleCompanyChange}
-            handleMobileChange = {handleMobileChange}
-            handleEmailChange = {handleEmailChange}
-            handleRoleChange = {handleRoleChange}
+            mobile={Mobile}
+            eMail={eMail}
+            Role={Role}
+            password={password}
+            active={active}
+            userLevel={userLevel}
+            handleEditProfile={handleEditProfile}
+            handleFirstNameChange={handleFirstNameChange}
+            handleLastNameChange={handleLastNameChange}
+            handleCompanyChange={handleCompanyChange}
+            handleMobileChange={handleMobileChange}
+            handleEmailChange={handleEmailChange}
+            handleRoleChange={handleRoleChange}
             handlePasswordChange={handlePasswordChange}
-            handleUserLevelSelect = {handleUserLevelSelect}
-            handleActiveCheck = {handleActiveCheck}
-            handleSubmit = {handleSubmit}
-            handleCancel = {handleCancel}
-            handleIsEdit = {handleIsEdit}
-            handleAccountSetting = {handleAccountSetting}
-            NameRef = {NameRef}
-            err = {err}
-            errStyle = {errStyle}
-            errClassName = {errClassName}
+            handleUserLevelSelect={handleUserLevelSelect}
+            handleActiveCheck={handleActiveCheck}
+            handleSubmit={handleSubmit}
+            handleCancel={handleCancel}
+            handleIsEdit={handleIsEdit}
+            handleAccountSetting={handleAccountSetting}
+            NameRef={NameRef}
+            err={err}
+            errStyle={errStyle}
+            errClassName={errClassName}
             surveyList={surveyList}
           />
           {/* <EditAccountForm/>  */}
-        </div>
-        
+        </div>}
+
 
       </div>
 

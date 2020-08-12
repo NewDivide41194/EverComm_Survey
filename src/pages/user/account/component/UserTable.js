@@ -6,7 +6,7 @@ import * as Colors from '../../../../config/Color.config'
 import { render } from '@testing-library/react';
 
 export default function UserTable(props) {
-    const { userData } = props
+    const { userData, handleIsAdd, isAdd, } = props
     console.log(userData);
     const theme = createMuiTheme({
         palette: {
@@ -26,7 +26,7 @@ export default function UserTable(props) {
             { title: 'Role', field: 'role' },
             { title: 'Company', field: 'company' },
             { title: 'Active', field: 'active' },
-            { title: 'Action', field: 'role', render: () => <ESButton text={"Edit"} noShadow small/> },
+            { title: 'Action', field: 'role', render: () => <ESButton text={"Edit"} noShadow small /> },
 
 
 
@@ -48,14 +48,13 @@ export default function UserTable(props) {
         //     },
         // ],
     });
-    const AddUser=()=>{return(<div>Hello</div>)}
     console.log(userData.map((v, k) => { return ({ name: v.user_name, eMail: v.email, company: v.company_name, }) }));
     return (
         <MuiThemeProvider theme={theme}>
             <MaterialTable
                 padding
 
-                title={<ESButton text={"+ Add New User"} noShadow small/>}
+                title={<ESButton text={"+ Add New User"} onClick={handleIsAdd} noShadow small />}
                 columns={tableData.columns}
                 data={tableData.data}
                 // editable={{
@@ -104,7 +103,7 @@ export default function UserTable(props) {
                         // backgroundColor: '#EEE' ,
                         lineHeight: 0
                     }),
-                    padding:"dense"
+                    padding: "dense"
                 }}
             />
         </MuiThemeProvider>

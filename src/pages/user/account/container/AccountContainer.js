@@ -95,6 +95,7 @@ const AccountContainer = (props) => {
       });
     }
   };
+  const _handleIsAdd=()=>{setIsAdd(!isAdd)}
 
   const _handleCancel = () => {
     document.getElementById("FirstName").value = "";
@@ -188,7 +189,9 @@ const AccountContainer = (props) => {
       handlePasswordChange={_handlePasswordChange}
       handleActiveCheck={_handleActiveCheck}
       handleUserLevelSelect={_handleUserLevelSelect}
+      handleIsAdd={_handleIsAdd}
       NameRef={NameRef}
+      isAdd={isAdd}
     />
   );
 };

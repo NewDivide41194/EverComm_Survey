@@ -45,17 +45,6 @@ const AddAccontForm = (props) => {
     return (
         <div className="row justify-content-center py-3">
             <form className="col-6">
-                {/* <div className="">
-                <span style={span} onClick={edit ? handleIsEdit : null}>
-                    Account Setting and profile {">"}
-                </span>
-                {edit && !accountsetting && (
-                    <span style={span} className="font-weight-bold">
-                        Edit profile
-                    </span>
-                )}
-            </div> */}
-
                 <h4 style={{ color: Colors.PrimaryColor }}>
                     Add New User
 
@@ -211,7 +200,6 @@ const AddAccontForm = (props) => {
                                     disabled={isDisabled}
                                     text={"ADD USER"}
                                     type={"submit"}
-                                    small
                                     id={"AddUser"}
                                     onClick={handleSubmit}
                                 />
@@ -220,7 +208,6 @@ const AddAccontForm = (props) => {
                                 <ESButton
                                     disabled={isDisabled}
                                     text={"CANCEL"}
-                                    small
                                     id={"Cancel"}
                                     onClick={handleCancel}
                                 />
@@ -253,7 +240,7 @@ const SurveyHeaderList = (props) => {
                 className={"fa fa-exclamation-circle pr-2 pb-2"
                 }
             />Not selecting any plants means that user is allowed for all plants.</span>
-            {surveyList.map((v,k) =>
+            {surveyList.map((v, k) =>
                 <div className="border-bottom" key={k}><ESCheckBox
                     quesId={v.survey_header_id}
                     value={[{ option_choice_id: v.survey_header_id, option_choice_name: v.survey_name }]}

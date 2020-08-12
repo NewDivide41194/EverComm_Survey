@@ -191,7 +191,6 @@ const Building = (props) => {
               text={"Next"}
               type={"submit"}
               onClick={handleNext}
-              small
             />
           </div>
         </div>
