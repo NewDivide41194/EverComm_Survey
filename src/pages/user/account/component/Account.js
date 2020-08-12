@@ -47,15 +47,15 @@ const Account = (props) => {
   const [collapse, setCollapse] = useState(true)
   const isCollapse = () => { setCollapse(!collapse) }
   return (
-    <div className="container-fluid">
+    <div className="container">
       <div className="row">
-                <div className="w-50">
-          <AddAccountForm/>
-          {/* <EditAccountForm/> */}
-        </div>
+
         <div className="w-100">
-{         userData&&userData.length&& <UserTable userData={userData}/>
-}        </div>
+          {userData && userData.length && <UserTable userData={userData} />}
+        </div>
+        <div className="w-50">
+          <AddAccountForm />
+        </div>
       </div>
 
 

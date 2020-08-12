@@ -30,7 +30,7 @@ const AccountContainer = (props) => {
       NameRef.current.focus();
     }
     GetUser(null,(err,data)=>{
-    setUserData(data.payload)})
+    setUserData(data.payload[0])})
   }, [edit]);
   const _handleSubmit = (e) => {
     e.preventDefault();

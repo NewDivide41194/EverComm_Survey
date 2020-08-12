@@ -8,7 +8,11 @@ import { EverCommLink } from "../../tools/ES_Text";
 import { RouteName } from "../../routes";
 // import * as Fonts from '../../../../config/fontConfig'
 
+
 const RightSideBar = () => {
+  const userLevel=localStorage.getItem("userLevel")
+  const eMail=localStorage.getItem("email")
+
   const styles = {
     bmBurgerButton: {
       position: "fixed",
@@ -82,9 +86,9 @@ const RightSideBar = () => {
     >
       <div className='d-flex flex-column w-100 text-center h-100'>
         <i className='fa fa-user-circle fa-3x w-100 pb-2' />
-        <div>{'admin@gmail.com'}
+        <div>{eMail}
         <hr className='bg-light my-2' />
-        <div className='pb-4'>ADMIN</div></div>
+        <div className='pb-4'>{userLevel}</div></div>
 
         <ul id="accordion" style={{ listStyle: "none" }} className='w-100 text-left' >
           <li id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" className='d-flex flex-row justify-content-between'>
@@ -113,56 +117,7 @@ const RightSideBar = () => {
           <EverCommLink to={`/menu/${userId}`} text={"Log Out"} />
         </div>
       </div>
-      {/* <MyLink
-            to={"/"}
-            className="text-center pb-2"
-            style={{
-              fontSize: 25,
-              fontStyle: "bold",
-              fontFamily: Fonts.titleText,              
-
-            }}
-            onClick={()=>CloseMenu()}
-            id={"Home"}
-            text={"E.M.D Footwears"}
-            noEffect
-          />
-      <MyLink
-        to={`/${RoutePath.Men}`}
-        className="pl-3 py-3"
-        id={"Men"}
-        onClick={()=>CloseMenu()}
-
-        style={{ fontSize: 15 }}
-        text={"MEN"}
-      />
-      <MyLink
-        to={`/${RoutePath.Women}`}
-        className="pl-3 py-3"
-        id={"Women"}
-        onClick={()=>CloseMenu()}
-
-        style={{ fontSize: 15 }}
-        text={"WOMEN"}
-      />
-      <MyLink
-        to={`/${RoutePath.PermanentCollection}`}
-        className="pl-3 py-3"
-        id={"Collection"}
-        onClick={()=>CloseMenu()}
-
-        style={{ fontSize: 15 }}
-        text={"PARMANENT COLLECTION"}
-      />
-      <MyLink
-        to={`/${RoutePath.Contact}`}
-        className="px-3 py-3"
-        id={"Contact"}
-        onClick={()=>CloseMenu()}
-
-        style={{ fontSize: 15 }}
-        text={"CONTACT US"}
-      /> */}
+      
     </Menu>
   );
 };
