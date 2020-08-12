@@ -52,7 +52,6 @@ export default function UserTable(props) {
         <MuiThemeProvider theme={theme}>
             <MaterialTable
                 padding
-
                 title={<ESButton text={"+ Add New User"} onClick={handleIsAdd} noShadow small />}
                 columns={tableData.columns}
                 data={tableData.data}
