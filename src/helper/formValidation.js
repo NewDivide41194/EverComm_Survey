@@ -1,6 +1,7 @@
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const specialCharacterRegx = /[`!#$%^&*()_+\-=[\]{};:"\\|<>/?~]/;
-const MobileRegex=/[`!/^\d{10}$`]/;
+// const MobileRegex=/^\d+$/;
+const MobileRegex=/^\d{10}/;
 
 export const LoginFormValidation = (data) => {
   const err = {};
@@ -19,7 +20,7 @@ export const LoginFormValidation = (data) => {
 
 export const RegisterFormValidation = (data) => {
   const err = {};
-  const { eMail, password, firstName, lastName, companyName } = data;
+  const { eMail, password, firstName, lastName, companyName, Mobile  } = data;
 
   if (firstName === "") {
     err.firstNameErr = "Fill Frist Name!";
@@ -30,6 +31,11 @@ export const RegisterFormValidation = (data) => {
     err.lastNameErr = "Fill Last Name!";
   } else if (specialCharacterRegx.test(lastName)) {
     err.lastNameErr = "Not Allow Special Characters!";
+  }
+  if (Mobile === "") {
+    err.MobileErr = "Fill Phone Number!";
+  } else if (!MobileRegex.test(Mobile)) {
+    err.MobileErr = "Incorrect Phone Number!";
   }
   if (companyName === "") {
     err.companyErr = "Fill Company Name!";

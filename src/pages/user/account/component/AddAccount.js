@@ -1,6 +1,8 @@
 import React from 'react'
 import { ESButton } from "../../../../tools/ES_Button";
 import { ESInput } from "../../../../tools/ES_Inputs";
+import { ESDropDownSample } from "../../../../tools/ES_DropDownSample";
+import ESCheckBox from "../../../../tools/ES_CheckBox";
 import { Link } from "react-router-dom";
 import * as Colors from "../../../../config/Color.config";
 
@@ -9,17 +11,25 @@ const AddAccontForm = (props) => {
         handleSubmit,
         firstName,
         lastName,
+        companyName,
         eMail,
         password,
+        mobile,
+        active,
+        userLevel,
+        UserLevelOptions,
         handleFirstNameChange,
         handleLastNameChange,
+        handleMobileChange,
         handleEmailChange,
         handleCompanyChange,
-        handlePwdChange,
+        handlePasswordChange,
         handleView,
+        handleCancel,
+        handleActiveCheck,
+        handleUserLevelSelect,
         visible,
         // err,
-        companyName,
         errStyle,
         errClassName,
         isDisabled,
@@ -31,7 +41,8 @@ const AddAccontForm = (props) => {
     } = props;
     const err = {}
     return (
-        <form className="px-4">
+        // <div className="row justify-content-center">
+        <form className="">
             <div className="py-3">
                 <span style={span} onClick={edit ? handleIsEdit : null}>
                     Account Setting and profile {">"}
@@ -99,6 +110,34 @@ const AddAccontForm = (props) => {
                         onChange={(e) => handleCompanyChange(e)}
                     />
                 </div>
+                <div className="py-2 col-sm-12 col-lg-6">
+                    <label htmlFor="Mobile">Phone No.</label>
+                    {err.mobileErr == undefined ? null : (
+                        <div
+                            className={errClassName}
+                            style={{...errStyle}}
+                        >{`*${err.mobileErr}`}</div>
+                    )}
+                    <ESInput
+                        disabled={isDisabled}
+                        id={"Mobile"}
+                        placeHolder={"Your Phone No."}
+                        maxLength={"20"}
+                        value={mobile}
+                        onChange={(e) => handleMobileChange(e)}
+                    />
+                </div>
+                <div className="py-2 col-sm-12 col-lg-6">
+                    <label htmlFor="UserLevel">Choose User Level</label>
+                    <ESDropDownSample
+                        disabled={isDisabled}
+                        id={"UserLevel"}
+                        notClearable
+                        _handleSelect={handleUserLevelSelect}
+                        options={UserLevelOptions}
+                        value={userLevel}
+                     />
+                </div>
                 <div className="py-2 col-12">
                     <label htmlFor="Email">Email</label>
 
@@ -132,7 +171,7 @@ const AddAccontForm = (props) => {
                         type={visible ? "text" : "password"}
                         placeHolder={"Password"}
                         value={password}
-                        onChange={(e) => handlePwdChange(e)}
+                        onChange={(e) => handlePasswordChange(e)}
                     />
                     <span
                         style={{
@@ -152,10 +191,21 @@ const AddAccontForm = (props) => {
                             )}
                     </span>
                 </div>
-               
+                <div className="col-sm-12 col-lg-6">
+                    <label htmlFor="Active">Active</label>
+                    <ESCheckBox
+                        disabled={isDisabled}
+                        checked={active}
+                        id={"Active"}
+                        placeHolder={"Active"}
+                        value={[{option_choice_id:1,option_choice_name:"Active"}]}
+                        _handleChange={(e) => handleActiveCheck(e)}
+                        className={"w-100"}
+                    />
+                </div>
                 <div className="pt-2 col-12">
                     <div className="row">
-                        <div className="col-3">
+                        <div className="col-6">
                             <ESButton
                                 disabled={isDisabled}
                                 text={"ADD USER"}
@@ -165,22 +215,22 @@ const AddAccontForm = (props) => {
                                 onClick={handleSubmit}
                             />
                         </div>
-                        <div className="col-3">
-
+                        <div className="col-6">
                             <ESButton
                                 disabled={isDisabled}
                                 text={"CANCEL"}
-                                type={"submit"}
                                 small
                                 id={"Cancel"}
-                                onClick={handleSubmit}
+                                onClick={handleCancel}
                             />
                         </div>
                     </div>
 
                 </div>
+                
             </div>
         </form>
+        // </div>
     );
 };
 

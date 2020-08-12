@@ -10,22 +10,28 @@ const Account = (props) => {
   const {
     accountsetting,
     edit,
-    Name,
+    firstName,
+    lastName,
+    companyName,
     Mobile,
     eMail,
     Role,
-    currentPassword,
-    newPassword,
-    ReEnterPassword,
+    password,
+    active,
+    userLevel,
+    UserLevelOptions,
     handleEditProfile,
-    handleNameChange,
+    handleFirstNameChange,
+    handleLastNameChange,
+    handleCompanyChange,
     handleMobileChange,
     handleEmailChange,
     handleRoleChange,
-    handleCurrentPasswordChange,
-    handleNewPasswordChange,
-    handleReEnterPasswordChange,
+    handlePasswordChange,
+    handleUserLevelSelect,
+    handleActiveCheck,
     handleSubmit,
+    handleCancel,
     handleIsEdit,
     handleAccountSetting,
     NameRef,
@@ -46,10 +52,44 @@ const Account = (props) => {
   const isCollapse = () => { setCollapse(!collapse) }
   return (
     <div className="container-fluid">
-      <div className="row">
-                <div className="w-50">
-          <AddAccountForm/>
-          {/* <EditAccountForm/> */}
+      <div className="row p-3"> 
+         <div className="col-sm-12 col-lg-7">
+          <AddAccountForm 
+            UserLevelOptions={UserLevelOptions}
+            accountsetting = {accountsetting}
+            edit = {edit}
+            firstName = {firstName}
+            lastName={lastName}
+            companyName={companyName}
+            mobile = {Mobile}
+            eMail = {eMail}
+            Role = {Role}
+            password = {password}
+            active = {active}
+            userLevel = {userLevel}
+            handleEditProfile ={handleEditProfile}
+            handleFirstNameChange = {handleFirstNameChange}
+            handleLastNameChange = {handleLastNameChange}
+            handleCompanyChange = {handleCompanyChange}
+            handleMobileChange = {handleMobileChange}
+            handleEmailChange = {handleEmailChange}
+            handleRoleChange = {handleRoleChange}
+            handlePasswordChange={handlePasswordChange}
+            handleUserLevelSelect = {handleUserLevelSelect}
+            handleActiveCheck = {handleActiveCheck}
+            handleSubmit = {handleSubmit}
+            handleCancel = {handleCancel}
+            handleIsEdit = {handleIsEdit}
+            handleAccountSetting = {handleAccountSetting}
+            NameRef = {NameRef}
+            err = {err}
+            errStyle = {errStyle}
+            errClassName = {errClassName}
+          />
+          {/* <EditAccountForm/>  */}
+        </div>
+        <div className="col-sm-12 col-lg-5 p-2">
+          Survey Header List
         </div>
       </div>
 

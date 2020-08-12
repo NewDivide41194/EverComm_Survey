@@ -1,5 +1,5 @@
-// const serverURL='http://192.168.100.206:7878'
-const serverURL = "http://172.105.123.57:1212";
+const serverURL='http://192.168.100.206:7878'
+//const serverURL = "http://172.105.123.57:1212";
 // const serverURL = "http://localhost:7878";
 
 export const RegisterAPI = `${serverURL}/api/v1/user/register`;
