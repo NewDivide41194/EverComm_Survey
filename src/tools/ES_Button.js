@@ -8,12 +8,11 @@ export const ESButton = props => {
     type,
     style,
     small,
-    theme,
-    selectTheme,
     disabled,
     leftIcon,
     rightIcon,
-    id
+    id,
+    noShadow
   } = props;
   const [isHover, setIsHover] = useState(true);
 
@@ -23,7 +22,7 @@ export const ESButton = props => {
 
   const hoverStyle = {
     background: Color.purple,
-    boxShadow: "0px 2px 3px #2B2B2B"
+    boxShadow: noShadow?'none':"0px 2px 3px #2B2B2B"
   };
 
   const defaultStyle = isHover||disabled ? defaultStyle1 : hoverStyle;

@@ -3,6 +3,7 @@ import MaterialTable from 'material-table';
 import { ESButton } from '../../../../tools/ES_Button';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 import * as Colors from '../../../../config/Color.config'
+import { render } from '@testing-library/react';
 
 export default function UserTable(props) {
     const { userData } = props
@@ -25,8 +26,7 @@ export default function UserTable(props) {
             { title: 'Role', field: 'role' },
             { title: 'Company', field: 'company' },
             { title: 'Active', field: 'active' },
-            { title: 'Phone', filed: 'phone' },
-            { title: 'Action', field: 'role', render: () => <ESButton text={"Edit"} small theme={'danger'}/> },
+            { title: 'Action', field: 'role', render: () => <ESButton text={"Edit"} noShadow small/> },
 
 
 
@@ -37,7 +37,7 @@ export default function UserTable(props) {
             // },
         ],
         data:
-            userData.map((v, k) => { return ({ name: v.user_name, eMail: v.email, role: v.role, company: v.company_name, active: v.active === 1 ? "Yes" : "No", phone: v.phone_number }) })
+            userData.map((v, k) => { return ({ name: v.user_name, eMail: v.email, role: v.role, company: v.company_name, active: v.active === 1 ? "Yes" : "No" }) })
         // [
         //     { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
         //     {
@@ -48,13 +48,14 @@ export default function UserTable(props) {
         //     },
         // ],
     });
+    const AddUser=()=>{return(<div>Hello</div>)}
     console.log(userData.map((v, k) => { return ({ name: v.user_name, eMail: v.email, company: v.company_name, }) }));
     return (
         <MuiThemeProvider theme={theme}>
             <MaterialTable
                 padding
 
-                title="USER MANAGEMENT"
+                title={<ESButton text={"+ Add New User"} noShadow small/>}
                 columns={tableData.columns}
                 data={tableData.data}
                 // editable={{

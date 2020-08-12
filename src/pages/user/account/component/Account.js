@@ -10,6 +10,7 @@ import UserTable from "./UserTable.js";
 const Account = (props) => {
   const {
     accountsetting,
+    surveyList,
     edit,
     firstName,
     lastName,
@@ -58,7 +59,7 @@ const Account = (props) => {
       <div className="w-100">
           {userData && userData.length && <UserTable userData={userData} />}
         </div>
-         <div className="col-sm-12 col-lg-7">
+         <div className="w-100">
           <AddAccountForm 
             UserLevelOptions={UserLevelOptions}
             accountsetting = {accountsetting}
@@ -90,12 +91,11 @@ const Account = (props) => {
             err = {err}
             errStyle = {errStyle}
             errClassName = {errClassName}
+            surveyList={surveyList}
           />
           {/* <EditAccountForm/>  */}
         </div>
-        <div className="col-sm-12 col-lg-5 p-2">
-          Survey Header List
-        </div>
+        
 
       </div>
 

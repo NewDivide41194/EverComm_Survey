@@ -14,7 +14,8 @@ const ESCheckbox = (props) => {
     keys,
     className,
     vertical,
-    checked
+    checked,
+    fontSize
   } = props;
 
   const customTheme = createMuiTheme({
@@ -47,7 +48,7 @@ const ESCheckbox = (props) => {
           `${ans.option_choice_id + quesId} div`
         ).style.background = "none")
       }
-      style={{ cursor: "pointer",fontSize:12 }}
+      style={{ cursor: "pointer",fontSize:fontSize||12 }}
     >
       {vertical && <div>{ans.option_choice_name}</div>}
 

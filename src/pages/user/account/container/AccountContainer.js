@@ -5,11 +5,11 @@ import { RegisterFormValidation } from "../../../../helper/formValidation";
 import { useAlert } from "react-alert";
 // import { UpdateUserInfo } from "../../../../api/FetchUser";
 // import { AccountSettingValidataion } from "../../../../helper/formValidation";
-import {GetUser} from "../../../../api/FetchUser"
+import { GetUser } from "../../../../api/FetchUser"
 
 const AccountContainer = (props) => {
   const token = localStorage.getItem("token");
-  const [userData,setUserData]=useState([])
+  const [userData, setUserData] = useState([])
   const [edit, setEdit] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -21,6 +21,8 @@ const AccountContainer = (props) => {
   const [err, setErr] = useState({});
   const [active, setActive] = useState(false);
   const [userLevel, setUserLevel] = useState("");
+  const [surveyList, setSurveyList] = useState([]);
+  const [isAdd, setIsAdd] = useState(false)
 
   const errStyle = {
     marginTop: "-25px",
@@ -34,9 +36,9 @@ const AccountContainer = (props) => {
   const alert = useAlert();
 
   const UserLevelOptions = [
-    { value:1, label:'admin'},
-    { value:2, label:'user'},
-    { value:3, label:'distributor'}
+    { value: 1, label: 'admin' },
+    { value: 2, label: 'user' },
+    { value: 3, label: 'distributor' }
   ]
   const errClassName = "text-danger d-flex flex-row justify-content-end pb-2";
   const NameRef = useRef(null);
@@ -45,8 +47,11 @@ const AccountContainer = (props) => {
     if (edit) {
       NameRef.current.focus();
     }
-    GetUser(null,(err,data)=>{
-    setUserData(data.payload[0])})
+    GetUser(null, (err, data) => {
+      setUserData(data.payload[0])
+      setSurveyList(data.payload[1])
+
+    })
   }, [edit]);
   const _handleSubmit = (e) => {
     e.preventDefault();
@@ -67,37 +72,37 @@ const AccountContainer = (props) => {
 
     if (validedErr.firstNameErr) {
       document.getElementById("FirstName").focus();
-    }else if (validedErr.lastNameErr) {
+    } else if (validedErr.lastNameErr) {
       document.getElementById("LastName").focus();
     } else if (validedErr.MobileErr) {
       document.getElementById("Mobile").focus();
-    }else if (validedErr.companyErr) {
+    } else if (validedErr.companyErr) {
       document.getElementById("CompanyName").focus();
     } else if (validedErr.eMailErr) {
       document.getElementById("Email").focus();
     } else if (validedErr.passwordErr) {
       document.getElementById("Password").focus();
-    } 
+    }
     if (Object.keys(validedErr).length === 0) {
       setErr({});
-      RegisterFetch({ firstName, lastName, eMail, password, companyName, active, phone_number:Mobile, user_level:userLevel, token }, (err, data) => {
-       if(data.success === false) {
-         alert.error(data.message);
-       } else {
-         alert.success("Account Added Successfully!")
-         //window.location.reload();
-       }
+      RegisterFetch({ firstName, lastName, eMail, password, companyName, active, phone_number: Mobile, user_level: userLevel, token }, (err, data) => {
+        if (data.success === false) {
+          alert.error(data.message);
+        } else {
+          alert.success("Account Added Successfully!")
+          //window.location.reload();
+        }
       });
     }
   };
 
   const _handleCancel = () => {
-    document.getElementById("FirstName").value="";
-    document.getElementById("LastName").value="";
-    document.getElementById("Mobile").value="";
-    document.getElementById("CompanyName").value="";
-    document.getElementById("Email").value="";
-    document.getElementById("Password").value="";
+    document.getElementById("FirstName").value = "";
+    document.getElementById("LastName").value = "";
+    document.getElementById("Mobile").value = "";
+    document.getElementById("CompanyName").value = "";
+    document.getElementById("Email").value = "";
+    document.getElementById("Password").value = "";
   }
 
   const _handleIsEdit = () => {
@@ -141,7 +146,7 @@ const AccountContainer = (props) => {
     setErr({});
     setPassword(e.target.value.replace(/\s+/g, " ").trimStart());
   };
-  
+
   const _handleActiveCheck = (e) => {
     setErr({});
     setActive(!active);
@@ -155,7 +160,8 @@ const AccountContainer = (props) => {
 
   return (
     <Account
-    userData={userData}
+      userData={userData}
+      surveyList={surveyList}
       err={err}
       edit={edit}
       firstName={firstName}
@@ -179,9 +185,9 @@ const AccountContainer = (props) => {
       handleMobileChange={_handleMobileChange}
       handleEmailChange={_handleEmailChange}
       handleRoleChange={_handleRoleChange}
-      handlePasswordChange ={_handlePasswordChange}
-      handleActiveCheck = {_handleActiveCheck}
-      handleUserLevelSelect = {_handleUserLevelSelect}
+      handlePasswordChange={_handlePasswordChange}
+      handleActiveCheck={_handleActiveCheck}
+      handleUserLevelSelect={_handleUserLevelSelect}
       NameRef={NameRef}
     />
   );

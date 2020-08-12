@@ -10,8 +10,8 @@ import { RouteName } from "../../routes";
 
 
 const RightSideBar = () => {
-  const userLevel=localStorage.getItem("userLevel")
-  const eMail=localStorage.getItem("email")
+  const userLevel = localStorage.getItem("userLevel")
+  const eMail = localStorage.getItem("email")
 
   const styles = {
     bmBurgerButton: {
@@ -86,16 +86,16 @@ const RightSideBar = () => {
     >
       <div className='d-flex flex-column w-100 text-center h-100'>
         <i className='fa fa-user-circle fa-3x w-100 pb-2' />
-        <div>{eMail}
-        <hr className='bg-light my-2' />
-        <div className='pb-4'>{userLevel}</div></div>
+        <div className='pb-4'>{eMail}
+          <hr className='bg-light my-2' />
+          {userLevel}</div>
 
         <ul id="accordion" style={{ listStyle: "none" }} className='w-100 text-left' >
           <li id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" className='d-flex flex-row justify-content-between'>
             <div ><EverCommLink to={`/surveyMenu/${userId}`} text={"HOME"} /></div>
             <div><i className="fa fa-caret-down" /></div>
           </li>
-          <ul style={{ listStyle: "none",listStyleType:"square" }} id="collapseOne" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion" >
+          <ul style={{ listStyle: "none", listStyleType: "square" }} id="collapseOne" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion" >
             <li><EverCommLink to={`/surveyMenu/${userId}`} text={"SURVEY LIST"} /></li>
             <li><EverCommLink to={`/reportMenu/${userId}`} text={"REPORTING"} /></li>
           </ul>
@@ -117,7 +117,7 @@ const RightSideBar = () => {
           <EverCommLink to={`/menu/${userId}`} text={"Log Out"} />
         </div>
       </div>
-      
+
     </Menu>
   );
 };
