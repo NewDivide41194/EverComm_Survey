@@ -106,8 +106,7 @@ const NavBar = (props) => {
   };
   return props.location.pathname === "/report/totalReport" ? null : props
       .location.pathname === `/report/` ? null : props.location.pathname ===
-    "/" ? null : props.location.pathname ===
-    "/register" ? null : (
+    "/" ? null : props.location.pathname === "/register" ? null : (
     <Nav />
   );
 };

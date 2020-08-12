@@ -5,6 +5,7 @@ import * as Colors from "../../../../config/Color.config";
 import RightSideBar from "../../../../features/app/RightSideBar.js";
 // import EditAccountForm from "./EditAccount.js";
 import AddAccountForm from './AddAccount'
+import UserTable from "./UserTable.js";
 
 const Account = (props) => {
   const {
@@ -32,6 +33,7 @@ const Account = (props) => {
     err,
     errStyle,
     errClassName,
+    userData
   } = props;
 
   const header = {
@@ -51,6 +53,9 @@ const Account = (props) => {
           <AddAccountForm/>
           {/* <EditAccountForm/> */}
         </div>
+        <div className="w-100">
+{         userData&&userData.length&& <UserTable userData={userData}/>
+}        </div>
       </div>
 
 

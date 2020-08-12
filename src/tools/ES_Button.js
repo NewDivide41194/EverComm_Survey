@@ -18,10 +18,11 @@ export const ESButton = props => {
   const [isHover, setIsHover] = useState(true);
 
   const defaultStyle1 = {
-    background: `${Color.PrimaryColor}`
+    background: Color.PrimaryColor
   };
+
   const hoverStyle = {
-    background: "#008ccc",
+    background: Color.purple,
     boxShadow: "0px 2px 3px #2B2B2B"
   };
 
@@ -35,11 +36,7 @@ export const ESButton = props => {
       id={id}
       onClick={onClick}
       type={type === undefined ? "button" : type}
-      className={`btn btn-block rounded py-2 text-light ${
-        selectTheme === undefined
-          ? `submit-btn-${theme}`
-          : `submit-btn-${selectTheme}`
-      }  ${small === undefined ? "p-3" : "px-3"}`}
+      className={`btn btn-block rounded text-light ${small ? "py-0" : "p-2"}`}
       style={{
         ...defaultStyle,
         ...userStyle,

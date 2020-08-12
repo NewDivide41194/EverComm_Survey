@@ -45,11 +45,14 @@ const RightSideBar = () => {
       //   fill: "#373a47"
     },
     bmItemList: {
-      color: "#b8b7ad",
+      color: Colors.SecondaryColor,
       padding: "0.8em",
+      border: "none",
+      boxShadow: "none"
     },
     bmItem: {
       display: "inline-block",
+      outline: "none"
     },
     bmOverlay: {
       background: "rgb(0, 0, 0,0)",
@@ -75,18 +78,41 @@ const RightSideBar = () => {
       pageWrapId={"page-wrap"}
       outerContainerId={"outer-container"}
       onStateChange={(e) => StateChange(e)}
+
     >
-      <EverCommLink to={`/menu/${userId}`} text={"HOME"} />
-      <hr/>
-      <ul>
-      <li><EverCommLink to={`/surveyMenu/${userId}`} text={"SURVEY LIST"} /></li>
-      <li><EverCommLink to={`/reportMenu/${userId}`} text={"REPORTING"} /></li>
-        <li><EverCommLink to={`/menu/${userId}`} text={"HOME"} /></li>
-      </ul>
+      <div className='d-flex flex-column w-100 text-center h-100'>
+        <i className='fa fa-user-circle fa-3x w-100 pb-2' />
+        <div>{'admin@gmail.com'}
+        <hr className='bg-light my-2' />
+        <div className='pb-4'>ADMIN</div></div>
 
-      <EverCommLink to={`/user/account`} text={"USER MANAGEMENT"} />
-      <EverCommLink to={`menu/${userId}`} text={"MY ACCOUNT"} />
+        <ul id="accordion" style={{ listStyle: "none" }} className='w-100 text-left' >
+          <li id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" className='d-flex flex-row justify-content-between'>
+            <div ><EverCommLink to={`/surveyMenu/${userId}`} text={"HOME"} /></div>
+            <div><i className="fa fa-caret-down" /></div>
+          </li>
+          <ul style={{ listStyle: "none",listStyleType:"square" }} id="collapseOne" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion" >
+            <li><EverCommLink to={`/surveyMenu/${userId}`} text={"SURVEY LIST"} /></li>
+            <li><EverCommLink to={`/reportMenu/${userId}`} text={"REPORTING"} /></li>
+          </ul>
 
+          <li>
+            <EverCommLink to={`/user/account`} text={"USER MANAGEMENT"} />
+
+          </li>
+
+          <li>
+            <EverCommLink to={`/menu/${userId}`} text={"MY ACCOUNT"} />
+          </li>
+
+
+        </ul>
+        <div className="mt-auto">
+          <hr className='bg-light' />
+          <i className="fa fa-sign-out-alt pr-2" />
+          <EverCommLink to={`/menu/${userId}`} text={"Log Out"} />
+        </div>
+      </div>
       {/* <MyLink
             to={"/"}
             className="text-center pb-2"
@@ -138,7 +164,9 @@ const RightSideBar = () => {
         text={"CONTACT US"}
       /> */}
     </Menu>
+
   );
 };
+
 
 export default RightSideBar;

@@ -8,9 +8,10 @@ import { Building_Type } from "../../../api/url";
 const SurveylistContainer = (props) => {
   const [surveyList, setSurveyList] = useState([]);
   const [buildingList, setBuildingList] = useState([]);
-  const [buildingType, setBuildingType]=useState(null);
+  const [buildingType, setBuildingType] = useState(null);
   const userId = localStorage.getItem("userId");
-  const [expend,setExpend]=useState(false)
+  const bTypeId = localStorage.getItem("bTypeId");
+  const [expend, setExpend] = useState(false)
   const SurveyHeaderId = localStorage.getItem("SurveyHeaderId");
   const token = localStorage.getItem("token");
 
@@ -33,7 +34,7 @@ const SurveylistContainer = (props) => {
     // });
   }, []);
 
-  const handleExpend=() => setExpend(!expend)
+  const handleExpend = () => setExpend(!expend)
   const BuildingSurveyData =
     surveyList.length &&
     surveyList.filter((d) => d.survey_header_id === JSON.parse(SurveyHeaderId));
@@ -47,7 +48,7 @@ const SurveylistContainer = (props) => {
     BuildingSurveyData.filter((v, k) => v.answers === v.total_question_count);
   const SurveyHeaderName = localStorage.getItem("SurveyHeaderName");
 
-  var ReduceData = ["building_id", "building_name","building_type","building_type_id"];
+  var ReduceData = ["building_id", "building_name", "building_type", "building_type_id"];
 
   var NewSurvey = buildingList
     .filter(function (o1) {
@@ -67,8 +68,7 @@ const SurveylistContainer = (props) => {
     });
 
   return (
-    // <div className={`${expend?'':'fullHeight'} container`}>
-      <div className="container">
+    <div className="container" >
       <div className="row justify-content-between py-3">
         <div
           className="col-sm-12 col-lg-9 col-md-8"
@@ -137,7 +137,7 @@ const CollapseSurveyList = (props) => {
     handleExpend,
     expend
   } = props;
-console.log(SurveyData);
+  console.log(SurveyData);
   return (
     <div className="">
       <div
@@ -159,7 +159,7 @@ console.log(SurveyData);
         <i
           className={`fas fa-angle-double-${
             expend ? "up" : "down"
-          } float-right pt-1`}
+            } float-right pt-1`}
         ></i>
       </div>
 
@@ -179,10 +179,10 @@ console.log(SurveyData);
                     Completed
                   </i>
                 ) : (
-                  <i className="fa fa-edit" id={v.building_id}>
-                    &nbsp;{v.answers ? v.answers : "0"} of {v.total_question_count} Answered
-                  </i>
-                )
+                    <i className="fa fa-edit" id={v.building_id}>
+                      &nbsp;{v.answers ? v.answers : "0"} of {v.total_question_count} Answered
+                    </i>
+                  )
               }
               BgColor={BgColor}
               TxtColor={TxtColor}
@@ -191,11 +191,11 @@ console.log(SurveyData);
             />
           ))
         ) : (
-          <div className="d-flex flex-row p-3 rounded my-2 text-danger bg-light">
-            <i className="fas fa-exclamation-circle pt-1 px-2"></i>
+            <div className="d-flex flex-row p-3 rounded my-2 text-danger bg-light">
+              <i className="fas fa-exclamation-circle pt-1 px-2"></i>
             No Survey Data.
-          </div>
-        )}
+            </div>
+          )}
       </div>
     </div>
   );
