@@ -1,6 +1,6 @@
 import React from "react";
 import { ESButton } from "../../../tools/ES_Button";
-import{ESInput}from "../../../tools/ES_Inputs";
+import { ESInput } from "../../../tools/ES_Inputs";
 import { Link } from "react-router-dom";
 import * as Colors from "../../../config/Color.config";
 
@@ -25,9 +25,14 @@ const Register = (props) => {
     isDisabled,
   } = props;
   return (
-    <div className="container py-4 fullHeight">
+    <div className="container py-4"
+    >
       <div className="row justify-content-center">
-        <form className="col-lg-6 col-md-8">
+        <form className="col-lg-6 col-md-8" style={{
+      position: "absolute",
+      top: "50%",
+      transform: "translateY(-50%)"
+    }}>
           <div className="pb-3 text-center ">
             <div className="pb-2 font-weight-bold" style={{ fontSize: "25px" }}>
               ACCOUNT REGISTRATION
@@ -146,8 +151,8 @@ const Register = (props) => {
                 {visible ? (
                   <i className="fa fa-eye-slash py-4 text-secondary" />
                 ) : (
-                  <i className="fa fa-eye py-4 text-secondary" />
-                )}
+                    <i className="fa fa-eye py-4 text-secondary" />
+                  )}
               </span>
             </div>
 

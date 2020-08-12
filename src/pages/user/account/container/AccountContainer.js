@@ -1,11 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import Account from "../component/Account";
+<<<<<<< HEAD
 import { RegisterFetch } from "../../../../api/FetchUser";
 import { RegisterFormValidation } from "../../../../helper/formValidation";
 import { useAlert } from "react-alert";
+=======
+import { UpdateUserInfo } from "../../../../api/FetchUser";
+import { AccountSettingValidataion } from "../../../../helper/formValidation";
+import {GetUser} from "../../../../api/FetchUser"
+>>>>>>> ea93bf9d2ae185f7705b7614907d1cefe6383494
 
 const AccountContainer = (props) => {
   const token = localStorage.getItem("token");
+  const [userData,setUserData]=useState([])
   const [edit, setEdit] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -41,6 +48,8 @@ const AccountContainer = (props) => {
     if (edit) {
       NameRef.current.focus();
     }
+    GetUser(null,(err,data)=>{
+    setUserData(data.payload)})
   }, [edit]);
   const _handleSubmit = (e) => {
     e.preventDefault();
@@ -149,6 +158,7 @@ const AccountContainer = (props) => {
 
   return (
     <Account
+    userData={userData}
       err={err}
       edit={edit}
       firstName={firstName}

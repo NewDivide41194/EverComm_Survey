@@ -1,5 +1,5 @@
 const serverURL='http://192.168.100.206:7878'
-//const serverURL = "http://172.105.123.57:1212";
+// const serverURL = "http://172.105.123.57:1212";
 // const serverURL = "http://localhost:7878";
 
 export const RegisterAPI = `${serverURL}/api/v1/user/register`;
@@ -33,3 +33,5 @@ export const User_Report_Answer = (surveyHeaderId) =>
  `${serverURL}/api/v1/report/graphReportUserLevel`;
 
  export const Building_Type=`${serverURL}/api/v1/building/getBuildingType`
+
+ export const Get_User= `${serverURL}/api/v1/user/getUser`;

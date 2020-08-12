@@ -3,6 +3,7 @@ import SurveyMenu from "../component/SurveyMenu";
 import { MenuInfoFetch } from "../../../api/FetchMenuInfo";
 import { TrancateAns } from "../../../api/FetchTrancate";
 import Loading from "../../../assets/images/loading1.gif";
+import * as Colors from "../../../config/Color.config";
 
 const SurveyMenuContainer = props => {
   const [menuData, setMenuData] = useState([]);
@@ -37,7 +38,7 @@ const SurveyMenuContainer = props => {
          style={{
            margin: 0,
            position: "relative",
-         
+           color:Colors.PrimaryColor
          }}
       >
         <h2>{"Select Survey Name"}</h2>
