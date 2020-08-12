@@ -48,7 +48,6 @@ export default function UserTable(props) {
         //     },
         // ],
     });
-    console.log(userData.map((v, k) => { return ({ name: v.user_name, eMail: v.email, company: v.company_name, }) }));
     return (
         <MuiThemeProvider theme={theme}>
             <MaterialTable

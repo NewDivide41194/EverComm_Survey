@@ -34,6 +34,7 @@ const Account = (props) => {
     handlePasswordChange,
     handleUserLevelSelect,
     handleActiveCheck,
+    handleCheckChange,
     handleSubmit,
     handleCancel,
     handleIsEdit,
@@ -53,17 +54,20 @@ const Account = (props) => {
     fontSize: "15px",
   };
 
+
   const [collapse, setCollapse] = useState(true)
   const isCollapse = () => { setCollapse(!collapse) }
   return (
     <div className="container">
-      <div className="row p-3">
-        <div className="w-100">
-          {userData && userData.length && <UserTable userData={userData} handleIsAdd={handleIsAdd}
-            isAdd={isAdd} />}
+      
+      <div className="row p-3"> 
+      <div className="w-100">
+          {userData && userData.length && <UserTable userData={userData} handleIsAdd={handleIsAdd} isCollapse={isAdd}/>}
         </div>
-        {isAdd&&<div className="w-100">
-          <AddAccountForm
+        {
+          isAdd && 
+          <div className="w-100">
+          <AddAccountForm 
             UserLevelOptions={UserLevelOptions}
             accountsetting={accountsetting}
             edit={edit}
@@ -84,23 +88,24 @@ const Account = (props) => {
             handleEmailChange={handleEmailChange}
             handleRoleChange={handleRoleChange}
             handlePasswordChange={handlePasswordChange}
-            handleUserLevelSelect={handleUserLevelSelect}
-            handleActiveCheck={handleActiveCheck}
-            handleSubmit={handleSubmit}
-            handleCancel={handleCancel}
-            handleIsEdit={handleIsEdit}
-            handleAccountSetting={handleAccountSetting}
-            NameRef={NameRef}
-            err={err}
-            errStyle={errStyle}
-            errClassName={errClassName}
+            handleUserLevelSelect = {handleUserLevelSelect}
+            handleActiveCheck = {handleActiveCheck}
+            handleCheckChange={handleCheckChange}
+            handleSubmit = {handleSubmit}
+            handleCancel = {handleCancel}
+            handleIsEdit = {handleIsEdit}
+            handleAccountSetting = {handleAccountSetting}
+            NameRef = {NameRef}
+            err = {err}
+            errStyle = {errStyle}
+            errClassName = {errClassName}
             surveyList={surveyList}
           />
           {/* <EditAccountForm/>  */}
-        </div>}
-
-
-      </div>
+        </div>
+        }
+         
+    </div>
 
 
     </div>

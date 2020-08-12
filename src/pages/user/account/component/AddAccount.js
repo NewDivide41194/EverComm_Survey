@@ -29,6 +29,7 @@ const AddAccontForm = (props) => {
         handleCancel,
         handleActiveCheck,
         handleUserLevelSelect,
+        handleCheckChange,
         visible,
         // err,
         errStyle,
@@ -41,7 +42,7 @@ const AddAccontForm = (props) => {
         accountsetting
     } = props;
     const err = {}
-    console.log(surveyList);
+    //console.log(surveyList);
     return (
         <div className="row justify-content-center py-3">
             <form className="col-6">
@@ -218,7 +219,7 @@ const AddAccontForm = (props) => {
 
                 </div>
             </form>
-            <SurveyHeaderList surveyList={surveyList} />
+            <SurveyHeaderList surveyList={surveyList} handleCheckChange={handleCheckChange} />
         </div>
     );
 };
@@ -228,7 +229,7 @@ export default AddAccontForm
 
 
 const SurveyHeaderList = (props) => {
-    const { surveyList } = props
+    const { surveyList, handleCheckChange } = props
     const surveyListOption = surveyList.map(v => ({ option_choice_id: v.survey_header_id, option_choice_name: v.survey_name }))
     return (
         <div className="col-6">
@@ -246,7 +247,7 @@ const SurveyHeaderList = (props) => {
                     value={[{ option_choice_id: v.survey_header_id, option_choice_name: v.survey_name }]}
                     fontSize={16}
                     className={"w-100"}
-                    // _handleChange={_handleCheckChange}
+                    _handleChange={(e) => handleCheckChange(e)}
                     // isAnswer={AnswerData}
                     // isQuestion={isQuestion}
                     keys={v.survey_header_id}
