@@ -7,8 +7,9 @@ import Auth from "../../security/auth";
 const NavBar = (props) => {
   const userId = localStorage.getItem("userId");
   const email = localStorage.getItem("email");
+  const userLevel = localStorage.getItem("userLevel");
+
   const { media } = props;
-  const userLevel = parseInt(localStorage.getItem("userLevel"));
   const queryString = window.location.search;
 
   const urlParams = new URLSearchParams(queryString);
@@ -87,13 +88,7 @@ const NavBar = (props) => {
             <div className="dropdown-divider"></div>
             <div className="dropdown-item text-light bg-dark">
               {/* <i className="text-light far fa-user-circle pr-2 text-secondary" /> */}
-              {userLevel === 1
-                ? "Admin"
-                : userLevel === 2
-                ? "User"
-                : userLevel === 3
-                ? "Distributor"
-                : null}
+              {userLevel}
             </div>
             <button className="dropdown-item" onClick={_handleSignOut}>
               <i className="fa fa-reply pr-2 text-secondary" />

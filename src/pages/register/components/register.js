@@ -161,7 +161,6 @@ const Register = (props) => {
                 disabled={isDisabled}
                 text={"REGISTER"}
                 type={"submit"}
-                small
                 id={"REGISTER"}
                 onClick={handleSubmit}
               />

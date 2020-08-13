@@ -118,7 +118,6 @@ const Question = (props) => {
                     <ESButton
                       text={"PREVIOUS"}
                       onClick={_handlePrevious}
-                      small
                       leftIcon={<i className="fa fa-caret-left pr-2" />}
                     />
                   ) : null}
@@ -128,7 +127,6 @@ const Question = (props) => {
                   surveyData[0].survey_sections.length === pageno + 1 ? (
                     <ESButton
                       text={"DONE"}
-                      small
                       onClick={_handleSubmit}
                       disabled={AnswerData.length === 0 ? true : false}
                       style={{
@@ -140,7 +138,6 @@ const Question = (props) => {
                     <ESButton
                       text={"NEXT"}
                       onClick={_handleNext}
-                      small
                       rightIcon={<i className="fa fa-caret-right pl-2"/>}
                     />
                   )}

@@ -143,7 +143,6 @@ console.log("===>",modifiedAgeData);
               <div className="col-3 py-2 px-0" style={{ minWidth: 172 }}>
                 <ESButton
                   text={"Print"}
-                  small
                   leftIcon={<i className="fa fa-print pr-2" />}
                 />
               </div>
@@ -172,7 +171,6 @@ console.log("===>",modifiedAgeData);
                 <div className="col-3 py-2 px-0" style={{ minWidth: 172 }}>
                   <ESButton
                     text={"Print"}
-                    small
                     leftIcon={<i className="fa fa-print pr-2" />}
                   />
                 </div>

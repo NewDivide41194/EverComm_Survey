@@ -14,7 +14,8 @@ const ESCheckbox = (props) => {
     keys,
     className,
     vertical,
-    checked
+    checked,
+    fontSize
   } = props;
 
   const customTheme = createMuiTheme({
@@ -30,7 +31,7 @@ const ESCheckbox = (props) => {
   // console.log(isAnswer.filter(d=>d.optionChoiceId===40).length>0&&isAnswer.filter(q=>q.questionId===quesId).length>0);
   // console.log(isAnswer);
 
-  console.log("Value", value);
+  //console.log("Value", value);
 
   return value.map((ans, k3) => (
     <label
@@ -47,7 +48,7 @@ const ESCheckbox = (props) => {
           `${ans.option_choice_id + quesId} div`
         ).style.background = "none")
       }
-      style={{ cursor: "pointer",fontSize:12 }}
+      style={{ cursor: "pointer",fontSize:fontSize||12 }}
     >
       {vertical && <div>{ans.option_choice_name}</div>}
 

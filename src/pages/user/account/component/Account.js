@@ -9,31 +9,43 @@ import UserTable from "./UserTable.js";
 
 const Account = (props) => {
   const {
+    isAdd,
+    handleIsAdd,
     accountsetting,
+    surveyList,
     edit,
-    Name,
+    firstName,
+    lastName,
+    companyName,
     Mobile,
     eMail,
     Role,
-    currentPassword,
-    newPassword,
-    ReEnterPassword,
+    password,
+    active,
+    userLevel,
+    UserLevelOptions,
     handleEditProfile,
-    handleNameChange,
+    handleFirstNameChange,
+    handleLastNameChange,
+    handleCompanyChange,
     handleMobileChange,
     handleEmailChange,
-    handleRoleChange,
-    handleCurrentPasswordChange,
-    handleNewPasswordChange,
-    handleReEnterPasswordChange,
+    handleRoleChange, 
+    handlePasswordChange,
+    handleUserLevelSelect,
+    handleActiveCheck,
+    handleCheckChange,
     handleSubmit,
+    handleCancel,
     handleIsEdit,
     handleAccountSetting,
     NameRef,
     err,
     errStyle,
     errClassName,
-    userData
+    userData,
+    visible,
+    handleView
   } = props;
 
   const header = {
@@ -44,19 +56,60 @@ const Account = (props) => {
     fontSize: "15px",
   };
 
+
   const [collapse, setCollapse] = useState(true)
   const isCollapse = () => { setCollapse(!collapse) }
   return (
-    <div className="container-fluid">
-      <div className="row">
-                <div className="w-50">
-          <AddAccountForm/>
-          {/* <EditAccountForm/> */}
+    <div className="container">
+      
+      <div className="row p-3"> 
+      <div className="w-100">
+          {userData && userData.length && <UserTable userData={userData} handleIsAdd={handleIsAdd} isCollapse={isAdd}/>}
         </div>
-        <div className="w-100">
-{         userData&&userData.length&& <UserTable userData={userData}/>
-}        </div>
-      </div>
+        {
+          isAdd && 
+          <div className="w-100">
+          <AddAccountForm 
+          visible={visible}
+            UserLevelOptions={UserLevelOptions}
+            accountsetting={accountsetting}
+            edit={edit}
+            firstName={firstName}
+            lastName={lastName}
+            companyName={companyName}
+            mobile={Mobile}
+            eMail={eMail}
+            Role={Role}
+            password={password}
+            active={active}
+            userLevel={userLevel}
+            handleEditProfile={handleEditProfile}
+            handleFirstNameChange={handleFirstNameChange}
+            handleLastNameChange={handleLastNameChange}
+            handleCompanyChange={handleCompanyChange}
+            handleMobileChange={handleMobileChange}
+            handleEmailChange={handleEmailChange}
+            handleRoleChange={handleRoleChange}
+            handlePasswordChange={handlePasswordChange}
+            handleUserLevelSelect = {handleUserLevelSelect}
+            handleActiveCheck = {handleActiveCheck}
+            handleCheckChange={handleCheckChange}
+            handleSubmit = {handleSubmit}
+            handleCancel = {handleCancel}
+            handleIsEdit = {handleIsEdit}
+            handleAccountSetting = {handleAccountSetting}
+            NameRef = {NameRef}
+            err = {err}
+            errStyle = {errStyle}
+            errClassName = {errClassName}
+            surveyList={surveyList}
+            handleView={handleView}
+          />
+          {/* <EditAccountForm/>  */}
+        </div>
+        }
+         
+    </div>
 
 
     </div>

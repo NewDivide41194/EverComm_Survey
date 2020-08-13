@@ -40,7 +40,9 @@ const RegisterContainer = (props) => {
     } else if (validedErr.passwordErr) {
       document.getElementById("Password").focus();
     }
+    console.log(validedErr);
     if (Object.keys(validedErr).length === 0) {
+      console.log("hello");
       setErr({});
       setIsDisabled(!isDisabled);
       RegisterFetch(
