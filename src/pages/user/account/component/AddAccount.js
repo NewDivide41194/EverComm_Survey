@@ -44,7 +44,7 @@ const AddAccontForm = (props) => {
     } = props;
     const err = {}
     return (
-        <div className="row justify-content-center py-3">
+        <div className="row justify-content-center py-3" style={{transform:""}}>
             <form className="col-lg-6 col-sm-12">
                 <h4 style={
                     {color: Colors.PrimaryColor}

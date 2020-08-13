@@ -44,7 +44,9 @@ const Account = (props) => {
     errStyle,
     errClassName,
     userData,
-    checkedList
+    checkedList,
+    visible,
+    handleView
   } = props;
 
   const header = {
@@ -63,12 +65,13 @@ const Account = (props) => {
       
       <div className="row p-3"> 
       <div className="w-100">
-          {userData && userData.length && <UserTable userData={userData} handleIsAdd={handleIsAdd} isAdd={isAdd}/>}
+          {userData && userData.length && <UserTable userData={userData} handleIsAdd={handleIsAdd} isAdd={isAdd} isEdit={edit} handleIsEdit={handleIsEdit}/>}
         </div>
         {
           isAdd && 
           <div className="w-100">
           <AddAccountForm 
+          visible={visible}
             UserLevelOptions={UserLevelOptions}
             accountsetting={accountsetting}
             edit={edit}
@@ -102,6 +105,7 @@ const Account = (props) => {
             errClassName = {errClassName}
             surveyList={surveyList}
             checkedList={checkedList}
+            handleView={handleView}
           />
           {/* <EditAccountForm/>  */}
         </div>

@@ -5,11 +5,13 @@ import { useAlert } from "react-alert";
 import { RegisterFormValidation } from "../../../helper/formValidation";
 
 const RegisterContainer = (props) => {
+  const token = localStorage.getItem("token")
   const [visible, setVisible] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [eMail, setEmail] = useState("");
   const [companyName, setCompanyName] = useState("");
+  const [Mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState({});
   const [isDisabled, setIsDisabled] = useState(false);
@@ -26,13 +28,15 @@ const RegisterContainer = (props) => {
   
   const _handleSubmit = (e) => {
     e.preventDefault();
-    const data = { eMail, password, firstName, lastName, companyName };
+    const data = { eMail, password, firstName, lastName, companyName, Mobile };
     const validedErr = RegisterFormValidation(data);
     setErr(validedErr);
     if (validedErr.firstNameErr) {
       document.getElementById("FirstName").focus();
     } else if (validedErr.lastNameErr) {
       document.getElementById("LastName").focus();
+    } else if (validedErr.MobileErr){
+      document.getElementById("Mobile").focus();
     } else if (validedErr.companyErr) {
       document.getElementById("CompanyName").focus();
     } else if (validedErr.eMailErr) {
@@ -40,21 +44,17 @@ const RegisterContainer = (props) => {
     } else if (validedErr.passwordErr) {
       document.getElementById("Password").focus();
     }
+    console.log(validedErr);
     if (Object.keys(validedErr).length === 0) {
       setErr({});
-      setIsDisabled(!isDisabled);
-      RegisterFetch(
-        { firstName, lastName, eMail, password, companyName },
-        (err, data) => {
-          if (data.success === false) {
-            alert.error(data.message);
-            setIsDisabled(isDisabled);
-          } else {
-            props.history.push("/");
-            alert.success("Account Created Successfuly!");
-          }
+      RegisterFetch({ firstName, lastName, eMail, password, companyName, Mobile, token }, (err, data) => {
+        if (data.success === false) {
+          alert.error(data.message);
+        } else {
+          alert.success("Account Added Successfully!")
+          props.history.push("/");
         }
-      );
+      });
     }
   };
 
@@ -72,6 +72,11 @@ const RegisterContainer = (props) => {
     setErr({});
     setLastName(e.target.value.replace(/\s+/g, " ").trimStart());
   };
+
+  const _handleMobileChange = (e) => {
+    setErr({});
+    setMobile(e.target.value.replace(/\s+/g, " ").trimStart());
+  }
   const _handleEmailChange = (e) => {
     setErr({});
     setEmail(e.target.value.trimStart());
@@ -102,6 +107,7 @@ const RegisterContainer = (props) => {
       handleCompanyChange={_handleCompanyChange}
       handleFirstNameChange={_handleFirstNameChange}
       handleLastNameChange={_handleLastNameChange}
+      handleMobileChange={_handleMobileChange}
       handlePwdChange={_handlePwdChange}
     />
   );

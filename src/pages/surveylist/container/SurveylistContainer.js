@@ -4,6 +4,7 @@ import { ESButton } from "../../../tools/ES_Button";
 import * as Colors from "../../../config/Color.config";
 import { SurveyListFetch } from "../../../api/FetchSurveyList";
 import { Building_Type } from "../../../api/url";
+
 const SurveylistContainer = (props) => {
   const [surveyList, setSurveyList] = useState([]);
   const [buildingList, setBuildingList] = useState([]);
@@ -20,7 +21,7 @@ const SurveylistContainer = (props) => {
 
   const handleCardClick = () => {
     const buildingId = localStorage.getItem("buildingId");
-    props.history.push(`/question/${userId}/${SurveyHeaderId}/${buildingId}/${bTypeId}`);
+    props.history.push(`/question/${userId}/${SurveyHeaderId}/${buildingId}`);
   };
 
   useEffect(() => {

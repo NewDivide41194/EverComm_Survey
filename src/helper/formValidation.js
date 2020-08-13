@@ -21,7 +21,6 @@ export const LoginFormValidation = (data) => {
 export const RegisterFormValidation = (data) => {
   const err = {};
   const { eMail, password, firstName, lastName, companyName, Mobile  } = data;
-
   if (firstName === "") {
     err.firstNameErr = "Fill Frist Name!";
   } else if (specialCharacterRegx.test(firstName)) {

@@ -7,7 +7,7 @@ import Auth from "../../security/auth";
 const NavBar = (props) => {
   const userId = localStorage.getItem("userId");
   const email = localStorage.getItem("email");
-  const userLevel = localStorage.getItem("userLevel");
+  const userLevel = parseInt(localStorage.getItem("userLevel"));
 
   const { media } = props;
   const queryString = window.location.search;
@@ -88,8 +88,13 @@ const NavBar = (props) => {
             <div className="dropdown-divider"></div>
             <div className="dropdown-item text-light bg-dark">
               {/* <i className="text-light far fa-user-circle pr-2 text-secondary" /> */}
-              {userLevel}
-            </div>
+              {userLevel === 1
+              ? "Admin"
+              : userLevel === 2
+                ? "User"
+                : userLevel === 3
+                  ? "Distributor"
+                  : null}            </div>
             <button className="dropdown-item" onClick={_handleSignOut}>
               <i className="fa fa-reply pr-2 text-secondary" />
               Sign Out
@@ -101,8 +106,7 @@ const NavBar = (props) => {
   };
   return props.location.pathname === "/report/totalReport" ? null : props
       .location.pathname === `/report/` ? null : props.location.pathname ===
-    "/" ? null : props.location.pathname ===
-    "/register" ? null : (
+    "/" ? null : props.location.pathname === "/register" ? null : (
     <Nav />
   );
 };

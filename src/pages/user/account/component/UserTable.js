@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import MaterialTable from 'material-table';
 import { ESButton } from '../../../../tools/ES_Button';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
@@ -6,19 +6,17 @@ import * as Colors from '../../../../config/Color.config'
 import { render } from '@testing-library/react';
 
 export default function UserTable(props) {
-    const { userData, handleIsAdd, isAdd, } = props
-    console.log(userData);
+    const { userData, handleIsAdd, isAdd,isEdit,handleIsEdit } = props
+
     const theme = createMuiTheme({
         palette: {
             primary: {
                 main: Colors.PrimaryColor,
-            },
-            secondary: {
-                main: '#ff9100',
-            },
+            }
         },
 
     });
+
     const [tableData, setTableData] = React.useState({
         columns: [
             { title: 'Name', field: 'name' },
@@ -26,35 +24,31 @@ export default function UserTable(props) {
             { title: 'Role', field: 'role' },
             { title: 'Company', field: 'company' },
             { title: 'Active', field: 'active' },
-            { title: 'Action', field: 'role', render: () => <ESButton text={"Edit"} noShadow small /> },
-
-
-
-            // {
-            //     title: 'Birth Place',
-            //     field: 'birthCity',
-            //     lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
-            // },
+           
         ],
         data:
-            userData.map((v, k) => { return ({ name: v.user_name, eMail: v.email, role: v.role, company: v.company_name, active: v.active === 1 ? "Yes" : "No" }) })
-        // [
-        //     { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
-        //     {
-        //         name: 'Zerya Betül',
-        //         surname: 'Baran',
-        //         birthYear: 2017,
-        //         birthCity: 34,
-        //     },
-        // ],
+            userData.map((v, k) => { return ({id:v.login_user_id, name: v.user_name, eMail: v.email, role: v.role, company: v.company_name, active: v.active === 1 ? "Yes" : "No" }) })
     });
+const actionButtons=<div className='row w-100 px-3'>
+    <div className="w-100 pb-1"><ESButton text={"+ Add User"} onClick={handleIsAdd} noShadow small disabled={isAdd} /></div>
+    <div  className="w-100"><ESButton text={"Edit"} onClick={e=>handleIsEdit(e)} noShadow small disabled={isEdit} leftIcon={<i className="fa fa-edit pr-2"></i>} /></div>
+</div>
+    console.log();
 
-    console.log(isAdd);
+    const _handleEdit=(e)=>{console.log(e.target);}
+    useEffect(()=>{
+       isEdit? setTableData({...tableData},tableData.columns.push( { title:'Action', render: () => <ESButton id={
+        userData.map((v, k) =>  v.login_user_id)[0]
+     }  text={"Edit"} onClick={e=>_handleEdit(e)} noShadow small /> }))
+       :isAdd?tableData.columns.pop()
+       : tableData.columns.pop()
+                },[isEdit,isAdd])
     return (
         <MuiThemeProvider theme={theme}>
             <MaterialTable
+            onRowClick={(event, rowData) => console.log(tableData.data[rowData.tableData.id],event)}
                 padding
-                title={<ESButton text={"+ Add New User"} onClick={handleIsAdd} noShadow small disabled={isAdd} />}
+                title={actionButtons}
                 columns={tableData.columns}
                 data={tableData.data}
                 // editable={{

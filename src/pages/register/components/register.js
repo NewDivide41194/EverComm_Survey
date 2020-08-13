@@ -11,11 +11,13 @@ const Register = (props) => {
     lastName,
     eMail,
     password,
+    Mobile,
     handleFirstNameChange,
     handleLastNameChange,
     handleEmailChange,
     handleCompanyChange,
     handlePwdChange,
+    handleMobileChange,
     handleView,
     visible,
     err,
@@ -28,7 +30,7 @@ const Register = (props) => {
     <div className="container py-4"
     >
       <div className="row justify-content-center">
-        <form className="col-lg-6 col-md-8" style={{
+        <form className="col-lg-4 col-md-8" style={{
       position: "absolute",
       top: "50%",
       transform: "translateY(-50%)"
@@ -84,8 +86,8 @@ const Register = (props) => {
                 onChange={(e) => handleLastNameChange(e)}
               />
             </div>
-            <div className="py-2 col-12">
-              <label htmlFor="CompanyName">Your Company Name</label>
+            <div className="py-2 col-sm-12 col-lg-6">
+              <label htmlFor="CompanyName">Company Name</label>
               {err.companyErr === undefined ? null : (
                 <div
                   className={errClassName}
@@ -99,6 +101,23 @@ const Register = (props) => {
                 maxLength={"50"}
                 value={companyName}
                 onChange={(e) => handleCompanyChange(e)}
+              />
+            </div>
+            <div className="py-2 col-sm-12 col-lg-6">
+              <label htmlFor="Mobile">Phone No.</label>
+              {err.companyErr === undefined ? null : (
+                <div
+                  className={errClassName}
+                  style={{ ...errStyle }}
+                >{`*${err.MobileErr}`}</div>
+              )}
+              <ESInput
+                disabled={isDisabled}
+                id={"Mobile"}
+                placeHolder={"Your Phone No."}
+                maxLength={"20"}
+                value={Mobile}
+                onChange={(e) => handleMobileChange(e)}
               />
             </div>
             <div className="py-2 col-12">

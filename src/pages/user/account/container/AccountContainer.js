@@ -24,7 +24,7 @@ const AccountContainer = (props) => {
   const [surveyList, setSurveyList] = useState([]);
   const [checkedList, setCheckedList] = useState([]);
   const [isAdd, setIsAdd] = useState(false)
-
+  const [visible,setVisible]=useState(false)
   const errStyle = {
     marginTop: "-25px",
     fontSize: 12,
@@ -45,15 +45,12 @@ const AccountContainer = (props) => {
   const NameRef = useRef(null);
 
   useEffect(() => {
-    if (edit) {
-      NameRef.current.focus();
-    }
     GetUser(null, (err, data) => {
       setUserData(data.payload[0])
       setSurveyList(data.payload[1])
 
     })
-  }, [edit]);
+  }, []);
   //console.log('survey list >> ', surveyList)
   const _handleSubmit = (e) => {
     e.preventDefault();
@@ -97,8 +94,10 @@ const AccountContainer = (props) => {
       });
     }
   };
-  const _handleIsAdd=()=>{setIsAdd(!isAdd)}
+  const _handleIsAdd=()=>{setIsAdd(!isAdd)
+  setEdit(false)}
 
+  const _handleview=()=>{setVisible(!visible)}
   const _handleCancel = () => {
     // document.getElementById("FirstName").value = "";
     // document.getElementById("LastName").value = "";
@@ -112,6 +111,7 @@ const AccountContainer = (props) => {
   const _handleIsEdit = () => {
     setErr({});
     setEdit(!edit);
+    setIsAdd(false)
   };
 
   const Timeout = () => {
@@ -220,6 +220,8 @@ const AccountContainer = (props) => {
       NameRef={NameRef}
       isAdd={isAdd}
       checkedList={checkedList}
+      handleView={_handleview}
+      visible={visible}
     />
   );
 };
