@@ -43,7 +43,8 @@ const Account = (props) => {
     err,
     errStyle,
     errClassName,
-    userData
+    userData,
+    checkedList
   } = props;
 
   const header = {
@@ -62,7 +63,7 @@ const Account = (props) => {
       
       <div className="row p-3"> 
       <div className="w-100">
-          {userData && userData.length && <UserTable userData={userData} handleIsAdd={handleIsAdd} isCollapse={isAdd}/>}
+          {userData && userData.length && <UserTable userData={userData} handleIsAdd={handleIsAdd} isAdd={isAdd}/>}
         </div>
         {
           isAdd && 
@@ -100,6 +101,7 @@ const Account = (props) => {
             errStyle = {errStyle}
             errClassName = {errClassName}
             surveyList={surveyList}
+            checkedList={checkedList}
           />
           {/* <EditAccountForm/>  */}
         </div>

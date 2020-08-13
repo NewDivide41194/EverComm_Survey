@@ -48,11 +48,13 @@ export default function UserTable(props) {
         //     },
         // ],
     });
+
+    console.log(isAdd);
     return (
         <MuiThemeProvider theme={theme}>
             <MaterialTable
                 padding
-                title={<ESButton text={"+ Add New User"} onClick={handleIsAdd} noShadow small />}
+                title={<ESButton text={"+ Add New User"} onClick={handleIsAdd} noShadow small disabled={isAdd} />}
                 columns={tableData.columns}
                 data={tableData.data}
                 // editable={{

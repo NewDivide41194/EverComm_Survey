@@ -100,12 +100,13 @@ const AccountContainer = (props) => {
   const _handleIsAdd=()=>{setIsAdd(!isAdd)}
 
   const _handleCancel = () => {
-    document.getElementById("FirstName").value = "";
-    document.getElementById("LastName").value = "";
-    document.getElementById("Mobile").value = "";
-    document.getElementById("CompanyName").value = "";
-    document.getElementById("Email").value = "";
-    document.getElementById("Password").value = "";
+    // document.getElementById("FirstName").value = "";
+    // document.getElementById("LastName").value = "";
+    // document.getElementById("Mobile").value = "";
+    // document.getElementById("CompanyName").value = "";
+    // document.getElementById("Email").value = "";
+    // document.getElementById("Password").value = "";
+    setIsAdd(false)
   }
 
   const _handleIsEdit = () => {
@@ -163,24 +164,26 @@ const AccountContainer = (props) => {
     return checkedList.findIndex((e) => e === id)
   }
 
-  const _handleCheckChange = (id) => {
-  
-      console.log(checkListIndex(id));
-      
+  const _handleCheckChange = (id) => {      
     if(checkListFilter(id) >= 1){
       checkedList.splice(checkListIndex(id), 1)
     } else {
       checkedList.push(id)
     }   
     setCheckedList(checkedList.map(v => v)) 
-    console.log('checkedList >>>> ', checkedList)
   }
 
   const _handleUserLevelSelect = (e) => {
     setErr({});
+    if(e.value===1){
+      setCheckedList(surveyList.map(v=>v.survey_header_id))
+    }else{setCheckedList([])}
     e !== null && setUserLevel(e.value);
+    
     return;
   };
+
+  console.log(checkedList);
 
   return (
     <Account
@@ -216,6 +219,7 @@ const AccountContainer = (props) => {
       handleIsAdd={_handleIsAdd}
       NameRef={NameRef}
       isAdd={isAdd}
+      checkedList={checkedList}
     />
   );
 };

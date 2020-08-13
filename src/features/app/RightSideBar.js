@@ -1,13 +1,9 @@
 import React, {useState, useEffect} from "react";
 import {slide as Menu} from "react-burger-menu";
-// import MyLink from "../../tools/myLink";
-// import * as RoutePath from "../../../../config/routeConfig";
 import * as Colors from "../../config/Color.config";
-import {Link, withRouter} from "react-router-dom";
+import { withRouter} from "react-router-dom";
 import {EverCommLink} from "../../tools/ES_Text";
-import {RouteName} from "../../routes";
 import auth from "../../security/auth";
-// import * as Fonts from '../../../../config/fontConfig'
 
 
 const RightSideBar = (props) => {

@@ -81,3 +81,8 @@ label{color:rgb(104, 104, 104)}
 }
 
 .pdfBg{-webkit-print-color-adjust: exact}
+
+::ng-deep .mat-checkbox .mat-checkbox-frame {
+  color: red;
+  border-color: violet;
+}
