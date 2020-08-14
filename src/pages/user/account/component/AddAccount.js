@@ -43,6 +43,8 @@ const AddAccontForm = (props) => {
     checkedList,
   } = props;
   const err = {};
+  console.log('levelllllll', userLevel)
+  
   return (
     <div className="row justify-content-center py-3" style={{ transform: "" }}>
       <form className="col-lg-6 col-sm-12">
@@ -137,11 +139,11 @@ const AddAccontForm = (props) => {
             <ESDropDownSample
               disabled={isDisabled}
               id={"UserLevel"}
-              defaultValue={UserLevelOptions[1]}
+              defaultValue={ UserLevelOptions[1] }
               notClearable
               _handleSelect={handleUserLevelSelect}
               options={UserLevelOptions}
-              value={userLevel}
+              value={edit? userLevel:UserLevelOptions[1]}
             />
           </div>
           <div className="py-2 col-12">
@@ -180,7 +182,7 @@ const AddAccontForm = (props) => {
               </div>
             )}
             <ESInput
-              disabled={isDisabled}
+              disabled={edit ? true : isDisabled}
               id={"Password"}
               type={visible ? "text" : "password"}
               placeHolder={"Password"}
@@ -226,7 +228,7 @@ const AddAccontForm = (props) => {
               <div className="col-6">
                 <ESButton
                   disabled={isDisabled}
-                  text={"ADD USER"}
+                  text={edit ? "UPDATE USER" : "ADD USER"}
                   type={"submit"}
                   id={"AddUser"}
                   onClick={handleSubmit}
@@ -258,6 +260,7 @@ export default AddAccontForm;
 
 const SurveyHeaderList = (props) => {
   const { surveyList, handleCheckChange, checkedList, userLevel } = props;
+  const level = Object.values(userLevel).map(v => v)
   const surveyListOption = surveyList.map((v) => ({
     option_choice_id: v.survey_header_id,
     option_choice_name: v.survey_name,
@@ -285,7 +288,7 @@ const SurveyHeaderList = (props) => {
             checked={
               checkedList.filter((d) => d === v.survey_header_id).length > 0
             }
-            disabled={userLevel === 1}
+            disabled={level[0] === 1}
             keys={v.survey_header_id}
             // className={ques.option_group_id===10?"w-25":null}
           />
