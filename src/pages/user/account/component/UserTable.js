@@ -49,27 +49,6 @@ export default function UserTable(props) {
       </div>
     </div>
   );
-
-//   useEffect(() => {
-//     isEdit
-//       ? setTableData(
-//           { ...tableData },
-//           tableData.columns.push({
-//             title: "Action",
-//             render: () => (
-//               <ESButton
-//                 text={"Edit"}
-//                 onClick={(e) => _handleEdit(e)}
-//                 noShadow
-//                 small
-//               />
-//             ),
-//           })
-//         )
-//       : isAdd
-//       ? tableData.columns.pop()
-//       : tableData.columns.pop();
-//   }, [isEdit, isAdd]);
 console.log(handleEdit);
   return (
     <MuiThemeProvider theme={theme}>
@@ -80,43 +59,7 @@ console.log(handleEdit);
         title={actionButtons}
         columns={tableData.columns}
         data={tableData.data}
-        // editable={{
-        //     onRowAdd: (newData) =>
-        //         new Promise((resolve) => {
-        //             setTimeout(() => {
-        //                 resolve();
-        //                 setTableData((prevState) => {
-        //                     const data = [...prevState.data];
-        //                     data.push(newData);
-        //                     return { ...prevState, data };
-        //                 });
-        //             }, 600);
-        //         }),
-        //     onRowUpdate: (newData, oldData) =>
-        //         new Promise((resolve) => {
-        //             setTimeout(() => {
-        //                 resolve();
-        //                 if (oldData) {
-        //                     setTableData((prevState) => {
-        //                         const data = [...prevState.data];
-        //                         data[data.indexOf(oldData)] = newData;
-        //                         return { ...prevState, data };
-        //                     });
-        //                 }
-        //             }, 600);
-        //         }),
-        //     onRowDelete: (oldData) =>
-        //         new Promise((resolve) => {
-        //             setTimeout(() => {
-        //                 resolve();
-        //                 setTableData((prevState) => {
-        //                     const data = [...prevState.data];
-        //                     data.splice(data.indexOf(oldData), 1);
-        //                     return { ...prevState, data };
-        //                 });
-        //             }, 600);
-        //         }),
-        // }}
+       
         options={{
           headerStyle: {
             backgroundColor: Colors.PrimaryColor,
