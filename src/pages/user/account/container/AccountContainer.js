@@ -25,6 +25,7 @@ const AccountContainer = (props) => {
   const [checkedList, setCheckedList] = useState([]);
   const [isAdd, setIsAdd] = useState(false)
   const [visible,setVisible]=useState(false)
+  const [editData,setEditData]=useState([])
   const errStyle = {
     marginTop: "-25px",
     fontSize: 12,
@@ -65,7 +66,6 @@ const AccountContainer = (props) => {
       active,
       userLevel
     };
-    console.log(RegisterFormValidation(data));
     const validedErr = RegisterFormValidation(data);
     setErr(validedErr);
 
@@ -95,8 +95,8 @@ const AccountContainer = (props) => {
     }
   };
   const _handleIsAdd=()=>{setIsAdd(!isAdd)
-  setEdit(false)}
-
+  setEdit(false) 
+  setEditData([])}
   const _handleview=()=>{setVisible(!visible)}
   const _handleCancel = () => {
     // document.getElementById("FirstName").value = "";
@@ -114,9 +114,8 @@ const AccountContainer = (props) => {
     setIsAdd(false)
   };
 
-  const Timeout = () => {
-    setTimeout(() => setErr({}), 5000);
-  };
+  const _handleEdit = (rowData) => {
+setEditData([rowData])  };
 
   const _handleFirstNameChange = (e) => {
     setErr({});
@@ -183,7 +182,7 @@ const AccountContainer = (props) => {
     return;
   };
 
-  console.log(checkedList);
+  console.log(editData);
 
   return (
     <Account
@@ -191,6 +190,8 @@ const AccountContainer = (props) => {
       surveyList={surveyList}
       err={err}
       edit={edit}
+      editData={editData}
+      handleEdit={_handleEdit}
       firstName={firstName}
       lastName={lastName}
       companyName={companyName}

@@ -4,7 +4,7 @@ import { ESButton } from "../../../../../src/tools/ES_Button.js";
 import * as Colors from "../../../../config/Color.config";
 import RightSideBar from "../../../../features/app/RightSideBar.js";
 // import EditAccountForm from "./EditAccount.js";
-import AddAccountForm from './AddAccount'
+import AddAccountForm from "./AddAccount";
 import UserTable from "./UserTable.js";
 
 const Account = (props) => {
@@ -30,7 +30,7 @@ const Account = (props) => {
     handleCompanyChange,
     handleMobileChange,
     handleEmailChange,
-    handleRoleChange, 
+    handleRoleChange,
     handlePasswordChange,
     handleUserLevelSelect,
     handleActiveCheck,
@@ -46,7 +46,9 @@ const Account = (props) => {
     userData,
     checkedList,
     visible,
-    handleView
+    handleView,
+    handleEdit,
+    editData
   } = props;
 
   const header = {
@@ -57,63 +59,68 @@ const Account = (props) => {
     fontSize: "15px",
   };
 
-
-  const [collapse, setCollapse] = useState(true)
-  const isCollapse = () => { setCollapse(!collapse) }
+  const [collapse, setCollapse] = useState(true);
+  const isCollapse = () => {
+    setCollapse(!collapse);
+  };
   return (
     <div className="container">
-      
-      <div className="row p-3"> 
-      <div className="w-100">
-          {userData && userData.length && <UserTable userData={userData} handleIsAdd={handleIsAdd} isAdd={isAdd} isEdit={edit} handleIsEdit={handleIsEdit}/>}
+      <div className="row p-3">
+        <div className="w-100">
+          {userData && userData.length && (
+            <UserTable
+              userData={userData}
+              handleIsAdd={handleIsAdd}
+              isAdd={isAdd}
+              isEdit={edit}
+              handleIsEdit={handleIsEdit}
+              handleEdit={handleEdit}
+            />
+          )}
         </div>
-        {
-          isAdd && 
+        {(isAdd || editData.length>0)&& (
           <div className="w-100">
-          <AddAccountForm 
-          visible={visible}
-            UserLevelOptions={UserLevelOptions}
-            accountsetting={accountsetting}
-            edit={edit}
-            firstName={firstName}
-            lastName={lastName}
-            companyName={companyName}
-            mobile={Mobile}
-            eMail={eMail}
-            Role={Role}
-            password={password}
-            active={active}
-            userLevel={userLevel}
-            handleEditProfile={handleEditProfile}
-            handleFirstNameChange={handleFirstNameChange}
-            handleLastNameChange={handleLastNameChange}
-            handleCompanyChange={handleCompanyChange}
-            handleMobileChange={handleMobileChange}
-            handleEmailChange={handleEmailChange}
-            handleRoleChange={handleRoleChange}
-            handlePasswordChange={handlePasswordChange}
-            handleUserLevelSelect = {handleUserLevelSelect}
-            handleActiveCheck = {handleActiveCheck}
-            handleCheckChange={handleCheckChange}
-            handleSubmit = {handleSubmit}
-            handleCancel = {handleCancel}
-            handleIsEdit = {handleIsEdit}
-            handleAccountSetting = {handleAccountSetting}
-            NameRef = {NameRef}
-            err = {err}
-            errStyle = {errStyle}
-            errClassName = {errClassName}
-            surveyList={surveyList}
-            checkedList={checkedList}
-            handleView={handleView}
-          />
-          {/* <EditAccountForm/>  */}
-        </div>
-        }
-         
-    </div>
-
-
+            <AddAccountForm
+              visible={visible}
+              UserLevelOptions={UserLevelOptions}
+              accountsetting={accountsetting}
+              edit={edit}
+              firstName={firstName}
+              lastName={lastName}
+              companyName={companyName}
+              mobile={Mobile}
+              eMail={eMail}
+              Role={Role}
+              password={password}
+              active={active}
+              userLevel={userLevel}
+              handleEditProfile={handleEditProfile}
+              handleFirstNameChange={handleFirstNameChange}
+              handleLastNameChange={handleLastNameChange}
+              handleCompanyChange={handleCompanyChange}
+              handleMobileChange={handleMobileChange}
+              handleEmailChange={handleEmailChange}
+              handleRoleChange={handleRoleChange}
+              handlePasswordChange={handlePasswordChange}
+              handleUserLevelSelect={handleUserLevelSelect}
+              handleActiveCheck={handleActiveCheck}
+              handleCheckChange={handleCheckChange}
+              handleSubmit={handleSubmit}
+              handleCancel={handleCancel}
+              handleIsEdit={handleIsEdit}
+              handleAccountSetting={handleAccountSetting}
+              NameRef={NameRef}
+              err={err}
+              errStyle={errStyle}
+              errClassName={errClassName}
+              surveyList={surveyList}
+              checkedList={checkedList}
+              handleView={handleView}
+            />
+            {/* <EditAccountForm/>  */}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
