@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Account from "../component/Account";
-import { RegisterFetch } from "../../../../api/FetchUser";
+import { RegisterFetch, UpdateUserAccount } from "../../../../api/FetchUser";
 import { RegisterFormValidation } from "../../../../helper/formValidation";
 import { useAlert } from "react-alert";
 // import { UpdateUserInfo } from "../../../../api/FetchUser";
@@ -10,6 +10,7 @@ import { GetUser } from "../../../../api/FetchUser"
 const AccountContainer = (props) => {
   const token = localStorage.getItem("token");
   const [userData, setUserData] = useState([]);
+  const [id, setId] = useState(null);
   const [edit, setEdit] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -52,7 +53,7 @@ const AccountContainer = (props) => {
 
     })
   }, []);
-  //console.log('survey list >> ', surveyList)
+  console.log('Mode>> ', isAdd)
   const _handleSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -61,14 +62,16 @@ const AccountContainer = (props) => {
       companyName,
       Mobile,
       eMail,
-      Role,
-      password,
+      // password,
       active,
       userLevel
     };
+    console.log(data);
+    
     const validedErr = RegisterFormValidation(data);
     setErr(validedErr);
-
+    console.log(validedErr);
+    if (validedErr!==undefined){
     if (validedErr.firstNameErr) {
       document.getElementById("FirstName").focus();
     } else if (validedErr.lastNameErr) {
@@ -81,31 +84,57 @@ const AccountContainer = (props) => {
       document.getElementById("Email").focus();
     } else if (validedErr.passwordErr) {
       document.getElementById("Password").focus();
-    }
-    if (Object.keys(validedErr).length === 0) {
+    }}
+    
+    else if (validedErr===undefined) {
+      console.log('hello')
       setErr({});
-      RegisterFetch({ firstName, lastName, eMail, password, companyName, active, Mobile, userLevel,surveyHeaderId:checkedList, token }, (err, data) => {
-        if (data.success === false) {
-          alert.error(data.message);
-        } else {
-          alert.success("Account Added Successfully!")
-          //window.location.reload();
-        }
-      });
+      if(isAdd) {
+        RegisterFetch({ firstName, lastName, eMail, password, companyName, active, Mobile, userLevel,surveyHeaderId:checkedList, token }, (err, data) => {
+          if (data.success === false) {
+            alert.error(data.message);
+          } else {
+            alert.success("Account Added Successfully!")
+            //window.location.reload();
+          }
+        });
+      }
+      else {
+        console.log('Hello')
+        console.log('update >>>>>> ', id, firstName, lastName, eMail, companyName, active, Mobile, userLevel, checkedList)
+        // UpdateUserAccount({ id, firstName, lastName, eMail, companyName, active, Mobile, userLevel,surveyHeaderId:checkedList},
+        //   (error, data) => {
+        //     if (data.success === false){
+        //       alert.error(data.message);
+        //     }else {
+
+        //     }
+        //   })
+      }
     }
   };
-  const _handleIsAdd=()=>{setIsAdd(!isAdd)
-  setEdit(false) 
-  setEditData([])}
+  const _handleIsAdd=()=>{
+    setIsAdd(!isAdd)
+    setEdit(false) 
+    setFirstName("") 
+    setLastName("")
+    setMobile("")
+    setCompanyName("")
+    setUserLevel(UserLevelOptions[1])
+    setActive(false)
+    console.log('edit data >> ', editData)
+  }
+
   const _handleview=()=>{setVisible(!visible)}
+
   const _handleCancel = () => {
-    // document.getElementById("FirstName").value = "";
-    // document.getElementById("LastName").value = "";
-    // document.getElementById("Mobile").value = "";
-    // document.getElementById("CompanyName").value = "";
-    // document.getElementById("Email").value = "";
-    // document.getElementById("Password").value = "";
-    setIsAdd(false)
+      // document.getElementById("FirstName").value = "";
+      // document.getElementById("LastName").value = "";
+      // document.getElementById("Mobile").value = "";
+      // document.getElementById("CompanyName").value = "";
+      // document.getElementById("Email").value = "";
+      // document.getElementById("Password").value = "";
+      setIsAdd(false)
   }
 
   const _handleIsEdit = () => {
@@ -115,7 +144,30 @@ const AccountContainer = (props) => {
   };
 
   const _handleEdit = (rowData) => {
-setEditData([rowData])  };
+    console.log('rowData >>> ', rowData.id)
+    setId(rowData.id)
+    console.log('idddd >>>> ', rowData.id)
+    const first = rowData.name.split(" ")
+    const last = rowData.name.split(" ").splice(1,2).join(' ')
+    const isActive = rowData.active == 0 ? false : true
+    const userlevel = Object.values(UserLevelOptions).filter(v=> v.label == rowData.role.toLowerCase() ? v.label : null)
+
+    setFirstName(first[0])
+    setLastName(last)
+    setCompanyName(rowData.companyName)
+    setMobile(rowData.phone_number)
+    setEMail(rowData.email)
+    setActive(isActive)
+    setUserLevel(userlevel[0])
+    setEditData([rowData])  
+
+    if(rowData.role==='ADMIN'){
+      setCheckedList(surveyList.map(v=>v.survey_header_id))
+    }else{setCheckedList([])}
+  };
+
+  //const id = Object.values(editData).filter(v => v.id )
+
 
   const _handleFirstNameChange = (e) => {
     setErr({});
@@ -177,12 +229,12 @@ setEditData([rowData])  };
     if(e.value===1){
       setCheckedList(surveyList.map(v=>v.survey_header_id))
     }else{setCheckedList([])}
-    e !== null && setUserLevel(e.value);
+    e !== null && setUserLevel(e);
     
     return;
   };
 
-  console.log(editData);
+  // console.log();
 
   return (
     <Account

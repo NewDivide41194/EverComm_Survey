@@ -6,17 +6,20 @@ export const ESDropDownSample = (props) => {
     const {
         options,
         _handleSelect,
-        value,
+        // value,
         disabled,
-        defaultValue
+        defaultValue,
+        value
     } = props;
+console.log("------->",defaultValue);
 
     return (
         <Select 
             // isDisabled={disabled}
+            
             defaultValue={defaultValue}
             className="w-100"
-            // value={value}
+            value={value}
             onChange={(e) => _handleSelect(e)}
             options={options}
         />

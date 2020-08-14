@@ -48,9 +48,12 @@ export const RegisterFormValidation = (data) => {
   }
   if (password === "") {
     err.passwordErr = "Fill Password!";
-  }else if (password.length<8){
-    err.passwordErr="Minium 8 Characters"
+  }else if (password===undefined){
+    return
   }
+  else if (password.length<8){
+    err.passwordErr="Minium 8 Characters"
+  } 
   return err;
 };
 

@@ -70,7 +70,7 @@ export default function UserTable(props) {
 //       ? tableData.columns.pop()
 //       : tableData.columns.pop();
 //   }, [isEdit, isAdd]);
-console.log(handleEdit);
+//console.log(handleEdit);
   return (
     <MuiThemeProvider theme={theme}>
       <MaterialTable
