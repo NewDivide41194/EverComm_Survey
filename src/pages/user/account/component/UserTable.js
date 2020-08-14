@@ -19,21 +19,12 @@ export default function UserTable(props) {
   const [tableData, setTableData] = React.useState({
     columns: [
       { title: "Name", field: "name" },
-      { title: "Email", field: "eMail" },
+      { title: "Email", field: "email" },
       { title: "Role", field: "role" },
-      { title: "Company", field: "company" },
+      { title: "Company", field: "companyName" },
       { title: "Active", field: "active" },
     ],
-    data: userData.map((v, k) => {
-      return {
-        id: v.id,
-        name: v.name,
-        eMail: v.email,
-        role: v.role,
-        company: v.companyName,
-        active: v.active === 1 ? "Yes" : "No",
-      };
-    }),
+    data: userData
   });
   const actionButtons = (
     <div className="row w-100 px-3">
