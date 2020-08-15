@@ -64,7 +64,7 @@ const AccountContainer = (props) => {
       eMail,
       // password,
       active,
-      userLevel
+      userLevel,
     };
     console.log(data);
     

@@ -1,13 +1,14 @@
-import React, {useState} from "react";
-import {slide as Menu} from "react-burger-menu";
+import React, { useState } from "react";
+import { slide as Menu } from "react-burger-menu";
 import * as Colors from "../../config/Color.config";
-import { withRouter} from "react-router-dom";
-import {EverCommLink} from "../../tools/ES_Text";
+import { withRouter } from "react-router-dom";
+import { EverCommLink } from "../../tools/ES_Text";
 import auth from "../../security/auth";
 
-
 const RightSideBar = (props) => {
-  const userLevel = localStorage.getItem("userLevel");
+  const userLevel = parseInt(localStorage.getItem("userLevel"));
+  const userLevelName =
+    userLevel === 1 ? "ADMIN" : userLevel === 2 ? "USER" : "DISTRIBUTOR";
   const eMail = localStorage.getItem("email");
 
   const styles = {
@@ -94,7 +95,7 @@ const RightSideBar = (props) => {
           <i className="fa fa-user-circle fa-3x w-100 pb-2" />
           <div className="pb-4">
             {eMail}
-            <hr className="bg-light my-2" /> {userLevel}
+            <hr className="bg-light my-2" /> {userLevelName}
           </div>
 
           <ul
@@ -149,13 +150,15 @@ const RightSideBar = (props) => {
                 text={"DASHBOARD"}
               />
             </li>
-            <li>
-              <EverCommLink
-                pathName={`/user/account`}
-                to={`/user/account`}
-                text={"USER MANAGEMENT"}
-              />
-            </li>
+            {userLevel !== 2 && (
+              <li>
+                <EverCommLink
+                  pathName={`/user/account`}
+                  to={`/user/account`}
+                  text={"USER MANAGEMENT"}
+                />
+              </li>
+            )}
 
             <li>
               <EverCommLink to={`/menu/${userId}`} text={"MY ACCOUNT"} />
