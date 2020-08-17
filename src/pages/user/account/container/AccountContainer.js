@@ -54,6 +54,9 @@ const AccountContainer = (props) => {
       setSurveyList(data.payload[1]);
     });
   }, []);
+
+  const matchUser = userData !== [] ? userData.filter(v => v.id == userId ? v : undefined).map( u => u.role) : []
+
   const _handleSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -238,6 +241,7 @@ const AccountContainer = (props) => {
 
   return(
     <Account
+      matchUser = {matchUser}
       userData={userData}
       surveyList={surveyList}
       err={err}

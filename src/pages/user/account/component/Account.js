@@ -8,6 +8,7 @@ import UserTable from "./UserTable.js";
 
 const Account = (props) => {
   const {
+    matchUser,
     isAdd,
     handleIsAdd,
     accountsetting,
@@ -82,6 +83,7 @@ const Account = (props) => {
         {(isAdd || editData.length>0||window.location.pathname===`/user/account/${userId}`)&& (
           <div className="w-100">
             <AddAccountForm
+              matchUser={matchUser}
               visible={visible}
               UserLevelOptions={UserLevelOptions}
               accountsetting={accountsetting}
