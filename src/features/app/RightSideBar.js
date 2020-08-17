@@ -143,25 +143,28 @@ const RightSideBar = (props) => {
                 />
               </li>
             </ul>
-            <li>
-              <EverCommLink
-                pathName={`/dashobard`}
-                to={`/dashboard`}
-                text={"DASHBOARD"}
-              />
-            </li>
             {userLevel !== 2 && (
-              <li>
-                <EverCommLink
-                  pathName={`/user/account`}
-                  to={`/user/account`}
-                  text={"USER MANAGEMENT"}
-                />
-              </li>
+              <div>
+                <li>
+                  <EverCommLink
+                    pathName={`/dashobard`}
+                    to={`/dashboard`}
+                    text={"DASHBOARD"}
+                  />
+                </li>
+
+                <li>
+                  <EverCommLink
+                    pathName={`/user/accountManagement`}
+                    to={`/user/accountManagement`}
+                    text={"USER MANAGEMENT"}
+                  />
+                </li>
+              </div>
             )}
 
             <li>
-              <EverCommLink to={`/menu/${userId}`} text={"MY ACCOUNT"} />
+              <EverCommLink to={`/user/account/${userId}`} text={"MY ACCOUNT"} />
             </li>
           </ul>
           <div className="mt-auto" onClick={_handleSignOut}>

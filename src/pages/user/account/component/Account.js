@@ -3,7 +3,6 @@ import { ESInput } from "../../../../../src/tools/ES_Inputs.js";
 import { ESButton } from "../../../../../src/tools/ES_Button.js";
 import * as Colors from "../../../../config/Color.config";
 import RightSideBar from "../../../../features/app/RightSideBar.js";
-// import EditAccountForm from "./EditAccount.js";
 import AddAccountForm from "./AddAccount";
 import UserTable from "./UserTable.js";
 
@@ -63,11 +62,13 @@ const Account = (props) => {
   const isCollapse = () => {
     setCollapse(!collapse);
   };
+
+  const userId=localStorage.getItem("userId")
   return (
     <div className="container">
       <div className="row p-3">
         <div className="w-100">
-          {userData && userData.length && (
+          {userData && userData.length && window.location.pathname!==`/user/account/${userId}`&& (
             <UserTable
               userData={userData}
               handleIsAdd={handleIsAdd}
@@ -78,7 +79,7 @@ const Account = (props) => {
             />
           )}
         </div>
-        {(isAdd || editData.length>0)&& (
+        {(isAdd || editData.length>0||window.location.pathname===`/user/account/${userId}`)&& (
           <div className="w-100">
             <AddAccountForm
               visible={visible}
@@ -117,7 +118,6 @@ const Account = (props) => {
               checkedList={checkedList}
               handleView={handleView}
             />
-            {/* <EditAccountForm/>  */}
           </div>
         )}
       </div>

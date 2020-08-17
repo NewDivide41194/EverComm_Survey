@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ESTimeRange(props) {
   const classes = useStyles();
-const {id}=props
+const {id,handleStartChange}=props
   return (
     <form className={classes.container} noValidate>
       <TextField
@@ -30,6 +30,7 @@ const {id}=props
         InputLabelProps={{
           shrink: true,
         }}
+        onChange={handleStartChange}
         inputProps={{
           step: 300, // 5 min
         }}
