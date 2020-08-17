@@ -171,6 +171,7 @@ const AddAccontForm = (props) => {
               onChange={(e) => handleEmailChange(e)}
             />
           </div>
+          {window.location.pathname!==`/user/account/${userId}` &&
           <div className="py-2 col-12">
             <label htmlFor="Password">Password</label>
             {err.passwordErr === undefined ? null : (
@@ -183,7 +184,9 @@ const AddAccontForm = (props) => {
                 {`*${err.passwordErr}`}
               </div>
             )}
-            <ESInput
+            
+              
+              <ESInput
               disabled={edit ? true : isDisabled}
               id={"Password"}
               type={visible ? "text" : "password"}
@@ -202,13 +205,15 @@ const AddAccontForm = (props) => {
               }}
               onClick={handleView}
             >
+            
+           
               {visible ? (
                 <i className="fa fa-eye-slash py-4 text-secondary" />
               ) : (
                 <i className="fa fa-eye py-4 text-secondary" />
               )}{" "}
             </span>
-          </div>
+          </div>}
           <div className="col-sm-12 col-lg-6">
             <ESCheckBox
               disabled={isDisabled}

@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import Account from "../component/Account";
-import { RegisterFetch, UpdateUserAccount } from "../../../../api/FetchUser";
 import { RegisterFormValidation } from "../../../../helper/formValidation";
 import { useAlert } from "react-alert";
 // import { UpdateUserInfo } from "../../../../api/FetchUser";
 // import { AccountSettingValidataion } from "../../../../helper/formValidation";
-import { GetUser } from "../../../../api/FetchUser";
+import { GetUser, GetOneUser, RegisterFetch, UpdateUserAccount} from "../../../../api/FetchUser";
 
 const AccountContainer = (props) => {
   const token = localStorage.getItem("token");
+  const userId=localStorage.getItem("userId")
   const [userData, setUserData] = useState([]);
   const [id, setId] = useState("");
-  const [edit, setEdit] = useState(false);
+  const [edit, setEdit] = useState(window.location.pathname===`/user/account/${userId}`? true : false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [companyName, setCompanyName] = useState("");
@@ -37,7 +37,6 @@ const AccountContainer = (props) => {
   //   label: v.building_type,
   // }));
 
-  const userId=localStorage.getItem("userId")
   const alert = useAlert();
 
   const UserLevelOptions = [
@@ -49,12 +48,37 @@ const AccountContainer = (props) => {
   const NameRef = useRef(null);
 
   useEffect(() => {
-    GetUser(null, (err, data) => {
-      setUserData(data.payload[0]);
-      setSurveyList(data.payload[1]);
-    });
+    if(window.location.pathname===`/user/accountManagement/${userId}`){
+      GetUser({id:userId, token},(err, data) => {
+        
+        setUserData(data.payload[0]);
+        setSurveyList(data.payload[1]);
+      });
+    }
+   
+    if(window.location.pathname===`/user/account/${userId}`){
+      GetOneUser({id:userId, token}, (err, data) => {
+        GetOneUserInfo(data.payload[0])
+      })
+    }
+   
   }, []);
 
+  const GetOneUserInfo = (data) => {
+    console.log('Data >>> ', data)
+    const first = data.user_name.split(" ")
+    const last = data.user_name.split(" ").splice(1,2).join(' ')
+    const level = UserLevelOptions.filter(v => v.value === data.user_level_id ? v.value : undefined).map(v => v)
+    setId(data.login_user_id)
+    setFirstName(first[0])
+    setLastName(last)
+    setCompanyName(data.company_name)
+    setMobile(data.phone_number)
+    setEMail(data.email)
+    setUserLevel(level[0])
+    setActive(data.active === 1 ? !active : active)
+  }
+ 
   const matchUser = userData !== [] ? userData.filter(v => v.id == userId ? v : undefined).map( u => u.role) : []
 
   const _handleSubmit = (e) => {
@@ -101,7 +125,7 @@ const AccountContainer = (props) => {
           });
         }
         else {
-          console.log('update >> ', checkedList[0])
+          // console.log('update >> ', id, firstName, lastName, companyName, Mobile, eMail, userLevel.value, active, checkedList)
           UpdateUserAccount({ id, firstName, lastName, companyName, Mobile, eMail, userLevel:userLevel.value, active, surveyHeaderId:checkedList},
             (error, data) => {
               if (data.success === false){

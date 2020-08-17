@@ -154,8 +154,8 @@ const RightSideBar = (props) => {
 
                 <li>
                   <EverCommLink
-                    pathName={`/user/accountManagement`}
-                    to={`/user/accountManagement`}
+                    pathName={`/user/accountManagement/${userId}`}
+                    to={`/user/accountManagement/${userId}`}
                     text={"USER MANAGEMENT"}
                   />
                 </li>
