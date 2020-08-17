@@ -7,7 +7,9 @@ import { Link } from "react-router-dom";
 import * as Colors from "../../../../config/Color.config";
 
 const AddAccontForm = (props) => {
+  const userId = localStorage.getItem("userId")
   const {
+    matchUser,
     surveyList,
     handleSubmit,
     firstName,
@@ -43,10 +45,11 @@ const AddAccontForm = (props) => {
     checkedList,
   } = props;
   const err = {};
+  
   return (
     <div className="row justify-content-center py-3" style={{ transform: "" }}>
       <form className="col-lg-6 col-sm-12">
-        <h4 style={{ color: Colors.PrimaryColor }}>Add New User</h4>
+        <h4 style={{ color: Colors.PrimaryColor }}>{`${window.location.pathname===`/user/account/${userId}` ? 'Edit User Account' : 'Add New User'}`}</h4>
         <div className="row form-group">
           <div className="py-2 col-sm-12 col-lg-6">
             <label htmlFor="FirstName">First Name</label>
@@ -111,7 +114,7 @@ const AddAccontForm = (props) => {
               onChange={(e) => handleCompanyChange(e)}
             />
           </div>
-          <div className="py-2 col-sm-12 col-lg-6">
+          <div className={`py-2 col-sm-12 ${matchUser[0] === 'ADMIN'&&"col-lg-6"}`}>
             <label htmlFor="Mobile">Phone No.</label>
             {err.mobileErr == undefined ? null : (
               <div
@@ -132,6 +135,7 @@ const AddAccontForm = (props) => {
               onChange={(e) => handleMobileChange(e)}
             />
           </div>
+          {matchUser[0] === 'ADMIN' &&
           <div className="py-2 col-sm-12 col-lg-6">
             <label htmlFor="UserLevel">Choose User Level</label>
             <ESDropDownSample
@@ -141,9 +145,9 @@ const AddAccontForm = (props) => {
               notClearable
               _handleSelect={handleUserLevelSelect}
               options={UserLevelOptions}
-              value={edit? userLevel:UserLevelOptions[1]}
+              value={userLevel}
             />
-          </div>
+          </div>}
           <div className="py-2 col-12">
             <label htmlFor="Email">Email</label>
 
@@ -244,12 +248,15 @@ const AddAccontForm = (props) => {
           </div>
         </div>
       </form>
-      <SurveyHeaderList
+      {
+        (matchUser[0] === 'ADMIN' || window.location.pathname!==`/user/account/${userId}`) &&
+        <SurveyHeaderList
         surveyList={surveyList}
         userLevel={userLevel}
         handleCheckChange={handleCheckChange}
         checkedList={checkedList}
       />
+      }
     </div>
   );
 };

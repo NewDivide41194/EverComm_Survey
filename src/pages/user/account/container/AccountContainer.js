@@ -54,6 +54,9 @@ const AccountContainer = (props) => {
       setSurveyList(data.payload[1]);
     });
   }, []);
+
+  const matchUser = userData !== [] ? userData.filter(v => v.id == userId ? v : undefined).map( u => u.role) : []
+
   const _handleSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -119,6 +122,7 @@ const AccountContainer = (props) => {
     setCompanyName("")
     setUserLevel(UserLevelOptions[1])
     setActive(false)
+    setCheckedList([])
   }
 
   const _handleview = () => {
@@ -239,6 +243,7 @@ console.log(userData);
 
   return(
     <Account
+      matchUser = {matchUser}
       userData={userData}
       surveyList={surveyList}
       err={err}
