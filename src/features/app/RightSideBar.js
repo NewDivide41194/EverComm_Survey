@@ -4,13 +4,25 @@ import * as Colors from "../../config/Color.config";
 import { withRouter } from "react-router-dom";
 import { EverCommLink } from "../../tools/ES_Text";
 import auth from "../../security/auth";
+import { Report_Menu } from "../../api/url";
+
+
+
+const userId = localStorage.getItem("userId");
+
+const userLevel = parseInt(localStorage.getItem("userLevel"));
+const userLevelName =
+  userLevel === 1 ? "ADMIN" : userLevel === 2 ? "USER" : "DISTRIBUTOR";
+const eMail = localStorage.getItem("email");
+
+const accountSettingPath = `/user/account/${userId}`;
+const changePasswordPath = `/user/account/changePassword`;
+const mainMenuPath=`/menu/${userId}`
+const surveyMenuPath=`/surveyMenu/${userId}`
+const reportMenuPath=`/reportMenu/${userId}`
+const URL=window.location.pathname
 
 const RightSideBar = (props) => {
-  const userLevel = parseInt(localStorage.getItem("userLevel"));
-  const userLevelName =
-    userLevel === 1 ? "ADMIN" : userLevel === 2 ? "USER" : "DISTRIBUTOR";
-  const eMail = localStorage.getItem("email");
-
   const styles = {
     bmBurgerButton: {
       position: "fixed",
@@ -20,7 +32,8 @@ const RightSideBar = (props) => {
       top: "10px",
     },
     bmBurgerBars: {
-      background:" linear-gradient(43deg, rgba(59,139,190,1) 0%, rgba(68,180,203,1) 100%) "     // boxShadow: "1px 1px 1px gray"
+      background:
+        " linear-gradient(43deg, rgba(59,139,190,1) 0%, rgba(68,180,203,1) 100%) ", // boxShadow: "1px 1px 1px gray"
     },
     bmBurgerBarsHover: {
       background: Colors.SecondaryColor,
@@ -79,7 +92,6 @@ const RightSideBar = (props) => {
   const StateChange = (e) => {
     setMenuOpen(e.isOpen);
   };
-  const userId = localStorage.getItem("userId");
   const LeftSideBar = () => {
     return (
       <Menu
@@ -102,69 +114,9 @@ const RightSideBar = (props) => {
             style={{ listStyle: "none" }}
             className="w-100 text-left"
           >
-            <li
-              id="headingOne"
-              data-toggle="collapse"
-              data-target="#collapseOne"
-              aria-expanded="false"
-              aria-controls="collapseOne"
-              className="d-flex flex-row justify-content-between"
-            >
-              <div>
-                <EverCommLink to={`/surveyMenu/${userId}`} text={"HOME"} />
-              </div>
-              <div>
-                <i className="fa fa-caret-down" />
-              </div>
-            </li>
-            <ul
-              style={{
-                listStyle: "none",
-                listStyleType: "square",
-              }}
-              id="collapseOne"
-              className="collapse show"
-              aria-labelledby="headingOne"
-              data-parent="#accordion"
-            >
-              <li>
-                <EverCommLink
-                  pathName={`/surveyMenu/${userId}`}
-                  to={`/surveyMenu/${userId}`}
-                  text={"SURVEY LIST"}
-                />
-              </li>
-              <li>
-                <EverCommLink
-                  pathName={`/reportMenu/${userId}`}
-                  to={`/reportMenu/${userId}`}
-                  text={"REPORTING"}
-                />
-              </li>
-            </ul>
-            {userLevel !== 2 && (
-              <div>
-                <li>
-                  <EverCommLink
-                    pathName={`/dashobard`}
-                    to={`/dashboard`}
-                    text={"DASHBOARD"}
-                  />
-                </li>
-
-                <li>
-                  <EverCommLink
-                    pathName={`/user/accountManagement`}
-                    to={`/user/accountManagement`}
-                    text={"USER MANAGEMENT"}
-                  />
-                </li>
-              </div>
-            )}
-
-            <li>
-              <EverCommLink to={`/user/account/${userId}`} text={"MY ACCOUNT"} />
-            </li>
+            <HomeLink userId={userId} />
+            <AdminLink userLevel={userLevel} />
+            <AccountLink userId={userId} />
           </ul>
           <div className="mt-auto" onClick={_handleSignOut}>
             <hr className="bg-light" />
@@ -183,3 +135,123 @@ const RightSideBar = (props) => {
 };
 
 export default withRouter(RightSideBar);
+
+const HomeLink = (props) => {
+  const { userId } = props;
+  return (
+    <div>
+      <li
+        id="headingOne"
+        data-toggle="collapse"
+        data-target="#collapseOne"
+        aria-expanded="false"
+        aria-controls="collapseOne"
+        className="d-flex flex-row justify-content-between"
+      >
+        <div>
+          <EverCommLink to={mainMenuPath} text={"HOME"} />
+        </div>
+        <div>
+          <i className="fa fa-caret-down" />
+        </div>
+      </li>
+      <ul
+        style={{
+          listStyle: "none",
+          listStyleType: "square",
+        }}
+        id="collapseOne"
+        className={`collapse`}
+        aria-labelledby="headingOne"
+        data-parent="#accordion"
+      >
+        <li>
+          <EverCommLink
+            pathName={surveyMenuPath}
+            to={surveyMenuPath}
+            text={"SURVEY LIST"}
+          />
+        </li>
+        <li>
+          <EverCommLink
+            pathName={reportMenuPath}
+            to={reportMenuPath}
+            text={"REPORTING"}
+          />
+        </li>
+      </ul>
+    </div>
+  );
+};
+
+const AdminLink = (props) => {
+  return (
+    props.userLevel === 1 && (
+      <div>
+        <li>
+          <EverCommLink
+            pathName={`/dashobard`}
+            to={`/dashboard`}
+            text={"DASHBOARD"}
+          />
+        </li>
+
+        <li>
+          <EverCommLink
+            pathName={`/user/accountManagement`}
+            to={`/user/accountManagement`}
+            text={"USER MANAGEMENT"}
+          />
+        </li>
+      </div>
+    )
+  );
+};
+
+const AccountLink = (props) => {
+  const { userId } = props;
+  return (
+    <div>
+      <li
+        id="headingTwo"
+        data-toggle="collapse"
+        data-target="#collapseTwo"
+        aria-expanded="false"
+        aria-controls="collapseTwo"
+        className="d-flex flex-row justify-content-between"
+      >
+        <div>
+          <EverCommLink text={"ACCOUNT"} />
+        </div>
+        <div>
+          <i className="fa fa-caret-down" />
+        </div>
+      </li>
+      <ul
+        style={{
+          listStyle: "none",
+          listStyleType: "square",
+        }}
+        id="collapseTwo"
+        className={`collapse`}
+        aria-labelledby="headingTwo"
+        data-parent="#accordion"
+      >
+        <li>
+          <EverCommLink
+            pathName={accountSettingPath}
+            to={accountSettingPath}
+            text={"Account Setting"}
+          />
+        </li>
+        <li>
+          <EverCommLink
+            pathName={changePasswordPath}
+            to={changePasswordPath}
+            text={"Change Password"}
+          />
+        </li>
+      </ul>
+    </div>
+  );
+};

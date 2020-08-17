@@ -37,3 +37,5 @@ export const User_Report_Answer = (surveyHeaderId) =>
  export const Get_User= `${serverURL}/api/v1/user/getUser`;
 
  export const Update_User = `${serverURL}/api/v1/user/updateUser`;
+
+ export const PasswordUpdate=(userId)=>`${serverURL}/api/v1/user/edituser/${userId}`

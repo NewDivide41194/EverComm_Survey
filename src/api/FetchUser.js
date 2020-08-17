@@ -39,21 +39,21 @@ export const RegisterFetch = (
     .catch((err) => console.log(err));
 };
 
-export const UpdateUserInfo = (
-  { Name, eMail, newPassword, token },
+export const UpdatePassword = (
+  {userId ,password, newPassword, token },
   callback
 ) => {
-  fetch(UpdateUserInfo, {
-    method: "POST",
+  console.log(userId);
+  fetch(API.PasswordUpdate(userId), {
+    method: "PUT",
     headers: {
       "Content-type": "application/json",
       Accept: "*/*",
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      Name: Name,
-      email: eMail,
-      newpassword: newPassword,
+      password: password,
+      editPassword: newPassword,
     }),
   })
     .then((res) => res.json())
