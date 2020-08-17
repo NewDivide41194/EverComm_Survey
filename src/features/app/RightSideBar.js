@@ -20,8 +20,7 @@ const RightSideBar = (props) => {
       top: "10px",
     },
     bmBurgerBars: {
-      background: Colors.PrimaryColor,
-      // boxShadow: "1px 1px 1px gray"
+      background:" linear-gradient(43deg, rgba(59,139,190,1) 0%, rgba(68,180,203,1) 100%) "     // boxShadow: "1px 1px 1px gray"
     },
     bmBurgerBarsHover: {
       background: Colors.SecondaryColor,

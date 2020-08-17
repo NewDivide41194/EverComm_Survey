@@ -7,13 +7,11 @@ import ESLoading from "../../../tools/ES_Loading.js";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import moment from "moment";
-import Surveylist from "../../surveylist/component/Surveylist";
-import { Survey_List } from "../../../api/url";
 
 const QuestionContainer = (props) => {
   const { history } = props;
   const [surveyData, setSurveyData] = useState([]);
-  const [pageno, setPageno] = useState(5);
+  const [pageno, setPageno] = useState(0);
   const [AnswerData, setAnswerData] = useState([]);
   const [value, setValue] = useState("");
   const [startDate, setStartDate] = useState(new Date());
@@ -22,8 +20,6 @@ const QuestionContainer = (props) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [IsLoading, setIsLoading] = useState(false);
   const [total, setTotal] = useState(null);
-  const [indexPage, setIndexPage] = useState([{ pageno: pageno, index: 1 }]);
-  const [index, setIndex] = useState(1);
   const token = localStorage.getItem("token");
   const userId = parseInt(localStorage.getItem("userId"));
   const bTypeId = localStorage.getItem("bTypeId");
@@ -55,7 +51,6 @@ const QuestionContainer = (props) => {
     deviceAmounts.reduce((r, a, i) => {
       return r + a * questionslength.slice(1)[i];
     }, 0) + totalQues;
-  console.log(questionslength);
   useEffect(() => {
     setIsLoading(true);
     QuestionFetch(
@@ -166,8 +161,6 @@ const QuestionContainer = (props) => {
   };
 
   const handleInputChange = (e, quesId, keys, optionId) => {
-    console.log(e.target.value);
-    console.log(AnswerData);
     const ImportText = e.target.value.replace(/\s+/g, " ").trimStart();
     const TextAnswer = {
       ...Ans,
@@ -225,11 +218,6 @@ const QuestionContainer = (props) => {
   };
 
   const handleStartChange = (date, quesId, keys, type) => {
-    //  const sliceQuestionId= quesId.slice(0,-keys.toString().length)
-    //  const answeredQusetionId=AnswerData.filter(v=>v.questionId===quesId)
-    //  const sliceAnsweredQuestionId=answeredQusetionId.length&&answeredQusetionId[0].questionId.slice(0,-keys.toString().length)
-    //  console.log(answeredQusetionId.length&&answeredQusetionId[0].questionId,answeredQusetionId.length&&answeredQusetionId[0].other);
-    //   console.log(moment(date).format("yyyy"));
     if (endDate < date) {
       alert("Year of Installation is Later Than Year of Manufacturing!");
     }
@@ -260,22 +248,6 @@ const QuestionContainer = (props) => {
         AnswerData.push(StartDateAnswer);
       }
     }
-    // if (endDate !== null && endDate < startDate) {
-    //   alert("Year of Installation is Later Than Year of Manufacturing!");
-    // } else {
-    //   setStartDate(date);
-    //   const StartDateAnswer = {
-    //     ...Ans,
-    //     other: moment(date).format("yyyy"),
-    //     questionId: quesId,
-    //     keyValue: keys,
-    //   };
-    //   if (isQuesId(quesId).length >= 1) {
-    //     AnswerData.splice(isQuesIdIndex(quesId), 1, StartDateAnswer);
-    //   } else {
-    //     AnswerData.push(StartDateAnswer);
-    //   }
-    // }
   };
 
   const Data1 =
@@ -284,15 +256,6 @@ const QuestionContainer = (props) => {
     surveyData[0].survey_sections[pageno].questions;
 
   const QuestionData = Data1;
-
-  const OtherQuestion = (QuesId) => {
-    return (
-      QuestionData &&
-      QuestionData.map((v, k) => v.option_choices)[QuesId].filter(
-        (v) => v.option_choice_name === "Other"
-      )
-    );
-  };
 
   const OtherAns = (remakeQuesId, QuesId, OptionId) => {
     return AnswerData.filter(
@@ -319,12 +282,10 @@ const QuestionContainer = (props) => {
       QuestionData.map((v, k) => v.option_choices)[index].filter(
         (d) => d.option_choice_id === 161
       );
-      console.log(isWeek.length);
     return isWeek.length > 0 ? isWeek[0].option_choice_id : null;
   };
 
   const weekAns = (remakeQuesId, QuesId, OptionId) => {
-    console.log("Hein",remakeQuesId,QuesId,OptionId);
     return AnswerData.filter(
       (a) =>
         a.keyValue === QuesId &&
@@ -332,7 +293,7 @@ const QuestionContainer = (props) => {
         a.questionId === remakeQuesId
     );
   };
-  console.log("#####",weekAns("chiller10000162",62,161));
+  console.log("#####",AnswerData);
 
   if (IsLoading) {
     return <ESLoading />;
@@ -352,7 +313,6 @@ const QuestionContainer = (props) => {
         total={total}
         percent={percent}
         amountOfDevice={amountOfDevice}
-        otherQuestion={OtherQuestion}
         otherAns={OtherAns}
         otherOfQuestion={otherOfQuestion}
         _handleSelect={handleSelect}

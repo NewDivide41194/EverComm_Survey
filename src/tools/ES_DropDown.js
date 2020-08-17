@@ -15,7 +15,6 @@ export const ESDropDown = (props) => {
     defaultValue,
     keys,
   } = props;
-  const value1 = parseInt(value);
   const AnsSelected =
   selectedOption &&
   selectedOption.map((v, k) => ({

@@ -27,25 +27,11 @@ const QuestionCard = (props) => {
     AnswerData,
     amountOfDevice,
     sessionId,
-    otherQuestion,
     otherAns,
     otherOfQuestion,
     weekAns,
     weekQuestion,
   } = props;
-  // const otherQuestion = (QuesId) => {
-  //   return QuestionData && QuestionData.map((v, k) => v.option_choices)
-  //   [QuesId].filter(v => v.option_choice_name === "Other")
-  // }
-  // console.log(QuestionData);
-  console.log("---------->", AnswerData.map((v) =>
-  v.optionChoiceId === 161
-    ? 1
-    :   v.optionChoiceId === 162
-    ? 2
-    : 3
-    
-)[0]);
 
   if (sessionId === 1) return <QuestionCard1 {...props} />;
 
@@ -59,7 +45,6 @@ const QuestionCard = (props) => {
 
   const pageDeviceIndex =
     pageno === 0 ? 1 : 5 ? deviceIndexValue[0] : deviceIndexValue[pageno - 1];
-  console.log("======>", pageDeviceIndex);
   const QuestionCards = new Array(pageDeviceIndex).fill(null).map((v, k3) => {
     return (
       <div
@@ -128,13 +113,7 @@ const QuestionCard = (props) => {
                                { new Array(2).fill(null).map(v=><div className="col-4"> <ESTimeRange start={"00:00"} end={"00:00"}/></div>)}
                             </div>) : null} */}
                           </div>
-                        ) : ques.input_type_id === 8 &&
-                          // weekAns(
-                          //     remakeQuestionId,
-                          //     ques.question_id,
-                          //     weekQuestion(0)
-                          //   ).length > 0
-                          ques.option_choices === null ? (
+                        ) : ques.input_type_id === 8 ? (
                           <div className="row border-bottom pb-2">
                             {new Array(
                               AnswerData.map((v) =>
@@ -149,7 +128,6 @@ const QuestionCard = (props) => {
                               .fill(null)
                               .map((v) => (
                                 <div className="col-lg-4 col-md-6">
-                                  {" "}
                                   <ESTimeRange id={remakeQuestionId} start={"00:00"} end={"00:00"} />
                                 </div>
                               ))}

@@ -10,7 +10,7 @@ import { GetUser } from "../../../../api/FetchUser";
 const AccountContainer = (props) => {
   const token = localStorage.getItem("token");
   const [userData, setUserData] = useState([]);
-  const [id, setId] = useState(null);
+  const [id, setId] = useState("");
   const [edit, setEdit] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -142,6 +142,7 @@ const AccountContainer = (props) => {
   };
 
   const _handleEdit = (rowData) => {
+    console.log(userData.findIndex(v=>v.id===rowData.id));
     setId(rowData.id)
     console.log('row id >>>> ', rowData.id)
     const first = rowData.name.split(" ")
@@ -161,10 +162,10 @@ const AccountContainer = (props) => {
     if (rowData.role === "ADMIN") {
       setCheckedList(surveyList.map((v) => v.survey_header_id));
     } else {
-      setCheckedList([]);
+      setCheckedList(userData.map(v=>v. survey_header_id)[userData.findIndex(v=>v.id===rowData.id)]||[]);
     }
   };
-
+console.log(userData);
   //const id = Object.values(editData).filter(v => v.id )
 
   const _handleFirstNameChange = (e) => {

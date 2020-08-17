@@ -43,7 +43,6 @@ const AddAccontForm = (props) => {
     checkedList,
   } = props;
   const err = {};
-  
   return (
     <div className="row justify-content-center py-3" style={{ transform: "" }}>
       <form className="col-lg-6 col-sm-12">
@@ -259,6 +258,7 @@ export default AddAccontForm;
 
 const SurveyHeaderList = (props) => {
   const { surveyList, handleCheckChange, checkedList, userLevel } = props;
+  console.log(checkedList);
   const level = Object.values(userLevel).map(v => v)
   const surveyListOption = surveyList.map((v) => ({
     option_choice_id: v.survey_header_id,

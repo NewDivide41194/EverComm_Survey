@@ -25,7 +25,6 @@ const {id,handleStartChange}=props
         id={id+"start"}
         label="Run Start"
         type="time"
-        defaultValue="07:30"
         className={classes.textField}
         InputLabelProps={{
           shrink: true,
@@ -39,7 +38,6 @@ const {id,handleStartChange}=props
         id={id+"end"}
         label="Run End"
         type="time"
-        defaultValue="07:30"
         className={classes.textField}
         InputLabelProps={{
           shrink: true,

@@ -6,7 +6,14 @@ import * as Colors from "../../../../config/Color.config";
 import { render } from "@testing-library/react";
 
 export default function UserTable(props) {
-  const { userData, handleIsAdd, isAdd, isEdit, handleIsEdit,handleEdit } = props;
+  const {
+    userData,
+    handleIsAdd,
+    isAdd,
+    isEdit,
+    handleIsEdit,
+    handleEdit,
+  } = props;
 
   const theme = createMuiTheme({
     palette: {
@@ -24,7 +31,7 @@ export default function UserTable(props) {
       { title: "Company", field: "companyName" },
       { title: "Active", field: "active" },
     ],
-    data: userData
+    data: userData,
   });
   const actionButtons = (
     <div className="row w-100 px-3">
@@ -49,17 +56,19 @@ export default function UserTable(props) {
       </div>
     </div>
   );
-console.log(handleEdit);
   return (
     <MuiThemeProvider theme={theme}>
       <MaterialTable
-        onRowClick={isEdit?(event, rowData) => handleEdit(tableData.data[rowData.tableData.id]):null
+        onRowClick={
+          isEdit
+            ? (event, rowData) =>
+                handleEdit(tableData.data[rowData.tableData.id])
+            : null
         }
         padding
         title={actionButtons}
         columns={tableData.columns}
         data={tableData.data}
-       
         options={{
           headerStyle: {
             backgroundColor: Colors.PrimaryColor,
