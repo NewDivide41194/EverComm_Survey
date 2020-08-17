@@ -11,7 +11,6 @@ export const ESDropDownSample = (props) => {
         defaultValue,
         value
     } = props;
-console.log("------->",defaultValue);
 
     return (
         <Select 

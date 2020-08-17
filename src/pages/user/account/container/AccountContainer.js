@@ -53,7 +53,6 @@ const AccountContainer = (props) => {
 
     })
   }, []);
-  console.log('Mode>> ', isAdd)
   const _handleSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -66,52 +65,49 @@ const AccountContainer = (props) => {
       active,
       userLevel
     };
-    console.log(data);
     
-    const validedErr = RegisterFormValidation(data);
-    setErr(validedErr);
-    console.log(validedErr);
-    if (validedErr!==undefined){
-    if (validedErr.firstNameErr) {
-      document.getElementById("FirstName").focus();
-    } else if (validedErr.lastNameErr) {
-      document.getElementById("LastName").focus();
-    } else if (validedErr.MobileErr) {
-      document.getElementById("Mobile").focus();
-    } else if (validedErr.companyErr) {
-      document.getElementById("CompanyName").focus();
-    } else if (validedErr.eMailErr) {
-      document.getElementById("Email").focus();
-    } else if (validedErr.passwordErr) {
-      document.getElementById("Password").focus();
-    }}
-    
-    else if (validedErr===undefined) {
-      console.log('hello')
-      setErr({});
-      if(isAdd) {
-        RegisterFetch({ firstName, lastName, eMail, password, companyName, active, Mobile, userLevel,surveyHeaderId:checkedList, token }, (err, data) => {
-          if (data.success === false) {
-            alert.error(data.message);
-          } else {
-            alert.success("Account Added Successfully!")
-            //window.location.reload();
-          }
-        });
+      const validedErr = RegisterFormValidation(data);
+      setErr(validedErr);
+      console.log('validedErr > ',validedErr);
+      if (validedErr!==undefined){
+      if (validedErr.firstNameErr) {
+        document.getElementById("FirstName").focus();
+      } else if (validedErr.lastNameErr) {
+        document.getElementById("LastName").focus();
+      } else if (validedErr.MobileErr) {
+        document.getElementById("Mobile").focus();
+      } else if (validedErr.companyErr) {
+        document.getElementById("CompanyName").focus();
+      } else if (validedErr.eMailErr) {
+        document.getElementById("Email").focus();
+      } else if (validedErr.passwordErr) {
+        document.getElementById("Password").focus();
+      }}
+      
+      else if (validedErr===undefined) {
+        setErr({});
+        if(isAdd) {
+          RegisterFetch({ firstName, lastName, eMail, password, companyName, active, Mobile, userLevel,surveyHeaderId:checkedList, token }, (err, data) => {
+            if (data.success === false) {
+              alert.error(data.message);
+            } else {
+              alert.success("Account Added Successfully!")
+              //window.location.reload();
+            }
+          });
+        }
+        else {
+          console.log('update >> ', checkedList[0])
+          UpdateUserAccount({ id, firstName, lastName, companyName, Mobile, eMail, userLevel:userLevel.value, active, surveyHeaderId:checkedList},
+            (error, data) => {
+              if (data.success === false){
+                alert.error(data.message);
+              }else {
+                alert.success('Updated User Successfully!')
+              }
+            }, {token})
+        }
       }
-      else {
-        console.log('Hello')
-        console.log('update >>>>>> ', id, firstName, lastName, eMail, companyName, active, Mobile, userLevel, checkedList)
-        // UpdateUserAccount({ id, firstName, lastName, eMail, companyName, active, Mobile, userLevel,surveyHeaderId:checkedList},
-        //   (error, data) => {
-        //     if (data.success === false){
-        //       alert.error(data.message);
-        //     }else {
-
-        //     }
-        //   })
-      }
-    }
   };
   const _handleIsAdd=()=>{
     setIsAdd(!isAdd)
@@ -122,7 +118,6 @@ const AccountContainer = (props) => {
     setCompanyName("")
     setUserLevel(UserLevelOptions[1])
     setActive(false)
-    console.log('edit data >> ', editData)
   }
 
   const _handleview=()=>{setVisible(!visible)}
@@ -144,9 +139,8 @@ const AccountContainer = (props) => {
   };
 
   const _handleEdit = (rowData) => {
-    console.log('rowData >>> ', rowData.id)
     setId(rowData.id)
-    console.log('idddd >>>> ', rowData.id)
+    console.log('row id >>>> ', rowData.id)
     const first = rowData.name.split(" ")
     const last = rowData.name.split(" ").splice(1,2).join(' ')
     const isActive = rowData.active == 0 ? false : true

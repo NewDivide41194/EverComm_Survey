@@ -89,6 +89,7 @@ export const LoginFetch = ({ eMail,password, token }, callback) => {
   }
 
   export const UpdateUserAccount = ({ id, firstName, lastName, companyName, Mobile, eMail, userLevel, active, surveyHeaderId}, callback, {token}={}) => {
+    console.log('surveyHeaderId >> ', surveyHeaderId)
     const userName=firstName.trim()+' '+lastName.trim()
     fetch(API.Update_User+ "/" + id, {
       method: 'PUT',

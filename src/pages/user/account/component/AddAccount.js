@@ -43,7 +43,6 @@ const AddAccontForm = (props) => {
     checkedList,
   } = props;
   const err = {};
-  console.log('levelllllll', userLevel)
   
   return (
     <div className="row justify-content-center py-3" style={{ transform: "" }}>
@@ -265,6 +264,7 @@ const SurveyHeaderList = (props) => {
     option_choice_id: v.survey_header_id,
     option_choice_name: v.survey_name,
   }));
+  
   return (
     <div className="col-lg-6 col-sm-12">
       <h4 style={{ color: Colors.PrimaryColor }}>Select Survey Headers</h4>
