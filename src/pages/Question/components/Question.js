@@ -32,7 +32,9 @@ const Question = (props) => {
     percent,
     otherQuestion,
     otherAns,
-    otherOfQuestion
+    otherOfQuestion,
+    weekAns,
+    weekQuestion
   } = props;
 
   const deviceAmount =
@@ -102,6 +104,8 @@ const Question = (props) => {
             otherAns={otherAns}
             otherQuestion={otherQuestion}
             otherOfQuestion={otherOfQuestion}
+            weekAns={weekAns}
+            weekQuestion={weekQuestion}
           />
 
           <div className="row justify-content-between">

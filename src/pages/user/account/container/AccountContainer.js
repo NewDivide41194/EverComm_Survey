@@ -5,7 +5,7 @@ import { RegisterFormValidation } from "../../../../helper/formValidation";
 import { useAlert } from "react-alert";
 // import { UpdateUserInfo } from "../../../../api/FetchUser";
 // import { AccountSettingValidataion } from "../../../../helper/formValidation";
-import { GetUser } from "../../../../api/FetchUser"
+import { GetUser } from "../../../../api/FetchUser";
 
 const AccountContainer = (props) => {
   const token = localStorage.getItem("token");
@@ -24,9 +24,9 @@ const AccountContainer = (props) => {
   const [userLevel, setUserLevel] = useState("");
   const [surveyList, setSurveyList] = useState([]);
   const [checkedList, setCheckedList] = useState([]);
-  const [isAdd, setIsAdd] = useState(false)
-  const [visible,setVisible]=useState(false)
-  const [editData,setEditData]=useState([])
+  const [isAdd, setIsAdd] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [editData, setEditData] = useState([]);
   const errStyle = {
     marginTop: "-25px",
     fontSize: 12,
@@ -36,22 +36,23 @@ const AccountContainer = (props) => {
   //   value: v.id,
   //   label: v.building_type,
   // }));
+
+  const userId=localStorage.getItem("userId")
   const alert = useAlert();
 
   const UserLevelOptions = [
-    { value: 1, label: 'admin' },
-    { value: 2, label: 'user' },
-    { value: 3, label: 'distributor' }
-  ]
+    { value: 1, label: "admin" },
+    { value: 2, label: "user" },
+    { value: 3, label: "distributor" },
+  ];
   const errClassName = "text-danger d-flex flex-row justify-content-end pb-2";
   const NameRef = useRef(null);
 
   useEffect(() => {
     GetUser(null, (err, data) => {
-      setUserData(data.payload[0])
-      setSurveyList(data.payload[1])
-
-    })
+      setUserData(data.payload[0]);
+      setSurveyList(data.payload[1]);
+    });
   }, []);
   const _handleSubmit = (e) => {
     e.preventDefault();
@@ -63,7 +64,7 @@ const AccountContainer = (props) => {
       eMail,
       // password,
       active,
-      userLevel
+      userLevel,
     };
     
       const validedErr = RegisterFormValidation(data);
@@ -120,22 +121,24 @@ const AccountContainer = (props) => {
     setActive(false)
   }
 
-  const _handleview=()=>{setVisible(!visible)}
+  const _handleview = () => {
+    setVisible(!visible);
+  };
 
   const _handleCancel = () => {
-      // document.getElementById("FirstName").value = "";
-      // document.getElementById("LastName").value = "";
-      // document.getElementById("Mobile").value = "";
-      // document.getElementById("CompanyName").value = "";
-      // document.getElementById("Email").value = "";
-      // document.getElementById("Password").value = "";
-      setIsAdd(false)
-  }
+    // document.getElementById("FirstName").value = "";
+    // document.getElementById("LastName").value = "";
+    // document.getElementById("Mobile").value = "";
+    // document.getElementById("CompanyName").value = "";
+    // document.getElementById("Email").value = "";
+    // document.getElementById("Password").value = "";
+    setIsAdd(false);
+  };
 
   const _handleIsEdit = () => {
     setErr({});
     setEdit(!edit);
-    setIsAdd(false)
+    setIsAdd(false);
   };
 
   const _handleEdit = (rowData) => {
@@ -146,22 +149,23 @@ const AccountContainer = (props) => {
     const isActive = rowData.active == 0 ? false : true
     const userlevel = Object.values(UserLevelOptions).filter(v=> v.label == rowData.role.toLowerCase() ? v.label : null)
 
-    setFirstName(first[0])
-    setLastName(last)
-    setCompanyName(rowData.companyName)
-    setMobile(rowData.phone_number)
-    setEMail(rowData.email)
-    setActive(isActive)
-    setUserLevel(userlevel[0])
-    setEditData([rowData])  
+    setFirstName(first[0]);
+    setLastName(last);
+    setCompanyName(rowData.companyName);
+    setMobile(rowData.phone_number);
+    setEMail(rowData.email);
+    setActive(isActive);
+    setUserLevel(userlevel[0]);
+    setEditData([rowData]);
 
-    if(rowData.role==='ADMIN'){
-      setCheckedList(surveyList.map(v=>v.survey_header_id))
-    }else{setCheckedList([])}
+    if (rowData.role === "ADMIN") {
+      setCheckedList(surveyList.map((v) => v.survey_header_id));
+    } else {
+      setCheckedList([]);
+    }
   };
 
   //const id = Object.values(editData).filter(v => v.id )
-
 
   const _handleFirstNameChange = (e) => {
     setErr({});
@@ -176,7 +180,7 @@ const AccountContainer = (props) => {
   const _handleCompanyChange = (e) => {
     setErr({});
     setCompanyName(e.target.value.replace(/\s+/g, " ").trimStart());
-  }
+  };
 
   const _handleMobileChange = (e) => {
     setErr({});
@@ -199,38 +203,40 @@ const AccountContainer = (props) => {
   const _handleActiveCheck = (e) => {
     setErr({});
     setActive(!active);
-  }
+  };
 
   const checkListFilter = (id) => {
-    return checkedList.filter((e) => e === id)
-  }
+    return checkedList.filter((e) => e === id);
+  };
 
   const checkListIndex = (id) => {
-    return checkedList.findIndex((e) => e === id)
-  }
+    return checkedList.findIndex((e) => e === id);
+  };
 
-  const _handleCheckChange = (id) => {      
-    if(checkListFilter(id) >= 1){
-      checkedList.splice(checkListIndex(id), 1)
+  const _handleCheckChange = (id) => {
+    if (checkListFilter(id) >= 1) {
+      checkedList.splice(checkListIndex(id), 1);
     } else {
-      checkedList.push(id)
-    }   
-    setCheckedList(checkedList.map(v => v)) 
-  }
+      checkedList.push(id);
+    }
+    setCheckedList(checkedList.map((v) => v));
+  };
 
   const _handleUserLevelSelect = (e) => {
     setErr({});
-    if(e.value===1){
-      setCheckedList(surveyList.map(v=>v.survey_header_id))
-    }else{setCheckedList([])}
+    if (e.value === 1) {
+      setCheckedList(surveyList.map((v) => v.survey_header_id));
+    } else {
+      setCheckedList([]);
+    }
     e !== null && setUserLevel(e);
-    
+
     return;
   };
 
   // console.log();
 
-  return (
+  return(
     <Account
       userData={userData}
       surveyList={surveyList}

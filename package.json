@@ -16,7 +16,7 @@
     "font-awesome": "^4.7.0",
     "highcharts": "^8.1.2",
     "highcharts-react-official": "^3.0.0",
-    "material-table": "latest",
+    "material-table": "^1.68.0",
     "material-ui-colors": "^1.0.0",
     "moment": "^2.27.0",
     "react": "^16.13.1",
@@ -32,6 +32,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.0",
     "react-select": "^3.1.0",
+    "react-time-range-slider": "^1.1.2",
     "react-to-print": "^2.9.0",
     "recharts": "^1.8.5"
   },

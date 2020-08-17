@@ -13,7 +13,7 @@ import { Survey_List } from "../../../api/url";
 const QuestionContainer = (props) => {
   const { history } = props;
   const [surveyData, setSurveyData] = useState([]);
-  const [pageno, setPageno] = useState(0);
+  const [pageno, setPageno] = useState(5);
   const [AnswerData, setAnswerData] = useState([]);
   const [value, setValue] = useState("");
   const [startDate, setStartDate] = useState(new Date());
@@ -53,9 +53,9 @@ const QuestionContainer = (props) => {
   const totalQuesCount =
     deviceAmounts &&
     deviceAmounts.reduce((r, a, i) => {
-        return r + a * questionslength.slice(1)[i];}
-    , 0) + totalQues;
-console.log(questionslength);
+      return r + a * questionslength.slice(1)[i];
+    }, 0) + totalQues;
+  console.log(questionslength);
   useEffect(() => {
     setIsLoading(true);
     QuestionFetch(
@@ -312,6 +312,28 @@ console.log(questionslength);
     return isOther.length > 0 ? isOther[0].option_choice_id : null;
   };
 
+
+  const weekQuestion = (index) => {
+    const isWeek =
+      QuestionData &&
+      QuestionData.map((v, k) => v.option_choices)[index].filter(
+        (d) => d.option_choice_id === 161
+      );
+      console.log(isWeek.length);
+    return isWeek.length > 0 ? isWeek[0].option_choice_id : null;
+  };
+
+  const weekAns = (remakeQuesId, QuesId, OptionId) => {
+    console.log("Hein",remakeQuesId,QuesId,OptionId);
+    return AnswerData.filter(
+      (a) =>
+        a.keyValue === QuesId &&
+        a.optionChoiceId === OptionId &&
+        a.questionId === remakeQuesId
+    );
+  };
+  console.log("#####",weekAns("chiller10000162",62,161));
+
   if (IsLoading) {
     return <ESLoading />;
   } else {
@@ -341,6 +363,9 @@ console.log(questionslength);
         _handleNext={_handleNext}
         _handlePrevious={_handlePrevious}
         _handleSubmit={_handleSubmit}
+        // isWeek={isWeek}
+        weekAns={weekAns}
+        weekQuestion={weekQuestion}
       />
     );
   }
