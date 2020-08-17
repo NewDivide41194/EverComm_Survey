@@ -80,8 +80,8 @@ export const LoginFetch = ({ eMail, password, token }, callback) => {
     .catch((err) => console.log(err));
 };
 
-export const GetUser = (token, callback) => {
-  fetch(API.Get_User, {
+export const GetUser = ({id, token},callback) => {
+  fetch(API.Get_User+ "/" + id, {
     headers: {
       "Content-Type": "application/json",
       Accept: "*/*",
@@ -92,6 +92,19 @@ export const GetUser = (token, callback) => {
     .then((data) => callback(null, data))
     .catch((err) => console.log(err));
 };
+
+export const GetOneUser = ({id, token}, callback) => {
+  fetch(API.Get_One_User + "/" + id, {
+    headers:{
+      "Content-Type": "application/json",
+      Accept: "*/*",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  .then((res) => res.json())
+  .then((data) => callback(null, data))
+  .catch((err) => console.log(err));
+}
 
 export const UpdateUserAccount = (
   {

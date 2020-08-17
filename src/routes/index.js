@@ -27,7 +27,7 @@ export const RouteName = {
 
   routeBuildingPage: "addBuilding",
 
-  routeAccountPage: "user/accountManagement",
+  routeAccountPage: "user/accountManagement/:userId",
   routeSelfAccountPage: "user/account/:userId",
   routeChangePasswordPage:"user/account/changePassword/:userId",
 
