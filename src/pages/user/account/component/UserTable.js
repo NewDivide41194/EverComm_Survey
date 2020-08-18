@@ -65,6 +65,7 @@ export default function UserTable(props) {
                 handleEdit(tableData.data[rowData.tableData.id])
             : null
         }
+        page={15}
         padding
         title={actionButtons}
         columns={tableData.columns}

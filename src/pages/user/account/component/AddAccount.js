@@ -47,8 +47,13 @@ const AddAccontForm = (props) => {
   const err = {};
 
   return (
-    <div className="row justify-content-center py-3" style={{ transform: "" }}>
-      <form className="col-lg-6 col-sm-12">
+    <div className="row justify-content-center py-3">
+      <form className="col-lg-6 col-sm-12" style={{
+      position: "absolute",
+      top: "50%",
+      transform: "translateY(-50%)"
+    }}>
+      <i class="fas fa-user-edit"></i>
         <h4 style={{ color: Colors.PrimaryColor }}>{`${window.location.pathname===`/user/editAccount/${userId}` ? 'Edit User Account' : 'Add New User'}`}</h4>
         <div className="row form-group">
           <div className="py-2 col-sm-12 col-lg-6">

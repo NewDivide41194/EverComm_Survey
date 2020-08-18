@@ -16,7 +16,7 @@ export const ChangePassword = (props) => {
   const [visible, setVisible] = useState(false);
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
-const alert=useAlert()
+  const alert = useAlert();
   useEffect(() => {
     if (
       passwordData.currentPassword === "" ||
@@ -24,7 +24,9 @@ const alert=useAlert()
       passwordData.confirmPassword === ""
     ) {
       setisDisabled(true);
-    }else{setisDisabled(false)}
+    } else {
+      setisDisabled(false);
+    }
   });
   const err = {};
 
@@ -53,10 +55,10 @@ const alert=useAlert()
       const password = passwordData.currentPassword;
       const newPassword = passwordData.newPassword;
       UpdatePassword({ userId, password, newPassword, token }, (err, data) => {
-    }
-     );
-     _handleSignOut(props)
-     alert.success("Password Updated!")
+        console.log(data);
+        alert.error(data.message);
+      });
+      //  _handleSignOut(props)
     }
   };
 
@@ -70,8 +72,8 @@ const alert=useAlert()
   console.log("===>", passwordData);
   return (
     <div className="container">
-      <div className="row justify-content-center">
-        <div
+      <div className="d-flex flex-row justify-content-center">
+        <form
           className="py-2 col-lg-4 col-sm-12"
           style={{
             position: "absolute",
@@ -84,7 +86,9 @@ const alert=useAlert()
               className="fas fa-key pl-2 fa-2x pb-2"
               style={{ color: Colors.Gray }}
             ></i>
-            <h4 style={{color:Colors.PrimaryColor,fontWeight:"bold"}}>Change Password</h4>
+            <h4 style={{ color: Colors.PrimaryColor, fontWeight: "bold" }}>
+              Change Password
+            </h4>
           </div>
           <Password
             placeHolder={"Current password"}
@@ -110,14 +114,17 @@ const alert=useAlert()
             handleView={handleView}
             handlePwdChange={_handlePwdChange}
           />
-          <div className="pt-3">
-            <ESButton
+          <div className="d-flex flex-row pt-3">
+            <div className="flex-column w-50 pr-2">
+              <ESButton
                 disabled={isDisabled}
                 text={"Save Changes"}
                 type={"submit"}
                 id={"Save Changes"}
                 onClick={handleSubmit}
               />
+            </div>
+            <div className="flex-column w-50">
               <ESButton
                 disabled={isDisabled}
                 customColor={Colors.Gray}
@@ -126,9 +133,9 @@ const alert=useAlert()
                 id={"Cancel"}
                 onClick={handleCancel}
               />
+            </div>
           </div>
-              
-        </div>
+        </form>
       </div>
     </div>
   );
@@ -150,7 +157,7 @@ const Password = (props) => {
   const err = {};
 
   return (
-    <div className="w-100 py-1 text-secondary">
+    <div className="w-100 pb-2 text-secondary">
       <label htmlFor="Password">{placeHolder}</label>
 
       {err.passwordErr === undefined ? null : (
@@ -162,7 +169,7 @@ const Password = (props) => {
       <ESInput
         // disabled={isDisabled}
         id={id}
-        type={ "password"}
+        type={"password"}
         placeHolder={placeHolder}
         value={value}
         onChange={(e) => handlePwdChange(e)}
