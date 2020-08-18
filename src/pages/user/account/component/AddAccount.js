@@ -45,11 +45,11 @@ const AddAccontForm = (props) => {
     checkedList,
   } = props;
   const err = {};
-  
+
   return (
     <div className="row justify-content-center py-3" style={{ transform: "" }}>
       <form className="col-lg-6 col-sm-12">
-        <h4 style={{ color: Colors.PrimaryColor }}>{`${window.location.pathname===`/user/account/${userId}` ? 'Edit User Account' : 'Add New User'}`}</h4>
+        <h4 style={{ color: Colors.PrimaryColor }}>{`${window.location.pathname===`/user/editAccount/${userId}` ? 'Edit User Account' : 'Add New User'}`}</h4>
         <div className="row form-group">
           <div className="py-2 col-sm-12 col-lg-6">
             <label htmlFor="FirstName">First Name</label>
@@ -114,7 +114,7 @@ const AddAccontForm = (props) => {
               onChange={(e) => handleCompanyChange(e)}
             />
           </div>
-          <div className={`py-2 col-sm-12 ${matchUser[0] === 'ADMIN'&&"col-lg-6"}`}>
+          <div className={`py-2 col-sm-12 ${matchUser[0] === 'admin'&&"col-lg-6"}`}>
             <label htmlFor="Mobile">Phone No.</label>
             {err.mobileErr == undefined ? null : (
               <div
@@ -135,7 +135,7 @@ const AddAccontForm = (props) => {
               onChange={(e) => handleMobileChange(e)}
             />
           </div>
-          {matchUser[0] === 'ADMIN' &&
+          {matchUser[0] === 'admin' && 
           <div className="py-2 col-sm-12 col-lg-6">
             <label htmlFor="UserLevel">Choose User Level</label>
             <ESDropDownSample
@@ -214,28 +214,31 @@ const AddAccontForm = (props) => {
               )}{" "}
             </span>
           </div>}
-          <div className="col-sm-12 col-lg-6">
-            <ESCheckBox
-              disabled={isDisabled}
-              checked={active}
-              id={"Active"}
-              placeHolder={"Active"}
-              value={[
-                {
-                  option_choice_id: 1,
-                  option_choice_name: "Active",
-                },
-              ]}
-              _handleChange={(e) => handleActiveCheck(e)}
-              className={"w-100"}
-            />
+          {
+            window.location.pathname!==`/user/editAccount/${userId}` &&
+            <div className="col-sm-12 col-lg-6">
+              <ESCheckBox
+                disabled={isDisabled}
+                checked={active}
+                id={"Active"}
+                placeHolder={"Active"}
+                value={[
+                  {
+                    option_choice_id: 1,
+                    option_choice_name: "Active",
+                  },
+                ]}
+                _handleChange={(e) => handleActiveCheck(e)}
+                className={"w-100"}
+              />
           </div>
-          <div className="pt-2 col-12">
+          }
+          <div className="pt-3 col-12">
             <div className="row">
               <div className="col-6">
                 <ESButton
                   disabled={isDisabled}
-                  text={edit ? "UPDATE USER" : "ADD USER"}
+                  text={edit ? "Save" : "ADD USER"}
                   type={"submit"}
                   id={"AddUser"}
                   onClick={handleSubmit}
@@ -254,7 +257,7 @@ const AddAccontForm = (props) => {
         </div>
       </form>
       {
-        (matchUser[0] === 'ADMIN' || window.location.pathname!==`/user/editAccount/${userId}`) &&
+        (matchUser[0] === 'admin' || window.location.pathname!==`/user/editAccount/${userId}`) &&
         <SurveyHeaderList
         surveyList={surveyList}
         userLevel={userLevel}

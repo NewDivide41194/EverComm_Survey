@@ -69,7 +69,7 @@ const Account = (props) => {
     <div className="container">
       <div className="row p-3">
         <div className="w-100">
-          {userData && userData.length && window.location.pathname!==`/user/editAccount/${userId}`&& (
+          {userData && userData.length > 0 && window.location.pathname!==`/user/editAccount/${userId}`&& (
             <UserTable
               userData={userData}
               handleIsAdd={handleIsAdd}

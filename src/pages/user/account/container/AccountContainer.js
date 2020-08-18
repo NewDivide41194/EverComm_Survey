@@ -17,7 +17,7 @@ const AccountContainer = (props) => {
   const [userData, setUserData] = useState([]);
   const [id, setId] = useState("");
   const [edit, setEdit] = useState(
-    window.location.pathname === `/user/account/${userId}` ? true : false
+    window.location.pathname === `/user/editAccount/${userId}` ? true : false
   );
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -92,6 +92,8 @@ const AccountContainer = (props) => {
           .filter((v) => (v.id == userId ? v : undefined))
           .map((u) => u.role)
       : [];
+
+  console.log('matchUser >>>>> ', matchUser)
 
   const _handleSubmit = (e) => {
     e.preventDefault();
