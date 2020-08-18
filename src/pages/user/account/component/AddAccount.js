@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import * as Colors from "../../../../config/Color.config";
 
 const AddAccontForm = (props) => {
-  const userId = localStorage.getItem("userId")
+  const userId = localStorage.getItem("userId");
   const {
     matchUser,
     surveyList,
@@ -171,51 +171,48 @@ const AddAccontForm = (props) => {
               onChange={(e) => handleEmailChange(e)}
             />
           </div>
-          {window.location.pathname!==`/user/editAccount/${userId}` &&
-          <div className="py-2 col-12">
-            <label htmlFor="Password">Password</label>
-            {err.passwordErr === undefined ? null : (
-              <div
-                className={errClassName}
-                style={{
-                  ...errStyle,
-                }}
-              >
-                {`*${err.passwordErr}`}
-              </div>
-            )}
-            
-              
+          {window.location.pathname !== `/user/editAccount/${userId}` && (
+            <div className="py-2 col-12">
+              <label htmlFor="Password">Password</label>
+              {err.passwordErr === undefined ? null : (
+                <div
+                  className={errClassName}
+                  style={{
+                    ...errStyle,
+                  }}
+                >
+                  {`*${err.passwordErr}`}
+                </div>
+              )}
               <ESInput
-              disabled={edit ? true : isDisabled}
-              id={"Password"}
-              type={visible ? "text" : "password"}
-              placeHolder={"Password"}
-              value={password}
-              onChange={(e) => handlePasswordChange(e)}
-            />
-            <span
-              style={{
-                float: "right",
-                position: "relative",
-                marginTop: "-55px",
-                fontSize: "18px",
-                marginRight: "20px",
-                cursor: "pointer",
-              }}
-              onClick={handleView}
-            >
-            
-           
-              {visible ? (
-                <i className="fa fa-eye-slash py-4 text-secondary" />
-              ) : (
-                <i className="fa fa-eye py-4 text-secondary" />
-              )}{" "}
-            </span>
-          </div>}
+                disabled={edit ? true : isDisabled}
+                id={"Password"}
+                type={visible ? "text" : "password"}
+                placeHolder={"Password"}
+                value={password}
+                onChange={(e) => handlePasswordChange(e)}
+              />
+              <span
+                style={{
+                  float: "right",
+                  position: "relative",
+                  marginTop: "-55px",
+                  fontSize: "18px",
+                  marginRight: "20px",
+                  cursor: "pointer",
+                }}
+                onClick={handleView}
+              >
+                {visible ? (
+                  <i className="fa fa-eye-slash py-4 text-secondary" />
+                ) : (
+                  <i className="fa fa-eye py-4 text-secondary" />
+                )}{" "}
+              </span>
+            </div>
+          )}
           {
-            window.location.pathname!==`/user/editAccount/${userId}` &&
+            window.location.pathname !== `/user/editAccount/${userId}` &&
             <div className="col-sm-12 col-lg-6">
               <ESCheckBox
                 disabled={isDisabled}
@@ -231,8 +228,9 @@ const AddAccontForm = (props) => {
                 _handleChange={(e) => handleActiveCheck(e)}
                 className={"w-100"}
               />
-          </div>
+            </div>
           }
+          
           <div className="pt-3 col-12">
             <div className="row">
               <div className="col-6">
@@ -259,11 +257,11 @@ const AddAccontForm = (props) => {
       {
         (matchUser[0] === 'admin' || window.location.pathname!==`/user/editAccount/${userId}`) &&
         <SurveyHeaderList
-        surveyList={surveyList}
-        userLevel={userLevel}
-        handleCheckChange={handleCheckChange}
-        checkedList={checkedList}
-      />
+          surveyList={surveyList}
+          userLevel={userLevel}
+          handleCheckChange={handleCheckChange}
+          checkedList={checkedList}
+        />
       }
     </div>
   );
@@ -274,12 +272,12 @@ export default AddAccontForm;
 const SurveyHeaderList = (props) => {
   const { surveyList, handleCheckChange, checkedList, userLevel } = props;
   console.log(checkedList);
-  const level = Object.values(userLevel).map(v => v)
+  const level = Object.values(userLevel).map((v) => v);
   const surveyListOption = surveyList.map((v) => ({
     option_choice_id: v.survey_header_id,
     option_choice_name: v.survey_name,
   }));
-  
+
   return (
     <div className="col-lg-6 col-sm-12">
       <h4 style={{ color: Colors.PrimaryColor }}>Select Survey Headers</h4>
