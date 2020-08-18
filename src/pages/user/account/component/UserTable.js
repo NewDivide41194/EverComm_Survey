@@ -80,7 +80,7 @@ console.log(rows);
           }),
           padding: "dense",
           // pageSizeOptions: isAdd || isEdit ? [5, 10, 15] : [10, 20, 30],
-          pageSize:rows,
+          // pageSize:rows,
         }}
       />
     </MuiThemeProvider>
