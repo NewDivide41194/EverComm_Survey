@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import * as Colors from "../../../../config/Color.config";
 
 const AddAccontForm = (props) => {
-  const userId = localStorage.getItem("userId")
+  const userId = localStorage.getItem("userId");
   const {
     matchUser,
     surveyList,
@@ -45,11 +45,15 @@ const AddAccontForm = (props) => {
     checkedList,
   } = props;
   const err = {};
-  
+
   return (
     <div className="row justify-content-center py-3" style={{ transform: "" }}>
       <form className="col-lg-6 col-sm-12">
-        <h4 style={{ color: Colors.PrimaryColor }}>{`${window.location.pathname===`/user/account/${userId}` ? 'Edit User Account' : 'Add New User'}`}</h4>
+        <h4 style={{ color: Colors.PrimaryColor }}>{`${
+          window.location.pathname === `/user/account/${userId}`
+            ? "Edit User Account"
+            : "Add New User"
+        }`}</h4>
         <div className="row form-group">
           <div className="py-2 col-sm-12 col-lg-6">
             <label htmlFor="FirstName">First Name</label>
@@ -114,7 +118,11 @@ const AddAccontForm = (props) => {
               onChange={(e) => handleCompanyChange(e)}
             />
           </div>
-          <div className={`py-2 col-sm-12 ${matchUser[0] === 'ADMIN'&&"col-lg-6"}`}>
+          <div
+            className={`py-2 col-sm-12 ${
+              matchUser[0] === "ADMIN" && "col-lg-6"
+            }`}
+          >
             <label htmlFor="Mobile">Phone No.</label>
             {err.mobileErr == undefined ? null : (
               <div
@@ -135,19 +143,20 @@ const AddAccontForm = (props) => {
               onChange={(e) => handleMobileChange(e)}
             />
           </div>
-          {matchUser[0] === 'ADMIN' &&
-          <div className="py-2 col-sm-12 col-lg-6">
-            <label htmlFor="UserLevel">Choose User Level</label>
-            <ESDropDownSample
-              disabled={isDisabled}
-              id={"UserLevel"}
-              defaultValue={ UserLevelOptions[1] }
-              notClearable
-              _handleSelect={handleUserLevelSelect}
-              options={UserLevelOptions}
-              value={userLevel}
-            />
-          </div>}
+          {matchUser[0] === "ADMIN" && (
+            <div className="py-2 col-sm-12 col-lg-6">
+              <label htmlFor="UserLevel">Choose User Level</label>
+              <ESDropDownSample
+                disabled={isDisabled}
+                id={"UserLevel"}
+                defaultValue={UserLevelOptions[1]}
+                notClearable
+                _handleSelect={handleUserLevelSelect}
+                options={UserLevelOptions}
+                value={userLevel}
+              />
+            </div>
+          )}
           <div className="py-2 col-12">
             <label htmlFor="Email">Email</label>
 
@@ -171,49 +180,46 @@ const AddAccontForm = (props) => {
               onChange={(e) => handleEmailChange(e)}
             />
           </div>
-          {window.location.pathname!==`/user/editAccount/${userId}` &&
-          <div className="py-2 col-12">
-            <label htmlFor="Password">Password</label>
-            {err.passwordErr === undefined ? null : (
-              <div
-                className={errClassName}
-                style={{
-                  ...errStyle,
-                }}
-              >
-                {`*${err.passwordErr}`}
-              </div>
-            )}
-            
-              
+          {window.location.pathname !== `/user/editAccount/${userId}` && (
+            <div className="py-2 col-12">
+              <label htmlFor="Password">Password</label>
+              {err.passwordErr === undefined ? null : (
+                <div
+                  className={errClassName}
+                  style={{
+                    ...errStyle,
+                  }}
+                >
+                  {`*${err.passwordErr}`}
+                </div>
+              )}
               <ESInput
-              disabled={edit ? true : isDisabled}
-              id={"Password"}
-              type={visible ? "text" : "password"}
-              placeHolder={"Password"}
-              value={password}
-              onChange={(e) => handlePasswordChange(e)}
-            />
-            <span
-              style={{
-                float: "right",
-                position: "relative",
-                marginTop: "-55px",
-                fontSize: "18px",
-                marginRight: "20px",
-                cursor: "pointer",
-              }}
-              onClick={handleView}
-            >
-            
-           
-              {visible ? (
-                <i className="fa fa-eye-slash py-4 text-secondary" />
-              ) : (
-                <i className="fa fa-eye py-4 text-secondary" />
-              )}{" "}
-            </span>
-          </div>}
+                disabled={edit ? true : isDisabled}
+                id={"Password"}
+                type={visible ? "text" : "password"}
+                placeHolder={"Password"}
+                value={password}
+                onChange={(e) => handlePasswordChange(e)}
+              />
+              <span
+                style={{
+                  float: "right",
+                  position: "relative",
+                  marginTop: "-55px",
+                  fontSize: "18px",
+                  marginRight: "20px",
+                  cursor: "pointer",
+                }}
+                onClick={handleView}
+              >
+                {visible ? (
+                  <i className="fa fa-eye-slash py-4 text-secondary" />
+                ) : (
+                  <i className="fa fa-eye py-4 text-secondary" />
+                )}{" "}
+              </span>
+            </div>
+          )}
           <div className="col-sm-12 col-lg-6">
             <ESCheckBox
               disabled={isDisabled}
@@ -253,15 +259,15 @@ const AddAccontForm = (props) => {
           </div>
         </div>
       </form>
-      {
-        (matchUser[0] === 'ADMIN' || window.location.pathname!==`/user/editAccount/${userId}`) &&
+      {(matchUser[0] === "ADMIN" ||
+        window.location.pathname !== `/user/editAccount/${userId}`) && (
         <SurveyHeaderList
-        surveyList={surveyList}
-        userLevel={userLevel}
-        handleCheckChange={handleCheckChange}
-        checkedList={checkedList}
-      />
-      }
+          surveyList={surveyList}
+          userLevel={userLevel}
+          handleCheckChange={handleCheckChange}
+          checkedList={checkedList}
+        />
+      )}
     </div>
   );
 };
@@ -271,12 +277,12 @@ export default AddAccontForm;
 const SurveyHeaderList = (props) => {
   const { surveyList, handleCheckChange, checkedList, userLevel } = props;
   console.log(checkedList);
-  const level = Object.values(userLevel).map(v => v)
+  const level = Object.values(userLevel).map((v) => v);
   const surveyListOption = surveyList.map((v) => ({
     option_choice_id: v.survey_header_id,
     option_choice_name: v.survey_name,
   }));
-  
+
   return (
     <div className="col-lg-6 col-sm-12">
       <h4 style={{ color: Colors.PrimaryColor }}>Select Survey Headers</h4>

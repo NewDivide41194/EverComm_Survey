@@ -12,12 +12,13 @@ export const ESButton = props => {
     leftIcon,
     rightIcon,
     id,
-    noShadow
+    noShadow,
+    customColor
   } = props;
   const [isHover, setIsHover] = useState(true);
 
   const defaultStyle1 = {
-    background: Color.PrimaryColor
+    background: customColor|| Color.PrimaryColor
   };
 
   const hoverStyle = {

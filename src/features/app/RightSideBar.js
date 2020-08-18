@@ -53,7 +53,7 @@ const RightSideBar = (props) => {
     bmMenu: {
       background: Colors.PrimaryColor,
       padding: "2.5em .5em 0",
-      fontSize: "1.15em",
+      fontSize: "14px",
     },
     bmMorphShape: {
       // fill: "#373a47"
@@ -149,7 +149,7 @@ export default withRouter(RightSideBar);
 const HomeLink = (props) => {
   const { surveyMenuPath, reportMenuPath,URL } = props;
   return (
-    <div>
+    <div className="pb-2">
       <li
         id="headingOne"
         data-toggle="collapse"
@@ -200,8 +200,8 @@ const HomeLink = (props) => {
 const AdminLink = (props) => {
   return (
     props.userLevel === 1 && (
-      <div>
-        <li>
+      <div >
+        <li className="pb-2">
           <EverCommLink
             pathName={`/dashobard`}
             to={`/dashboard`}
@@ -209,10 +209,10 @@ const AdminLink = (props) => {
           />
         </li>
 
-        <li>
+        <li className="pb-2">
           <EverCommLink
-            pathName={`/user/accountManagement`}
-            to={`/user/accountManagement`}
+            pathName={`/user/accountManagement/${userId}`}
+            to={`/user/accountManagement/${userId}`}
             text={"USER MANAGEMENT"}
           />
         </li>
