@@ -52,6 +52,11 @@ export const ChangePassword = (props) => {
     e.preventDefault();
     if (passwordData.newPassword !== passwordData.confirmPassword) {
       alert.error("Password do not match!");
+    } else if (
+      passwordData.newPassword.length <8||
+      passwordData.confirmPassword.length < 8
+    ) {
+      alert.error("Password minium 8 characters!");
     } else {
       const password = passwordData.currentPassword;
       const newPassword = passwordData.newPassword;
@@ -61,7 +66,9 @@ export const ChangePassword = (props) => {
           alert.error(data.message);
         } else {
           alert.success(data.message);
-          _handleSignOut(props);
+          setTimeout(() => {
+            _handleSignOut(props);
+          }, 5000);
         }
       });
     }
