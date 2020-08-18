@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import MaterialTable from "material-table";
 import { ESButton } from "../../../../tools/ES_Button";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import * as Colors from "../../../../config/Color.config";
-import { render } from "@testing-library/react";
 
 export default function UserTable(props) {
   const {
@@ -13,6 +12,7 @@ export default function UserTable(props) {
     isEdit,
     handleIsEdit,
     handleEdit,
+    rowsPerPage
   } = props;
 
   const theme = createMuiTheme({
@@ -22,7 +22,6 @@ export default function UserTable(props) {
       },
     },
   });
-
   const [tableData, setTableData] = React.useState({
     columns: [
       { title: "Name", field: "name" },
@@ -33,6 +32,8 @@ export default function UserTable(props) {
     ],
     data: userData,
   });
+const rows=isEdit?5:10
+console.log(rows);
   const actionButtons = (
     <div className="row w-100 px-3">
       <div className="w-100 pb-1">
@@ -65,8 +66,6 @@ export default function UserTable(props) {
                 handleEdit(tableData.data[rowData.tableData.id])
             : null
         }
-        page={15}
-        padding
         title={actionButtons}
         columns={tableData.columns}
         data={tableData.data}
@@ -80,10 +79,8 @@ export default function UserTable(props) {
             lineHeight: 0,
           }),
           padding: "dense",
-          pageSizeOptions:(isAdd || isEdit) ? [5, 10, 15] : [10, 20, 30],
-          pageSize: (isAdd || isEdit) ? 5 : 10,
-          page
-          // (isAdd || isEdit) ? 5 : 10
+          // pageSizeOptions: isAdd || isEdit ? [5, 10, 15] : [10, 20, 30],
+          pageSize:rows,
         }}
       />
     </MuiThemeProvider>

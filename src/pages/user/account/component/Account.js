@@ -48,7 +48,8 @@ const Account = (props) => {
     visible,
     handleView,
     handleEdit,
-    editData
+    editData,
+    rowsPerPage
   } = props;
 
   const header = {
@@ -77,6 +78,7 @@ const Account = (props) => {
               isEdit={edit}
               handleIsEdit={handleIsEdit}
               handleEdit={handleEdit}
+              rowsPerPage={rowsPerPage}
             />
           )}
         </div>

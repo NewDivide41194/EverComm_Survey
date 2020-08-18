@@ -48,7 +48,8 @@ export const ChangePassword = (props) => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (passwordData.newPassword !== passwordData.confirmPassword) {
       alert.error("Password do not match!");
     } else {
@@ -56,9 +57,13 @@ export const ChangePassword = (props) => {
       const newPassword = passwordData.newPassword;
       UpdatePassword({ userId, password, newPassword, token }, (err, data) => {
         console.log(data);
-        alert.error(data.message);
+        if (data.success === false) {
+          alert.error(data.message);
+        } else {
+          alert.success(data.message);
+          _handleSignOut(props);
+        }
       });
-      //  _handleSignOut(props)
     }
   };
 
@@ -69,7 +74,7 @@ export const ChangePassword = (props) => {
       confirmPassword: "",
     });
   };
-  console.log("===>", passwordData);
+
   return (
     <div className="container">
       <div className="d-flex flex-row justify-content-center">
@@ -157,7 +162,7 @@ const Password = (props) => {
   const err = {};
 
   return (
-    <div className="w-100 pb-2 text-secondary">
+    <div className="w-100 py-2 text-secondary">
       <label htmlFor="Password">{placeHolder}</label>
 
       {err.passwordErr === undefined ? null : (

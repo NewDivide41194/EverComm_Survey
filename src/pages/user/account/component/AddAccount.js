@@ -45,16 +45,23 @@ const AddAccontForm = (props) => {
     checkedList,
   } = props;
   const err = {};
-
+  const centeredStyle = {
+    position: "absolute",
+    top: "50%",
+    transform: "translateY(-50%)",
+  };
+  const oneUserEditPath =
+    window.location.pathname === `/user/editAccount/${userId}`;
   return (
     <div className="row justify-content-center py-3">
-      <form className="col-lg-6 col-sm-12" style={{
-      position: "absolute",
-      top: "50%",
-      transform: "translateY(-50%)"
-    }}>
-      <i class="fas fa-user-edit"></i>
-        <h4 style={{ color: Colors.PrimaryColor }}>{`${window.location.pathname===`/user/editAccount/${userId}` ? 'Edit User Account' : 'Add New User'}`}</h4>
+      <form
+        className={`${oneUserEditPath?"col-lg-4":"col-lg-6"} col-sm-12`}
+        style={oneUserEditPath ? centeredStyle : null}
+      >
+        {oneUserEditPath&&<div className="text-center"><i class="fas fa-user-edit fa-2x" style={{color:Colors.Gray}}></i></div>}
+        <h4 style={{ color: Colors.PrimaryColor }} className={oneUserEditPath&&`text-center`}>{`${
+          oneUserEditPath || edit ? "Edit User Account" : "Add New User"
+        }`}</h4>
         <div className="row form-group">
           <div className="py-2 col-sm-12 col-lg-6">
             <label htmlFor="FirstName">First Name</label>
@@ -119,7 +126,11 @@ const AddAccontForm = (props) => {
               onChange={(e) => handleCompanyChange(e)}
             />
           </div>
-          <div className={`py-2 col-sm-12 ${matchUser[0] === 'admin'&&"col-lg-6"}`}>
+          <div
+            className={`py-2 col-sm-12 ${
+              matchUser[0] === "admin" && "col-lg-6"
+            }`}
+          >
             <label htmlFor="Mobile">Phone No.</label>
             {err.mobileErr == undefined ? null : (
               <div
@@ -140,19 +151,20 @@ const AddAccontForm = (props) => {
               onChange={(e) => handleMobileChange(e)}
             />
           </div>
-          {matchUser[0] === 'admin' && 
-          <div className="py-2 col-sm-12 col-lg-6">
-            <label htmlFor="UserLevel">Choose User Level</label>
-            <ESDropDownSample
-              disabled={isDisabled}
-              id={"UserLevel"}
-              defaultValue={ UserLevelOptions[1] }
-              notClearable
-              _handleSelect={handleUserLevelSelect}
-              options={UserLevelOptions}
-              value={userLevel}
-            />
-          </div>}
+          {matchUser[0] === "admin" && (
+            <div className="py-2 col-sm-12 col-lg-6">
+              <label htmlFor="UserLevel">Choose User Level</label>
+              <ESDropDownSample
+                disabled={isDisabled}
+                id={"UserLevel"}
+                defaultValue={UserLevelOptions[1]}
+                notClearable
+                _handleSelect={handleUserLevelSelect}
+                options={UserLevelOptions}
+                value={userLevel}
+              />
+            </div>
+          )}
           <div className="py-2 col-12">
             <label htmlFor="Email">Email</label>
 
@@ -176,7 +188,7 @@ const AddAccontForm = (props) => {
               onChange={(e) => handleEmailChange(e)}
             />
           </div>
-          {window.location.pathname !== `/user/editAccount/${userId}` && (
+          {oneUserEditPath|| (
             <div className="py-2 col-12">
               <label htmlFor="Password">Password</label>
               {err.passwordErr === undefined ? null : (
@@ -216,8 +228,7 @@ const AddAccontForm = (props) => {
               </span>
             </div>
           )}
-          {
-            window.location.pathname !== `/user/editAccount/${userId}` &&
+          {oneUserEditPath|| (
             <div className="col-sm-12 col-lg-6">
               <ESCheckBox
                 disabled={isDisabled}
@@ -234,8 +245,8 @@ const AddAccontForm = (props) => {
                 className={"w-100"}
               />
             </div>
-          }
-          
+          )}
+
           <div className="pt-3 col-12">
             <div className="row">
               <div className="col-6">
@@ -252,6 +263,7 @@ const AddAccontForm = (props) => {
                   disabled={isDisabled}
                   text={"CANCEL"}
                   id={"Cancel"}
+                  customColor={Colors.Gray}
                   onClick={handleCancel}
                 />
               </div>
@@ -259,15 +271,15 @@ const AddAccontForm = (props) => {
           </div>
         </div>
       </form>
-      {
-        (matchUser[0] === 'admin' || window.location.pathname!==`/user/editAccount/${userId}`) &&
+      {(matchUser[0] === "admin" ||
+        oneUserEditPath===false) && (
         <SurveyHeaderList
           surveyList={surveyList}
           userLevel={userLevel}
           handleCheckChange={handleCheckChange}
           checkedList={checkedList}
         />
-      }
+      )}
     </div>
   );
 };

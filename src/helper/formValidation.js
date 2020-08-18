@@ -20,6 +20,7 @@ export const LoginFormValidation = (data) => {
 
 export const RegisterFormValidation = (data) => {
   const err = {};
+  console.log(data);
   const { eMail, password, firstName, lastName, companyName, Mobile  } = data;
   if (firstName === "") {
     err.firstNameErr = "Fill Frist Name!";
@@ -49,7 +50,8 @@ export const RegisterFormValidation = (data) => {
   if (password === "") {
     err.passwordErr = "Fill Password!";
   }else if (password===undefined){
-    return
+    // err.eMailErr="Undefined Phone"
+    return err
   }
   else if (password.length<8){
     err.passwordErr="Minium 8 Characters"

@@ -34,6 +34,7 @@ const AccountContainer = (props) => {
   const [isAdd, setIsAdd] = useState(false);
   const [visible, setVisible] = useState(false);
   const [editData, setEditData] = useState([]);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const errStyle = {
     marginTop: "-25px",
     fontSize: 12,
@@ -101,29 +102,27 @@ const AccountContainer = (props) => {
       companyName,
       Mobile,
       eMail,
-      // password,
       active,
       userLevel,
     };
 
     const validedErr = RegisterFormValidation(data);
-    setErr(validedErr);
     console.log("validedErr > ", validedErr);
-    if (validedErr !== undefined) {
-      if (validedErr.firstNameErr) {
-        document.getElementById("FirstName").focus();
-      } else if (validedErr.lastNameErr) {
-        document.getElementById("LastName").focus();
-      } else if (validedErr.MobileErr) {
-        document.getElementById("Mobile").focus();
-      } else if (validedErr.companyErr) {
-        document.getElementById("CompanyName").focus();
-      } else if (validedErr.eMailErr) {
-        document.getElementById("Email").focus();
-      } else if (validedErr.passwordErr) {
-        document.getElementById("Password").focus();
-      }
-    } else if (validedErr === undefined) {
+    setErr(validedErr);
+
+    if (validedErr.firstNameErr) {
+      document.getElementById("FirstName").focus();
+    } else if (validedErr.lastNameErr) {
+      document.getElementById("LastName").focus();
+    } else if (validedErr.MobileErr) {
+      document.getElementById("Mobile").focus();
+    } else if (validedErr.companyErr) {
+      document.getElementById("CompanyName").focus();
+    } else if (validedErr.eMailErr) {
+      document.getElementById("Email").focus();
+    } else if (validedErr.passwordErr) {
+      document.getElementById("Password").focus();
+    } else if (Object.keys(validedErr).length === 0) {
       setErr({});
       if (isAdd) {
         RegisterFetch(
@@ -144,12 +143,23 @@ const AccountContainer = (props) => {
               alert.error(data.message);
             } else {
               alert.success("Account Added Successfully!");
-              //window.location.reload();
+              window.location.reload();
             }
           }
         );
       } else {
-        // console.log('update >> ', id, firstName, lastName, companyName, Mobile, eMail, userLevel.value, active, checkedList)
+        console.log(
+          "update >> ",
+          id,
+          firstName,
+          lastName,
+          companyName,
+          Mobile,
+          eMail,
+          userLevel.value,
+          active,
+          checkedList
+        );
         UpdateUserAccount(
           {
             id,
@@ -167,6 +177,7 @@ const AccountContainer = (props) => {
               alert.error(data.message);
             } else {
               alert.success("Updated User Successfully!");
+              window.location.reload()
             }
           },
           { token }
@@ -184,6 +195,7 @@ const AccountContainer = (props) => {
     setUserLevel(UserLevelOptions[1]);
     setActive(false);
     setCheckedList([]);
+    setRowsPerPage(5);
   };
 
   const _handleview = () => {
@@ -191,13 +203,15 @@ const AccountContainer = (props) => {
   };
 
   const _handleCancel = () => {
-    // document.getElementById("FirstName").value = "";
-    // document.getElementById("LastName").value = "";
-    // document.getElementById("Mobile").value = "";
-    // document.getElementById("CompanyName").value = "";
-    // document.getElementById("Email").value = "";
-    // document.getElementById("Password").value = "";
+    setEdit(false);
+    setFirstName("");
+    setLastName("");
+    setMobile("");
+    setCompanyName("");
     setIsAdd(false);
+    setActive(false);
+    setCheckedList([]);
+    setRowsPerPage(5);
   };
 
   const _handleIsEdit = () => {
@@ -348,6 +362,7 @@ const AccountContainer = (props) => {
       checkedList={checkedList}
       handleView={_handleview}
       visible={visible}
+      rowsPerPage={rowsPerPage}
     />
   );
 };

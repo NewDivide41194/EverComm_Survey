@@ -113,26 +113,27 @@ const QuestionCard = (props) => {
                                { new Array(2).fill(null).map(v=><div className="col-4"> <ESTimeRange start={"00:00"} end={"00:00"}/></div>)}
                             </div>) : null} */}
                           </div>
-                        ) : ques.input_type_id === 8 ? (
-                          <div className="row border-bottom pb-2">
-                            {new Array(
-                              AnswerData.map((v) =>
-                                v.optionChoiceId === 161
-                                  ? 1
-                                  : v.optionChoiceId === 162
-                                  ? 2
-                                  : 3
+                        // ) : ques.input_type_id === 8 ? (
+                        //   <div className="row border-bottom pb-2">
+                        //     {new Array(
+                        //       AnswerData.map((v) =>
+                        //         v.optionChoiceId === 161
+                        //           ? 1
+                        //           : v.optionChoiceId === 162
+                        //           ? 2
+                        //           : 3
                                   
-                              )[0]
-                            )
-                              .fill(null)
-                              .map((v) => (
-                                <div className="col-lg-4 col-md-6">
-                                  <ESTimeRange id={remakeQuestionId} start={"00:00"} end={"00:00"} />
-                                </div>
-                              ))}
-                          </div>
-                        ) : ques.input_type_id === 2 ? (
+                        //       )[0]
+                        //     )
+                        //       .fill(null)
+                        //       .map((v) => (
+                        //         <div className="col-lg-4 col-md-6">
+                        //           <ESTimeRange id={remakeQuestionId} start={"00:00"} end={"00:00"} />
+                        //         </div>
+                        //       ))}
+                        //   </div>
+                        ) 
+                        : ques.input_type_id === 2 ? (
                           <div>
                             <ESRadio
                               value={ques.option_choices}
