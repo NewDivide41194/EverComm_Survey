@@ -6,8 +6,6 @@ import { EverCommLink } from "../../tools/ES_Text";
 import auth from "../../security/auth";
 import { Report_Menu } from "../../api/url";
 
-
-
 const userId = localStorage.getItem("userId");
 
 const userLevel = parseInt(localStorage.getItem("userLevel"));
@@ -15,14 +13,16 @@ const userLevelName =
   userLevel === 1 ? "ADMIN" : userLevel === 2 ? "USER" : "DISTRIBUTOR";
 const eMail = localStorage.getItem("email");
 
-const accountSettingPath = `/user/account/${userId}`;
-const changePasswordPath = `/user/account/changePassword`;
-const mainMenuPath=`/menu/${userId}`
-const surveyMenuPath=`/surveyMenu/${userId}`
-const reportMenuPath=`/reportMenu/${userId}`
-const URL=window.location.pathname
-
 const RightSideBar = (props) => {
+  const accountSettingPath = `/user/editAccount/${userId}`;
+  const changePasswordPath = `/user/account/changePassword/${userId}`;
+  const mainMenuPath = `/menu/${userId}`;
+  const surveyMenuPath = `/surveyMenu/${userId}`;
+  const reportMenuPath = `/reportMenu/${userId}`;
+  const URL = window.location.pathname;
+
+  console.log("URL", URL);
+
   const styles = {
     bmBurgerButton: {
       position: "fixed",
@@ -114,9 +114,19 @@ const RightSideBar = (props) => {
             style={{ listStyle: "none" }}
             className="w-100 text-left"
           >
-            <HomeLink userId={userId} />
+            <HomeLink
+              userId={userId}
+              URL={URL}
+              reportMenuPath={reportMenuPath}
+              surveyMenuPath={surveyMenuPath}
+            />
             <AdminLink userLevel={userLevel} />
-            <AccountLink userId={userId} />
+            <AccountLink
+              userId={userId}
+              URL={URL}
+              accountSettingPath={accountSettingPath}
+              changePasswordPath={changePasswordPath}
+            />
           </ul>
           <div className="mt-auto" onClick={_handleSignOut}>
             <hr className="bg-light" />
@@ -137,7 +147,7 @@ const RightSideBar = (props) => {
 export default withRouter(RightSideBar);
 
 const HomeLink = (props) => {
-  const { userId } = props;
+  const { surveyMenuPath, reportMenuPath,URL } = props;
   return (
     <div>
       <li
@@ -147,9 +157,10 @@ const HomeLink = (props) => {
         aria-expanded="false"
         aria-controls="collapseOne"
         className="d-flex flex-row justify-content-between"
+        style={{cursor:"pointer"}}
       >
         <div>
-          <EverCommLink to={mainMenuPath} text={"HOME"} />
+          HOME
         </div>
         <div>
           <i className="fa fa-caret-down" />
@@ -161,7 +172,9 @@ const HomeLink = (props) => {
           listStyleType: "square",
         }}
         id="collapseOne"
-        className={`collapse`}
+        className={`collapse ${
+          URL === surveyMenuPath || URL === reportMenuPath ? "show" : null
+        }`}
         aria-labelledby="headingOne"
         data-parent="#accordion"
       >
@@ -209,7 +222,7 @@ const AdminLink = (props) => {
 };
 
 const AccountLink = (props) => {
-  const { userId } = props;
+  const { accountSettingPath, changePasswordPath ,URL} = props;
   return (
     <div>
       <li
@@ -219,9 +232,10 @@ const AccountLink = (props) => {
         aria-expanded="false"
         aria-controls="collapseTwo"
         className="d-flex flex-row justify-content-between"
+        style={{cursor:"pointer"}}
       >
         <div>
-          <EverCommLink text={"ACCOUNT"} />
+          ACCOUNT
         </div>
         <div>
           <i className="fa fa-caret-down" />
@@ -233,7 +247,11 @@ const AccountLink = (props) => {
           listStyleType: "square",
         }}
         id="collapseTwo"
-        className={`collapse`}
+        className={`collapse ${
+          URL === accountSettingPath || URL === changePasswordPath
+            ? "show"
+            : null
+        }`}
         aria-labelledby="headingTwo"
         data-parent="#accordion"
       >

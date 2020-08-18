@@ -28,7 +28,7 @@ export const RouteName = {
   routeBuildingPage: "addBuilding",
 
   routeAccountPage: "user/accountManagement/:userId",
-  routeSelfAccountPage: "user/account/:userId",
+  routeSelfAccountPage: "user/editAccount/:userId",
   routeChangePasswordPage:"user/account/changePassword/:userId",
 
   routeSurveylistPage: "surveyList",
@@ -49,7 +49,7 @@ export default {
     [RouteName.routeSurveyMenuPage]: { component: SurveryMenuContainer },
     [RouteName.routeAccountPage]: { component: AccountContainer },
     [RouteName.routeSelfAccountPage]: { component: AccountContainer },
-    [RouteName.routeSelfAccountPage]: { component: ChangePassword },
+    [RouteName.routeChangePasswordPage]: { component: ChangePassword },
 
     [RouteName.routeBuildingPage]: { component: BuildingContainer },
     [RouteName.routeSurveylistPage]: { component: SurveylistContainer },

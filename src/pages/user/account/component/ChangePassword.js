@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ESInput } from "../../../../tools/ES_Inputs";
 import { ESButton } from "../../../../tools/ES_Button";
 import { UpdatePassword } from "../../../../api/FetchUser";
+import * as Colors from "../../../../config/Color.config"
 
 export const ChangePassword = (props) => {
   const [passwordData, setPasswordData] = useState({
@@ -46,7 +47,7 @@ export const ChangePassword = (props) => {
     }
   };
 
-  console.log(passwordData);
+  console.log("===>",passwordData);
   return (
     <div className="container">
       <div className="row justify-content-center">
@@ -58,7 +59,10 @@ export const ChangePassword = (props) => {
             transform: "translateY(-50%)",
           }}
         >
+          <div className="text-center pb-2">
+          <i className="fas fa-key pl-2 fa-2x pb-2" style={{color:Colors.Gray}}></i>
           <h4>Change Password</h4>
+          </div>
           <Password
             placeHolder={"Current Password"}
             value={passwordData.currentPassword}
@@ -117,7 +121,7 @@ const Password = (props) => {
   const err = {};
 
   return (
-    <div className="w-100">
+    <div className="w-100 py-1 font-weight-bold text-secondary">
       <label htmlFor="Password">{placeHolder}</label>
 
       {err.passwordErr === undefined ? null : (

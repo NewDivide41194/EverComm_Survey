@@ -4,14 +4,21 @@ import { RegisterFormValidation } from "../../../../helper/formValidation";
 import { useAlert } from "react-alert";
 // import { UpdateUserInfo } from "../../../../api/FetchUser";
 // import { AccountSettingValidataion } from "../../../../helper/formValidation";
-import { GetUser, GetOneUser, RegisterFetch, UpdateUserAccount} from "../../../../api/FetchUser";
+import {
+  GetUser,
+  GetOneUser,
+  RegisterFetch,
+  UpdateUserAccount,
+} from "../../../../api/FetchUser";
 
 const AccountContainer = (props) => {
   const token = localStorage.getItem("token");
-  const userId=localStorage.getItem("userId")
+  const userId = localStorage.getItem("userId");
   const [userData, setUserData] = useState([]);
   const [id, setId] = useState("");
-  const [edit, setEdit] = useState(window.location.pathname===`/user/account/${userId}`? true : false);
+  const [edit, setEdit] = useState(
+    window.location.pathname === `/user/account/${userId}` ? true : false
+  );
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [companyName, setCompanyName] = useState("");
@@ -48,38 +55,43 @@ const AccountContainer = (props) => {
   const NameRef = useRef(null);
 
   useEffect(() => {
-    if(window.location.pathname===`/user/accountManagement/${userId}`){
-      GetUser({id:userId, token},(err, data) => {
-        
+    if (window.location.pathname === `/user/accountManagement/${userId}`) {
+      GetUser({ id: userId, token }, (err, data) => {
         setUserData(data.payload[0]);
         setSurveyList(data.payload[1]);
       });
     }
-   
-    if(window.location.pathname===`/user/account/${userId}`){
-      GetOneUser({id:userId, token}, (err, data) => {
-        GetOneUserInfo(data.payload[0])
-      })
+
+    if (window.location.pathname === `/user/editAccount/${userId}`) {
+      GetOneUser({ id: userId, token }, (err, data) => {
+        GetOneUserInfo(data.payload[0]);
+      });
     }
-   
   }, []);
 
   const GetOneUserInfo = (data) => {
-    console.log('Data >>> ', data)
-    const first = data.user_name.split(" ")
-    const last = data.user_name.split(" ").splice(1,2).join(' ')
-    const level = UserLevelOptions.filter(v => v.value === data.user_level_id ? v.value : undefined).map(v => v)
-    setId(data.login_user_id)
-    setFirstName(first[0])
-    setLastName(last)
-    setCompanyName(data.company_name)
-    setMobile(data.phone_number)
-    setEMail(data.email)
-    setUserLevel(level[0])
-    setActive(data.active === 1 ? !active : active)
-  }
- 
-  const matchUser = userData !== [] ? userData.filter(v => v.id == userId ? v : undefined).map( u => u.role) : []
+    console.log("Data >>> ", data);
+    const first = data.user_name.split(" ");
+    const last = data.user_name.split(" ").splice(1, 2).join(" ");
+    const level = UserLevelOptions.filter((v) =>
+      v.value === data.user_level_id ? v.value : undefined
+    ).map((v) => v);
+    setId(data.login_user_id);
+    setFirstName(first[0]);
+    setLastName(last);
+    setCompanyName(data.company_name);
+    setMobile(data.phone_number);
+    setEMail(data.email);
+    setUserLevel(level[0]);
+    setActive(data.active === 1 ? !active : active);
+  };
+
+  const matchUser =
+    userData !== []
+      ? userData
+          .filter((v) => (v.id == userId ? v : undefined))
+          .map((u) => u.role)
+      : [];
 
   const _handleSubmit = (e) => {
     e.preventDefault();
@@ -93,11 +105,11 @@ const AccountContainer = (props) => {
       active,
       userLevel,
     };
-    
-      const validedErr = RegisterFormValidation(data);
-      setErr(validedErr);
-      console.log('validedErr > ',validedErr);
-      if (validedErr!==undefined){
+
+    const validedErr = RegisterFormValidation(data);
+    setErr(validedErr);
+    console.log("validedErr > ", validedErr);
+    if (validedErr !== undefined) {
       if (validedErr.firstNameErr) {
         document.getElementById("FirstName").focus();
       } else if (validedErr.lastNameErr) {
@@ -110,44 +122,69 @@ const AccountContainer = (props) => {
         document.getElementById("Email").focus();
       } else if (validedErr.passwordErr) {
         document.getElementById("Password").focus();
-      }}
-      
-      else if (validedErr===undefined) {
-        setErr({});
-        if(isAdd) {
-          RegisterFetch({ firstName, lastName, eMail, password, companyName, active, Mobile, userLevel,surveyHeaderId:checkedList, token }, (err, data) => {
+      }
+    } else if (validedErr === undefined) {
+      setErr({});
+      if (isAdd) {
+        RegisterFetch(
+          {
+            firstName,
+            lastName,
+            eMail,
+            password,
+            companyName,
+            active,
+            Mobile,
+            userLevel,
+            surveyHeaderId: checkedList,
+            token,
+          },
+          (err, data) => {
             if (data.success === false) {
               alert.error(data.message);
             } else {
-              alert.success("Account Added Successfully!")
+              alert.success("Account Added Successfully!");
               //window.location.reload();
             }
-          });
-        }
-        else {
-          // console.log('update >> ', id, firstName, lastName, companyName, Mobile, eMail, userLevel.value, active, checkedList)
-          UpdateUserAccount({ id, firstName, lastName, companyName, Mobile, eMail, userLevel:userLevel.value, active, surveyHeaderId:checkedList},
-            (error, data) => {
-              if (data.success === false){
-                alert.error(data.message);
-              }else {
-                alert.success('Updated User Successfully!')
-              }
-            }, {token})
-        }
+          }
+        );
+      } else {
+        // console.log('update >> ', id, firstName, lastName, companyName, Mobile, eMail, userLevel.value, active, checkedList)
+        UpdateUserAccount(
+          {
+            id,
+            firstName,
+            lastName,
+            companyName,
+            Mobile,
+            eMail,
+            userLevel: userLevel.value,
+            active,
+            surveyHeaderId: checkedList,
+          },
+          (error, data) => {
+            if (data.success === false) {
+              alert.error(data.message);
+            } else {
+              alert.success("Updated User Successfully!");
+            }
+          },
+          { token }
+        );
       }
+    }
   };
-  const _handleIsAdd=()=>{
-    setIsAdd(!isAdd)
-    setEdit(false) 
-    setFirstName("") 
-    setLastName("")
-    setMobile("")
-    setCompanyName("")
-    setUserLevel(UserLevelOptions[1])
-    setActive(false)
-    setCheckedList([])
-  }
+  const _handleIsAdd = () => {
+    setIsAdd(!isAdd);
+    setEdit(false);
+    setFirstName("");
+    setLastName("");
+    setMobile("");
+    setCompanyName("");
+    setUserLevel(UserLevelOptions[1]);
+    setActive(false);
+    setCheckedList([]);
+  };
 
   const _handleview = () => {
     setVisible(!visible);
@@ -170,13 +207,15 @@ const AccountContainer = (props) => {
   };
 
   const _handleEdit = (rowData) => {
-    console.log(userData.findIndex(v=>v.id===rowData.id));
-    setId(rowData.id)
-    console.log('row id >>>> ', rowData.id)
-    const first = rowData.name.split(" ")
-    const last = rowData.name.split(" ").splice(1,2).join(' ')
-    const isActive = rowData.active == 0 ? false : true
-    const userlevel = Object.values(UserLevelOptions).filter(v=> v.label == rowData.role.toLowerCase() ? v.label : null)
+    console.log(userData.findIndex((v) => v.id === rowData.id));
+    setId(rowData.id);
+    console.log("row id >>>> ", rowData.id);
+    const first = rowData.name.split(" ");
+    const last = rowData.name.split(" ").splice(1, 2).join(" ");
+    const isActive = rowData.active == 0 ? false : true;
+    const userlevel = Object.values(UserLevelOptions).filter((v) =>
+      v.label == rowData.role.toLowerCase() ? v.label : null
+    );
 
     setFirstName(first[0]);
     setLastName(last);
@@ -190,10 +229,14 @@ const AccountContainer = (props) => {
     if (rowData.role === "ADMIN") {
       setCheckedList(surveyList.map((v) => v.survey_header_id));
     } else {
-      setCheckedList(userData.map(v=>v. survey_header_id)[userData.findIndex(v=>v.id===rowData.id)]||[]);
+      setCheckedList(
+        userData.map((v) => v.survey_header_id)[
+          userData.findIndex((v) => v.id === rowData.id)
+        ] || []
+      );
     }
   };
-console.log(userData);
+  console.log(userData);
   //const id = Object.values(editData).filter(v => v.id )
 
   const _handleFirstNameChange = (e) => {
@@ -265,9 +308,9 @@ console.log(userData);
 
   // console.log();
 
-  return(
+  return (
     <Account
-      matchUser = {matchUser}
+      matchUser={matchUser}
       userData={userData}
       surveyList={surveyList}
       err={err}

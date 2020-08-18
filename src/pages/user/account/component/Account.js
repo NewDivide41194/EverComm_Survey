@@ -69,7 +69,7 @@ const Account = (props) => {
     <div className="container">
       <div className="row p-3">
         <div className="w-100">
-          {userData && userData.length && window.location.pathname!==`/user/account/${userId}`&& (
+          {userData && userData.length && window.location.pathname!==`/user/editAccount/${userId}`&& (
             <UserTable
               userData={userData}
               handleIsAdd={handleIsAdd}
@@ -80,7 +80,7 @@ const Account = (props) => {
             />
           )}
         </div>
-        {(isAdd || editData.length>0||window.location.pathname===`/user/account/${userId}`)&& (
+        {(isAdd || editData.length>0||window.location.pathname===`/user/editAccount/${userId}`)&& (
           <div className="w-100">
             <AddAccountForm
               matchUser={matchUser}

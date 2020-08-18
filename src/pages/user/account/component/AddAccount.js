@@ -171,7 +171,7 @@ const AddAccontForm = (props) => {
               onChange={(e) => handleEmailChange(e)}
             />
           </div>
-          {window.location.pathname!==`/user/account/${userId}` &&
+          {window.location.pathname!==`/user/editAccount/${userId}` &&
           <div className="py-2 col-12">
             <label htmlFor="Password">Password</label>
             {err.passwordErr === undefined ? null : (
@@ -254,7 +254,7 @@ const AddAccontForm = (props) => {
         </div>
       </form>
       {
-        (matchUser[0] === 'ADMIN' || window.location.pathname!==`/user/account/${userId}`) &&
+        (matchUser[0] === 'ADMIN' || window.location.pathname!==`/user/editAccount/${userId}`) &&
         <SurveyHeaderList
         surveyList={surveyList}
         userLevel={userLevel}
