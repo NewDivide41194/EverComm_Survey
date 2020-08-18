@@ -80,6 +80,10 @@ export default function UserTable(props) {
             lineHeight: 0,
           }),
           padding: "dense",
+          pageSizeOptions:(isAdd || isEdit) ? [5, 10, 15] : [10, 20, 30],
+          pageSize: (isAdd || isEdit) ? 5 : 10,
+          page
+          // (isAdd || isEdit) ? 5 : 10
         }}
       />
     </MuiThemeProvider>
