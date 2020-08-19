@@ -20,7 +20,7 @@ export const RouteName = {
 
   routeReportPage: "report",
 
-  routeAdminPage: "admin",
+  routeAdminPage: "admin/dashboard/createNewSurvey",
   routeMenuPage: "menu/:userId",
 
   routeSurveyMenuPage: "surveyMenu",

@@ -16,6 +16,8 @@ const eMail = localStorage.getItem("email");
 const RightSideBar = (props) => {
   const accountSettingPath = `/user/editAccount/${userId}`;
   const changePasswordPath = `/user/account/changePassword/${userId}`;
+  const createSurveyPath = `/admin/dashboard/createNewSurvey`;
+  const surveyManagementPath=`admin/dashboard/manageSurveyList`
   const mainMenuPath = `/menu/${userId}`;
   const surveyMenuPath = `/surveyMenu/${userId}`;
   const reportMenuPath = `/reportMenu/${userId}`;
@@ -120,7 +122,12 @@ const RightSideBar = (props) => {
               reportMenuPath={reportMenuPath}
               surveyMenuPath={surveyMenuPath}
             />
-            <AdminLink userLevel={userLevel} />
+            <AdminLink
+              userLevel={userLevel}
+              URL={URL}
+              createSurveyPath={createSurveyPath}
+              surveyManagementPath={surveyManagementPath}
+            />
             <AccountLink
               userId={userId}
               URL={URL}
@@ -147,7 +154,7 @@ const RightSideBar = (props) => {
 export default withRouter(RightSideBar);
 
 const HomeLink = (props) => {
-  const { surveyMenuPath, reportMenuPath,URL } = props;
+  const { surveyMenuPath, reportMenuPath, URL } = props;
   return (
     <div className="pb-2">
       <li
@@ -157,11 +164,9 @@ const HomeLink = (props) => {
         aria-expanded="false"
         aria-controls="collapseOne"
         className="d-flex flex-row justify-content-between"
-        style={{cursor:"pointer"}}
+        style={{ cursor: "pointer" }}
       >
-        <div>
-          HOME
-        </div>
+        <div>HOME</div>
         <div>
           <i className="fa fa-caret-down" />
         </div>
@@ -198,31 +203,60 @@ const HomeLink = (props) => {
 };
 
 const AdminLink = (props) => {
+  const { createSurveyPath, surveyManagementPath } = props;
   return (
     props.userLevel === 1 && (
-      <div >
-        <li className="pb-2">
-          <EverCommLink
-            pathName={`/dashobard`}
-            to={`/dashboard`}
-            text={"DASHBOARD"}
-          />
+      <div>
+        <li
+          id="headingThree"
+          data-toggle="collapse"
+          data-target="#collapseThree"
+          aria-expanded="false"
+          aria-controls="collapseThree"
+          className="d-flex flex-row justify-content-between"
+          style={{ cursor: "pointer" }}
+        >
+          <div>DASHBOARD</div>
+          <div>
+            <i className="fa fa-caret-down" />
+          </div>
         </li>
-
-        <li className="pb-2">
-          <EverCommLink
-            pathName={`/user/accountManagement/${userId}`}
-            to={`/user/accountManagement/${userId}`}
-            text={"USER MANAGEMENT"}
-          />
-        </li>
+        <ul
+          style={{
+            listStyle: "none",
+            listStyleType: "square",
+          }}
+          id="collapseThree"
+          className={`collapse ${
+            URL === createSurveyPath || URL === surveyManagementPath
+              ? "show"
+              : null
+          }`}
+          aria-labelledby="headingThree"
+          data-parent="#accordion"
+        >
+          <li>
+            <EverCommLink
+              pathName={createSurveyPath}
+              to={createSurveyPath}
+              text={"Create New Survey"}
+            />
+          </li>
+          <li>
+            <EverCommLink
+              pathName={surveyManagementPath}
+              to={surveyManagementPath}
+              text={"My Survey"}
+            />
+          </li>
+        </ul>
       </div>
     )
   );
 };
 
 const AccountLink = (props) => {
-  const { accountSettingPath, changePasswordPath ,URL} = props;
+  const { accountSettingPath, changePasswordPath, URL } = props;
   return (
     <div>
       <li
@@ -232,11 +266,9 @@ const AccountLink = (props) => {
         aria-expanded="false"
         aria-controls="collapseTwo"
         className="d-flex flex-row justify-content-between"
-        style={{cursor:"pointer"}}
+        style={{ cursor: "pointer" }}
       >
-        <div>
-          ACCOUNT
-        </div>
+        <div>ACCOUNT</div>
         <div>
           <i className="fa fa-caret-down" />
         </div>

@@ -36,7 +36,6 @@ const QuestionContainer = (props) => {
     building_id: buildingId,
     keyValue: null,
   };
-
   const amountOfDevice = surveyData.length && surveyData[0].amountOfDevice;
   const deviceAmounts =
     amountOfDevice.length && Object.values(amountOfDevice[0]);
@@ -46,11 +45,13 @@ const QuestionContainer = (props) => {
 
   const idx = [0];
   const totalQues = idx.map((i) => questionslength[i]).reduce((p, c) => p + c);
-  const totalQuesCount =
+  const totalQuesCount1 =
     deviceAmounts &&
     deviceAmounts.reduce((r, a, i) => {
       return r + a * questionslength.slice(1)[i];
-    }, 0) + totalQues;
+    }
+      , 0) + totalQues;
+  let totalQuesCount = (questionslength.length == 6 ? questionslength[questionslength.length - 1] * deviceAmounts[0] : 0) + totalQuesCount1
   useEffect(() => {
     setIsLoading(true);
     QuestionFetch(

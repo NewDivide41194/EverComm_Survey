@@ -22,7 +22,7 @@ export const ESButton = props => {
   };
 
   const hoverStyle = {
-    background: customColor||Color.purple,
+    background: customColor||Color.PrimaryColor,
     boxShadow: noShadow?'none':"0px 2px 3px #2B2B2B"
   };
 
