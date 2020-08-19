@@ -105,7 +105,7 @@ const Register = (props) => {
             </div>
             <div className="py-2 col-sm-12 col-lg-6">
               <label htmlFor="Mobile">Phone No.</label>
-              {err.companyErr === undefined ? null : (
+              {err.MobileErr === undefined ? null : (
                 <div
                   className={errClassName}
                   style={{ ...errStyle }}

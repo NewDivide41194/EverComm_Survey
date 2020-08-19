@@ -33,10 +33,12 @@ export default function UserTable(props) {
     data: userData,
   });
 const rows=isEdit?5:10
-console.log(rows);
-  const actionButtons = (
-    <div className="row w-100 px-3">
-      <div className="w-100 pb-1">
+//console.log(rows);
+
+const actionButtons = (
+    <div className="row px-3" style={{fontSize:13, color:'darkred'}}>
+      {`${!isEdit ? 'Click "+ Add User" button to add new account' : '*Select a row to edit' }`}
+      {/* <div className="w-100 pb-1">
         <ESButton
           text={"+ Add User"}
           onClick={handleIsAdd}
@@ -54,7 +56,7 @@ console.log(rows);
           disabled={isEdit}
           leftIcon={<i className="fa fa-edit pr-2"></i>}
         />
-      </div>
+      </div> */}
     </div>
   );
   return (

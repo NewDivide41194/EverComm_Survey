@@ -25,7 +25,7 @@ const AccountContainer = (props) => {
   const [Mobile, setMobile] = useState("");
   const [eMail, setEMail] = useState("");
   const [Role, setRole] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState(null);
   const [err, setErr] = useState({});
   const [active, setActive] = useState(false);
   const [userLevel, setUserLevel] = useState("");
@@ -35,6 +35,7 @@ const AccountContainer = (props) => {
   const [visible, setVisible] = useState(false);
   const [editData, setEditData] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [close, setClose] = useState(false)
   const errStyle = {
     marginTop: "-25px",
     fontSize: 12,
@@ -71,7 +72,7 @@ const AccountContainer = (props) => {
   }, []);
 
   const GetOneUserInfo = (data) => {
-    console.log("Data >>> ", data);
+    //console.log("Data >>> ", data);
     const first = data.user_name.split(" ");
     const last = data.user_name.split(" ").splice(1, 2).join(" ");
     const level = UserLevelOptions.filter((v) =>
@@ -104,10 +105,11 @@ const AccountContainer = (props) => {
       eMail,
       active,
       userLevel,
+      password
     };
 
     const validedErr = RegisterFormValidation(data);
-    console.log("validedErr > ", validedErr);
+    //console.log("validedErr > ", validedErr);
     setErr(validedErr);
 
     if (validedErr.firstNameErr) {
@@ -148,18 +150,18 @@ const AccountContainer = (props) => {
           }
         );
       } else {
-        console.log(
-          "update >> ",
-          id,
-          firstName,
-          lastName,
-          companyName,
-          Mobile,
-          eMail,
-          userLevel.value,
-          active,
-          checkedList
-        );
+        // console.log(
+        //   "update >> ",
+        //   id,
+        //   firstName,
+        //   lastName,
+        //   companyName,
+        //   Mobile,
+        //   eMail,
+        //   userLevel.value,
+        //   active,
+        //   checkedList
+        // );
         UpdateUserAccount(
           {
             id,
@@ -185,8 +187,10 @@ const AccountContainer = (props) => {
       }
     }
   };
+
   const _handleIsAdd = () => {
     setIsAdd(!isAdd);
+    setClose(false)
     setEdit(false);
     setFirstName("");
     setLastName("");
@@ -203,11 +207,13 @@ const AccountContainer = (props) => {
   };
 
   const _handleCancel = () => {
+    setClose(!close);
     setEdit(false);
     setFirstName("");
     setLastName("");
     setMobile("");
     setCompanyName("");
+    setUserLevel(UserLevelOptions[1])
     setIsAdd(false);
     setActive(false);
     setCheckedList([]);
@@ -216,14 +222,16 @@ const AccountContainer = (props) => {
 
   const _handleIsEdit = () => {
     setErr({});
+    setClose(true);
     setEdit(!edit);
     setIsAdd(false);
   };
 
   const _handleEdit = (rowData) => {
-    console.log(userData.findIndex((v) => v.id === rowData.id));
+    setClose(false);
+    //console.log(userData.findIndex((v) => v.id === rowData.id));
     setId(rowData.id);
-    console.log("row id >>>> ", rowData.id);
+    //console.log("row id >>>> ", rowData.id);
     const first = rowData.name.split(" ");
     const last = rowData.name.split(" ").splice(1, 2).join(" ");
     const isActive = rowData.active == 0 ? false : true;
@@ -239,6 +247,7 @@ const AccountContainer = (props) => {
     setActive(isActive);
     setUserLevel(userlevel[0]);
     setEditData([rowData]);
+   
 
     if (rowData.role === "ADMIN") {
       setCheckedList(surveyList.map((v) => v.survey_header_id));
@@ -250,7 +259,7 @@ const AccountContainer = (props) => {
       );
     }
   };
-  console.log(userData);
+  //console.log(userData);
   //const id = Object.values(editData).filter(v => v.id )
 
   const _handleFirstNameChange = (e) => {
@@ -324,6 +333,7 @@ const AccountContainer = (props) => {
 
   return (
     <Account
+      close = {close}
       matchUser={matchUser}
       userData={userData}
       surveyList={surveyList}
