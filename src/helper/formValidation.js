@@ -47,15 +47,15 @@ export const RegisterFormValidation = (data) => {
   } else if (!emailRegex.test(eMail)) {
     err.eMailErr = "incorret Email Address!";
   }
-  if (password === "") {
-    err.passwordErr = "Fill Password!";
-  }else if (password===undefined){
+  if (password===null){
     // err.eMailErr="Undefined Phone"
     return err
-  }
-  else if (password.length<8){
+  } else if (password === "") {
+    err.passwordErr = "Fill Password!";
+  } else if (password.length<8){
     err.passwordErr="Minium 8 Characters"
   } 
+  
   return err;
 };
 

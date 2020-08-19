@@ -33,7 +33,7 @@ const AddAccontForm = (props) => {
     handleUserLevelSelect,
     handleCheckChange,
     visible,
-    // err,
+    err,
     errStyle,
     errClassName,
     isDisabled,
@@ -44,11 +44,12 @@ const AddAccontForm = (props) => {
     accountsetting,
     checkedList,
   } = props;
-  const err = {};
+  //console.log('Err >>> ', err.MobileErr)
+  //const err = {};
   const centeredStyle = {
     position: "absolute",
     top: "50%",
-    transform: "translateY(-50%)",
+    transform: "translateY(-50%)"
   };
   const oneUserEditPath =
     window.location.pathname === `/user/editAccount/${userId}`;
@@ -132,14 +133,14 @@ const AddAccontForm = (props) => {
             }`}
           >
             <label htmlFor="Mobile">Phone No.</label>
-            {err.mobileErr == undefined ? null : (
+            {err.MobileErr == undefined ? null : (
               <div
                 className={errClassName}
                 style={{
                   ...errStyle,
                 }}
               >
-                {`*${err.mobileErr}`}
+                {`*${err.MobileErr}`}
               </div>
             )}
             <ESInput
@@ -288,7 +289,7 @@ export default AddAccontForm;
 
 const SurveyHeaderList = (props) => {
   const { surveyList, handleCheckChange, checkedList, userLevel } = props;
-  console.log(checkedList);
+  //console.log(checkedList);
   const level = Object.values(userLevel).map((v) => v);
   const surveyListOption = surveyList.map((v) => ({
     option_choice_id: v.survey_header_id,
@@ -296,7 +297,7 @@ const SurveyHeaderList = (props) => {
   }));
 
   return (
-    <div className="col-lg-6 col-sm-12">
+    <div className="col-lg-6 col-sm-12" style={{maxHeight: 600, overflowY:'auto'}}>
       <h4 style={{ color: Colors.PrimaryColor }}>Select Survey Headers</h4>
       <span className=" text-success">
         <i className={"fa fa-exclamation-circle pr-2 pb-2"} />

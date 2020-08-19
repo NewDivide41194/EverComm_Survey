@@ -8,6 +8,7 @@ import UserTable from "./UserTable.js";
 
 const Account = (props) => {
   const {
+    close,
     matchUser,
     isAdd,
     handleIsAdd,
@@ -71,6 +72,32 @@ const Account = (props) => {
       <div className="row p-3">
         <div className="w-100">
           {userData && userData.length > 0 && window.location.pathname!==`/user/editAccount/${userId}`&& (
+            <div>
+             <div className="row justify-content-between pt-2 pb-3 px-3">
+               <div style={{color: Colors.PrimaryColor, fontSize: 20}}>
+                 <h2>User Account Management</h2>
+               </div>
+               <div className="d-flex pt-3">
+                <div className="w-40 px-2">
+                  <ESButton
+                    text={"+ Add User"}
+                    onClick={handleIsAdd}
+                    noShadow
+                    disabled={isAdd}
+                  />
+                </div>
+                <div className="w-40">
+                  <ESButton
+                    text={"Edit"}
+                    onClick={(e) => handleIsEdit(e)}
+                    noShadow
+                    disabled={edit}
+                    leftIcon={<i className="fa fa-edit pr-2"></i>}
+                  />
+                </div>
+               </div>
+    
+            </div>
             <UserTable
               userData={userData}
               handleIsAdd={handleIsAdd}
@@ -80,9 +107,10 @@ const Account = (props) => {
               handleEdit={handleEdit}
               rowsPerPage={rowsPerPage}
             />
+            </div>
           )}
         </div>
-        {(isAdd || editData.length>0||window.location.pathname===`/user/editAccount/${userId}`)&& (
+        {(isAdd || editData.length>0||window.location.pathname===`/user/editAccount/${userId}`) && !close && (
           <div className="w-100">
             <AddAccountForm
               matchUser={matchUser}
