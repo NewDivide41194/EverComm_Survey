@@ -5,7 +5,7 @@ import * as Colors from "../../../../config/Color.config";
 import RightSideBar from "../../../../features/app/RightSideBar.js";
 import AddAccountForm from "./AddAccount";
 import UserTable from "./UserTable.js";
-
+  
 const Account = (props) => {
   const {
     close,

@@ -3,16 +3,25 @@ import Admin from "../components/Survey";
 import Survey from "../components/Survey";
 import { AddNewSurvey } from "../../../api/admin/FetchSurvey";
 import { useAlert } from "react-alert";
+import {SurveyValidation} from "../../../helper/formValidation"
 
 const AdminContainer = () => {
   const [page, setPage] = useState(0);
+  const [err, setErr] = useState({})
   const [surveyHeader, setSurveyHeader] = useState("");
   const [amountOfSection, setAmountOfSection] = useState(null);
   const [surveySections, setSurveySection] = useState([]);
   const [value, setValue] = useState("");
   const [disabled, setDisabled] = useState(false);
   const _handleNext = () => {
-    setPage(page + 1);
+    const data = { surveyHeader };
+    const validedErr = SurveyValidation(data)
+    setErr(validedErr)
+    if(Object.keys(validedErr).length === 0){
+      setErr({});
+      setPage(page + 1);
+    }
+    
   };
   const _handleBack = () => {
     setPage(page - 1);
@@ -84,6 +93,7 @@ const AdminContainer = () => {
   return (
     <div>
       <Survey
+        err = {err}
         surveyHeader={surveyHeader}
         page={page}
         _handleNext={_handleNext}

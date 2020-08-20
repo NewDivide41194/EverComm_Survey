@@ -7,6 +7,7 @@ import { ESDropDownSample } from "../../../tools/ES_DropDownSample.js";
 
 const AddNewSurvey = (props) => {
   const {
+    err,
     surveyHeader,
     _handleSurveyNameChange,
     _handleNext,
@@ -15,7 +16,7 @@ const AddNewSurvey = (props) => {
     amountOfSection,
     disabled,
   } = props;
-  console.log("---->", sectionOption);
+  // console.log("---->", sectionOption);
   const selectedOption = sectionOption;
 
   return (
@@ -34,6 +35,14 @@ const AddNewSurvey = (props) => {
           </h4>
           <div className="py-2">
             <label>Survey Title</label>
+            {
+              err.surveyHeaderErr === undefined ? null : (
+                <div
+                className="text-danger d-flex flex-row justify-content-end pb-2"
+                style={{ marginTop:"-25px", fontSize:12}}
+                >{`*${err.surveyHeaderErr}`}</div>
+              )
+            }
             <ESInput
               placeHolder={"Survey Name"}
               id={"surveyName"}

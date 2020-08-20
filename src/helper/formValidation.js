@@ -18,6 +18,15 @@ export const LoginFormValidation = (data) => {
   return err;
 };
 
+export const SurveyValidation = (data) => {
+  const err = {};
+  const { surveyHeader } = data
+  if(surveyHeader === ""){
+    err.surveyHeaderErr = "Fill Survey Title!";
+  }
+  return err;
+}
+
 export const RegisterFormValidation = (data) => {
   const err = {};
   console.log(data);
