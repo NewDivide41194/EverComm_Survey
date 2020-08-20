@@ -42,7 +42,7 @@ const BuildingContainer = (props) => {
 
   useEffect(() => {
     // document.getElementById("clientCompany").focus();
-    GetBuildingType(token,(err, data) => {
+    GetBuildingType({token},(err, data) => {
       setBuildingTypeData(data);
     }); 
   }, []);

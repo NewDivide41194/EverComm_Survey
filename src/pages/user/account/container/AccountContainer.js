@@ -41,13 +41,8 @@ const AccountContainer = (props) => {
     fontSize: 12,
   };
 
-  // const BuildingOptions = buildingTypeData.map((v, k) => ({
-  //   value: v.id,
-  //   label: v.building_type,
-  // }));
-
   const alert = useAlert();
-
+console.log("===========>",userLevel);
   const UserLevelOptions = [
     { value: 1, label: "admin" },
     { value: 2, label: "user" },
@@ -72,7 +67,6 @@ const AccountContainer = (props) => {
   }, []);
 
   const GetOneUserInfo = (data) => {
-    //console.log("Data >>> ", data);
     const first = data.user_name.split(" ");
     const last = data.user_name.split(" ").splice(1, 2).join(" ");
     const level = UserLevelOptions.filter((v) =>
@@ -109,7 +103,6 @@ const AccountContainer = (props) => {
     };
 
     const validedErr = RegisterFormValidation(data);
-    //console.log("validedErr > ", validedErr);
     setErr(validedErr);
 
     if (validedErr.firstNameErr) {
@@ -150,18 +143,6 @@ const AccountContainer = (props) => {
           }
         );
       } else {
-        // console.log(
-        //   "update >> ",
-        //   id,
-        //   firstName,
-        //   lastName,
-        //   companyName,
-        //   Mobile,
-        //   eMail,
-        //   userLevel.value,
-        //   active,
-        //   checkedList
-        // );
         UpdateUserAccount(
           {
             id,
@@ -229,9 +210,7 @@ const AccountContainer = (props) => {
 
   const _handleEdit = (rowData) => {
     setClose(false);
-    //console.log(userData.findIndex((v) => v.id === rowData.id));
     setId(rowData.id);
-    //console.log("row id >>>> ", rowData.id);
     const first = rowData.name.split(" ");
     const last = rowData.name.split(" ").splice(1, 2).join(" ");
     const isActive = rowData.active == 0 ? false : true;
@@ -259,8 +238,6 @@ const AccountContainer = (props) => {
       );
     }
   };
-  //console.log(userData);
-  //const id = Object.values(editData).filter(v => v.id )
 
   const _handleFirstNameChange = (e) => {
     setErr({});
@@ -328,8 +305,6 @@ const AccountContainer = (props) => {
 
     return;
   };
-
-  // console.log();
 
   return (
     <Account

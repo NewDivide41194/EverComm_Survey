@@ -3,16 +3,27 @@ import { ESInput } from "../../../tools/ES_Inputs.js";
 import { ESButton } from "../../../tools/ES_Button";
 import * as Colors from "../../../config/Color.config";
 import { ESDropDown } from "../../../tools/ES_DropDown.js";
+import { ESDropDownSample } from "../../../tools/ES_DropDownSample.js";
 
 const AddNewSurvey = (props) => {
-  const { surveyName,handleSurveyNameChange,_handleNext,sectionOption,_handleSelectSection } = props;
-  
+  const {
+    surveyHeader,
+    _handleSurveyNameChange,
+    _handleNext,
+    sectionOption,
+    _handleSelectSection,
+    amountOfSection,
+    disabled,
+  } = props;
+  console.log("---->", sectionOption);
+  const selectedOption = sectionOption;
+
   return (
     <div className="container">
       <div className="row p-3 justify-content-center">
         <div className="col-lg-4 centeredDiv">
           <i
-            class="fas fa-file-alt fa-3x pb-2 w-100 text-center"
+            className="fas fa-file-alt fa-3x pb-2 w-100 text-center"
             style={{ color: Colors.Gray }}
           ></i>
           <h4
@@ -23,15 +34,24 @@ const AddNewSurvey = (props) => {
           </h4>
           <div className="py-2">
             <label>Survey Title</label>
-            <ESInput placeHolder={"Survey Name"} id={"surveyName"} value={surveyName} onChange={handleSurveyNameChange}/>
+            <ESInput
+              placeHolder={"Survey Name"}
+              id={"surveyName"}
+              value={surveyHeader}
+              onChange={_handleSurveyNameChange}
+            />
           </div>
           <div className="py-2">
             <label>Number of Survey Sections</label>
-            <ESDropDown id={"surveySection"} options={sectionOption} _handleSelect={_handleSelectSection}/>
+            <ESDropDownSample
+              id={"surveySection"}
+              value={amountOfSection || sectionOption[0]}
+              options={sectionOption}
+              _handleSelect={_handleSelectSection}
+            />
           </div>
           <div className="py-2">
-
-          <ESButton text={"NEXT"} onClick={_handleNext} />
+            <ESButton text={"NEXT"} onClick={_handleNext} disabled={disabled} />
           </div>
         </div>
       </div>

@@ -1,6 +1,8 @@
-// const serverURL='http://192.168.100.206:7878'
-const serverURL = "http://172.105.123.57:7878";
+const serverURL='http://192.168.100.206:7878'
+// const serverURL = "http://172.105.123.57:7878";
 //const serverURL = "http://localhost:7878";
+
+const UserId=localStorage.getItem("userId")
 
 export const RegisterAPI = `${serverURL}/api/v1/user/register`;
 
@@ -35,6 +37,8 @@ export const User_Report_Answer = (surveyHeaderId) =>
  export const Building_Type=`${serverURL}/api/v1/building/getBuildingType`
 
  export const Get_User= `${serverURL}/api/v1/user/getUser`;
+
+ export const InsertSurvey=`${serverURL}/api/v1/createSurvey/Survey/${UserId}`
 
  export const Get_One_User = `${serverURL}/api/v1/user/getOneUser`
 

@@ -9,13 +9,14 @@ export const ESDropDownSample = (props) => {
         // value,
         disabled,
         defaultValue,
-        value
+        value,
+        id
     } = props;
 
     return (
         <Select 
             // isDisabled={disabled}
-            
+            id={id}
             defaultValue={defaultValue}
             className="w-100"
             value={value}

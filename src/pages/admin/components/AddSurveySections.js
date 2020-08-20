@@ -6,7 +6,7 @@ import * as Colors from "../../../config/Color.config";
 
 const AddSurveySectinsForm = (props) => {
   const {
-    _handleDeviceChange,
+    _handleSectionChange,
     isDisabled,
     _handleSubmit,
     deviceData,
@@ -27,27 +27,34 @@ const AddSurveySectinsForm = (props) => {
           >
             Add Survey Section Name
           </h4>
-          <div className="py-2" style={{ fontSize: "16px" }}>
+          <div style={{ fontSize: "16px" }} className="border-bottom py-2 mb-2">
             Please fill title of each Survey Section
           </div>
           {noOfSurvey.map((v, k) => (
-            <div className="row form-group">
+            <div className="row form-group" key={k}>
               <label className="col-lg-4 col-sm-12 pt-1 font-weight-bold">
                 Page {k + 1} :
               </label>
               <div className="col-lg-8 col-sm-12">
-                <ESInput placeHolder={"Section Name"} id={"surveyName"} />
+                <ESInput
+                  placeHolder={"Section Name"}
+                  id={ k + 1}
+                  onChange={(e)=>_handleSectionChange(e)}
+                />
               </div>
             </div>
           ))}
-          <div className="row py-2">
-          <div className="col-6">
-              <ESButton customColor={Colors.Gray} text={"Back"} onClick={_handleBack} />
+          <div className="row py-2 border-top">
+            <div className="col-6">
+              <ESButton
+                customColor={Colors.Gray}
+                text={"Back"}
+                onClick={_handleBack}
+              />
             </div>
             <div className="col-6">
               <ESButton text={"Save"} onClick={_handleSubmit} />
             </div>
-            
           </div>
         </form>
       </div>
