@@ -43,7 +43,8 @@
 .main-footer{
   padding-top: 12px;
   position: relative;
-  bottom: 10px;
+  /* bottom: 10px; */
+  bottom:1vmin;
   width: 100%;
 }
 

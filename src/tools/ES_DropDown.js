@@ -63,6 +63,7 @@ return (
         },
       })}
       className="w-100"
+      classNamePrefix={"select"}
       value={
         selectedOption && selectedOption.length === 0
           ? selectedOption

@@ -16,14 +16,14 @@ export const RouteName = {
   routeRegisterPage: "register",
 
   routeQuestionPage: "question/:userId/:surveyHeaderId/:buildingId",
-  routeReportMenuPage: "reportMenu",
+  routeReportMenuPage: "reportMenu/:userId",
 
   routeReportPage: "report",
 
   routeAdminPage: "admin/dashboard/createNewSurvey",
   routeMenuPage: "menu/:userId",
 
-  routeSurveyMenuPage: "surveyMenu",
+  routeSurveyMenuPage: "surveyMenu/:userId",
 
   routeBuildingPage: "addBuilding",
 
@@ -34,6 +34,7 @@ export const RouteName = {
   routeSurveylistPage: "surveyList",
 
   routeFinalPage: "finalPage",
+
 };
 
 export default {
@@ -53,7 +54,7 @@ export default {
 
     [RouteName.routeBuildingPage]: { component: BuildingContainer },
     [RouteName.routeSurveylistPage]: { component: SurveylistContainer },
-    [RouteName.routeFinalPage]: { component: FinalPageContainer }
+    [RouteName.routeFinalPage]: { component: FinalPageContainer },
   },
   default: RouteName.routeFirstPage,
 };
