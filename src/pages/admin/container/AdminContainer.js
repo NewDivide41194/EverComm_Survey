@@ -10,7 +10,7 @@ const AdminContainer = () => {
   const [amountOfSection, setAmountOfSection] = useState(null);
   const [surveySections, setSurveySection] = useState([]);
   const [value, setValue] = useState("");
-  const [disabled, setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(false);
   const _handleNext = () => {
     setPage(page + 1);
   };
