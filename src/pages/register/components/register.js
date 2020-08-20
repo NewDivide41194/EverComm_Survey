@@ -30,11 +30,13 @@ const Register = (props) => {
     <div className="container py-4"
     >
       <div className="row justify-content-center">
-        <form className="col-lg-4 col-md-8" style={{
-      position: "absolute",
-      top: "50%",
-      transform: "translateY(-50%)"
-    }}>
+        <form className="col-lg-4 col-md-8" 
+    //     style={{
+    //   position: "absolute",
+    //   top: "50%",
+    //   transform: "translateY(-50%)"
+    // }}
+    >
           <div className="pb-3 text-center ">
             <div className="pb-2 font-weight-bold" style={{ fontSize: "25px" }}>
               ACCOUNT REGISTRATION

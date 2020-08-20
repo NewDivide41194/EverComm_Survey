@@ -99,10 +99,8 @@ const RightSideBar = (props) => {
       <Menu
         styles={styles}
         left
-        isOpen={true}
         pageWrapId={"page-wrap"}
         outerContainerId={"outer-container"}
-        onStateChange={(e) => StateChange(e)}
       >
         <div className="d-flex flex-column w-100 text-center h-100">
           <i className="fa fa-user-circle fa-3x w-100 pb-2" />

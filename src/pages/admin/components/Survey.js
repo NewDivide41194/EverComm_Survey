@@ -6,6 +6,7 @@ const Survey = (props) => {
   const {
     page,
     err,
+    value,
     _handleBack,
     _handleNext,
     _handleSubmit,
@@ -16,7 +17,8 @@ const Survey = (props) => {
     _handleSurveyNameChange,
     _handleSectionChange,
     amountOfSection,
-    disabled
+    disabled,
+    surveySections
   } = props;
   const userId = localStorage.getItem("userId");
 
@@ -37,7 +39,8 @@ const Survey = (props) => {
       noOfSurvey={noOfSurvey}
       _handleSectionChange={_handleSectionChange}
       _handleSubmit={_handleSubmit}
-
+      surveySections={surveySections}
+      value={value}
     />
   );
 };

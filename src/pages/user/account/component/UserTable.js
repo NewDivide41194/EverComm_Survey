@@ -32,8 +32,6 @@ export default function UserTable(props) {
     ],
     data: userData,
   });
-const rows=isEdit?5:10
-//console.log(rows);
 
 const actionButtons = (
     <div className="row px-3" style={{fontSize:13, color:'darkred'}}>

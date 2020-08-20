@@ -22,7 +22,7 @@ const AddNewSurvey = (props) => {
   return (
     <div className="container">
       <div className="row p-3 justify-content-center">
-        <div className="col-lg-4 centeredDiv">
+        <form className="col-lg-4 centeredDiv">
           <i
             className="fas fa-file-alt fa-3x pb-2 w-100 text-center"
             style={{ color: Colors.Gray }}
@@ -60,9 +60,9 @@ const AddNewSurvey = (props) => {
             />
           </div>
           <div className="py-2">
-            <ESButton text={"NEXT"} onClick={_handleNext} disabled={disabled} />
+            <ESButton type={"submit"} text={"NEXT"} onClick={_handleNext} disabled={disabled} />
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

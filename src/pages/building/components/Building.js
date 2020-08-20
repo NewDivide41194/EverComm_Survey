@@ -37,11 +37,11 @@ const Building = (props) => {
     <div className="row justify-content-center py-4">
       <form className="col-lg-5 col-md-8"
       onSubmit={handleNext}
-        style={{
-          position: "absolute",
-          top: "50%",
-          transform: "translateY(-50%)"
-        }}
+        // style={{
+        //   position: "absolute",
+        //   top: "50%",
+        //   transform: "translateY(-50%)"
+        // }}
       >
         <div
           className="font-weight-bold text-center pb-3"

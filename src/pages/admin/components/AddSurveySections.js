@@ -12,6 +12,8 @@ const AddSurveySectinsForm = (props) => {
     deviceData,
     noOfSurvey,
     _handleBack,
+    value,
+    surveySections
   } = props;
 
   const deviceOption = new Array(30)
@@ -37,8 +39,12 @@ const AddSurveySectinsForm = (props) => {
               </label>
               <div className="col-lg-8 col-sm-12">
                 <ESInput
+                  required={true}
                   placeHolder={"Section Name"}
                   id={ k + 1}
+                  value={surveySections.filter(
+                    (d) => d.pageNo === k+1
+                  ).map((v, k) => v.sectionName)}
                   onChange={(e)=>_handleSectionChange(e)}
                 />
               </div>
@@ -53,7 +59,7 @@ const AddSurveySectinsForm = (props) => {
               />
             </div>
             <div className="col-6">
-              <ESButton text={"Save"} onClick={_handleSubmit} />
+              <ESButton type={"submit"} text={"Save"} onClick={_handleSubmit} />
             </div>
           </div>
         </form>
