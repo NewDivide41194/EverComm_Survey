@@ -5,6 +5,7 @@ import AddSurveySectinsForm from "./AddSurveySections";
 const Survey = (props) => {
   const {
     page,
+    err,
     _handleBack,
     _handleNext,
     _handleSubmit,
@@ -21,6 +22,7 @@ const Survey = (props) => {
 
   return page === 0 ? (
     <AddNewSurvey
+      err={err}
       _handleNext={_handleNext}
       sectionOption={sectionOption}
       _handleSurveyNameChange={_handleSurveyNameChange}
