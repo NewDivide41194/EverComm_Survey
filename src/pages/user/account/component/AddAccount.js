@@ -248,7 +248,7 @@ const AddAccontForm = (props) => {
             </div>
           )}
 
-          <div className="pt-3 col-12">
+          <div className="py-3 col-12">
             <div className="row">
               <div className="col-6">
                 <ESButton

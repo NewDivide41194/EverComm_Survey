@@ -17,7 +17,8 @@ const RightSideBar = (props) => {
   const accountSettingPath = `/user/editAccount/${userId}`;
   const changePasswordPath = `/user/account/changePassword/${userId}`;
   const createSurveyPath = `/admin/dashboard/createNewSurvey`;
-  const surveyManagementPath=`admin/dashboard/manageSurveyList`
+  const surveyManagementPath=`admin/dashboard/manageSurveyList`;
+  const userManagementPath = `/user/accountManagement/${userId}`;
   const mainMenuPath = `/menu/${userId}`;
   const surveyMenuPath = `/surveyMenu/${userId}`;
   const reportMenuPath = `/reportMenu/${userId}`;
@@ -127,6 +128,7 @@ const RightSideBar = (props) => {
               URL={URL}
               createSurveyPath={createSurveyPath}
               surveyManagementPath={surveyManagementPath}
+              userManagementPath={userManagementPath}
             />
             <AccountLink
               userId={userId}
@@ -203,7 +205,7 @@ const HomeLink = (props) => {
 };
 
 const AdminLink = (props) => {
-  const { createSurveyPath, surveyManagementPath } = props;
+  const { createSurveyPath, surveyManagementPath, userManagementPath } = props;
   return (
     props.userLevel === 1 && (
       <div>
@@ -228,7 +230,7 @@ const AdminLink = (props) => {
           }}
           id="collapseThree"
           className={`collapse ${
-            URL === createSurveyPath || URL === surveyManagementPath
+            URL === createSurveyPath || URL === surveyManagementPath || URL === userManagementPath
               ? "show"
               : null
           }`}
@@ -249,6 +251,16 @@ const AdminLink = (props) => {
               text={"My Survey"}
             />
           </li>
+          {
+            userLevel === 1 && 
+            <li>
+              <EverCommLink
+                pathName={userManagementPath}
+                to={userManagementPath}
+                text={"User Management"}
+              />
+            </li>
+          }
         </ul>
       </div>
     )

@@ -3,11 +3,12 @@ import { withRouter } from "react-router-dom";
 import * as Colors from "../../../config/Color.config";
 
 const MainMenu = (props) => {
+  const userId = localStorage.getItem('userId')
   const _handleReportClick = () => {
-    props.history.push(`/reportMenu`);
+    props.history.push(`/reportMenu/${userId}`);
   };
   const _handleSurveyClick = () => {
-    props.history.push(`/surveyMenu`);
+    props.history.push(`/surveyMenu/${userId}`);
   };
 
   return (
