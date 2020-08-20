@@ -5,17 +5,12 @@ import * as Colors from "../../../config/Color.config";
 import { ESDropDown } from "../../../tools/ES_DropDown.js";
 
 const AddNewSurvey = (props) => {
-  const { surveyName } = props;
-
-  const userId = localStorage.getItem("userId");
+  const { surveyName,handleSurveyNameChange,_handleNext,sectionOption,_handleSelectSection } = props;
+  
   return (
     <div className="container">
       <div className="row p-3 justify-content-center">
-        <div className="col-lg-4" style={{
-            position: "absolute",
-            top: "50%",
-            transform: "translateY(-50%)",
-          }}>
+        <div className="col-lg-4 centeredDiv">
           <i
             class="fas fa-file-alt fa-3x pb-2 w-100 text-center"
             style={{ color: Colors.Gray }}
@@ -28,14 +23,16 @@ const AddNewSurvey = (props) => {
           </h4>
           <div className="py-2">
             <label>Survey Title</label>
-            <ESInput />
+            <ESInput placeHolder={"Survey Name"} id={"surveyName"} value={surveyName} onChange={handleSurveyNameChange}/>
           </div>
           <div className="py-2">
             <label>Number of Survey Sections</label>
-            <ESDropDown />
+            <ESDropDown id={"surveySection"} options={sectionOption} _handleSelect={_handleSelectSection}/>
           </div>
+          <div className="py-2">
 
-          <ESButton text={"Create"} onClick={() => console.log("hello")} />
+          <ESButton text={"NEXT"} onClick={_handleNext} />
+          </div>
         </div>
       </div>
     </div>
