@@ -4,7 +4,6 @@ import * as Colors from "../../config/Color.config";
 import { withRouter } from "react-router-dom";
 import { EverCommLink } from "../../tools/ES_Text";
 import auth from "../../security/auth";
-import { Report_Menu } from "../../api/url";
 
 const userId = localStorage.getItem("userId");
 
@@ -17,7 +16,7 @@ const RightSideBar = (props) => {
   const accountSettingPath = `/user/editAccount/${userId}`;
   const changePasswordPath = `/user/account/changePassword/${userId}`;
   const createSurveyPath = `/admin/dashboard/createNewSurvey`;
-  const surveyManagementPath=`admin/dashboard/manageSurveyList`;
+  const surveyManagementPath = `admin/dashboard/manageSurveyList`;
   const userManagementPath = `/user/accountManagement/${userId}`;
   const mainMenuPath = `/menu/${userId}`;
   const surveyMenuPath = `/surveyMenu/${userId}`;
@@ -100,7 +99,7 @@ const RightSideBar = (props) => {
       <Menu
         styles={styles}
         left
-        isOpen={MenuOpen}
+        isOpen={true}
         pageWrapId={"page-wrap"}
         outerContainerId={"outer-container"}
         onStateChange={(e) => StateChange(e)}
@@ -230,7 +229,9 @@ const AdminLink = (props) => {
           }}
           id="collapseThree"
           className={`collapse ${
-            URL === createSurveyPath || URL === surveyManagementPath || URL === userManagementPath
+            URL === createSurveyPath ||
+            URL === surveyManagementPath ||
+            URL === userManagementPath
               ? "show"
               : null
           }`}
@@ -251,8 +252,7 @@ const AdminLink = (props) => {
               text={"My Survey"}
             />
           </li>
-          {
-            userLevel === 1 && 
+          {userLevel === 1 && (
             <li>
               <EverCommLink
                 pathName={userManagementPath}
@@ -260,7 +260,7 @@ const AdminLink = (props) => {
                 text={"User Management"}
               />
             </li>
-          }
+          )}
         </ul>
       </div>
     )

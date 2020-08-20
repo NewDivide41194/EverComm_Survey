@@ -19,8 +19,8 @@ const App = (history, props) => {
 
   return (
     <MediaQueryProvider queries={Media}>
-      <RightSideBar/>
       <div id="outer-container">
+      <RightSideBar/>
 
       <div id="page-wrap" className= "page-container">
         <NavBar />

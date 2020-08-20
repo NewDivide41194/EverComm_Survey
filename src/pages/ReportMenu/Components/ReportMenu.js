@@ -28,7 +28,6 @@ const ReportMenu = (props) => {
     _handleSelectChange,
   } = props;
   const userLevel = localStorage.getItem("userLevel");
-  const isOutsideRange = (day) => !isInclusivelyBeforeDay(day, moment());
 
   return (
     <div className="container">
@@ -126,7 +125,7 @@ const ReportDetail = (props) => {
     ReportDetailData.filter((R) => R.survey_header_id === surveyId);
 
   return (
-    <div className="">
+    <div>
       {filteredData
         ? filteredData.map((v, k) => (
             <div
