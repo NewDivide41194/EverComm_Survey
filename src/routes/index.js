@@ -10,6 +10,8 @@ import ReportContainer from "../pages/Report/Container/ReportContainer";
 import SurveryMenuContainer from '../pages/SurveyMenu/container/SurveyMenuContainer';
 import FinalPageContainer from '../pages/FinalPage/container/FinalPageContainer';
 import { ChangePassword } from "../pages/user/account/component/ChangePassword";
+import SurveyManagementContainer from "../pages/SurveyManagement/container/SurveyManagementContainer";
+
 
 export const RouteName = {
   routeFirstPage: "",
@@ -24,6 +26,7 @@ export const RouteName = {
   routeMenuPage: "menu/:userId",
 
   routeSurveyMenuPage: "surveyMenu/:userId",
+  routeSurveyManagementPage: "admin/dashboard/manageSurveyList/:userId",
 
   routeBuildingPage: "addBuilding",
 
@@ -48,6 +51,7 @@ export default {
     [RouteName.routeAdminPage]: { component: AdminContainer },
     [RouteName.routeMenuPage]: { component: MenuContainer },
     [RouteName.routeSurveyMenuPage]: { component: SurveryMenuContainer },
+    [RouteName.routeSurveyManagementPage] : { component: SurveyManagementContainer },
     [RouteName.routeAccountPage]: { component: AccountContainer },
     [RouteName.routeSelfAccountPage]: { component: AccountContainer },
     [RouteName.routeChangePasswordPage]: { component: ChangePassword },

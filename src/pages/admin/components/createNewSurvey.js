@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ESInput } from "../../../tools/ES_Inputs.js";
 import { ESButton } from "../../../tools/ES_Button";
 import * as Colors from "../../../config/Color.config";
@@ -18,6 +18,10 @@ const AddNewSurvey = (props) => {
   } = props;
   // console.log("---->", sectionOption);
   const selectedOption = sectionOption;
+
+  useEffect(() => {
+    document.getElementById("surveyName").focus();
+  }, [])
 
   return (
     <div className="container">

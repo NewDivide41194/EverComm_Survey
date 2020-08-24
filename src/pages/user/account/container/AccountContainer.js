@@ -188,14 +188,18 @@ console.log("===========>",userLevel);
   };
 
   const _handleCancel = () => {
-    setClose(!close);
-    setEdit(false);
+
+    if(window.location.pathname !== `/user/editAccount/${userId}`){
+      setClose(!close);
+      setEdit(false);
+      setIsAdd(false);
+    }
     setFirstName("");
     setLastName("");
     setMobile("");
     setCompanyName("");
+    setEMail("");
     setUserLevel(UserLevelOptions[1])
-    setIsAdd(false);
     setActive(false);
     setCheckedList([]);
     setRowsPerPage(5);

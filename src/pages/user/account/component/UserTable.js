@@ -29,6 +29,7 @@ export default function UserTable(props) {
       { title: "Role", field: "role" },
       { title: "Company", field: "companyName" },
       { title: "Active", field: "active" },
+      { title: "Created Date", field: "created_date" },
     ],
     data: userData,
   });

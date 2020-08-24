@@ -13,10 +13,20 @@ export const ESDropDownSample = (props) => {
         id
     } = props;
 
+    const customStyles = {
+        control: provided => ({
+          ...provided,
+        
+          border:0   
+      }),
+
+      };
+
     return (
         <Select 
             // isDisabled={disabled}
             id={id}
+            style={customStyles}
             defaultValue={defaultValue}
             className="w-100"
             value={value}

@@ -18,6 +18,7 @@ export const ChangePassword = (props) => {
   const token = localStorage.getItem("token");
   const alert = useAlert();
   useEffect(() => {
+    document.getElementById("currentPassword").focus();
     if (
       passwordData.currentPassword === "" ||
       passwordData.newPassword === "" ||

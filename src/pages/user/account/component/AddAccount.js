@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { ESButton } from "../../../../tools/ES_Button";
 import { ESInput } from "../../../../tools/ES_Inputs";
 import { ESDropDownSample } from "../../../../tools/ES_DropDownSample";
@@ -8,6 +8,11 @@ import * as Colors from "../../../../config/Color.config";
 
 const AddAccontForm = (props) => {
   const userId = localStorage.getItem("userId");
+
+  useEffect(() => {
+    document.getElementById("FirstName").focus();
+  },[])
+
   const {
     matchUser,
     surveyList,

@@ -13,3 +13,4 @@ export const MenuInfoFetch = ({userId,token}, callback) => {
     .then(data => callback(null, data))
     .catch(err => console.log(err));
 };
+

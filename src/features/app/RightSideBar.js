@@ -16,7 +16,7 @@ const RightSideBar = (props) => {
   const accountSettingPath = `/user/editAccount/${userId}`;
   const changePasswordPath = `/user/account/changePassword/${userId}`;
   const createSurveyPath = `/admin/dashboard/createNewSurvey`;
-  const surveyManagementPath = `admin/dashboard/manageSurveyList`;
+  const surveyManagementPath = `/admin/dashboard/manageSurveyList/${userId}`;
   const userManagementPath = `/user/accountManagement/${userId}`;
   const mainMenuPath = `/menu/${userId}`;
   const surveyMenuPath = `/surveyMenu/${userId}`;
