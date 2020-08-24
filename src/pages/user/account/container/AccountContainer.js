@@ -14,6 +14,7 @@ import {
 const AccountContainer = (props) => {
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
+  const currentUserLevel = localStorage.getItem("userLevel");
   const [userData, setUserData] = useState([]);
   const [id, setId] = useState("");
   const [edit, setEdit] = useState(
@@ -65,6 +66,8 @@ const AccountContainer = (props) => {
     }
   }, []);
 
+  console.log('current user level >>> ', currentUserLevel)
+
   const GetOneUserInfo = (data) => {
     const first = data.user_name.split(" ");
     const last = data.user_name.split(" ").splice(1, 2).join(" ");
@@ -81,12 +84,13 @@ const AccountContainer = (props) => {
     setActive(data.active === 1 ? !active : active);
   };
 
-  const matchUser =
-    userData !== []
-      ? userData
-          .filter((v) => (v.id === userId ? v : undefined))
-          .map((u) => u.role)
-      : [];
+  // const matchUser =
+  //   userData !== []
+  //     ? userData
+  //         .filter((v) => (v.id == userId ? v : undefined))
+  //         .map((u) => u.role)
+  //     : [];
+
 
   const _handleSubmit = (e) => {
     e.preventDefault();

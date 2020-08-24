@@ -9,7 +9,7 @@ import UserTable from "./UserTable.js";
 const Account = (props) => {
   const {
     close,
-    matchUser,
+
     isAdd,
     handleIsAdd,
     accountsetting,
@@ -68,6 +68,7 @@ const Account = (props) => {
 
   const userId = localStorage.getItem("userId");
   return (
+    // <div>Hi</div>
     <div className="container">
       <div className="row p-3">
         <div className="w-100">
@@ -117,7 +118,6 @@ const Account = (props) => {
           !close && (
             <div className="w-100">
               <AddAccountForm
-                matchUser={matchUser}
                 visible={visible}
                 UserLevelOptions={UserLevelOptions}
                 accountsetting={accountsetting}

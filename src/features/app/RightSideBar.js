@@ -118,6 +118,7 @@ const RightSideBar = (props) => {
               userId={userId}
               URL={URL}
               surveyMenuPath={surveyMenuPath}
+              userLevel={userLevel}
             />
             {userLevel !== 2 && (
               <AdminLink
@@ -227,13 +228,17 @@ const AdminLink = (props) => {
             text={"User Management"}
           />
         </li>
-        <li>
+        {
+          props.userLevel !== 2 && 
+          <li>
           <EverCommLink
             pathName={reportMenuPath}
             to={reportMenuPath}
             text={"Reporting"}
           />
         </li>
+        }
+       
       </ul>
     </div>
   );
