@@ -96,7 +96,7 @@ export const ChangePassword = (props) => {
         >
           <div className="text-center pb-2">
             <i
-              className="fas fa-key pl-2 fa-2x pb-2"
+              className="fas fa-key pl-2 fa-3x pb-2"
               style={{ color: Colors.Gray }}
             ></i>
             <h4 style={{ color: Colors.PrimaryColor, fontWeight: "bold" }}>

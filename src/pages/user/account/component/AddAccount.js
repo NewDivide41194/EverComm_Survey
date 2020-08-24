@@ -59,12 +59,12 @@ const AddAccontForm = (props) => {
   const oneUserEditPath =
     window.location.pathname === `/user/editAccount/${userId}`;
   return (
-    <div className="row justify-content-center py-3">
+    <div className="row justify-content-center">
       <form
         className={`${oneUserEditPath?"col-lg-4":"col-lg-6"} col-sm-12`}
         style={oneUserEditPath ? centeredStyle : null}
       >
-        {oneUserEditPath&&<div className="text-center"><i class="fas fa-user-edit fa-2x" style={{color:Colors.Gray}}></i></div>}
+        {oneUserEditPath&&<div className="text-center"><i class="fas fa-user-edit fa-3x" style={{color:Colors.Gray}}></i></div>}
         <h4 style={{ color: Colors.PrimaryColor }} className={oneUserEditPath&&`text-center`}>{`${
           oneUserEditPath || edit ? "Edit User Account" : "Add New User"
         }`}</h4>

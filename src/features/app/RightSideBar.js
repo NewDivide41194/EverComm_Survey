@@ -35,7 +35,7 @@ const RightSideBar = (props) => {
     },
     bmBurgerBars: {
       background:
-        " linear-gradient(43deg, rgba(59,139,190,1) 0%, rgba(68,180,203,1) 100%) ", // boxShadow: "1px 1px 1px gray"
+        " linear-gradient(43deg, rgba(59,139,190,1) 0%, rgba(68,180,203,1) 100%) ",
     },
     bmBurgerBarsHover: {
       background: Colors.SecondaryColor,
@@ -103,7 +103,7 @@ const RightSideBar = (props) => {
         outerContainerId={"outer-container"}
       >
         <div className="d-flex flex-column w-100 text-center h-100">
-          <i className="fa fa-user-circle fa-3x w-100 pb-2" />
+          <i className="fa fa-user-circle fa-4x w-100 pb-2" />
           <div className="pb-4">
             {eMail}
             <hr className="bg-light my-2" /> {userLevelName}
@@ -117,16 +117,18 @@ const RightSideBar = (props) => {
             <HomeLink
               userId={userId}
               URL={URL}
-              reportMenuPath={reportMenuPath}
               surveyMenuPath={surveyMenuPath}
             />
-            <AdminLink
-              userLevel={userLevel}
-              URL={URL}
-              createSurveyPath={createSurveyPath}
-              surveyManagementPath={surveyManagementPath}
-              userManagementPath={userManagementPath}
-            />
+            {userLevel !== 2 && (
+              <AdminLink
+                userLevel={userLevel}
+                URL={URL}
+                reportMenuPath={reportMenuPath}
+                createSurveyPath={createSurveyPath}
+                surveyManagementPath={surveyManagementPath}
+                userManagementPath={userManagementPath}
+              />
+            )}
             <AccountLink
               userId={userId}
               URL={URL}
@@ -153,19 +155,36 @@ const RightSideBar = (props) => {
 export default withRouter(RightSideBar);
 
 const HomeLink = (props) => {
-  const { surveyMenuPath, reportMenuPath, URL } = props;
+  const { surveyMenuPath, URL } = props;
   return (
-    <div className="pb-2">
+    <EverCommLink
+      pathName={surveyMenuPath}
+      to={surveyMenuPath}
+      text={"SURVEY LIST"}
+    />
+  );
+};
+
+const AdminLink = (props) => {
+  const {
+    createSurveyPath,
+    surveyManagementPath,
+    userManagementPath,
+    reportMenuPath,
+    URL,
+  } = props;
+  return (
+    <div>
       <li
-        id="headingOne"
+        id="headingThree"
         data-toggle="collapse"
-        data-target="#collapseOne"
+        data-target="#collapseThree"
         aria-expanded="false"
-        aria-controls="collapseOne"
+        aria-controls="collapseThree"
         className="d-flex flex-row justify-content-between"
         style={{ cursor: "pointer" }}
       >
-        <div>HOME</div>
+        <div>DASHBOARD</div>
         <div>
           <i className="fa fa-caret-down" />
         </div>
@@ -175,93 +194,48 @@ const HomeLink = (props) => {
           listStyle: "none",
           listStyleType: "square",
         }}
-        id="collapseOne"
+        id="collapseThree"
         className={`collapse ${
-          URL === surveyMenuPath || URL === reportMenuPath ? "show" : null
+          URL === createSurveyPath ||
+          URL === surveyManagementPath ||
+          URL === userManagementPath ||
+          URL === reportMenuPath
+            ? "show"
+            : null
         }`}
-        aria-labelledby="headingOne"
+        aria-labelledby="headingThree"
         data-parent="#accordion"
       >
         <li>
           <EverCommLink
-            pathName={surveyMenuPath}
-            to={surveyMenuPath}
-            text={"SURVEY LIST"}
+            pathName={createSurveyPath}
+            to={createSurveyPath}
+            text={"Create New Survey"}
+          />
+        </li>
+        <li>
+          <EverCommLink
+            pathName={surveyManagementPath}
+            to={surveyManagementPath}
+            text={"My Survey"}
+          />
+        </li>
+        <li>
+          <EverCommLink
+            pathName={userManagementPath}
+            to={userManagementPath}
+            text={"User Management"}
           />
         </li>
         <li>
           <EverCommLink
             pathName={reportMenuPath}
             to={reportMenuPath}
-            text={"REPORTING"}
+            text={"Reporting"}
           />
         </li>
       </ul>
     </div>
-  );
-};
-
-const AdminLink = (props) => {
-  const { createSurveyPath, surveyManagementPath, userManagementPath } = props;
-  return (
-    props.userLevel === 1 && (
-      <div>
-        <li
-          id="headingThree"
-          data-toggle="collapse"
-          data-target="#collapseThree"
-          aria-expanded="false"
-          aria-controls="collapseThree"
-          className="d-flex flex-row justify-content-between"
-          style={{ cursor: "pointer" }}
-        >
-          <div>DASHBOARD</div>
-          <div>
-            <i className="fa fa-caret-down" />
-          </div>
-        </li>
-        <ul
-          style={{
-            listStyle: "none",
-            listStyleType: "square",
-          }}
-          id="collapseThree"
-          className={`collapse ${
-            URL === createSurveyPath ||
-            URL === surveyManagementPath ||
-            URL === userManagementPath
-              ? "show"
-              : null
-          }`}
-          aria-labelledby="headingThree"
-          data-parent="#accordion"
-        >
-          <li>
-            <EverCommLink
-              pathName={createSurveyPath}
-              to={createSurveyPath}
-              text={"Create New Survey"}
-            />
-          </li>
-          <li>
-            <EverCommLink
-              pathName={surveyManagementPath}
-              to={surveyManagementPath}
-              text={"My Survey"}
-            />
-          </li>
-          {userLevel === 1 && (
-            <li>
-              <EverCommLink
-                pathName={userManagementPath}
-                to={userManagementPath}
-                text={"User Management"}
-              />
-            </li>
-          )}
-        </ul>
-      </div>
-    )
   );
 };
 

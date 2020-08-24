@@ -14,7 +14,7 @@ const AdminContainer = () => {
   const [value, setValue] = useState("");
   const [disabled, setDisabled] = useState(false);
   const _handleNext = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const data = { surveyHeader };
     const validedErr = SurveyValidation(data);
     setErr(validedErr);
@@ -78,10 +78,11 @@ const AdminContainer = () => {
 
   const _handleSubmit = (e) => {
     e.preventDefault();
-    const isBlank=surveySections.filter(v=>v.sectionName==="")
+    const isBlank = surveySections.filter((v) => v.sectionName === "");
     if (
       noOfSurvey.length > surveySections.length ||
-      surveySections.length < 1||isBlank.length
+      surveySections.length < 1 ||
+      isBlank.length
     ) {
       alert.error("Survey Name can't be Blank");
       return;
@@ -98,7 +99,6 @@ const AdminContainer = () => {
   };
 
   return (
-    <div>
       <Survey
         err={err}
         surveyHeader={surveyHeader}
@@ -115,7 +115,6 @@ const AdminContainer = () => {
         surveySections={surveySections}
         disabled={disabled}
       />
-    </div>
   );
 };
 

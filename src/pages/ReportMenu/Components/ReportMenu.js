@@ -1,26 +1,18 @@
 import React, { useState } from "react";
 import "../../../App.css";
-import "react-dates/lib/css/_datepicker.css";
 import { ESButton } from "../../../tools/ES_Button";
 import { ESDropDown } from "../../../tools/ES_DropDown";
 import { withRouter } from "react-router-dom";
 import { ESRadio } from "../../../tools/ES_Radio";
 import * as Colors from "../../../config/Color.config";
-import "react-dates/initialize";
-import { DateRangePicker, isInclusivelyBeforeDay } from "react-dates";
 import moment from "moment";
 
 const ReportMenu = (props) => {
   const {
-    startDate,
-    endDate,
-    focusedInput,
     surveyId,
     SurveyNameOptions,
     _handleReport,
     _handleSelectSurvey,
-    _handleDatesChange,
-    _handleFocusedInput,
     _handleClearable,
     isDisable,
     ReportDetailData,
@@ -31,35 +23,34 @@ const ReportMenu = (props) => {
 
   return (
     <div className="container">
-      {userLevel !== "2" ? (
-        <div
-          className="py-5 d-flex flex-row flex-fill flex-wrap justify-content-end"
-          style={{ fontSize: "18px" }}
-        >
-          <label style={{ fontWeight: "bold" }}>Types of View :</label>
-          <div className="pl-2">
-            <input
-              className="mr-1"
-              type="radio"
-              value="all"
-              name="type"
-              onChange={_handleSelectChange}
-              checked={viewType === "all"}
-            />
-            All users
-          </div>
-          <div className="pl-2 ">
-            <input
-              className="mr-1"
-              type="radio"
-              value="one"
-              name="type"
-              onChange={_handleSelectChange}
-            />
-            Only me
-          </div>
+      <div
+        className="py-5 d-flex flex-row flex-fill flex-wrap justify-content-end"
+        style={{ fontSize: "18px" }}
+      >
+        <label style={{ fontWeight: "bold" }}>Types of View :</label>
+        <div className="pl-2">
+          <input
+            className="mr-1"
+            type="radio"
+            value="all"
+            name="type"
+            onChange={_handleSelectChange}
+            checked={viewType === "all"}
+          />
+          All users
         </div>
-      ) : null}
+        <div className="pl-2 ">
+          <input
+            className="mr-1"
+            type="radio"
+            value="one"
+            name="type"
+            onChange={_handleSelectChange}
+          />
+          Only me
+        </div>
+      </div>
+
       <div
         className="d-flex flex-row flex-fill flex-wrap justify-content-center"
         style={{ marginTop: "8vh" }}
@@ -76,26 +67,6 @@ const ReportMenu = (props) => {
             />
           </div>
         </div>
-        {/* <div className="col-lg-5 col-sm-12 py-2">
-          <h5 style={{ color: Colors.PrimaryColor }}>
-            Select Date Range (optional)
-          </h5>
-          <div className="pt-3">
-            <DateRangePicker
-              disabled={surveyId ? false : true}
-              isOutsideRange={isOutsideRange}
-              numberOfMonths={1}
-              startDate={startDate}
-              startDateId="tata-start-date"
-              endDate={endDate}
-              endDateId="tata-end-date"
-              focusedInput={focusedInput}
-              onFocusChange={_handleFocusedInput}
-              onDatesChange={_handleDatesChange}
-              showClearDates={true}
-            />
-          </div>
-        </div> */}
         <div className="w-100 row justify-content-center py-5">
           <div className="col-lg-3 col-12">
             <ESButton

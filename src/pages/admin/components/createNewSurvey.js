@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { ESInput } from "../../../tools/ES_Inputs.js";
 import { ESButton } from "../../../tools/ES_Button";
 import * as Colors from "../../../config/Color.config";
-import { ESDropDown } from "../../../tools/ES_DropDown.js";
 import { ESDropDownSample } from "../../../tools/ES_DropDownSample.js";
 
 const AddNewSurvey = (props) => {
