@@ -119,6 +119,7 @@ const RightSideBar = (props) => {
               URL={URL}
               reportMenuPath={reportMenuPath}
               surveyMenuPath={surveyMenuPath}
+              userLevel={userLevel}
             />
             <AdminLink
               userLevel={userLevel}
@@ -189,13 +190,17 @@ const HomeLink = (props) => {
             text={"SURVEY LIST"}
           />
         </li>
-        <li>
+        {
+          props.userLevel !== 2 && 
+          <li>
           <EverCommLink
             pathName={reportMenuPath}
             to={reportMenuPath}
             text={"REPORTING"}
           />
         </li>
+        }
+       
       </ul>
     </div>
   );
@@ -203,8 +208,9 @@ const HomeLink = (props) => {
 
 const AdminLink = (props) => {
   const { createSurveyPath, surveyManagementPath, userManagementPath } = props;
+  console.log('user level from admin link >> ', userLevel)
   return (
-    props.userLevel === 1 && (
+    props.userLevel !== 2 && (
       <div>
         <li
           id="headingThree"
@@ -250,7 +256,7 @@ const AdminLink = (props) => {
               text={"My Survey"}
             />
           </li>
-          {userLevel === 1 && (
+          {userLevel !== 2 && (
             <li>
               <EverCommLink
                 pathName={userManagementPath}

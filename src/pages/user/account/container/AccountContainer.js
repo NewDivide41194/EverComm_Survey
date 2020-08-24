@@ -15,6 +15,7 @@ import {
 const AccountContainer = (props) => {
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
+  const currentUserLevel = localStorage.getItem("userLevel");
   const [userData, setUserData] = useState([]);
   const [id, setId] = useState("");
   const [edit, setEdit] = useState(
@@ -43,7 +44,6 @@ const AccountContainer = (props) => {
   };
 
   const alert = useAlert();
-console.log("===========>",userLevel);
   const UserLevelOptions = [
     { value: 1, label: "admin" },
     { value: 2, label: "user" },
@@ -67,6 +67,8 @@ console.log("===========>",userLevel);
     }
   }, []);
 
+  console.log('current user level >>> ', currentUserLevel)
+
   const GetOneUserInfo = (data) => {
     const first = data.user_name.split(" ");
     const last = data.user_name.split(" ").splice(1, 2).join(" ");
@@ -83,12 +85,13 @@ console.log("===========>",userLevel);
     setActive(data.active === 1 ? !active : active);
   };
 
-  const matchUser =
-    userData !== []
-      ? userData
-          .filter((v) => (v.id == userId ? v : undefined))
-          .map((u) => u.role)
-      : [];
+  // const matchUser =
+  //   userData !== []
+  //     ? userData
+  //         .filter((v) => (v.id == userId ? v : undefined))
+  //         .map((u) => u.role)
+  //     : [];
+
 
   const _handleSubmit = (e) => {
     e.preventDefault();
@@ -311,6 +314,8 @@ console.log("===========>",userLevel);
     return;
   };
 
+  console.log('user data >> ', userData)
+
   //////////sort by created date descending//////////
   // const sortData = userData.sort((a,b) =>
   //   {
@@ -321,7 +326,7 @@ console.log("===========>",userLevel);
   return (
     <Account
       close = {close}
-      matchUser={matchUser}
+     
       userData={userData}
       surveyList={surveyList}
       err={err}
