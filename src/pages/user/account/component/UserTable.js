@@ -22,13 +22,14 @@ export default function UserTable(props) {
       },
     },
   });
+  
   const [tableData, setTableData] = React.useState({
     columns: [
       { title: "Name", field: "name" },
       { title: "Email", field: "email" },
       { title: "Role", field: "role" },
       { title: "Company", field: "companyName" },
-      { title: "Active", field: "active" },
+      { title: "Active", render: userData => userData.active === 1 ? <i class="fas fa-check-square" style={{color:'green'}}></i> : <i class="far fa-square" style={{color:'green'}}></i> },
       { title: "Created Date", field: "created_date" },
     ],
     data: userData,
