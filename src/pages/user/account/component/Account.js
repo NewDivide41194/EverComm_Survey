@@ -68,7 +68,6 @@ const Account = (props) => {
 
   const userId = localStorage.getItem("userId");
   return (
-    // <div>Hi</div>
     <div className="container">
       <div className="row p-3">
         <div className="w-100">

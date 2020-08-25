@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { ESButton } from "../../../../tools/ES_Button";
 import { ESInput } from "../../../../tools/ES_Inputs";
 import { ESDropDownSample } from "../../../../tools/ES_DropDownSample";
@@ -12,10 +12,9 @@ const AddAccontForm = (props) => {
 
   useEffect(() => {
     document.getElementById("FirstName").focus();
-  },[])
+  }, []);
 
   const {
-    
     surveyList,
     handleSubmit,
     firstName,
@@ -52,23 +51,36 @@ const AddAccontForm = (props) => {
   } = props;
   //console.log('Err >>> ', err.MobileErr)
   //const err = {};
-  const level = currentUserLevel != 1 ? UserLevelOptions.filter(v => v.value !== 1 ) : UserLevelOptions
- 
+  const level =
+    currentUserLevel != 1
+      ? UserLevelOptions.filter((v) => v.value !== 1)
+      : UserLevelOptions;
+
   const centeredStyle = {
     position: "absolute",
     top: "50%",
-    transform: "translateY(-50%)"
+    transform: "translateY(-50%)",
   };
   const oneUserEditPath =
     window.location.pathname === `/user/editAccount/${userId}`;
   return (
     <div className="row justify-content-center">
       <form
-        className={`${oneUserEditPath?"col-lg-4":"col-lg-6"} col-sm-12`}
+        className={`${oneUserEditPath ? "col-lg-4" : "col-lg-6"} col-sm-12`}
         style={oneUserEditPath ? centeredStyle : null}
       >
-        {oneUserEditPath&&<div className="text-center"><i class="fas fa-user-edit fa-3x" style={{color:Colors.Gray}}></i></div>}
-        <h4 style={{ color: Colors.PrimaryColor }} className={oneUserEditPath&&`text-center`}>{`${
+        {oneUserEditPath && (
+          <div className="text-center">
+            <i
+              class="fas fa-user-edit fa-3x"
+              style={{ color: Colors.Gray }}
+            ></i>
+          </div>
+        )}
+        <h4
+          style={{ color: Colors.PrimaryColor }}
+          className={oneUserEditPath && `text-center`}
+        >{`${
           oneUserEditPath || edit ? "Edit User Account" : "Add New User"
         }`}</h4>
         <div className="row form-group">
@@ -137,7 +149,9 @@ const AddAccontForm = (props) => {
           </div>
           <div
             className={`py-2 col-sm-12 ${
-              currentUserLevel != 2 && window.location.pathname !== `/user/editAccount/${userId}` && "col-lg-6"
+              currentUserLevel != 2 &&
+              window.location.pathname !== `/user/editAccount/${userId}` &&
+              "col-lg-6"
             }`}
           >
             <label htmlFor="Mobile">Phone No.</label>
@@ -160,20 +174,21 @@ const AddAccontForm = (props) => {
               onChange={(e) => handleMobileChange(e)}
             />
           </div>
-          {(currentUserLevel != 2 && window.location.pathname !== `/user/editAccount/${userId}`) && (
-            <div className="py-2 col-sm-12 col-lg-6">
-              <label htmlFor="UserLevel">Choose User Level</label>
-              <ESDropDownSample
-                disabled={isDisabled}
-                id={"UserLevel"}
-                defaultValue={UserLevelOptions[1]}
-                notClearable
-                _handleSelect={handleUserLevelSelect}
-                options={level}
-                value={userLevel}
-              />
-            </div>
-          )}
+          {currentUserLevel != 2 &&
+            window.location.pathname !== `/user/editAccount/${userId}` && (
+              <div className="py-2 col-sm-12 col-lg-6">
+                <label htmlFor="UserLevel">Choose User Level</label>
+                <ESDropDownSample
+                  disabled={isDisabled}
+                  id={"UserLevel"}
+                  defaultValue={UserLevelOptions[1]}
+                  notClearable
+                  _handleSelect={handleUserLevelSelect}
+                  options={level}
+                  value={userLevel}
+                />
+              </div>
+            )}
           <div className="py-2 col-12">
             <label htmlFor="Email">Email</label>
 
@@ -197,7 +212,7 @@ const AddAccontForm = (props) => {
               onChange={(e) => handleEmailChange(e)}
             />
           </div>
-          {oneUserEditPath|| (
+          {oneUserEditPath || (
             <div className="py-2 col-12">
               <label htmlFor="Password">Password</label>
               {err.passwordErr === undefined ? null : (
@@ -237,7 +252,7 @@ const AddAccontForm = (props) => {
               </span>
             </div>
           )}
-          {oneUserEditPath|| (
+          {oneUserEditPath || (
             <div className="col-sm-12 col-lg-6">
               <ESCheckBox
                 disabled={isDisabled}
@@ -305,7 +320,10 @@ const SurveyHeaderList = (props) => {
   }));
 
   return (
-    <div className="col-lg-6 col-sm-12" style={{maxHeight: 600, overflowY:'auto'}}>
+    <div
+      className="col-lg-6 col-sm-12"
+      style={{ maxHeight: 600, overflowY: "auto" }}
+    >
       <h4 style={{ color: Colors.PrimaryColor }}>Select Survey Headers</h4>
       <span className=" text-success">
         <i className={"fa fa-exclamation-circle pr-2 pb-2"} />
