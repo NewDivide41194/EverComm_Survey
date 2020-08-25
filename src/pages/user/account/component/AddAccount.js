@@ -280,7 +280,7 @@ const AddAccontForm = (props) => {
           </div>
         </div>
       </form>
-      {/* {(currentUserLevel === 1 ||
+      {(currentUserLevel === 1 ||
         oneUserEditPath===false) && (
         <SurveyHeaderList
           surveyList={surveyList}
@@ -288,7 +288,7 @@ const AddAccontForm = (props) => {
           handleCheckChange={handleCheckChange}
           checkedList={checkedList}
         />
-      )} */}
+      )}
     </div>
   );
 };

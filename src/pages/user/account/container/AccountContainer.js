@@ -67,8 +67,6 @@ const AccountContainer = (props) => {
     }
   }, []);
 
-  console.log('current user level >>> ', currentUserLevel)
-
   const GetOneUserInfo = (data) => {
     const first = data.user_name.split(" ");
     const last = data.user_name.split(" ").splice(1, 2).join(" ");
@@ -84,13 +82,6 @@ const AccountContainer = (props) => {
     setUserLevel(level[0]);
     setActive(data.active === 1 ? !active : active);
   };
-
-  // const matchUser =
-  //   userData !== []
-  //     ? userData
-  //         .filter((v) => (v.id == userId ? v : undefined))
-  //         .map((u) => u.role)
-  //     : [];
 
 
   const _handleSubmit = (e) => {
@@ -314,8 +305,6 @@ const AccountContainer = (props) => {
     return;
   };
 
-  console.log('user data >> ', userData)
-
   //////////sort by created date descending//////////
   // const sortData = userData.sort((a,b) =>
   //   {
@@ -323,11 +312,17 @@ const AccountContainer = (props) => {
   //   }
   // )
 
+  // const matchUser =
+  //   userData !== []
+  //     ? userData
+  //         .filter((v) => (v.id == userId ? v : undefined))
+  //         .map((u) => u.role)
+  //     : [];
+
   return (
     <Account
       close = {close}
-     
-      userData={userData}
+      userData={currentUserLevel == 3 ? userData.filter(v => v.role !== "admin") : userData}
       surveyList={surveyList}
       err={err}
       edit={edit}
