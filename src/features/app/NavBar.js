@@ -24,7 +24,7 @@ const NavBar = (props) => {
   };
 
   const _handleAccount = () => {
-    props.history.push("/user/account");
+    props.history.push(`/user/editAccount/${userId}`);
     window.location.reload();
   };
 
