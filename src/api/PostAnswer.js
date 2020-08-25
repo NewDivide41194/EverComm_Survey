@@ -8,7 +8,7 @@ export const PostAnswer = (SurveyData, callback) => {
       headers: {
         "Content-Type": "application/json",
         Accept: "*/*",
-        Authorization: `Bearer ${SurveyData}`
+        Authorization: `Bearer ${SurveyData.token}`
       },
       body: JSON.stringify(SurveyData)
     })

@@ -54,7 +54,7 @@ export const ChangePassword = (props) => {
     if (passwordData.newPassword !== passwordData.confirmPassword) {
       alert.error("Password do not match!");
     } else if (
-      passwordData.newPassword.length <8||
+      passwordData.newPassword.length < 8 ||
       passwordData.confirmPassword.length < 8
     ) {
       alert.error("Password minium 8 characters!");

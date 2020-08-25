@@ -35,12 +35,12 @@ export default function UserTable(props) {
         title: "Active",
         render: (userData) =>
           userData.active === 1 ? (
-            <i class="fas fa-check-square" style={{ color: "green" }}></i>
+            <i className="fas fa-check-square" style={{ color: "green" }}></i>
           ) : (
-            <i class="far fa-square" style={{ color: "green" }}></i>
+            <i className="far fa-square" style={{ color: "green" }}></i>
           ),
       },
-      { title: "Created Date", field: "created_date" },
+      { title: "Created Date", render: (userData) => userData.created_date.split("-").join("/")},
     ],
     data: userData,
   });

@@ -31,7 +31,10 @@ const QuestionCard1 = (props) => {
 
   // const otherOfQuestion = (index) => {
   //   const isOther = QuestionData && QuestionData.map((v, k) => v.option_choices)[index].filter(d => d.option_choice_name === "Other")
-    console.log("---------->", QuestionData && QuestionData.map((v, k) => v.input_type_id));
+  console.log(
+    "---------->",
+    QuestionData && QuestionData.map((v, k) => v.input_type_id)
+  );
   //   return isOther ? isOther[0].option_choice_id : null
   // }
 
@@ -135,7 +138,7 @@ const QuestionCard1 = (props) => {
                     ) : null}
                   </div>
                 ) : ques.input_type_id === 5 ? (
-                  ques.option_choices === null ? (
+                  ques.option_choices[0].option_choice_id === null ? (
                     <ESDropDown
                       quesId={remakeQuestionId}
                       options={deviceOption}
@@ -221,7 +224,7 @@ const QuestionCard1 = (props) => {
                       _handleInputChange(e, remakeQuestionId, ques.question_id);
                     }}
                   />
-                ): ques.input_type_id === 6 ? (
+                ) : ques.input_type_id === 6 ? (
                   <ESDatePicker
                     quesId={remakeQuestionId}
                     startDate={
@@ -236,7 +239,6 @@ const QuestionCard1 = (props) => {
                           )[0]
                         : null
                     }
-                   
                     _handleEndChange={_handleEndChange}
                     _handleStartChange={_handleStartChange}
                     keys={ques.question_id}

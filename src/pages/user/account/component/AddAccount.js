@@ -72,7 +72,7 @@ const AddAccontForm = (props) => {
         {oneUserEditPath && (
           <div className="text-center">
             <i
-              class="fas fa-user-edit fa-3x"
+              className="fas fa-user-edit fa-3x"
               style={{ color: Colors.Gray }}
             ></i>
           </div>
@@ -295,15 +295,14 @@ const AddAccontForm = (props) => {
           </div>
         </div>
       </form>
-      {/* {(currentUserLevel === 1 ||
-        oneUserEditPath===false) && (
+      {(currentUserLevel === 1 || oneUserEditPath === false) && (
         <SurveyHeaderList
           surveyList={surveyList}
           userLevel={userLevel}
           handleCheckChange={handleCheckChange}
           checkedList={checkedList}
         />
-      )} */}
+      )}
     </div>
   );
 };
