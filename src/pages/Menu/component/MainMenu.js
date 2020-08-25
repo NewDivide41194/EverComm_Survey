@@ -4,6 +4,7 @@ import * as Colors from "../../../config/Color.config";
 
 const MainMenu = (props) => {
   const userId = localStorage.getItem('userId')
+  const userLevel = localStorage.getItem('userLevel')
   const _handleReportClick = () => {
     props.history.push(`/reportMenu/${userId}`);
   };
@@ -28,13 +29,16 @@ const MainMenu = (props) => {
           id={"Survey"}
           icon={"fas fa-tasks fa-2x"}
         />
-        <MenuCard
+        {
+          userLevel != 2 &&
+          <MenuCard
           onClick={_handleReportClick}
           header={"Reporting"}
           text={"View reports for Answered questions."}
           id={"Report"}
           icon={"far fa-chart-bar fa-2x"}
-        />
+          />
+        }
       </div>
     </div>
   );
