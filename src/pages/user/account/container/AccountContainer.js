@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import Account from "../component/Account";
 import { RegisterFormValidation } from "../../../../helper/formValidation";
 import { useAlert } from "react-alert";
-import moment from "moment";
 
 import {
   GetUser,
@@ -153,7 +152,7 @@ const AccountContainer = (props) => {
               alert.error(data.message);
             } else {
               alert.success("Updated User Successfully!");
-              // window.location.reload();
+              window.location.reload();
             }
           },
           { token }
@@ -300,21 +299,6 @@ const AccountContainer = (props) => {
 
     return;
   };
-
-  //////////sort by created date descending//////////
-  // const sortData = userData.sort((a,b) =>
-  //   {
-  //     return b.created_date.localeCompare(a.created_date)
-  //   }
-  // )
-
-  // const matchUser =
-  //   userData !== []
-  //     ? userData
-  //         .filter((v) => (v.id == userId ? v : undefined))
-  //         .map((u) => u.role)
-  //     : [];
-  console.log(id);
 
   return (
     <Account
