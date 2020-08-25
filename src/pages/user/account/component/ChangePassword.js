@@ -28,7 +28,7 @@ export const ChangePassword = (props) => {
     } else {
       setisDisabled(false);
     }
-  });
+  },[]);
   const err = {};
 
   const handleView = () => {
