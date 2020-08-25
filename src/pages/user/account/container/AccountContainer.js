@@ -3,8 +3,7 @@ import Account from "../component/Account";
 import { RegisterFormValidation } from "../../../../helper/formValidation";
 import { useAlert } from "react-alert";
 import moment from "moment";
-// import { UpdateUserInfo } from "../../../../api/FetchUser";
-// import { AccountSettingValidataion } from "../../../../helper/formValidation";
+
 import {
   GetUser,
   GetOneUser,
@@ -37,7 +36,7 @@ const AccountContainer = (props) => {
   const [visible, setVisible] = useState(false);
   const [editData, setEditData] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [close, setClose] = useState(false)
+  const [close, setClose] = useState(false);
   const errStyle = {
     marginTop: "-25px",
     fontSize: 12,
@@ -94,7 +93,7 @@ const AccountContainer = (props) => {
       eMail,
       active,
       userLevel,
-      password
+      password,
     };
 
     const validedErr = RegisterFormValidation(data);
@@ -155,7 +154,7 @@ const AccountContainer = (props) => {
               alert.error(data.message);
             } else {
               alert.success("Updated User Successfully!");
-              window.location.reload()
+              window.location.reload();
             }
           },
           { token }
@@ -166,7 +165,7 @@ const AccountContainer = (props) => {
 
   const _handleIsAdd = () => {
     setIsAdd(!isAdd);
-    setClose(false)
+    setClose(false);
     setEdit(false);
     setFirstName("");
     setLastName("");
@@ -183,8 +182,7 @@ const AccountContainer = (props) => {
   };
 
   const _handleCancel = () => {
-
-    if(window.location.pathname !== `/user/editAccount/${userId}`){
+    if (window.location.pathname !== `/user/editAccount/${userId}`) {
       setClose(!close);
       setEdit(false);
       setIsAdd(false);
@@ -194,7 +192,7 @@ const AccountContainer = (props) => {
     setMobile("");
     setCompanyName("");
     setEMail("");
-    setUserLevel(UserLevelOptions[1])
+    setUserLevel(UserLevelOptions[1]);
     setActive(false);
     setCheckedList([]);
     setRowsPerPage(5);
@@ -225,7 +223,6 @@ const AccountContainer = (props) => {
     setActive(isActive);
     setUserLevel(userlevel[0]);
     setEditData([rowData]);
-   
 
     if (rowData.role === "ADMIN") {
       setCheckedList(surveyList.map((v) => v.survey_header_id));

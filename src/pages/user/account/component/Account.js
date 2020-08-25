@@ -5,11 +5,11 @@ import * as Colors from "../../../../config/Color.config";
 import RightSideBar from "../../../../features/app/RightSideBar.js";
 import AddAccountForm from "./AddAccount";
 import UserTable from "./UserTable.js";
-  
+
 const Account = (props) => {
   const {
     close,
-    
+
     isAdd,
     handleIsAdd,
     accountsetting,
@@ -50,7 +50,7 @@ const Account = (props) => {
     handleView,
     handleEdit,
     editData,
-    rowsPerPage
+    rowsPerPage,
   } = props;
 
   const header = {
@@ -66,95 +66,96 @@ const Account = (props) => {
     setCollapse(!collapse);
   };
 
-  const userId=localStorage.getItem("userId")
-
+  const userId = localStorage.getItem("userId");
   return (
-
     // <div>Hi</div>
     <div className="container">
       <div className="row p-3">
         <div className="w-100">
-          {userData && userData.length > 0 && window.location.pathname!==`/user/editAccount/${userId}`&& (
-            <div>
-             <div className="row justify-content-between pt-2 pb-3 px-3">
-               <div style={{color: Colors.PrimaryColor, fontSize: 20}}>
-                 <h2>User Account Management</h2>
-               </div>
-               <div className="d-flex pt-3">
-                <div className="w-40 px-2">
-                  <ESButton
-                    text={"+ Add User"}
-                    onClick={handleIsAdd}
-                    noShadow
-                    disabled={isAdd}
-                  />
+          {userData &&
+            userData.length > 0 &&
+            window.location.pathname !== `/user/editAccount/${userId}` && (
+              <div>
+                <div className="row justify-content-between pt-2 pb-3 px-3">
+                  <div style={{ color: Colors.PrimaryColor, fontSize: 20 }}>
+                    <h2>User Management</h2>
+                  </div>
+                  <div className="d-flex pt-3">
+                    <div className="w-40 px-2">
+                      <ESButton
+                        text={"+ Add User"}
+                        onClick={handleIsAdd}
+                        noShadow
+                        disabled={isAdd}
+                      />
+                    </div>
+                    <div className="w-40">
+                      <ESButton
+                        text={"Edit"}
+                        onClick={(e) => handleIsEdit(e)}
+                        noShadow
+                        disabled={edit}
+                        leftIcon={<i className="fa fa-edit pr-2"></i>}
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div className="w-40">
-                  <ESButton
-                    text={"Edit"}
-                    onClick={(e) => handleIsEdit(e)}
-                    noShadow
-                    disabled={edit}
-                    leftIcon={<i className="fa fa-edit pr-2"></i>}
-                  />
-                </div>
-               </div>
-    
-            </div>
-            <UserTable
-              userData={userData}
-              handleIsAdd={handleIsAdd}
-              isAdd={isAdd}
-              isEdit={edit}
-              handleIsEdit={handleIsEdit}
-              handleEdit={handleEdit}
-              rowsPerPage={rowsPerPage}
-            />
+                <UserTable
+                  userData={userData}
+                  handleIsAdd={handleIsAdd}
+                  isAdd={isAdd}
+                  isEdit={edit}
+                  handleIsEdit={handleIsEdit}
+                  handleEdit={handleEdit}
+                  rowsPerPage={rowsPerPage}
+                />
+              </div>
+            )}
+        </div>
+        {(isAdd ||
+          editData.length > 0 ||
+          window.location.pathname === `/user/editAccount/${userId}`) &&
+          !close && (
+            <div className="w-100">
+              <AddAccountForm
+                visible={visible}
+                UserLevelOptions={UserLevelOptions}
+                accountsetting={accountsetting}
+                edit={edit}
+                firstName={firstName}
+                lastName={lastName}
+                companyName={companyName}
+                mobile={Mobile}
+                eMail={eMail}
+                Role={Role}
+                password={password}
+                active={active}
+                userLevel={userLevel}
+                handleEditProfile={handleEditProfile}
+                handleFirstNameChange={handleFirstNameChange}
+                handleLastNameChange={handleLastNameChange}
+                handleCompanyChange={handleCompanyChange}
+                handleMobileChange={handleMobileChange}
+                handleEmailChange={handleEmailChange}
+                handleRoleChange={handleRoleChange}
+                handlePasswordChange={handlePasswordChange}
+                handleUserLevelSelect={handleUserLevelSelect}
+                handleActiveCheck={handleActiveCheck}
+                handleCheckChange={handleCheckChange}
+                handleSubmit={handleSubmit}
+                handleCancel={handleCancel}
+                handleIsEdit={handleIsEdit}
+                handleAccountSetting={handleAccountSetting}
+                NameRef={NameRef}
+                err={err}
+                errStyle={errStyle}
+                errClassName={errClassName}
+                surveyList={surveyList}
+                checkedList={checkedList}
+                handleView={handleView}
+              />
             </div>
           )}
-        </div>
-        {(isAdd || editData.length>0||window.location.pathname===`/user/editAccount/${userId}`) && !close && (
-          <div className="w-100">
-            <AddAccountForm
-              
-              visible={visible}
-              UserLevelOptions={UserLevelOptions}
-              accountsetting={accountsetting}
-              edit={edit}
-              firstName={firstName}
-              lastName={lastName}
-              companyName={companyName}
-              mobile={Mobile}
-              eMail={eMail}
-              Role={Role}
-              password={password}
-              active={active}
-              userLevel={userLevel}
-              handleEditProfile={handleEditProfile}
-              handleFirstNameChange={handleFirstNameChange}
-              handleLastNameChange={handleLastNameChange}
-              handleCompanyChange={handleCompanyChange}
-              handleMobileChange={handleMobileChange}
-              handleEmailChange={handleEmailChange}
-              handleRoleChange={handleRoleChange}
-              handlePasswordChange={handlePasswordChange}
-              handleUserLevelSelect={handleUserLevelSelect}
-              handleActiveCheck={handleActiveCheck}
-              handleCheckChange={handleCheckChange}
-              handleSubmit={handleSubmit}
-              handleCancel={handleCancel}
-              handleIsEdit={handleIsEdit}
-              handleAccountSetting={handleAccountSetting}
-              NameRef={NameRef}
-              err={err}
-              errStyle={errStyle}
-              errClassName={errClassName}
-              surveyList={surveyList}
-              checkedList={checkedList}
-              handleView={handleView}
-            />
-          </div>
-        )}
       </div>
     </div>
   );
