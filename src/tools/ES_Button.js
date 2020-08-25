@@ -36,7 +36,7 @@ export const ESButton = props => {
       id={id}
       onClick={onClick}
       type={type === undefined ? "button" : type}
-      className={`btn btn-block rounded text-light ${small ? "py-0" : "px-2 py-1"}`}
+      className={`btn btn-block rounded text-light ${small ? "py-0" : "px-2 py-2"}`}
       style={{
         ...defaultStyle,
         ...userStyle,

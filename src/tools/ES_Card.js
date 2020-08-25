@@ -119,7 +119,7 @@ const QuestionCard1 = (props) => {
                     ).length > 0 ? (
                       <div className="pt-2">
                         <ESInput
-                          maxLength={10}
+                          maxLength={30}
                           placeHolder={"Fill Your Answer"}
                           id={remakeQuestionId}
                           value={AnswerData.filter(
@@ -187,7 +187,7 @@ const QuestionCard1 = (props) => {
                       ).length > 0 ? (
                         <div className="pt-2">
                           <ESInput
-                            maxLength={10}
+                            maxLength={30}
                             placeHolder={"Fill Your Answer"}
                             id={remakeQuestionId}
                             value={
@@ -214,7 +214,7 @@ const QuestionCard1 = (props) => {
                   )
                 ) : ques.input_type_id === 4 ? (
                   <ESInput
-                    maxLength={10}
+                    maxLength={30}
                     placeHolder={"Fill Your Answer"}
                     id={remakeQuestionId}
                     value={AnswerData.filter(
