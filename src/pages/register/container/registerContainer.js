@@ -20,7 +20,7 @@ const RegisterContainer = (props) => {
     fontSize: 12,
     marginTop: "-25px",
   };
-  const errClassName = "text-danger d-flex flex-row justify-content-end pb-2";
+  const errClassName = "text-danger d-flex flex-row justify-content-start pt-3 pb-1";
 
   useEffect(() => {
     document.getElementById("FirstName").focus();
@@ -45,17 +45,17 @@ const RegisterContainer = (props) => {
       document.getElementById("Password").focus();
     }
     console.log(validedErr);
-    if (Object.keys(validedErr).length === 0) {
-      setErr({});
-      RegisterFetch({ firstName, lastName, eMail, password, companyName, Mobile, token }, (err, data) => {
-        if (data.success === false) {
-          alert.error(data.message);
-        } else {
-          alert.success("Account Added Successfully!")
-          props.history.push("/");
-        }
-      });
-    }
+    // if (Object.keys(validedErr).length === 0) {
+    //   setErr({});
+    //   RegisterFetch({ firstName, lastName, eMail, password, companyName, Mobile, token }, (err, data) => {
+    //     if (data.success === false) {
+    //       alert.error(data.message);
+    //     } else {
+    //       alert.success("Account Added Successfully!")
+    //       props.history.push("/");
+    //     }
+    //   });
+    // }
   };
 
   const _handleCompanyChange = (e) => {
