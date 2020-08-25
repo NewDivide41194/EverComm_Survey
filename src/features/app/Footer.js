@@ -8,12 +8,11 @@ import "../../App.css";
 const Footer = (props) => {
   const Foot = () => {
     return (
-      <div className="main-footer">
+      <div /*className="main-footer"*/>
         <footer
           style={{
             left: 0,
             bottom: 0,
-            // background: Colors.SecondaryColor,
             marginTop:
               props.location.pathname === "/"
                 ? "-30px"

@@ -27,18 +27,18 @@ const Register = (props) => {
     isDisabled,
   } = props;
   return (
-    <div className="container py-4"
+    <div className="container p-0 "
     >
-      <div className="row justify-content-center">
-        <form className="col-lg-4 col-md-8" 
-    //     style={{
-    //   position: "absolute",
-    //   top: "50%",
-    //   transform: "translateY(-50%)"
-    // }}
+      <div className="row justify-content-center " >
+        <form className="col-lg-4 p-4 col-md-8 " 
+        style={{
+      position: "absolute",
+      top: "50%",
+      transform: "translateY(-50%)"
+    }}
     >
           <div className="pb-3 text-center ">
-            <div className="pb-2 font-weight-bold" style={{ fontSize: "25px" }}>
+            <div className="pt-3 font-weight-bold" style={{ fontSize: "25px" }}>
               ACCOUNT REGISTRATION
             </div>
             <span style={{ background: "white" }}>
