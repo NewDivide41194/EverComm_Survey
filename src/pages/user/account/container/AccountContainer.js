@@ -303,7 +303,11 @@ const AccountContainer = (props) => {
   return (
     <Account
       close={close}
-      userData={userData}
+      userData={
+        currentUserLevel === 3
+          ? userData.filter((v) => v.role !== "admin")
+          : userData
+      }
       surveyList={surveyList}
       err={err}
       edit={edit}

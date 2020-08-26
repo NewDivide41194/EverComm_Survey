@@ -5,7 +5,7 @@ import { useAlert } from "react-alert";
 import { RegisterFormValidation } from "../../../helper/formValidation";
 
 const RegisterContainer = (props) => {
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token");
   const [visible, setVisible] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -20,12 +20,13 @@ const RegisterContainer = (props) => {
     fontSize: 12,
     marginTop: "-25px",
   };
-  const errClassName = "text-danger d-flex flex-row justify-content-end pb-2";
+  const errClassName =
+    "text-danger d-flex flex-row justify-content-start pt-3 pb-1";
 
   useEffect(() => {
     document.getElementById("FirstName").focus();
   }, []);
-  
+
   const _handleSubmit = (e) => {
     e.preventDefault();
     const data = { eMail, password, firstName, lastName, companyName, Mobile };
@@ -35,7 +36,7 @@ const RegisterContainer = (props) => {
       document.getElementById("FirstName").focus();
     } else if (validedErr.lastNameErr) {
       document.getElementById("LastName").focus();
-    } else if (validedErr.MobileErr){
+    } else if (validedErr.MobileErr) {
       document.getElementById("Mobile").focus();
     } else if (validedErr.companyErr) {
       document.getElementById("CompanyName").focus();
@@ -47,14 +48,17 @@ const RegisterContainer = (props) => {
     console.log(validedErr);
     if (Object.keys(validedErr).length === 0) {
       setErr({});
-      RegisterFetch({ firstName, lastName, eMail, password, companyName, Mobile, token }, (err, data) => {
-        if (data.success === false) {
-          alert.error(data.message);
-        } else {
-          alert.success("Account Added Successfully!")
-          props.history.push("/");
+      RegisterFetch(
+        { firstName, lastName, eMail, password, companyName, Mobile, token },
+        (err, data) => {
+          if (data.success === false) {
+            alert.error(data.message);
+          } else {
+            alert.success("Account Added Successfully!");
+            props.history.push("/");
+          }
         }
-      });
+      );
     }
   };
 
@@ -76,7 +80,7 @@ const RegisterContainer = (props) => {
   const _handleMobileChange = (e) => {
     setErr({});
     setMobile(e.target.value.replace(/\s+/g, " ").trimStart());
-  }
+  };
   const _handleEmailChange = (e) => {
     setErr({});
     setEmail(e.target.value.trimStart());

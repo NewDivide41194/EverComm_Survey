@@ -80,7 +80,6 @@ const SurveylistContainer = (props) => {
           <ESButton
             text={"+ Create New Survey"}
             onClick={_handleNewSurvey}
-            small
           />
         </div>
       </div>

@@ -72,7 +72,7 @@ const AddAccontForm = (props) => {
         {oneUserEditPath && (
           <div className="text-center">
             <i
-              class="fas fa-user-edit fa-2x"
+              className="fas fa-user-edit fa-3x"
               style={{ color: Colors.Gray }}
             ></i>
           </div>
@@ -295,6 +295,15 @@ const AddAccontForm = (props) => {
           </div>
         </div>
       </form>
+      {(currentUserLevel === 1 || oneUserEditPath === false) && (
+        <SurveyHeaderList
+          surveyList={surveyList}
+          userLevel={userLevel}
+          handleCheckChange={handleCheckChange}
+          checkedList={checkedList}
+          currentUserLevel={currentUserLevel}
+        />
+      )}
     </div>
   );
 };
@@ -302,7 +311,7 @@ const AddAccontForm = (props) => {
 export default AddAccontForm;
 
 const SurveyHeaderList = (props) => {
-  const { surveyList, handleCheckChange, checkedList, userLevel } = props;
+  const { surveyList, handleCheckChange, checkedList, userLevel, currentUserLevel } = props;
   //console.log(checkedList);
   const level = Object.values(userLevel).map((v) => v);
   const surveyListOption = surveyList.map((v) => ({
@@ -316,10 +325,14 @@ const SurveyHeaderList = (props) => {
       style={{ maxHeight: 600, overflowY: "auto" }}
     >
       <h4 style={{ color: Colors.PrimaryColor }}>Select Survey Headers</h4>
-      <span className=" text-success">
-        <i className={"fa fa-exclamation-circle pr-2 pb-2"} />
-        Admin account can all survey permissions.
-      </span>
+      {
+        currentUserLevel != 3 &&
+          <span className=" text-success">
+          <i className={"fa fa-exclamation-circle pr-2 pb-2"} />
+          Admin account can all survey permissions.
+        </span>
+      }
+
       {surveyList.map((v, k) => (
         <div className="border-bottom" key={k}>
           <ESCheckBox
