@@ -8,15 +8,14 @@ const Cover = (props) => {
   const { reportData, startDate, endDate, viewType, media } = props;
 
   return (
-
-    <div className="container border pt-4"
+    <div
+      className="container border pt-4"
       style={{
         width: "8.27in",
         height: "15.66in",
-          }} >
-
-
-        <img
+      }}
+    >
+      <img
         src={Logo}
         className="mt-3 ml-4"
         style={{
@@ -25,28 +24,31 @@ const Cover = (props) => {
         }}
         alt="logo"
       />
-      {
-        reportData && reportData.length ? (
-          reportData.map((v, k) => (
-            <div className="container-row mt-4" key={k} style={{paddingTop:"550px"}}>
-              <h1 className="text-center " style={{ color: Colors.PrimaryColor }}>
+      {reportData && reportData.length
+        ? reportData.map((v, k) => (
+            <div
+              className="container-row mt-4"
+              key={k}
+              style={{ paddingTop: "550px" }}
+            >
+              <h1
+                className="text-center "
+                style={{ color: Colors.PrimaryColor }}
+              >
                 Report for {v.survey_name}
               </h1>
-              {/* <div className="text-center font-weight-bold"><p>Answered By {viewType}</p></div> */}
               {startDate ? (
                 <h4 className="text-center text-secondary">
                   From {moment(startDate).format("YYYY-MMM-DD")} to{" "}
                   {moment(endDate).format("YYYY-MMM-DD")}
                 </h4>
               ) : (
-                  <h4 className="text-center text-secondary">Overall Report</h4>
-                )}
+                <h4 className="text-center text-secondary">Overall Report</h4>
+              )}
             </div>
-          )))
-          : null
-      }
+          ))
+        : null}
     </div>
-
   );
 };
 export default Cover;

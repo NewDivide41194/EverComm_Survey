@@ -8,13 +8,13 @@ import * as Colors from "../../../../config/Color.config";
 
 const AddAccontForm = (props) => {
   const userId = localStorage.getItem("userId");
+  const currentUserLevel = localStorage.getItem("userLevel");
 
   useEffect(() => {
     document.getElementById("FirstName").focus();
   }, []);
 
   const {
-    matchUser,
     surveyList,
     handleSubmit,
     firstName,
@@ -51,6 +51,11 @@ const AddAccontForm = (props) => {
   } = props;
   //console.log('Err >>> ', err.MobileErr)
   //const err = {};
+  const level =
+    currentUserLevel != 1
+      ? UserLevelOptions.filter((v) => v.value !== 1)
+      : UserLevelOptions;
+
   const centeredStyle = {
     position: "absolute",
     top: "50%",
@@ -144,7 +149,9 @@ const AddAccontForm = (props) => {
           </div>
           <div
             className={`py-2 col-sm-12 ${
-              matchUser[0] === "admin" && "col-lg-6"
+              currentUserLevel != 2 &&
+              window.location.pathname !== `/user/editAccount/${userId}` &&
+              "col-lg-6"
             }`}
           >
             <label htmlFor="Mobile">Phone No.</label>
@@ -167,20 +174,21 @@ const AddAccontForm = (props) => {
               onChange={(e) => handleMobileChange(e)}
             />
           </div>
-          {matchUser[0] === "admin" && (
-            <div className="py-2 col-sm-12 col-lg-6">
-              <label htmlFor="UserLevel">Choose User Level</label>
-              <ESDropDownSample
-                disabled={isDisabled}
-                id={"UserLevel"}
-                defaultValue={UserLevelOptions[1]}
-                notClearable
-                _handleSelect={handleUserLevelSelect}
-                options={UserLevelOptions}
-                value={userLevel}
-              />
-            </div>
-          )}
+          {currentUserLevel != 2 &&
+            window.location.pathname !== `/user/editAccount/${userId}` && (
+              <div className="py-2 col-sm-12 col-lg-6">
+                <label htmlFor="UserLevel">Choose User Level</label>
+                <ESDropDownSample
+                  disabled={isDisabled}
+                  id={"UserLevel"}
+                  defaultValue={UserLevelOptions[1]}
+                  notClearable
+                  _handleSelect={handleUserLevelSelect}
+                  options={level}
+                  value={userLevel}
+                />
+              </div>
+            )}
           <div className="py-2 col-12">
             <label htmlFor="Email">Email</label>
 
@@ -287,14 +295,6 @@ const AddAccontForm = (props) => {
           </div>
         </div>
       </form>
-      {(matchUser[0] === "admin" || oneUserEditPath === false) && (
-        <SurveyHeaderList
-          surveyList={surveyList}
-          userLevel={userLevel}
-          handleCheckChange={handleCheckChange}
-          checkedList={checkedList}
-        />
-      )}
     </div>
   );
 };

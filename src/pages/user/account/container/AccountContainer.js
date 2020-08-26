@@ -2,9 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Account from "../component/Account";
 import { RegisterFormValidation } from "../../../../helper/formValidation";
 import { useAlert } from "react-alert";
-import moment from "moment";
-// import { UpdateUserInfo } from "../../../../api/FetchUser";
-// import { AccountSettingValidataion } from "../../../../helper/formValidation";
+
 import {
   GetUser,
   GetOneUser,
@@ -15,6 +13,7 @@ import {
 const AccountContainer = (props) => {
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
+  const currentUserLevel = localStorage.getItem("userLevel");
   const [userData, setUserData] = useState([]);
   const [id, setId] = useState("");
   const [edit, setEdit] = useState(
@@ -36,14 +35,13 @@ const AccountContainer = (props) => {
   const [visible, setVisible] = useState(false);
   const [editData, setEditData] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [close, setClose] = useState(false)
+  const [close, setClose] = useState(false);
   const errStyle = {
     marginTop: "-25px",
     fontSize: 12,
   };
 
   const alert = useAlert();
-console.log("===========>",userLevel);
   const UserLevelOptions = [
     { value: 1, label: "admin" },
     { value: 2, label: "user" },
@@ -83,13 +81,6 @@ console.log("===========>",userLevel);
     setActive(data.active === 1 ? !active : active);
   };
 
-  const matchUser =
-    userData !== []
-      ? userData
-          .filter((v) => (v.id == userId ? v : undefined))
-          .map((u) => u.role)
-      : [];
-
   const _handleSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -100,7 +91,7 @@ console.log("===========>",userLevel);
       eMail,
       active,
       userLevel,
-      password
+      password,
     };
 
     const validedErr = RegisterFormValidation(data);
@@ -161,7 +152,7 @@ console.log("===========>",userLevel);
               alert.error(data.message);
             } else {
               alert.success("Updated User Successfully!");
-              window.location.reload()
+              window.location.reload();
             }
           },
           { token }
@@ -172,7 +163,7 @@ console.log("===========>",userLevel);
 
   const _handleIsAdd = () => {
     setIsAdd(!isAdd);
-    setClose(false)
+    setClose(false);
     setEdit(false);
     setFirstName("");
     setLastName("");
@@ -189,8 +180,7 @@ console.log("===========>",userLevel);
   };
 
   const _handleCancel = () => {
-
-    if(window.location.pathname !== `/user/editAccount/${userId}`){
+    if (window.location.pathname !== `/user/editAccount/${userId}`) {
       setClose(!close);
       setEdit(false);
       setIsAdd(false);
@@ -200,7 +190,7 @@ console.log("===========>",userLevel);
     setMobile("");
     setCompanyName("");
     setEMail("");
-    setUserLevel(UserLevelOptions[1])
+    setUserLevel(UserLevelOptions[1]);
     setActive(false);
     setCheckedList([]);
     setRowsPerPage(5);
@@ -231,7 +221,6 @@ console.log("===========>",userLevel);
     setActive(isActive);
     setUserLevel(userlevel[0]);
     setEditData([rowData]);
-   
 
     if (rowData.role === "ADMIN") {
       setCheckedList(surveyList.map((v) => v.survey_header_id));
@@ -311,17 +300,9 @@ console.log("===========>",userLevel);
     return;
   };
 
-  //////////sort by created date descending//////////
-  // const sortData = userData.sort((a,b) =>
-  //   {
-  //     return b.created_date.localeCompare(a.created_date)
-  //   }
-  // )
-
   return (
     <Account
-      close = {close}
-      matchUser={matchUser}
+      close={close}
       userData={userData}
       surveyList={surveyList}
       err={err}

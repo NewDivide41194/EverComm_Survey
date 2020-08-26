@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { ESInput } from "../../../tools/ES_Inputs.js";
 import { ESButton } from "../../../tools/ES_Button";
 import * as Colors from "../../../config/Color.config";
-import { ESDropDown } from "../../../tools/ES_DropDown.js";
 import { ESDropDownSample } from "../../../tools/ES_DropDownSample.js";
 
 const AddNewSurvey = (props) => {
@@ -21,7 +20,7 @@ const AddNewSurvey = (props) => {
 
   useEffect(() => {
     document.getElementById("surveyName").focus();
-  }, [])
+  }, []);
 
   return (
     <div className="container">
@@ -39,14 +38,12 @@ const AddNewSurvey = (props) => {
           </h4>
           <div className="py-2">
             <label>Survey Title</label>
-            {
-              err.surveyHeaderErr === undefined ? null : (
-                <div
+            {err.surveyHeaderErr === undefined ? null : (
+              <div
                 className="text-danger d-flex flex-row justify-content-end pb-2"
-                style={{ marginTop:"-25px", fontSize:12}}
-                >{`*${err.surveyHeaderErr}`}</div>
-              )
-            }
+                style={{ marginTop: "-25px", fontSize: 12 }}
+              >{`*${err.surveyHeaderErr}`}</div>
+            )}
             <ESInput
               placeHolder={"Survey Name"}
               id={"surveyName"}
@@ -64,7 +61,12 @@ const AddNewSurvey = (props) => {
             />
           </div>
           <div className="py-2">
-            <ESButton type={"submit"} text={"NEXT"} onClick={_handleNext} disabled={disabled} />
+            <ESButton
+              type={"submit"}
+              text={"NEXT"}
+              onClick={_handleNext}
+              disabled={disabled}
+            />
           </div>
         </form>
       </div>

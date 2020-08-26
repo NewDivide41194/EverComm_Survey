@@ -176,9 +176,7 @@ console.log("===>",modifiedAgeData);
                 </div>
               )}
               content={() => componentGraphRef.current}
-              // ref={el => (this.componentRef = el)}
               pageStyle="{ size: A4 portrait;}"
-              // removeAfterPrint={true}
             />
             <div ref={componentGraphRef} >
               <Cover
