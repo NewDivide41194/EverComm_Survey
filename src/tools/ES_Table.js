@@ -5,7 +5,7 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import * as Colors from "../config/Color.config";
 import shadows from "@material-ui/core/styles/shadows";
 
-const  ES_Table=(props)=> {
+const  ESTable=(props)=> {
   const {
     tableData,
     tableAlertInfo,
@@ -24,7 +24,7 @@ const  ES_Table=(props)=> {
       },
     },
   });
-
+console.log(tableData);
   return (
     <MuiThemeProvider theme={theme}>
       <MaterialTable
@@ -53,4 +53,4 @@ const  ES_Table=(props)=> {
   );
 }
 
-export default ES_Table
+export default ESTable

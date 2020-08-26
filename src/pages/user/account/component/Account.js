@@ -66,6 +66,36 @@ const Account = (props) => {
     setCollapse(!collapse);
   };
 
+  const tableData = {
+    columns: [
+      { title: "Name", field: "name" },
+      { title: "Email", field: "email" },
+      { title: "Role", field: "role" },
+      { title: "Company", field: "companyName" },
+      {
+        title: "Active",
+        render: (userData) =>
+          userData.active === 1 ? (
+            <i className="fas fa-check-square" style={{ color: "green" }}></i>
+          ) : (
+            <i className="far fa-square" style={{ color: "green" }}></i>
+          ),
+      },
+      { title: "Created Date", field: "created_date" },
+    ],
+    data: userData,
+  };
+
+  const tableAlertInfo = (
+    <div className="row px-3" style={{ fontSize: 13, color: "darkred" }}>
+      {`${
+        !edit
+          ? 'Click "+ Add User" button to add new account'
+          : "*Select a row to edit"
+      }`}
+    </div>
+  );
+
   const userId = localStorage.getItem("userId");
   return (
     <div className="container">
@@ -99,15 +129,18 @@ const Account = (props) => {
                     </div>
                   </div>
                 </div>
-                <ESTable
-                  tableData={userData}
-                  handleIsAdd={handleIsAdd}
-                  isAdd={isAdd}
-                  isEdit={edit}
-                  handleIsEdit={handleIsEdit}
-                  handleEdit={handleEdit}
-                  rowsPerPage={rowsPerPage}
-                />
+                {userData.length > 0 && (
+                  <ESTable
+                    tableData={tableData}
+                    tableAlertInfo={tableAlertInfo}
+                    handleIsAdd={handleIsAdd}
+                    isAdd={isAdd}
+                    isEdit={edit}
+                    handleIsEdit={handleIsEdit}
+                    handleEdit={handleEdit}
+                    rowsPerPage={rowsPerPage}
+                  />
+                )}
               </div>
             )}
         </div>
