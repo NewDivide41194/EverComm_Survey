@@ -18,9 +18,8 @@ const SurveyManagementContainer = (props) => {
   const tableData = {
     columns: [
       { title: "Title", field: "survey_name" },
-      { title: "Response", field: "answeredUser" },
-      { title: "Created Date", field: "createdDate" },
-      { title: "Modified Date", field: "modifiedDate" },
+      { title: "Response", field: "building_count" },
+      { title: "Modified Date", field: "modified_date" },
       { title: "Created Date", field: "created_date" },
       {title:"Action", field:"action",render:()=><div ><ESButtonGroup/></div>}
     ],

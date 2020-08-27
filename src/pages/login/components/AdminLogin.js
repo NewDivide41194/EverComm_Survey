@@ -32,7 +32,6 @@ const UserLogin = (props) => {
           <i className="fas fa-user-lock fa-3x pb-4"></i>
           <h4>Login Your Account</h4>
           <div className="py-3 text-left">
-            <label htmlFor="Email">Email</label>
             {err.eMailErr === undefined ? null : (
               <div
                 className="d-flex flex-row justify-content-end"
@@ -47,8 +46,7 @@ const UserLogin = (props) => {
               value={eMail}
               onChange={(e) => handleEmailChange(e)}
             />
-            <div className="pt-2">
-              <label htmlFor="password">Password</label>
+            <div className="pt-3">
               {err.passwordErr === undefined ? null : (
                 <div
                   className="d-flex flex-row justify-content-end"

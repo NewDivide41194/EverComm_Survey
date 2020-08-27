@@ -4,6 +4,7 @@ import { ESButton } from "../../../tools/ES_Button";
 import * as Colors from "../../../config/Color.config";
 import { SurveyListFetch } from "../../../api/FetchSurveyList";
 import { Building_Type } from "../../../api/url";
+import { ESNavigator } from "../../../tools/ES_Text";
 
 const SurveylistContainer = (props) => {
   const [surveyList, setSurveyList] = useState([]);
@@ -11,7 +12,7 @@ const SurveylistContainer = (props) => {
   const [buildingType, setBuildingType] = useState(null);
   const userId = localStorage.getItem("userId");
   const bTypeId = localStorage.getItem("bTypeId");
-  const [expend, setExpend] = useState(false)
+  const [expend, setExpend] = useState(false);
   const SurveyHeaderId = localStorage.getItem("SurveyHeaderId");
   const token = localStorage.getItem("token");
 
@@ -34,7 +35,7 @@ const SurveylistContainer = (props) => {
     // });
   }, []);
 
-  const handleExpend = () => setExpend(!expend)
+  const handleExpend = () => setExpend(!expend);
   const BuildingSurveyData =
     surveyList.length &&
     surveyList.filter((d) => d.survey_header_id === JSON.parse(SurveyHeaderId));
@@ -48,7 +49,12 @@ const SurveylistContainer = (props) => {
     BuildingSurveyData.filter((v, k) => v.answers === v.total_question_count);
   const SurveyHeaderName = localStorage.getItem("SurveyHeaderName");
 
-  var ReduceData = ["building_id", "building_name", "building_type", "building_type_id"];
+  var ReduceData = [
+    "building_id",
+    "building_name",
+    "building_type",
+    "building_type_id",
+  ];
 
   var NewSurvey = buildingList
     .filter(function (o1) {
@@ -67,8 +73,22 @@ const SurveylistContainer = (props) => {
       }, {});
     });
 
+  const pathData = [
+    {
+      title: "Survey Menu",
+      pathName: `/admin/dashboard/manageSurveyList/${userId}`,
+      linkTo: `/surveyMenu/${userId}`,
+    },
+    {
+      title: SurveyHeaderName,
+      pathName: `/admin/dashboard/manageSurveyList/${userId}`,
+      linkTo: `/surveylist`,
+    }
+  ];
+
   return (
-    <div className="container" >
+    <div className="container">
+      <ESNavigator pathData={pathData} />
       <div className="row justify-content-between py-3">
         <div
           className="col-sm-12 col-lg-9 col-md-8"
@@ -77,10 +97,7 @@ const SurveylistContainer = (props) => {
           <h2>{SurveyHeaderName}</h2>
         </div>
         <div className="col-sm-12 col-lg-3 col-md-4">
-          <ESButton
-            text={"+ Create New Survey"}
-            onClick={_handleNewSurvey}
-          />
+          <ESButton text={"+ Create New Survey"} onClick={_handleNewSurvey} />
         </div>
       </div>
       {NewSurvey ? (
@@ -134,7 +151,7 @@ const CollapseSurveyList = (props) => {
     TxtColor,
     HoverBgColor,
     handleExpend,
-    expend
+    expend,
   } = props;
   console.log(SurveyData);
   return (
@@ -158,7 +175,7 @@ const CollapseSurveyList = (props) => {
         <i
           className={`fas fa-angle-double-${
             expend ? "up" : "down"
-            } float-right pt-1`}
+          } float-right pt-1`}
         ></i>
       </div>
 
@@ -172,16 +189,18 @@ const CollapseSurveyList = (props) => {
               key={k}
               id={v.building_id}
               progress={
-                v.answers !== undefined && v.answers === v.total_question_count ? (
+                v.answers !== undefined &&
+                v.answers === v.total_question_count ? (
                   <i className="fa fa-check" id={v.building_id}>
                     {" "}
                     Completed
                   </i>
                 ) : (
-                    <i className="fa fa-edit" id={v.building_id}>
-                      &nbsp;{v.answers ? v.answers : "0"} of {v.total_question_count} Answered
-                    </i>
-                  )
+                  <i className="fa fa-edit" id={v.building_id}>
+                    &nbsp;{v.answers ? v.answers : "0"} of{" "}
+                    {v.total_question_count} Answered
+                  </i>
+                )
               }
               BgColor={BgColor}
               TxtColor={TxtColor}
@@ -190,11 +209,11 @@ const CollapseSurveyList = (props) => {
             />
           ))
         ) : (
-            <div className="d-flex flex-row p-3 rounded my-2 text-danger bg-light">
-              <i className="fas fa-exclamation-circle pt-1 px-2"></i>
+          <div className="d-flex flex-row p-3 rounded my-2 text-danger bg-light">
+            <i className="fas fa-exclamation-circle pt-1 px-2"></i>
             No Survey Data.
-            </div>
-          )}
+          </div>
+        )}
       </div>
     </div>
   );

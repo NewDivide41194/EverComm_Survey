@@ -110,7 +110,8 @@ console.log(BMS);
         } else {
           localStorage.setItem("buildingName", buildingName);
           localStorage.setItem("buildingId", data.payload.insertId);
-
+          localStorage.setItem("buildingType",buildingType)
+          localStorage.setItem("bTypeId",buildingTypeId)
           props.history.push(
             `/question/${userId}/${surveyHeaderId}/${buildingId}`
           );
