@@ -6,6 +6,7 @@ import RightSideBar from "../../../../features/app/RightSideBar.js";
 import AddAccountForm from "./AddAccount";
 import UserTable from "../../../../tools/ES_Table.js";
 import ESTable from "../../../../tools/ES_Table.js";
+import { Edit } from "@material-ui/icons";
 
 const Account = (props) => {
   const {
@@ -87,14 +88,21 @@ const Account = (props) => {
   };
 
   const tableAlertInfo = (
-    <div className="row px-3" style={{ fontSize: 13, color: "darkred" }}>
-      {`${
-        !edit
-          ? 'Click "+ Add User" button to add new account'
-          : "*Select a row to edit"
-      }`}
-    </div>
+    <ESButton
+      text={"Add User"}
+      leftIcon={<i className="fas fa-user-plus px-1"></i>}
+      onClick={handleIsAdd}
+      noShadow
+      disabled={isAdd}
+    />
   );
+  const tableActions = [
+    {
+      icon: Edit,
+      onClick: (event, rowData) => handleEdit(rowData),
+      disabled: edit,
+    },
+  ];
 
   const userId = localStorage.getItem("userId");
   return (
@@ -105,37 +113,17 @@ const Account = (props) => {
             userData.length > 0 &&
             window.location.pathname !== `/user/editAccount/${userId}` && (
               <div>
-                <div className="row justify-content-between pt-2 pb-3 px-3">
-                  <div style={{ color: Colors.PrimaryColor, fontSize: 20 }}>
-                    <h2>User Management</h2>
-                  </div>
-                  <div className="d-flex pt-3">
-                    <div className="w-40 px-2">
-                      <ESButton
-                        text={"+ Add User"}
-                        onClick={handleIsAdd}
-                        noShadow
-                        disabled={isAdd}
-                      />
-                    </div>
-                    <div className="w-40">
-                      <ESButton
-                        text={"Edit"}
-                        onClick={(e) => handleIsEdit(e)}
-                        noShadow
-                        disabled={edit}
-                        leftIcon={<i className="fa fa-edit pr-2"></i>}
-                      />
-                    </div>
-                  </div>
+                <div style={{ color: Colors.PrimaryColor, fontSize: 20 }}>
+                  <h2>User Management</h2>
                 </div>
+
                 {userData.length > 0 && (
                   <ESTable
+                    actions={tableActions}
                     tableData={tableData}
                     tableAlertInfo={tableAlertInfo}
                     handleIsAdd={handleIsAdd}
                     isAdd={isAdd}
-                    isEdit={edit}
                     handleIsEdit={handleIsEdit}
                     handleEdit={handleEdit}
                     rowsPerPage={rowsPerPage}

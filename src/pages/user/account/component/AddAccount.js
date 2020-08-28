@@ -49,8 +49,8 @@ const AddAccontForm = (props) => {
     accountsetting,
     checkedList,
   } = props;
-  //console.log('Err >>> ', err.MobileErr)
-  //const err = {};
+
+  console.log("---------->",errClassName);
   const level =
     currentUserLevel != 1
       ? UserLevelOptions.filter((v) => v.value !== 1)
@@ -85,7 +85,6 @@ const AddAccontForm = (props) => {
         }`}</h4>
         <div className="row form-group">
           <div className="py-2 col-sm-12 col-lg-6">
-            <label htmlFor="FirstName">First Name</label>
             {err.firstNameErr === undefined ? null : (
               <div
                 className={errClassName}
@@ -106,7 +105,6 @@ const AddAccontForm = (props) => {
             />
           </div>
           <div className="py-2 col-sm-12 col-lg-6">
-            <label htmlFor="LastName">Last Name</label>
             {err.lastNameErr === undefined ? null : (
               <div
                 className={errClassName}
@@ -127,7 +125,6 @@ const AddAccontForm = (props) => {
             />
           </div>
           <div className="py-2 col-12">
-            <label htmlFor="CompanyName">Your Company Name</label>
             {err.companyErr === undefined ? null : (
               <div
                 className={errClassName}
@@ -154,7 +151,6 @@ const AddAccontForm = (props) => {
               "col-lg-6"
             }`}
           >
-            <label htmlFor="Mobile">Phone No.</label>
             {err.MobileErr == undefined ? null : (
               <div
                 className={errClassName}
@@ -177,7 +173,6 @@ const AddAccontForm = (props) => {
           {currentUserLevel != 2 &&
             window.location.pathname !== `/user/editAccount/${userId}` && (
               <div className="py-2 col-sm-12 col-lg-6">
-                <label htmlFor="UserLevel">Choose User Level</label>
                 <ESDropDownSample
                   disabled={isDisabled}
                   id={"UserLevel"}
@@ -190,7 +185,6 @@ const AddAccontForm = (props) => {
               </div>
             )}
           <div className="py-2 col-12">
-            <label htmlFor="Email">Email</label>
 
             {err.eMailErr === undefined ? null : (
               <div
@@ -214,7 +208,6 @@ const AddAccontForm = (props) => {
           </div>
           {oneUserEditPath || (
             <div className="py-2 col-12">
-              <label htmlFor="Password">Password</label>
               {err.passwordErr === undefined ? null : (
                 <div
                   className={errClassName}
@@ -351,7 +344,6 @@ const SurveyHeaderList = (props) => {
             }
             disabled={level[0] === 1}
             keys={v.survey_header_id}
-            // className={ques.option_group_id===10?"w-25":null}
           />
         </div>
       ))}{" "}

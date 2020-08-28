@@ -4,9 +4,9 @@ import * as Colors from "../../../config/Color.config";
 import ESTable from "../../../tools/ES_Table";
 
 const SurveyTable = (props) => {
-  const { tableData, tableAlertInfo } = props;
+  const { tableData, tableAlertInfo,actions } = props;
 
-  return <ESTable tableData={tableData} tableAlertInfo={tableAlertInfo} />;
+  return <ESTable tableData={tableData} tableAlertInfo={tableAlertInfo} actions={actions}/>;
 };
 
 export default SurveyTable;

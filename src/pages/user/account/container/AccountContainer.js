@@ -25,7 +25,7 @@ const AccountContainer = (props) => {
   const [Mobile, setMobile] = useState("");
   const [eMail, setEMail] = useState("");
   const [Role, setRole] = useState("");
-  const [password, setPassword] = useState(null);
+  const [password, setPassword] = useState("");
   const [err, setErr] = useState({});
   const [active, setActive] = useState(false);
   const [userLevel, setUserLevel] = useState("");
@@ -205,7 +205,7 @@ const AccountContainer = (props) => {
     setEdit(!edit);
     setIsAdd(false);
     setClose(false);
-    setId(rowData);
+    setId(rowData.id);
     const first = rowData.name.split(" ");
     const last = rowData.name.split(" ").splice(1, 2).join(" ");
     const isActive = rowData.active == 0 ? false : true;
@@ -222,7 +222,7 @@ const AccountContainer = (props) => {
     setUserLevel(userlevel[0]);
     setEditData([rowData]);
 
-    if (rowData.role === "ADMIN") {
+    if (rowData.role === "admin") {
       setCheckedList(surveyList.map((v) => v.survey_header_id));
     } else {
       setCheckedList(

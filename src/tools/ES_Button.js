@@ -18,7 +18,7 @@ export const ESButton = props => {
   const [isHover, setIsHover] = useState(true);
 
   const defaultStyle1 = {
-    background: customColor|| Color.PrimaryColor
+    background: customColor|| Color.PrimaryColor,
   };
 
   const hoverStyle = {

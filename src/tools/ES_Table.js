@@ -3,7 +3,6 @@ import MaterialTable from "material-table";
 import { ESButton } from "./ES_Button";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import * as Colors from "../config/Color.config";
-import { Edit } from "@material-ui/icons";
 
 const ESTable = (props) => {
   const {
@@ -15,6 +14,7 @@ const ESTable = (props) => {
     handleEdit,
     _handleDelete,
     rowsPerPage,
+    actions
   } = props;
 
   const theme = createMuiTheme({
@@ -24,24 +24,12 @@ const ESTable = (props) => {
       },
     },
   });
-  console.log(tableData);
+  
   return (
     <MuiThemeProvider theme={theme}>
       <MaterialTable
-        actions={[
-          {
-            icon: Edit,
-            onClick: (event, rowData) => handleEdit(rowData),
-            disabled: isEdit,
-          },
-        ]}
+        actions={actions}
         style={{ paddingBottom: 20, boxShadow: "none" }}
-        onRowClick={
-          isEdit
-            ? (event, rowData) =>
-                handleEdit(tableData.data[rowData.tableData.id])
-            : null
-        }
         title={tableAlertInfo}
         columns={tableData.columns}
         data={tableData.data}

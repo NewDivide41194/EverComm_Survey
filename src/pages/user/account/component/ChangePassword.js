@@ -171,8 +171,6 @@ const Password = (props) => {
 
   return (
     <div className="w-100 py-2 text-secondary">
-      <label htmlFor="Password">{placeHolder}</label>
-
       {err.passwordErr === undefined ? null : (
         <div
           className={errClassName}

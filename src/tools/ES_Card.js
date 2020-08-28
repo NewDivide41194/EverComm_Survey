@@ -42,7 +42,7 @@ const QuestionCard1 = (props) => {
   const deviceIndexValue = amountOfDevice && Object.values(amountOfDevice[0]);
   const addedQuestionId = 1000;
 
-  const deviceOption = new Array(99)
+  const ageOfBuildingOption = new Array(99)
     .fill(null)
     .map((v, k) => ({ label: k + 1, value: k + 1 }));
 
@@ -141,7 +141,7 @@ const QuestionCard1 = (props) => {
                   ques.option_choices[0].option_choice_id === null ? (
                     <ESDropDown
                       quesId={remakeQuestionId}
-                      options={deviceOption}
+                      options={ageOfBuildingOption}
                       _handleSelect={_handleSelect}
                       selectedOption={
                         AnswerData.filter(

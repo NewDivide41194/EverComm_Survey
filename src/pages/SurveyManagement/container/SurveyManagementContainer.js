@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { MenuInfoFetch } from "../../../api/FetchMenuInfo";
 import * as Colors from "../../../config/Color.config";
 import SurveyTable from "../components/SurveyTable";
-
-const SurveyManagementContainer = (props) => {
-  const { surveyData } = props;
+import {Edit} from "@material-ui/icons"
+const SurveyManagementContainer = () => {
   const userId = localStorage.getItem("userId");
   const [surveyListData, setSurveyListData] = useState([]);
   const token = localStorage.getItem("token");
+  const [edit,isEdit]=useState(false)
   useEffect(() => {
     MenuInfoFetch({ userId, token }, (err, data) => {
       setSurveyListData(data.payload);
@@ -34,13 +34,27 @@ const SurveyManagementContainer = (props) => {
   //     </div>
   //   );
   console.log("--------->", surveyListData);
+const handleEdit=()=>{
+  console.log("edit");
+}
+  const tableActions = [
+    {
+      icon: Edit,
+      onClick: (event, rowData) => handleEdit(rowData),
+      disabled: edit,
+    },
+  ];
   return (
     <div className="container">
       <div className="row">
         <h2 style={{ color: Colors.PrimaryColor }}>Survey Management</h2>
       </div>
       {surveyListData && surveyListData.length > 0 && (
-        <SurveyTable tableData={tableData} tableAlertInfo={"Title"} />
+        <SurveyTable
+          tableData={tableData}
+          tableAlertInfo={"Title"}
+          actions={tableActions}
+        />
       )}
     </div>
   );
