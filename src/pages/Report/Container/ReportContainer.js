@@ -12,6 +12,7 @@ import BackCover from "../component/BackCover";
 import Text from "../component/text/textReport";
 import { ChartTheme1 } from "../../../config/Color.config";
 import ESLoading from "../../../tools/ES_Loading";
+import TextContainer from "./TextContainer";
 
 const ReportContainer = (props) => {
   const [reportData, setReportData] = useState([]);
@@ -110,7 +111,7 @@ console.log("TC",typeCount,yearCount);
     Array(Math.ceil((stop - start) / step))
       .fill(start)
       .map((x, y) => x + y * step);
-console.log("===>",modifiedAgeData);
+//console.log("===>",modifiedAgeData);
   return (
     <div className="container">
       <h3 className="text-primary">Report</h3>
@@ -157,7 +158,7 @@ console.log("===>",modifiedAgeData);
               endDate={endDate}
               viewType={userLevel === 2 ? null : viewType}
             />
-            <Text reportData={reportData} />
+            {reportData&&reportData.length>0&&<TextContainer reportData={reportData} />}
             <BackCover
               reportData={reportData}
               startDate={startDate}

@@ -4,7 +4,11 @@ import { NotAnswered, Percentage } from "../../../../helper/reportHelper";
 import Logo from "../../../../assets/images/Logo.png";
 
 const Text = (props) => {
-  const { reportData, startDate, endDate, viewType } = props;
+  const { reportData, startDate, endDate, viewType, section } = props;
+
+  console.log('reportData >> ', reportData)
+  console.log('section >>> ', section)
+ 
   const TotalBuilding =
     reportData &&
     reportData.map((v, k) => v.building_count[0].Number_of_buildings)[0];
@@ -19,13 +23,12 @@ const Text = (props) => {
     reportData.map((v, k) => v.building_count[0].cooling_tower)[0];
   return (
     <div className="">
-      {reportData.length &&
-        reportData[0].survey_sections.map((v1, k1) => (
+      {section.length &&
+        section.map((v, k) => (
           <div
-            key={k1}
+            key={v.key}
             className="container my-4 text-dark border"
             style={{
-              // border: "0.1px solid #cecece",
               width: "8.27in",
               height: "15.66in",
               paddingLeft: "0.5in",
@@ -33,9 +36,10 @@ const Text = (props) => {
               paddingRight: "0.5in",
               paddingBottom: "0.3in",
               backgroundColor: "",
+              pageBreakInside: 'auto'
             }}
           >
-            <div className="row justify-content-between border-bottom">
+           <div className="row justify-content-between border-bottom">
                 Cooling System
               <div className="text-right " style={{ width: "50%" }}>
                 <img
@@ -48,7 +52,7 @@ const Text = (props) => {
               </div>
             </div>
             <h4 className="pt-2" style={{ color: Colors.PrimaryColor }}>
-              {v1.section_name}
+              {v.section_name}
             </h4>
             <hr />
             <div
@@ -56,28 +60,28 @@ const Text = (props) => {
                 x flex-row flex-wrap"
             >
               <div className="col-12 font-weight-bold text-success">
-                {v1.survey_section_id === 1 ? (
+                {v.survey_section_id === 1 ? (
                   <div>
                     Total Buildings
                     {` - ${TotalBuilding} ${
                       TotalBuilding === 0 ? "(0%)" : "(100%)"
                     } `}
                   </div>
-                ) : v1.survey_section_id === 2 ? (
+                ) : v.survey_section_id === 2 ? (
                   <div>
                     Total Chillers
                     {` - ${TotalChiller} ${
                       TotalChiller === 0 ? "(0%)" : "(100%)"
                     } `}
                   </div>
-                ) : v1.survey_section_id === 3 ? (
+                ) : v.survey_section_id === 3 ? (
                   <div>
                     Total Condenser
                     {` - ${TotalCondenser} ${
                       TotalCondenser === 0 ? "(0%)" : "(100%)"
                     } `}
                   </div>
-                ) : v1.survey_section_id === 5 ? (
+                ) : v.survey_section_id === 5 ? (
                   <div>
                     Total Evaporator
                     {` - ${TotalEvaporator} ${
@@ -93,13 +97,11 @@ const Text = (props) => {
                   </div>
                 )}
               </div>
-              {v1.questions.map((v2, k2) => (
+              {v.questions.map((v2, k2) => (
                 <div key={k2} className="col-6 py-2">
                   <div className="d-flex flex-row font-weight-bold pb-2">
                     {k2 + 1}. {v2.question_name}
                   </div>
-                  {/* {v2.input_type_id !== 6 ? ( */}
-
                   {v2.option_choices.map((v3, k3) =>
                     v2.input_type_id !== 6 ? (
                       <div key={k3} className="d-flex flex-row flex-wrap">
@@ -108,13 +110,13 @@ const Text = (props) => {
                           {v3.totalAns == null ? "- 0" : `- ${v3.totalAns}`} (
                           {Percentage(
                             v3.totalAns,
-                            v1.survey_section_id === 1
+                            v.survey_section_id === 1
                               ? TotalBuilding
-                              : v1.survey_section_id === 2
+                              : v.survey_section_id === 2
                               ? TotalChiller
-                              : v1.survey_section_id === 3
+                              : v.survey_section_id === 3
                               ? TotalCondenser
-                              : v1.survey_section_id === 5
+                              : v.survey_section_id === 5
                               ? TotalEvaporator
                               : TotalCoolingTower
                           )}
@@ -131,7 +133,7 @@ const Text = (props) => {
                   )}
 
                   {v2.input_type_id === 1 ||
-                  v1.survey_section_id !== 1 ? null : (
+                  v.survey_section_id !== 1 ? null : (
                     <div className="d-flex flex-row flex-wrap">
                       <div className="w-50">Not Answered</div>
                       <div className="w-50">
