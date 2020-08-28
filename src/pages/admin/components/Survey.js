@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AddNewSurvey from "./CreateNewSurvey";
+import AddNewSurvey from "./createNewSurvey.js";
 import AddSurveySectinsForm from "./AddSurveySections";
 
 const Survey = (props) => {

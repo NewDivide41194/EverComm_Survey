@@ -22,7 +22,7 @@ const ReportMenuContainer = (props) => {
       localStorage.setItem("viewType", viewType);
     });
   }, [surveyId, viewType]);
-
+console.log(menuData);
   const SurveyNameOptions =
     menuData &&
     menuData.map((v, k) => ({
