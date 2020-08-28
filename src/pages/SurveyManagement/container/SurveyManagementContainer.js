@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { MenuInfoFetch } from "../../../api/FetchMenuInfo";
 import * as Colors from "../../../config/Color.config";
 import SurveyTable from "../components/SurveyTable";
-import ESButtonGroup from "../../../tools/ES_ButtonGroup";
 
 const SurveyManagementContainer = (props) => {
   const { surveyData } = props;
@@ -21,7 +20,6 @@ const SurveyManagementContainer = (props) => {
       { title: "Response", field: "building_count" },
       { title: "Modified Date", field: "modified_date" },
       { title: "Created Date", field: "created_date" },
-      {title:"Action", field:"action",render:()=><div ><ESButtonGroup/></div>}
     ],
     data: surveyListData,
   };

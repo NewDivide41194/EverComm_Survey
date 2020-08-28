@@ -3,9 +3,9 @@ import MaterialTable from "material-table";
 import { ESButton } from "./ES_Button";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import * as Colors from "../config/Color.config";
-import shadows from "@material-ui/core/styles/shadows";
+import { Edit } from "@material-ui/icons";
 
-const  ESTable=(props)=> {
+const ESTable = (props) => {
   const {
     tableData,
     tableAlertInfo,
@@ -13,6 +13,7 @@ const  ESTable=(props)=> {
     isEdit,
     handleIsEdit,
     handleEdit,
+    _handleDelete,
     rowsPerPage,
   } = props;
 
@@ -20,15 +21,21 @@ const  ESTable=(props)=> {
     palette: {
       primary: {
         main: Colors.PrimaryColor,
-        
       },
     },
   });
-console.log(tableData);
+  console.log(tableData);
   return (
     <MuiThemeProvider theme={theme}>
       <MaterialTable
-      style={{paddingBottom:20,boxShadow:"none"}}
+        actions={[
+          {
+            icon: Edit,
+            onClick: (event, rowData) => handleEdit(rowData),
+            disabled: isEdit,
+          },
+        ]}
+        style={{ paddingBottom: 20, boxShadow: "none" }}
         onRowClick={
           isEdit
             ? (event, rowData) =>
@@ -36,7 +43,7 @@ console.log(tableData);
             : null
         }
         title={tableAlertInfo}
-        columns={tableData.columns}        
+        columns={tableData.columns}
         data={tableData.data}
         options={{
           headerStyle: {
@@ -46,11 +53,12 @@ console.log(tableData);
           rowStyle: (rowData) => ({
             lineHeight: 0,
           }),
-          padding: "dense",    
+          padding: "dense",
+          actionsColumnIndex: -1,
         }}
       />
     </MuiThemeProvider>
   );
-}
+};
 
-export default ESTable
+export default ESTable;
