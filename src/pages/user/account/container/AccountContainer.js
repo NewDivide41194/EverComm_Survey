@@ -25,7 +25,7 @@ const AccountContainer = (props) => {
   const [Mobile, setMobile] = useState("");
   const [eMail, setEMail] = useState("");
   const [Role, setRole] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState(null);
   const [err, setErr] = useState({});
   const [active, setActive] = useState(false);
   const [userLevel, setUserLevel] = useState("");
