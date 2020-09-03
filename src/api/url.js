@@ -2,7 +2,7 @@
 const serverURL = "http://172.105.123.57:7878";
 // const serverURL = "http://localhost:7878";
 
-const UserId=localStorage.getItem("userId")
+const UserId = localStorage.getItem("userId");
 
 export const RegisterAPI = `${serverURL}/api/v1/user/register`;
 
@@ -16,7 +16,7 @@ export const Trancate_Answers = `${serverURL}/api/v1/survey/`;
 
 export const Building_Insert = `${serverURL}/api/v1/building/addBuilding`;
 
-export const QuestionAPI = (userId, surveyHeaderId, buildingId,bTypeId) =>
+export const QuestionAPI = (userId, surveyHeaderId, buildingId, bTypeId) =>
   `${serverURL}/api/v1/survey/questions/${userId}/${surveyHeaderId}/${buildingId}/${bTypeId}`;
 
 export const Survey_List = (userId, surveyHeaderId) =>
@@ -28,20 +28,20 @@ export const New_Survey_List = (userId, surveyHeaderId) =>
 export const User_Report_Answer = (surveyHeaderId) =>
   `${serverURL}/api/v1/report/reportTotalAnswers/${surveyHeaderId}`;
 
-  export const Report_Menu = (userId) =>
- ` ${serverURL}/api/v1/report/reportMenu/${userId}`;
+export const Report_Menu = (userId) =>
+  ` ${serverURL}/api/v1/report/reportMenu/${userId}`;
 
- export const Graph_Report = 
- `${serverURL}/api/v1/report/graphReportUserLevel`;
+export const Graph_Report = `${serverURL}/api/v1/report/graphReportUserLevel`;
 
- export const Building_Type=`${serverURL}/api/v1/building/getBuildingType`
+export const Building_Type = `${serverURL}/api/v1/building/getBuildingType`;
 
- export const Get_User= `${serverURL}/api/v1/user/getUser`;
+export const Get_User = `${serverURL}/api/v1/user/getUser`;
 
- export const InsertSurvey=`${serverURL}/api/v1/createSurvey/Survey/${UserId}`
+export const InsertSurvey = `${serverURL}/api/v1/createSurvey/Survey/${UserId}`;
 
- export const Get_One_User = `${serverURL}/api/v1/user/getOneUser`
+export const Get_One_User = `${serverURL}/api/v1/user/getOneUser`;
 
- export const Update_User = `${serverURL}/api/v1/user/updateUser`;
+export const Update_User = `${serverURL}/api/v1/user/updateUser`;
 
- export const PasswordUpdate=(userId)=>`${serverURL}/api/v1/user/edituser/${userId}`
+export const PasswordUpdate = (userId) =>
+  `${serverURL}/api/v1/user/edituser/${userId}`;

@@ -27,7 +27,7 @@ const LoginContainer = (props) => {
 
   const _handleSubmit = (e) => {
     e.preventDefault();
-    const data={eMail,password}
+    const data = { eMail, password };
 
     const ValidatedErr = LoginFormValidation(data);
     setErr(ValidatedErr);
@@ -52,10 +52,10 @@ const LoginContainer = (props) => {
             localStorage.setItem("token", data.payload[0].token);
             localStorage.setItem("userId", data.payload[0].login_user_id);
             localStorage.setItem("email", data.payload[0].email);
-            localStorage.setItem("userLevel",data.payload[0].user_level_id)
+            localStorage.setItem("userLevel", data.payload[0].user_level_id);
             Auth.login(() => {
               const userId = data.payload[0].login_user_id;
-              props.history.push(`/menu/${userId}`);              
+              props.history.push(`/menu/${userId}`);
             });
             window.location.reload();
           }

@@ -3,8 +3,8 @@ import { withRouter } from "react-router-dom";
 import * as Colors from "../../../config/Color.config";
 
 const MainMenu = (props) => {
-  const userId = localStorage.getItem('userId')
-  const userLevel = localStorage.getItem('userLevel')
+  const userId = localStorage.getItem("userId");
+  const userLevel = localStorage.getItem("userLevel");
   const _handleReportClick = () => {
     props.history.push(`/reportMenu/${userId}`);
   };
@@ -18,7 +18,7 @@ const MainMenu = (props) => {
       style={{
         position: "absolute",
         top: "50%",
-        transform: "translateY(-50%)"
+        transform: "translateY(-50%)",
       }}
     >
       <div className="justify-content-center d-flex flex-row flex-fill flex-wrap">
@@ -29,16 +29,15 @@ const MainMenu = (props) => {
           id={"Survey"}
           icon={"fas fa-tasks fa-2x"}
         />
-        {
-          userLevel != 2 &&
+        {userLevel != 2 && (
           <MenuCard
-          onClick={_handleReportClick}
-          header={"Reporting"}
-          text={"View reports for Answered questions."}
-          id={"Report"}
-          icon={"far fa-chart-bar fa-2x"}
+            onClick={_handleReportClick}
+            header={"Reporting"}
+            text={"View reports for Answered questions."}
+            id={"Report"}
+            icon={"far fa-chart-bar fa-2x"}
           />
-        }
+        )}
       </div>
     </div>
   );
@@ -68,8 +67,12 @@ const MenuCard = (props) => {
         onMouseEnter={(e) => _handleMouseOver(e)}
         onMouseLeave={(e) => _handleMouseLeave(e)}
       >
-        <div className="py-1 card-header d-flex flex-row py-2" style={{ borderBottom: `1px solid rgba(255,255,255,.3)` }}>
-          <i className={`${props.icon} pr-2 text-light`}></i><h4>{props.header}</h4>
+        <div
+          className="py-1 card-header d-flex flex-row py-2"
+          style={{ borderBottom: `1px solid rgba(255,255,255,.3)` }}
+        >
+          <i className={`${props.icon} pr-2 text-light`}></i>
+          <h4>{props.header}</h4>
         </div>
 
         <div className="card-body">

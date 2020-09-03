@@ -8,6 +8,7 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import moment from "moment";
 
+
 const QuestionContainer = (props) => {
   const { history } = props;
   const [surveyData, setSurveyData] = useState([]);
@@ -27,6 +28,7 @@ const QuestionContainer = (props) => {
   const buildingName = localStorage.getItem("buildingName");
   const buildingType = localStorage.getItem("buildingType");
   const surveyHeaderId = parseInt(localStorage.getItem("SurveyHeaderId"));
+  console.log(buildingId);
   const Ans = {
     other: "",
     optionChoiceId: null,
@@ -49,9 +51,11 @@ const QuestionContainer = (props) => {
     deviceAmounts &&
     deviceAmounts.reduce((r, a, i) => {
       return r + a * questionslength.slice(1)[i];
-    }
-      , 0) + totalQues;
-  let totalQuesCount = (questionslength.length == 6 ? questionslength[questionslength.length - 1] * deviceAmounts[0] : 0) + totalQuesCount1
+    }, 0) + totalQues;
+  let totalQuesCount =
+    (questionslength.length == 6
+      ? questionslength[questionslength.length - 1] * deviceAmounts[0]
+      : 0) + totalQuesCount1;
   useEffect(() => {
     setIsLoading(true);
     QuestionFetch(
@@ -276,7 +280,6 @@ const QuestionContainer = (props) => {
     return isOther.length > 0 ? isOther[0].option_choice_id : null;
   };
 
-
   const weekQuestion = (index) => {
     const isWeek =
       QuestionData &&
@@ -294,7 +297,7 @@ const QuestionContainer = (props) => {
         a.questionId === remakeQuesId
     );
   };
-  console.log("#####",AnswerData);
+  console.log("#####", AnswerData);
 
   if (IsLoading) {
     return <ESLoading />;
