@@ -1,20 +1,25 @@
 import React from 'react';
 import * as Colors from '../../../config/Color.config';
 import { ESButton } from '../../../tools/ES_Button';
+import { ESInput } from '../../../tools/ES_Inputs';
+import { ESDropDown } from '../../../tools/ES_DropDown';
+import '../../../App.css'
 
-const CountryMenu = () => {
-
-    const addCountry = {
-    }
+const CountryMenu = props => {
+    const { CountryOptions, handleCountrySelect, country, handleSubmit, organization,
+        close, surveyHeaderId, surveyHeaderName, handleOrganization, countryList }=props;
+    //console.log('id >>', countryList)
 
     return (
         <div className="p-2">
             <div className="d-flex flex-row justify-content-between">
                 <div>
-                    <h4 style={{color: Colors.PrimaryColor}}>E-GOVERNMENT RAPID ASSESSMENT</h4>
+                    <h4 style={{color: Colors.PrimaryColor}}>{surveyHeaderName}</h4>
                 </div>
                 <div>
                     <ESButton
+                        dataToggle={"modal"}
+                        dataTarget={"#countryModal"}
                         text={" Add Country"}
                         id={"AddCountry"}
                         leftIcon={<i className="fas fa-plus-circle px-1"></i>}
@@ -22,21 +27,74 @@ const CountryMenu = () => {
                 </div>
             </div>
             <hr/>
-            <CountryList />
+            <CountryList data={countryList}/>
+            <div className="modal fade" id="countryModal" role="dialog" aria-hidden="true" aria-labelledby="countryLabel">
+                <div className="modal-dialog modal-dialog-centered" role="document">
+                    <form className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="countryLabel" style={{color: Colors.PrimaryColor}}>Add New Survey Info</h5>
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            <div className="py-1">
+                                <div><label style={{color:'#1d1f1e'}}>Country</label></div>
+                                <div>
+                                <ESDropDown
+                                id={"countryList"}
+                                value={country}
+                                options={CountryOptions}
+                                _handleSelect={handleCountrySelect}
+                                notClearable
+                                />
+                                </div>
+                            </div>
+                            <div className="py-2">
+                                <div><label style={{color:'#1d1f1e'}}>Organization</label></div>
+                                <div>
+                                    <ESInput
+                                    id={"Organization"}
+                                    type={"text"}
+                                    placeHolder={"Organization"}
+                                    value={organization}
+                                    onChange={(e) => handleOrganization(e)}
+                                    required={require}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="d-flex flex-row justify-content-center" >
+                            <div className="py-3" style={{width:200}}>
+                            <ESButton 
+                                //dataDismiss={"modal"}
+                                type={"submit"}
+                                text={"CREATE SURVEY"}
+                                id={"CreateSurvey"}
+                                leftIcon={<i className="fas fa-plus-circle px-1"></i>}
+                                onClick={handleSubmit}
+                            />
+                            </div>
+                            
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     );
 };
 
 export default CountryMenu;
 
-const CountryList = () => {
+const CountryList = (props) => {
+    const {data} = props
     return (
         <div className="row">
             { data.map(v => 
              <div className="col-lg-6 col-md-6 p-2">
                 <div className="rounded shadow p-4">
                     <div className="pb-2" style={{color: Colors.PrimaryColor, fontWeight:'bold'}}>{v.country}</div>
-                    <div style={{fontSize:10, fontStyle:'italic'}}>Organization Name</div>
+                    <div style={{fontSize:10, fontStyle:'italic'}}>{v.organization}</div>
                 </div>
             </div>
             )}
@@ -44,9 +102,9 @@ const CountryList = () => {
     )
 }
 
-const data = [
-    {country: 'Myanmar'},
-    {country: 'Singapore'},
-    {country: 'Malaysia'},
-    {country: 'Taiwan'}
-]
+// const data = [
+//     {country: 'Myanmar'},
+//     {country: 'Singapore'},
+//     {country: 'Malaysia'},
+//     {country: 'Taiwan'}
+// ]

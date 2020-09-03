@@ -13,7 +13,8 @@ const SurveyMenuContainer = props => {
   const _handleChoose = (e,header )=> {
     localStorage.setItem("SurveyHeaderId", e.target.id);
     localStorage.setItem("SurveyHeaderName", header);
-    props.history.push("/surveylist");
+    // props.history.push("/surveylist");
+    props.history.push("/countryMenu")
   };
   const token=localStorage.getItem("token")
 
@@ -41,7 +42,7 @@ const SurveyMenuContainer = props => {
            color:Colors.PrimaryColor
          }}
       >
-        <h2>{"Select Survey Name"}</h2>
+        <h2>{"Select Project"}</h2>
         { IsLoading &&
         <div className="text-center" style={{
           height: "100%",
