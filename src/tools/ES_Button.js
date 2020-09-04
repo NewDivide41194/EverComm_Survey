@@ -13,7 +13,9 @@ export const ESButton = props => {
     rightIcon,
     id,
     noShadow,
-    customColor
+    customColor,
+    dataToggle,
+    dataTarget,dataDismiss
   } = props;
   const [isHover, setIsHover] = useState(true);
 
@@ -32,7 +34,10 @@ export const ESButton = props => {
 
   return (
     <button
+    data-dismiss={dataDismiss}
       disabled={disabled}
+      data-target={dataTarget}
+      data-toggle={dataToggle}
       id={id}
       onClick={onClick}
       type={type === undefined ? "button" : type}

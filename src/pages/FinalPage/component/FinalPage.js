@@ -5,8 +5,8 @@ import PostedIcon from "../../../assets/images/HMT.gif";
 
 const FinalPage = (props) => {
   const userId=localStorage.getItem("userId")
-  const buildingId=localStorage.getItem("buildingId")
-  const surveyHeaderId=localStorage.getItem("surveyHeaderId")
+  const surveyHeaderId = localStorage.getItem("surveyHeaderId")
+  const buildingId = localStorage.getItem("buildingId")
   const _handleMenu = () => {
     props.history.push(`/surveyMenu/${userId}`);
   };

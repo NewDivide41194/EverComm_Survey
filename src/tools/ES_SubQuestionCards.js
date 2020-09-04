@@ -7,7 +7,7 @@ import { withMedia } from "react-media-query-hoc";
 import { ESInput } from "./ES_Inputs";
 import ESDatePicker from "./ES_DatePicker";
 
-const QuestionCard1 = (props) => {
+const ESGroupQuestionCard = (props) => {
   const {
     QuestionData,
     _handleRadioChange,
@@ -26,7 +26,7 @@ const QuestionCard1 = (props) => {
     otherAns,
     otherOfQuestion,
   } = props;
-
+console.log("Hello I'm Group Question");
   const buildingId = localStorage.getItem("buildingId");
   const deviceIndexValue = amountOfDevice && Object.values(amountOfDevice[0]);
   const addedQuestionId = 1000;
@@ -241,7 +241,7 @@ const QuestionCard1 = (props) => {
   return QuestionCards;
 };
 
-export default withMedia(QuestionCard1);
+export default withMedia(ESGroupQuestionCard);
 
 const QuestionCardInfo = (props) => {
   const { info, media } = props;

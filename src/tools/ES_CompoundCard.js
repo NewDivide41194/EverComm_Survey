@@ -11,6 +11,7 @@ import moment from "moment";
 
 import QuestionCard1 from "./ES_Card";
 import ESTimeRange from "./ES_TimeRange";
+import ESGroupQuestionCard from "./ES_SubQuestionCards";
 
 const QuestionCard = (props) => {
   const {
@@ -31,9 +32,10 @@ const QuestionCard = (props) => {
     otherOfQuestion,
     weekAns,
     weekQuestion,
+    groupQuestion
   } = props;
 
-  if (sessionId === 1) return <QuestionCard1 {...props} />;
+  if (sessionId === 1) { return <QuestionCard1 {...props} />}else if(groupQuestion===10){return <ESGroupQuestionCard {...props}/>};
 
   const buildingId = localStorage.getItem("buildingId");
   const deviceIndexValue = amountOfDevice && Object.values(amountOfDevice[0]);
@@ -57,7 +59,7 @@ const QuestionCard = (props) => {
         <div className="font-weight-bold pt-2 pl-2  py-1">{k3 + 1}.</div>
         <div className="flex-fill pr-2 ">
           <div className="py-2 font-weight-bold">{`Device No.` + (k3 + 1)}</div>
-          {QuestionData &&
+          {QuestionData && 
             QuestionData.map((ques, k2) => {
               const remakeQuestionId =
                 pageDeviceIndex > 1
@@ -104,34 +106,7 @@ const QuestionCard = (props) => {
                                 ques.option_group_id === 10 ? true : false
                               }
                             />
-                            {/* 
-                            {weekAns(
-                                remakeQuestionId,
-                                ques.question_id,
-                                weekQuestion(k2)
-                              ).length > 0 ?  (<div className="row">
-                               { new Array(2).fill(null).map(v=><div className="col-4"> <ESTimeRange start={"00:00"} end={"00:00"}/></div>)}
-                            </div>) : null} */}
-                          </div>
-                        // ) : ques.input_type_id === 8 ? (
-                        //   <div className="row border-bottom pb-2">
-                        //     {new Array(
-                        //       AnswerData.map((v) =>
-                        //         v.optionChoiceId === 161
-                        //           ? 1
-                        //           : v.optionChoiceId === 162
-                        //           ? 2
-                        //           : 3
-                                  
-                        //       )[0]
-                        //     )
-                        //       .fill(null)
-                        //       .map((v) => (
-                        //         <div className="col-lg-4 col-md-6">
-                        //           <ESTimeRange id={remakeQuestionId} start={"00:00"} end={"00:00"} />
-                        //         </div>
-                        //       ))}
-                        //   </div>
+                            </div>
                         ) 
                         : ques.input_type_id === 2 ? (
                           <div>
@@ -322,3 +297,32 @@ const QuestionCardInfo = (props) => {
     </div>
   );
 };
+
+
+  {/* 
+                            {weekAns(
+                                remakeQuestionId,
+                                ques.question_id,
+                                weekQuestion(k2)
+                              ).length > 0 ?  (<div className="row">
+                               { new Array(2).fill(null).map(v=><div className="col-4"> <ESTimeRange start={"00:00"} end={"00:00"}/></div>)}
+                            </div>) : null} */}
+                            // ) : ques.input_type_id === 8 ? (
+                            //   <div className="row border-bottom pb-2">
+                            //     {new Array(
+                            //       AnswerData.map((v) =>
+                            //         v.optionChoiceId === 161
+                            //           ? 1
+                            //           : v.optionChoiceId === 162
+                            //           ? 2
+                            //           : 3
+                                      
+                            //       )[0]
+                            //     )
+                            //       .fill(null)
+                            //       .map((v) => (
+                            //         <div className="col-lg-4 col-md-6">
+                            //           <ESTimeRange id={remakeQuestionId} start={"00:00"} end={"00:00"} />
+                            //         </div>
+                            //       ))}
+                            //   </div>

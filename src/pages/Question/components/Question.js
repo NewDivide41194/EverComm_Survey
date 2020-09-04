@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import QuestionCard from "../../../tools/ES_CompoundCard";
 import { ESButton } from "../../../tools/ES_Button";
 import { withMedia } from "react-media-query-hoc";
@@ -34,14 +34,15 @@ const Question = (props) => {
     otherAns,
     otherOfQuestion,
     weekAns,
-    weekQuestion
+    weekQuestion,
   } = props;
 
   const deviceAmount =
     amountOfDevice && Object.values(amountOfDevice[0])[pageno - 1];
+    
   return (
     surveyData.length && (
-      <div style={{marginBottom:32}}>
+      <div style={{ marginBottom: 32 }}>
         <ESProgress Percent={percent} />
         <div className="container">
           <div
@@ -68,8 +69,10 @@ const Question = (props) => {
             className="d-flex flex-row flex-wrap justify-content-between pt-2"
           >
             <div>{surveyData[0].survey_name}</div>
-            <div>{buildingName} <span style={{ fontSize: "15px"}}>({buildingType})</span></div>
-            {/* <div style={{fontSize: medium,}}>({buildingType})</div> */}
+            <div>
+              {buildingName}{" "}
+              <span style={{ fontSize: "15px" }}>({buildingType})</span>
+            </div>
           </div>
 
           <div
@@ -79,15 +82,12 @@ const Question = (props) => {
             <div className="font-weight-bold">
               {surveyData[0].survey_sections[pageno].section_name}
             </div>
-            
+
             <div>
               {deviceAmount} {Object.keys(amountOfDevice[0])[pageno - 1]}
               {deviceAmount > 1 ? "s" : null}
-              
             </div>
           </div>
-          {/* <div className="my-2 scrollbar w-100" id="style-1"> */}
-
           <QuestionCard
             QuestionData={QuestionData}
             pageno={pageno}
@@ -101,6 +101,7 @@ const Question = (props) => {
             selectedOption={selectedOption}
             AnswerData={AnswerData}
             sessionId={surveyData[0].survey_sections[pageno].survey_section_id}
+            // groupQuestion={surveyData[0].survey_sections[pageno].}
             otherAns={otherAns}
             otherOfQuestion={otherOfQuestion}
             weekAns={weekAns}
@@ -141,7 +142,7 @@ const Question = (props) => {
                     <ESButton
                       text={"NEXT"}
                       onClick={_handleNext}
-                      rightIcon={<i className="fa fa-caret-right pl-2"/>}
+                      rightIcon={<i className="fa fa-caret-right pl-2" />}
                     />
                   )}
                 </div>
