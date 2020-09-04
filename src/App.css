@@ -39,6 +39,15 @@
 /* .react-datepicker__close-icon:focus{
   outline: none;
 } */
+#surveyList{
+  background-color: #3b8bbe;
+}
+#surveyList:hover{
+  background-color:#48a4d2;
+}
+#countryCard:hover {
+  background-color:#c4def6;
+}
 
 .main-footer{
   padding-top: 12px;

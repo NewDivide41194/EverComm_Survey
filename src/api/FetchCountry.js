@@ -5,6 +5,7 @@ export const AddCountryFetch = (
         country,
         organization,
         surveyHeaderId,
+        userId,
         token
     },
     callback
@@ -19,7 +20,8 @@ export const AddCountryFetch = (
         body: JSON.stringify({
            country: country,
             surveyHeaderId: surveyHeaderId,
-            organization: organization
+            organization: organization,
+            userId: userId
         })
     })
     .then((res) => res.json())
@@ -27,7 +29,7 @@ export const AddCountryFetch = (
     .catch((err) => console.log(err))
 };
 
-export const GetCountry = (surveyHeaderId, token, callback) => {
+export const GetCountry = ({userId,surveyHeaderId, token}, callback) => {
     fetch(API.Get_Country(surveyHeaderId), {
         headers:{
             "Content-Type": "application/json",

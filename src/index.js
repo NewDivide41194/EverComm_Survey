@@ -14,6 +14,9 @@ const options = {
   offset: "30px",
   // you can also just use 'scale'
   transition: transitions.SCALE,
+  containerStyle: {
+    zIndex: 999999
+  }
 };
 
 ReactDOM.render(
