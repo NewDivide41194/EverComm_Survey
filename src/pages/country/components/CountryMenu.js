@@ -7,7 +7,7 @@ import '../../../App.css'
 
 const CountryMenu = props => {
     const { CountryOptions, handleCountrySelect, country, handleSubmit, organization,
-        close, surveyHeaderId, surveyHeaderName, handleOrganization, countryList }=props;
+        close, surveyHeaderId, surveyHeaderName, handleOrganization, countryList, handleSelectCountry }=props;
     //console.log('id >>', countryList)
 
     return (
@@ -27,7 +27,7 @@ const CountryMenu = props => {
                 </div>
             </div>
             <hr/>
-            <CountryList data={countryList}/>
+            <CountryList data={countryList} handleSelectCountry={handleSelectCountry}/>
             <div className="modal fade" id="countryModal" role="dialog" aria-hidden="true" aria-labelledby="countryLabel">
                 <div className="modal-dialog modal-dialog-centered" role="document">
                     <form className="modal-content">
@@ -87,14 +87,14 @@ const CountryMenu = props => {
 export default CountryMenu;
 
 const CountryList = (props) => {
-    const {data} = props
+    const {data, handleSelectCountry} = props
     return (
         <div className="row">
-            { data.map(v => 
-             <div className="col-lg-6 col-md-6 p-2">
-                <div className="rounded shadow p-4">
+            { data.map((v,k)=> 
+             <div className="col-lg-6 col-md-6 p-2" key={k}>
+                <div className="rounded shadow p-4" id="countryCard" onClick={() => handleSelectCountry(v.country, v.id)}>
                     <div className="pb-2" style={{color: Colors.PrimaryColor, fontWeight:'bold'}}>{v.country}</div>
-                    <div style={{fontSize:10, fontStyle:'italic'}}>{v.organization}</div>
+                    <div style={{fontSize:11, fontStyle:'italic'}}>{v.organization}</div>
                 </div>
             </div>
             )}

@@ -12,12 +12,13 @@ import FinalPageContainer from '../pages/FinalPage/container/FinalPageContainer'
 import { ChangePassword } from "../pages/user/account/component/ChangePassword";
 import SurveyManagementContainer from "../pages/SurveyManagement/container/SurveyManagementContainer";
 import CountryContainer from "../pages/country/containers/CountryContainer";
+import SurveySectionContainer from "../pages/country/surveySection/containers/SurveySectionContainer";
 
 export const RouteName = {
   routeFirstPage: "",
   routeRegisterPage: "register",
 
-  routeQuestionPage: "question/:userId/:surveyHeaderId/:buildingId",
+  routeQuestionPage: "question/:userId/:surveyHeaderId",
   routeReportMenuPage: "reportMenu/:userId",
 
   routeReportPage: "report",
@@ -27,6 +28,7 @@ export const RouteName = {
 
   routeSurveyMenuPage: "surveyMenu/:userId",
   routeSurveyManagementPage: "admin/dashboard/manageSurveyList/:userId",
+  routeSurveySectionPage: "surveySection",
 
   routeBuildingPage: "addBuilding",
   routeCountryPage: "countryMenu",
@@ -60,6 +62,7 @@ export default {
     [RouteName.routeBuildingPage]: { component: BuildingContainer },
     [RouteName.routeCountryPage] : { component: CountryContainer},
     [RouteName.routeSurveylistPage]: { component: SurveylistContainer },
+    [RouteName.routeSurveySectionPage] : { component: SurveySectionContainer },
     [RouteName.routeFinalPage]: { component: FinalPageContainer },
   },
   default: RouteName.routeFirstPage,
