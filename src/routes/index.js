@@ -11,8 +11,8 @@ import SurveryMenuContainer from '../pages/SurveyMenu/container/SurveyMenuContai
 import FinalPageContainer from '../pages/FinalPage/container/FinalPageContainer';
 import { ChangePassword } from "../pages/user/account/component/ChangePassword";
 import SurveyManagementContainer from "../pages/SurveyManagement/container/SurveyManagementContainer";
-import CountryContainer from "../pages/country/containers/CountryContainer";
-import SurveySectionContainer from "../pages/country/surveySection/containers/SurveySectionContainer";
+import CountryContainer from "../pages/EGovernment/country/containers/CountryContainer";
+import SurveySectionContainer from "../pages/EGovernment/surveySection/containers/SurveySectionContainer";
 
 export const RouteName = {
   routeFirstPage: "",

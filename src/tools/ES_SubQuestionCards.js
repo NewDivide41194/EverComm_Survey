@@ -64,7 +64,7 @@ console.log("Hello I'm Group Question");
                   key={k2}
                   style={{ fontSize: media.mobile ? "15px" : "18px" }}
                 >
-                  <div className="d-flex flex-row pb-3 w-100  justify-content-between">
+                  <div className="d-flex flex-row pb-3 w-100 justify-content-between">
                     <div>
                       {k2 + 1}. {ques.question_name}
                       <i className="text-info pl-2">
@@ -258,7 +258,7 @@ const QuestionCardInfo = (props) => {
             ? "fa-check-circle text-success"
             : "fa-exclamation-circle text-warning"
         }`}
-        title="Answered"
+        title={info}
       />
     </div>
   );

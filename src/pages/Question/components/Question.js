@@ -39,7 +39,7 @@ const Question = (props) => {
 
   const deviceAmount =
     amountOfDevice && Object.values(amountOfDevice[0])[pageno - 1];
-    
+    const countryName=localStorage.getItem("countryName")
   return (
     surveyData.length && (
       <div style={{ marginBottom: 32 }}>
@@ -80,13 +80,13 @@ const Question = (props) => {
             style={{ fontSize: media.mobile ? "18px" : "20px" }}
           >
             <div className="font-weight-bold">
-              {surveyData[0].survey_sections[pageno].section_name}
+              {surveyData[0].survey_sections[pageno].section_name+" in "+countryName}
             </div>
-
+            {surveyData[0].survey_sections[pageno].survey_section_id===10?<div>{"Organization: "+countryName}</div>:
             <div>
               {deviceAmount} {Object.keys(amountOfDevice[0])[pageno - 1]}
               {deviceAmount > 1 ? "s" : null}
-            </div>
+            </div>}
           </div>
           <QuestionCard
             QuestionData={QuestionData}
