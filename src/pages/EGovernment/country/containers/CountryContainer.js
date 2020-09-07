@@ -30,6 +30,8 @@ const CountryContainer = (props) => {
     });
   }, []);
 
+  console.log('country list >> ', countryList)
+
   const _handleCountrySelect = (id, e) => {
     e !== null && setCountry(e.label);
     return;
@@ -61,11 +63,13 @@ const CountryContainer = (props) => {
   };
 
   const handleSelectCountry = (country, id) => {
+    console.log('click country >> ', country, id)
     props.history.push("/surveySection");
     localStorage.setItem("countryName", country);
-    localStorage.setItem("buildingId",1)
+    localStorage.setItem("buildingId", id);
+    localStorage.setItem("bTypeId", 1);
   };
-  console.log(countryList);
+
   const pathData = [
     {
       title: "Survey Menu",

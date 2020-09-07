@@ -1,12 +1,11 @@
 import React from "react";
-
-import { withMedia } from "react-media-query-hoc";
 import ESCheckBox from "./ES_CheckBox";
 import { ESRadio } from "./ES_Radio";
 import { ESDropDown } from "./ES_DropDown";
+
+import { withMedia } from "react-media-query-hoc";
 import { ESInput } from "./ES_Inputs";
 import ESDatePicker from "./ES_DatePicker";
-import ES_InputTypes from "./ES_InputTypes";
 
 const ESGroupQuestionCard = (props) => {
   const {
@@ -37,6 +36,8 @@ const ESGroupQuestionCard = (props) => {
     .map((v, k) => ({ label: k + 1, value: k + 1 }));
 
   const pageDeviceIndex = 1;
+  
+  const subQues = QuestionData.filter(v => v.sub_questions ? v : null)
 
   return (
     <div>
@@ -44,9 +45,9 @@ const ESGroupQuestionCard = (props) => {
         QuestionData.map((ques, k2) => {
           return (
             <div
-              className="d-flex flex-row flex-fill flex-wrap w-100 p-3 mb-3 rounded bg-light border"
+              className="d-flex flex-row flex-fill flex-wrap w-100 p-3 mb-3 rounded bg-light border" ////////Group question card
               key={k2}
-              id={ques.questionId}
+              id={ques.question_id}
               style={{
                 fontSize: media.mobile ? "12px" : "15px",
               }}
@@ -68,17 +69,165 @@ const ESGroupQuestionCard = (props) => {
                     <QuestionCardInfo info={"Pending"} media={media} />
                   )}
                 </div>
-                <div>
-                  {ques.sub_questions&&ques.sub_questions.map(v=>v.sub_question_name)}
-                </div>
               </div>
-              {/* <ES_InputTypes
-                QuestionData={QuestionData}
-                AnswerData={AnswerData}
-                isQuestion={isQuestion}
-                _handleCheckChange={_handleCheckChange}
-              /> */}
-              
+              {
+                ques.sub_questions &&
+                ques.sub_questions.map(v =>
+                  <div>{v.sub_question_name}</div>
+                  )
+              }
+             
+              {ques.input_type_id === 1 ? (
+                <ESCheckBox
+                  quesId={ques.question_id}
+                  value={ques.option_choices}
+                  _handleChange={_handleCheckChange}
+                  isAnswer={AnswerData}
+                  isQuestion={isQuestion}
+                  keys={ques.question_id}
+                  // className={ques.option_group_id===10?"w-25":null}
+                />
+              ) : ques.input_type_id === 2 ? (
+                <div className="w-100">
+                  <ESRadio
+                    value={ques.option_choices}
+                    _handleRadioChange={_handleRadioChange}
+                    quesId={ques.question_id}
+                    isAnswer={AnswerData}
+                    isQuestion={isQuestion}
+                    keys={ques.question_id}
+                  />
+                  {otherAns(
+                    ques.question_id,
+                    ques.question_id,
+                    otherOfQuestion(k2)
+                  ).length > 0 ? (
+                    <div className="pt-2">
+                      <ESInput
+                        maxLength={30}
+                        placeHolder={"Fill Your Answer"}
+                        id={ques.question_id}
+                        value={AnswerData.filter(
+                          (d) => d.questionId === ques.question_id
+                        ).map((v, k) => v.other)}
+                        onChange={(e) => {
+                          _handleInputChange(
+                            e,
+                            ques.question_id,
+                            ques.question_id,
+                            otherOfQuestion(k2)
+                          );
+                        }}
+                      />
+                    </div>
+                  ) : null}
+                </div>
+              ) : ques.input_type_id === 5 ? (
+                ques.option_choices[0].option_choice_id === null ? (
+                  <ESDropDown
+                    quesId={ques.question_id}
+                    options={ageOfBuildingOption}
+                    _handleSelect={_handleSelect}
+                    selectedOption={
+                      AnswerData.filter(
+                        (d) => d.questionId === ques.question_id
+                      )
+                        ? AnswerData.filter(
+                            (d) => d.questionId === ques.question_id
+                          ).map((v, k) => v.other)
+                        : selectedOption
+                    }
+                    keys={ques.question_id}
+                  />
+                ) : (
+                  <div className="w-100">
+                    <ESDropDown
+                      quesId={ques.question_id}
+                      options={ques.option_choices.map((v, k) => ({
+                        value: v.option_choice_id,
+                        label: v.option_choice_name,
+                      }))}
+                      _handleSelect={_handleSelect}
+                      selectedOption={
+                        AnswerData.filter(
+                          (d) => d.questionId === ques.question_id
+                        )
+                          ? AnswerData.filter(
+                              (d) => d.questionId === ques.question_id
+                            ).map(
+                              (v, k) =>
+                                ques.option_choices.filter(
+                                  (x, y) =>
+                                    x.option_choice_id === v.optionChoiceId
+                                )[0]
+                            )
+                          : selectedOption
+                      }
+                      keys={ques.question_id}
+                    />
+                    {otherAns(
+                      ques.question_id,
+                      ques.question_id,
+                      otherOfQuestion(k2)
+                    ).length > 0 ? (
+                      <div className="pt-2">
+                        <ESInput
+                          maxLength={30}
+                          placeHolder={"Fill Your Answer"}
+                          id={ques.question_id}
+                          value={
+                            AnswerData.filter(
+                              (d) => d.questionId === ques.question_id
+                            ).length && AnswerData.length
+                              ? AnswerData.filter(
+                                  (d) => d.questionId === ques.question_id
+                                ).map((v, k) => v.other)[0]
+                              : null
+                          }
+                          onChange={(e) => {
+                            _handleInputChange(
+                              e,
+                              ques.question_id,
+                              ques.question_id,
+                              otherOfQuestion(k2)
+                            );
+                          }}
+                        />
+                      </div>
+                    ) : null}
+                  </div>
+                )
+              ) : ques.input_type_id === 4 ? (
+                <ESInput
+                  maxLength={30}
+                  placeHolder={"Fill Your Answer"}
+                  id={ques.question_id}
+                  value={AnswerData.filter(
+                    (d) => d.questionId === ques.question_id
+                  ).map((v, k) => v.other)}
+                  onChange={(e) => {
+                    _handleInputChange(e, ques.question_id, ques.question_id);
+                  }}
+                />
+              ) : ques.input_type_id === 6 ? (
+                <ESDatePicker
+                  quesId={ques.question_id}
+                  startDate={
+                    AnswerData.filter((d) => d.questionId === ques.question_id)
+                      .length && AnswerData.length
+                      ? AnswerData.filter(
+                          (d) => d.questionId === ques.question_id
+                        ).map(
+                          (v, k) =>
+                            new Date(JSON.parse(v.other).YearOfManufacturing)
+                        )[0]
+                      : null
+                  }
+                  _handleEndChange={_handleEndChange}
+                  _handleStartChange={_handleStartChange}
+                  keys={ques.question_id}
+                />
+              ) : null}
             </div>
           );
         })}
