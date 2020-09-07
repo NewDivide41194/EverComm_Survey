@@ -273,6 +273,8 @@ const QuestionContainer = (props) => {
   };
 
   const otherOfQuestion = (index) => {
+    console.log('Index >>', index)
+    console.log('QuestionData >', QuestionData.map(v => v.option_choices)[index])
     const isOther =
       QuestionData &&
       QuestionData.map((v, k) => v.option_choices)[index].filter(

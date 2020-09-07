@@ -92,7 +92,7 @@ const CountryList = (props) => {
         <div className="row">
             { data.map((v,k)=> 
              <div className="col-lg-6 col-md-6 p-2" key={k}>
-                <div className="rounded shadow p-4" id="countryCard" onClick={() => handleSelectCountry(v.country, v.id)}>
+                <div className="rounded shadow p-4" id="countryCard" onClick={() => handleSelectCountry(v.country, v.country_id)}>
                     <div className="pb-2" style={{color: Colors.PrimaryColor, fontWeight:'bold'}}>{v.country}</div>
                     <div style={{fontSize:11, fontStyle:'italic'}}>{v.organization}</div>
                 </div>

@@ -36,6 +36,10 @@ const ESGroupQuestionCard = (props) => {
     .map((v, k) => ({ label: k + 1, value: k + 1 }));
 
   const pageDeviceIndex = 1;
+  
+  const subQues = QuestionData.filter(v => v.sub_questions ? v : null)
+  console.log('sub question data >> ', subQues)
+  console.log('question data >> ', QuestionData);
 
   return (
     <div>
@@ -43,9 +47,9 @@ const ESGroupQuestionCard = (props) => {
         QuestionData.map((ques, k2) => {
           return (
             <div
-              className="d-flex flex-row flex-fill flex-wrap w-100 p-3 mb-3 rounded bg-light border"
+              className="d-flex flex-row flex-fill flex-wrap w-100 p-3 mb-3 rounded bg-light border" ////////Group question card
               key={k2}
-              id={ques.questionId}
+              id={ques.question_id}
               style={{
                 fontSize: media.mobile ? "12px" : "15px",
               }}
@@ -68,6 +72,14 @@ const ESGroupQuestionCard = (props) => {
                   )}
                 </div>
               </div>
+              {
+                ques.sub_questions &&
+                ques.sub_questions.map(v =>
+                  <div>{v.sub_question_name}</div>
+                  )
+             
+              }
+             
               {ques.input_type_id === 1 ? (
                 <ESCheckBox
                   quesId={ques.question_id}
