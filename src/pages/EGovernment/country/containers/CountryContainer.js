@@ -26,8 +26,7 @@ const CountryContainer = (props) => {
 
   useEffect(() => {
     GetCountry({ surveyHeaderId, userId, token }, (err, data) => {
-      console.log("country list >> ", data.payload);
-      setCountryList(data.payload);
+      setCountryList(data.payload);      
     });
   }, []);
 
@@ -42,7 +41,6 @@ const CountryContainer = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //console.log('result >> ', country, organization, surveyHeaderId)
     if (organization === "") {
       alert.error("Please Fill Organization!");
     } else {
@@ -65,6 +63,7 @@ const CountryContainer = (props) => {
   const handleSelectCountry = (country, id) => {
     props.history.push("/surveySection");
     localStorage.setItem("countryName", country);
+    localStorage.setItem("buildingId",1)
   };
   console.log(countryList);
   const pathData = [

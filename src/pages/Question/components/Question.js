@@ -38,7 +38,7 @@ const Question = (props) => {
   } = props;
 
   const deviceAmount =
-    amountOfDevice && Object.values(amountOfDevice[0])[pageno - 1];
+    amountOfDevice&&amountOfDevice.length>0 ? Object.values(amountOfDevice[0])[pageno - 1]:null;
     const countryName=localStorage.getItem("countryName")
   return (
     surveyData.length && (
@@ -71,7 +71,7 @@ const Question = (props) => {
             <div>{surveyData[0].survey_name}</div>
             <div>
               {buildingName}{" "}
-              <span style={{ fontSize: "15px" }}>({buildingType})</span>
+              <span style={{ fontSize: "15px" }}>{buildingType}</span>
             </div>
           </div>
 

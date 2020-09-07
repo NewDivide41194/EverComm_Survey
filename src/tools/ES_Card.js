@@ -88,7 +88,6 @@ const QuestionCard1 = (props) => {
                     isAnswer={AnswerData}
                     isQuestion={isQuestion}
                     keys={ques.question_id}
-                    // className={ques.option_group_id===10?"w-25":null}
                   />
                 ) : ques.input_type_id === 2 ? (
                   <div className="w-100">

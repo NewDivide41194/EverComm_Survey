@@ -37,6 +37,7 @@ const QuestionContainer = (props) => {
     survey_headers_id: surveyHeaderId,
     building_id: buildingId,
     keyValue: null,
+    countryId:null
   };
   const amountOfDevice = surveyData.length && surveyData[0].amountOfDevice;
   const deviceAmounts =

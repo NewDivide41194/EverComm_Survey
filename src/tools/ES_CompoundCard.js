@@ -11,7 +11,7 @@ import moment from "moment";
 
 import QuestionCard1 from "./ES_Card";
 import ESTimeRange from "./ES_TimeRange";
-import ESGroupQuestionCard from "./ES_SubQuestionCards";
+import ESGroupQuestionCard from "./ES_GroupQuestionCards";
 
 const QuestionCard = (props) => {
   const {
@@ -37,7 +37,7 @@ const QuestionCard = (props) => {
 
   if (sessionId === 1) {
     return <QuestionCard1 {...props} />;
-  } else if (QuestionData.map((ques, k2) => ques.group_question === 1)) {
+  } else if (QuestionData.map((ques, k2) => ques.group_question === 1)&&sessionId===10) {
     return <ESGroupQuestionCard {...props} />;
   }
 
