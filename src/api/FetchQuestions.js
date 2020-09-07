@@ -12,4 +12,3 @@ export const QuestionFetch = ({userId,surveyHeaderId,buildingId,bTypeId,token}, 
     .then(data => callback(null, data))
     .catch(err => console.log(err));
 };
-

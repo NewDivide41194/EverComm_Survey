@@ -89,23 +89,16 @@ const Question = (props) => {
             </div>}
           </div>
           <QuestionCard
-            QuestionData={QuestionData}
-            pageno={pageno}
-            amountOfDevice={amountOfDevice}
-            _handleCheckChange={_handleCheckChange}
-            _handleRadioChange={_handleRadioChange}
-            _handleInputChange={_handleInputChange}
-            _handleSelect={_handleSelect}
-            _handleStartChange={_handleStartChange}
-            userId={userId}
-            selectedOption={selectedOption}
-            AnswerData={AnswerData}
+            // QuestionData={QuestionData}
+            // pageno={pageno}
+            {...props}
+            amountOfDevice={amountOfDevice}           
             sessionId={surveyData[0].survey_sections[pageno].survey_section_id}
             // groupQuestion={surveyData[0].survey_sections[pageno].}
-            otherAns={otherAns}
-            otherOfQuestion={otherOfQuestion}
-            weekAns={weekAns}
-            weekQuestion={weekQuestion}
+            // otherAns={otherAns}
+            // otherOfQuestion={otherOfQuestion}
+            // weekAns={weekAns}
+            // weekQuestion={weekQuestion}
           />
 
           <div className="row justify-content-between">
