@@ -4,7 +4,7 @@ import { ESButton } from "../../../tools/ES_Button";
 import { withMedia } from "react-media-query-hoc";
 import ESProgress from "../../../tools/ES_Progress";
 import * as Color from "../../../config/Color.config";
-
+import moment from 'moment'
 const Question = (props) => {
   const {
     buildingName,
@@ -36,7 +36,7 @@ const Question = (props) => {
     weekAns,
     weekQuestion,
   } = props;
-
+console.log(">>>>>>>>>>>>>",surveyData&&surveyData.length>0&&surveyData[0].survey_sections[pageno].questions.map(v=>v.sub_questions!==undefined));
   const deviceAmount =
     amountOfDevice&&amountOfDevice.length>0 ? Object.values(amountOfDevice[0])[pageno - 1]:null;
     const countryName=localStorage.getItem("countryName")
@@ -88,6 +88,7 @@ const Question = (props) => {
               {deviceAmount > 1 ? "s" : null}
             </div>}
           </div>
+
           <QuestionCard
             // QuestionData={QuestionData}
             // pageno={pageno}
@@ -100,7 +101,6 @@ const Question = (props) => {
             // weekAns={weekAns}
             // weekQuestion={weekQuestion}
           />
-
           <div className="row justify-content-between">
             <div
               className="col-lg-6 align-self-center font-weight-bold"

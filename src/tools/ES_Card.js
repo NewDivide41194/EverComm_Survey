@@ -194,7 +194,6 @@ const QuestionCard1 = (props) => {
               keys={ques.question_id}
             />
           ) : null}
-          {/* <ES_InputTypes {...props}/> */}
         </div>
       );
     })

@@ -37,7 +37,10 @@ const QuestionCard = (props) => {
 
   if (sessionId === 1) {
     return <QuestionCard1 {...props} />;
-  } else if (QuestionData.map((ques, k2) => ques.group_question === 1)&&sessionId===10) {
+  } else if (
+    QuestionData.map((ques, k2) => ques.group_question === 1) &&
+    sessionId === 10
+  ) {
     return <ESGroupQuestionCard {...props} />;
   }
 

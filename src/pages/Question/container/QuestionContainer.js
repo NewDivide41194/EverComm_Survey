@@ -61,8 +61,9 @@ const QuestionContainer = (props) => {
       : 0) + totalQuesCount1;
   useEffect(() => {
     setIsLoading(true);
+    const typeId=surveyHeaderId===10?countryId:buildingId
     QuestionFetch(
-      { userId, surveyHeaderId, buildingId, bTypeId, token },
+      { userId, surveyHeaderId, typeId, bTypeId, token },
       (err, data) => {
         setSurveyData(data.payload);
         setAnswerData(data.payload[0].answers);
