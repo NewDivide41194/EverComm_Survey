@@ -3,7 +3,7 @@ import { ESButton } from "../../../tools/ES_Button";
 import * as Colors from "../../../config/Color.config";
 
 const SurveyMenu = (props) => {
-  const { handleChoose, id, header, amountOfSurvey, handleReset } = props;
+  const { handleChoose, id, header, amountOfSurvey, handleReset, countryCount } = props;
   const [isHover,setIsHover]=useState(false);
 
   const _handleMouseOver = () => {
@@ -47,7 +47,7 @@ const SurveyMenu = (props) => {
                 className="fa fa-edit  pr-2 pt-1 text-primary font-weight-bold"
               ></i>
             )}
-            <div id={id}>{amountOfSurvey} {amountOfSurvey<=1?"Survey":"Surveys"} Answered</div>
+            <div id={id}>{countryCount} {countryCount<=1?"Organization":"Organizations"}</div>
           </div>
           {
             isHover&&

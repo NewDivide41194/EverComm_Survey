@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SurveyMenu from "../component/SurveyMenu";
 import { MenuInfoFetch } from "../../../api/FetchMenuInfo";
+import { GetCountry } from "../../../api/FetchCountry";
 import { TrancateAns } from "../../../api/FetchTrancate";
 import Loading from "../../../assets/images/loading1.gif";
 import * as Colors from "../../../config/Color.config";
@@ -24,7 +25,11 @@ const SurveyMenuContainer = props => {
       setMenuData(data.payload);
       setIsLoading(false);
     });
+
   }, []);
+
+  // console.log('count >>>>> ', menuData)
+
   const _handleReset = survey_header_id => {
     TrancateAns({ userId, survey_header_id }, (err, data) => {
       window.location.reload()
@@ -60,6 +65,7 @@ const SurveyMenuContainer = props => {
             handleReset={_handleReset}
             amountOfSurvey={v.amount_of_survey}
             id={v.survey_header_id}
+            countryCount={v.count}
           />
         ))}
       </div>

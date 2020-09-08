@@ -11,6 +11,7 @@ import { ESNavigator } from "../../../../tools/ES_Text.js";
 const CountryContainer = (props) => {
   const [countryList, setCountryList] = useState([]);
   const [country, setCountry] = useState("");
+  const [surveyListCount, setSurveyCount] = useState(0);
   const [organization, setOrganization] = useState("");
   const [close, setClose] = useState(false);
   const token = localStorage.getItem("token");
@@ -28,7 +29,15 @@ const CountryContainer = (props) => {
     GetCountry({ surveyHeaderId, userId, token }, (err, data) => {
       setCountryList(data.payload);      
     });
+    setSurveyCount(data.length)
   }, []);
+
+  const data = [
+    {surveySection: 'The current situation of e-government', amountOfSurvey:2, totalSurvey:10 },
+    {surveySection: 'Organization Background', amountOfSurvey:0 , totalSurvey:10},
+    {surveySection: 'Legal', amountOfSurvey:1, totalSurvey:10 },
+    {surveySection: 'Strategy', amountOfSurvey:0, totalSurvey:10}
+  ]
 
   console.log('country list >> ', countryList)
 
@@ -87,6 +96,7 @@ const CountryContainer = (props) => {
       <ESNavigator pathData={pathData} />
       {countryList.length > 0 && countryList ? (
         <CountryMenu
+          surveyListCount={surveyListCount}
           countryList={countryList}
           CountryOptions={CountryOptions}
           country={country}
