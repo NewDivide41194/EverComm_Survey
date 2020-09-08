@@ -27,7 +27,6 @@ const InputTypes = (props) => {
   } = props;
 
   const optionChoices = QuestionData.map((v) => v.option_choices);
-  //   const
 console.log("///////////",props);
   return (
     QuestionData &&
