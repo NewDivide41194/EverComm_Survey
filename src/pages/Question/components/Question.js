@@ -37,6 +37,9 @@ const Question = (props) => {
     weekQuestion,
   } = props;
 
+  const organization = localStorage.getItem("organization");
+  const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
+
   const deviceAmount =
     amountOfDevice&&amountOfDevice.length>0 ? Object.values(amountOfDevice[0])[pageno - 1]:null;
     const countryName=localStorage.getItem("countryName")
@@ -69,10 +72,14 @@ const Question = (props) => {
             className="d-flex flex-row flex-wrap justify-content-between pt-2"
           >
             <div>{surveyData[0].survey_name}</div>
-            <div>
+            {
+              surveyHeaderId != 10 &&
+              <div>
               {buildingName}{" "}
               <span style={{ fontSize: "15px" }}>{buildingType}</span>
             </div>
+            }
+          
           </div>
 
           <div
@@ -82,7 +89,9 @@ const Question = (props) => {
             <div className="font-weight-bold">
               {surveyData[0].survey_sections[pageno].section_name+" in "+countryName}
             </div>
-            {surveyData[0].survey_sections[pageno].survey_section_id===10?<div>{"Organization: "+countryName}</div>:
+              {surveyData[0].survey_sections[pageno].survey_section_id===10?<div>
+              <span style={{fontWeight:'bold'}}>Organization: </span><span>{organization}</span>
+              </div>:
             <div>
               {deviceAmount} {Object.keys(amountOfDevice[0])[pageno - 1]}
               {deviceAmount > 1 ? "s" : null}

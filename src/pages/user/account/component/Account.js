@@ -7,6 +7,7 @@ import AddAccountForm from "./AddAccount";
 import UserTable from "../../../../tools/ES_Table.js";
 import ESTable from "../../../../tools/ES_Table.js";
 import { Edit } from "@material-ui/icons";
+import ESLoading from "../../../../tools/ES_Loading";
 
 const Account = (props) => {
   const {
@@ -52,6 +53,7 @@ const Account = (props) => {
     handleEdit,
     editData,
     rowsPerPage,
+    IsLoading
   } = props;
 
   const header = {
@@ -105,80 +107,86 @@ const Account = (props) => {
   ];
 
   const userId = localStorage.getItem("userId");
-  return (
-    <div className="container">
-      <div className="row p-3">
-        <div className="w-100">
-          {userData &&
-            userData.length > 0 &&
-            window.location.pathname !== `/user/editAccount/${userId}` && (
-              <div>
-                <div style={{ color: Colors.PrimaryColor, fontSize: 20 }}>
-                  <h2>User Management</h2>
-                </div>
 
-                {userData.length > 0 && (
-                  <ESTable
-                    actions={tableActions}
-                    tableData={tableData}
-                    tableAlertInfo={tableAlertInfo}
-                    handleIsAdd={handleIsAdd}
-                    isAdd={isAdd}
-                    handleIsEdit={handleIsEdit}
-                    handleEdit={handleEdit}
-                    rowsPerPage={rowsPerPage}
-                  />
-                )}
+  if(IsLoading){
+    return <ESLoading />;
+  }else {
+    return (
+      <div className="container">
+        <div className="row p-3">
+          <div className="w-100">
+            {userData &&
+              userData.length > 0 &&
+              window.location.pathname !== `/user/editAccount/${userId}` && (
+                <div>
+                  <div style={{ color: Colors.PrimaryColor, fontSize: 20 }}>
+                    <h2>User Management</h2>
+                  </div>
+  
+                  {userData.length > 0 && (
+                    <ESTable
+                      actions={tableActions}
+                      tableData={tableData}
+                      tableAlertInfo={tableAlertInfo}
+                      handleIsAdd={handleIsAdd}
+                      isAdd={isAdd}
+                      handleIsEdit={handleIsEdit}
+                      handleEdit={handleEdit}
+                      rowsPerPage={rowsPerPage}
+                    />
+                  )}
+                </div>
+              )}
+          </div>
+          {(isAdd ||
+            editData.length > 0 ||
+            window.location.pathname === `/user/editAccount/${userId}`) &&
+            !close && (
+              <div className="w-100">
+                <AddAccountForm
+                  visible={visible}
+                  UserLevelOptions={UserLevelOptions}
+                  accountsetting={accountsetting}
+                  edit={edit}
+                  firstName={firstName}
+                  lastName={lastName}
+                  companyName={companyName}
+                  mobile={Mobile}
+                  eMail={eMail}
+                  Role={Role}
+                  password={password}
+                  active={active}
+                  userLevel={userLevel}
+                  handleEditProfile={handleEditProfile}
+                  handleFirstNameChange={handleFirstNameChange}
+                  handleLastNameChange={handleLastNameChange}
+                  handleCompanyChange={handleCompanyChange}
+                  handleMobileChange={handleMobileChange}
+                  handleEmailChange={handleEmailChange}
+                  handleRoleChange={handleRoleChange}
+                  handlePasswordChange={handlePasswordChange}
+                  handleUserLevelSelect={handleUserLevelSelect}
+                  handleActiveCheck={handleActiveCheck}
+                  handleCheckChange={handleCheckChange}
+                  handleSubmit={handleSubmit}
+                  handleCancel={handleCancel}
+                  handleIsEdit={handleIsEdit}
+                  handleAccountSetting={handleAccountSetting}
+                  NameRef={NameRef}
+                  err={err}
+                  errStyle={errStyle}
+                  errClassName={errClassName}
+                  surveyList={surveyList}
+                  checkedList={checkedList}
+                  handleView={handleView}
+                />
               </div>
             )}
         </div>
-        {(isAdd ||
-          editData.length > 0 ||
-          window.location.pathname === `/user/editAccount/${userId}`) &&
-          !close && (
-            <div className="w-100">
-              <AddAccountForm
-                visible={visible}
-                UserLevelOptions={UserLevelOptions}
-                accountsetting={accountsetting}
-                edit={edit}
-                firstName={firstName}
-                lastName={lastName}
-                companyName={companyName}
-                mobile={Mobile}
-                eMail={eMail}
-                Role={Role}
-                password={password}
-                active={active}
-                userLevel={userLevel}
-                handleEditProfile={handleEditProfile}
-                handleFirstNameChange={handleFirstNameChange}
-                handleLastNameChange={handleLastNameChange}
-                handleCompanyChange={handleCompanyChange}
-                handleMobileChange={handleMobileChange}
-                handleEmailChange={handleEmailChange}
-                handleRoleChange={handleRoleChange}
-                handlePasswordChange={handlePasswordChange}
-                handleUserLevelSelect={handleUserLevelSelect}
-                handleActiveCheck={handleActiveCheck}
-                handleCheckChange={handleCheckChange}
-                handleSubmit={handleSubmit}
-                handleCancel={handleCancel}
-                handleIsEdit={handleIsEdit}
-                handleAccountSetting={handleAccountSetting}
-                NameRef={NameRef}
-                err={err}
-                errStyle={errStyle}
-                errClassName={errClassName}
-                surveyList={surveyList}
-                checkedList={checkedList}
-                handleView={handleView}
-              />
-            </div>
-          )}
       </div>
-    </div>
-  );
+    );
+  }
+  
 };
 
 export default Account;
