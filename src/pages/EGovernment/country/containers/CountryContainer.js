@@ -75,7 +75,7 @@ const CountryContainer = (props) => {
     console.log('click country >> ', country, id)
     props.history.push("/surveySection");
     localStorage.setItem("countryName", country);
-    localStorage.setItem("buildingId", id);
+    localStorage.setItem("countryId", id);
     localStorage.setItem("bTypeId", 1);
   };
 

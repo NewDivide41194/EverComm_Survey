@@ -28,6 +28,7 @@ const QuestionContainer = (props) => {
   const buildingName = localStorage.getItem("buildingName");
   const buildingType = localStorage.getItem("buildingType");
   const surveyHeaderId = parseInt(localStorage.getItem("SurveyHeaderId"));
+  const countryId=localStorage.getItem("countryId")
   console.log(buildingId);
   const Ans = {
     other: "",
@@ -37,7 +38,8 @@ const QuestionContainer = (props) => {
     survey_headers_id: surveyHeaderId,
     building_id: buildingId,
     keyValue: null,
-    countryId:null
+    countryId:null,
+    subQuestionId:countryId
   };
   const amountOfDevice = surveyData.length && surveyData[0].amountOfDevice;
   const deviceAmounts =
@@ -273,14 +275,15 @@ const QuestionContainer = (props) => {
   };
 
   const otherOfQuestion = (index) => {
-    console.log('Index >>', index)
-    console.log('QuestionData >', QuestionData.map(v => v.option_choices)[index])
+    // console.log('Index >>', index)    
     const isOther =
       QuestionData &&
-      QuestionData.map((v, k) => v.option_choices)[index].filter(
+      QuestionData.map((v, k) => v.option_choices===undefined?[]:v.option_choices)[index].filter(
         (d) => d.option_choice_name === "Other"
       );
-    return isOther.length > 0 ? isOther[0].option_choice_id : null;
+
+
+    return isOther.length > 0 ? isOther[0].option_choice_id : [];
   };
 
   const weekQuestion = (index) => {
