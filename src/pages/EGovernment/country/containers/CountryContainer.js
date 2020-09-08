@@ -39,8 +39,6 @@ const CountryContainer = (props) => {
     {surveySection: 'Strategy', amountOfSurvey:0, totalSurvey:10}
   ]
 
-  console.log('country list >> ', countryList)
-
   const _handleCountrySelect = (id, e) => {
     e !== null && setCountry(e.label);
     return;
@@ -71,12 +69,13 @@ const CountryContainer = (props) => {
     }
   };
 
-  const handleSelectCountry = (country, id) => {
+  const handleSelectCountry = (country, id, organization) => {
     console.log('click country >> ', country, id)
     props.history.push("/surveySection");
     localStorage.setItem("countryName", country);
     localStorage.setItem("countryId", id);
     localStorage.setItem("bTypeId", 1);
+    localStorage.setItem("organization", organization);
   };
 
   const pathData = [

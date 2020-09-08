@@ -36,6 +36,10 @@ const SurveyMenuContainer = props => {
     });
   };
 
+  const filterSurvey = menuData.filter(v => v.survey_header_id === 1)
+  const surveyAmount = filterSurvey.map(v=> v.amount_of_survey)
+  console.log('organization count > ', surveyAmount[0] )
+
   return (
     
     <div className="container justify-content-center">
@@ -66,6 +70,7 @@ const SurveyMenuContainer = props => {
             amountOfSurvey={v.amount_of_survey}
             id={v.survey_header_id}
             countryCount={v.count}
+            surveyAmount = {surveyAmount}
           />
         ))}
       </div>

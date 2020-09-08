@@ -59,6 +59,7 @@ const QuestionContainer = (props) => {
     (questionslength.length == 6
       ? questionslength[questionslength.length - 1] * deviceAmounts[0]
       : 0) + totalQuesCount1;
+  
   useEffect(() => {
     setIsLoading(true);
     const typeId=surveyHeaderId===10?countryId:buildingId
