@@ -3,9 +3,8 @@ import * as Colors from '../../../../config/Color.config';
 import '../../../../App.css';
 
 const SurveySection = (props) => {
-   
-    const countryName = localStorage.getItem("countryName")
-    const surveyHeaderName = localStorage.getItem("SurveyHeaderName")
+    const countryName = localStorage.getItem("countryName");
+    const surveyHeaderName = localStorage.getItem("SurveyHeaderName");
 
     const {handleQuestionRoute} = props
     return (

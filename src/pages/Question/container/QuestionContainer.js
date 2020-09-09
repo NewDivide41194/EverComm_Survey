@@ -8,7 +8,6 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import moment from "moment";
 
-
 const QuestionContainer = (props) => {
   const { history } = props;
   const [surveyData, setSurveyData] = useState([]);
@@ -21,16 +20,17 @@ const QuestionContainer = (props) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [IsLoading, setIsLoading] = useState(false);
   const [total, setTotal] = useState(null);
+
+  const userId =localStorage.getItem("userId");
   const token = localStorage.getItem("token");
-  const userId = parseInt(localStorage.getItem("userId"));
+  const surveySectionId = 1;
   const bTypeId = localStorage.getItem("bTypeId");
-  const buildingId = parseInt(localStorage.getItem("buildingId"));
+  const buildingId = localStorage.getItem("buildingId");
   const buildingName = localStorage.getItem("buildingName");
   const buildingType = localStorage.getItem("buildingType");
-  const surveyHeaderId = parseInt(localStorage.getItem("SurveyHeaderId"));
-  const countryId=localStorage.getItem("countryId")
-  console.log(buildingId);
-  const Ans = {
+  const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
+  const countryId = localStorage.getItem("countryId");
+   const Ans = {
     other: "",
     optionChoiceId: null,
     userId: userId,
@@ -38,8 +38,9 @@ const QuestionContainer = (props) => {
     survey_headers_id: surveyHeaderId,
     building_id: buildingId,
     keyValue: null,
-    countryId:null,
-    subQuestionId:countryId
+    countryId: null,
+    subQuestionId: countryId,
+    surveySectionId:4
   };
   const amountOfDevice = surveyData.length && surveyData[0].amountOfDevice;
   const deviceAmounts =
@@ -59,12 +60,12 @@ const QuestionContainer = (props) => {
     (questionslength.length == 6
       ? questionslength[questionslength.length - 1] * deviceAmounts[0]
       : 0) + totalQuesCount1;
-  
+
   useEffect(() => {
     setIsLoading(true);
-    const typeId=surveyHeaderId===10?countryId:buildingId
+    const typeId = surveyHeaderId === 10 ? countryId : buildingId;
     QuestionFetch(
-      { userId, surveyHeaderId, typeId, bTypeId, token },
+      { userId, surveyHeaderId, typeId, bTypeId, surveySectionId, token },
       (err, data) => {
         setSurveyData(data.payload);
         setAnswerData(data.payload[0].answers);
@@ -110,7 +111,7 @@ const QuestionContainer = (props) => {
               (err, data) => {
                 setIsLoading(false);
                 history.push("/finalPage");
-                localStorage.setItem(`${buildingId}`, total);
+                // localStorage.setItem(`${buildingId}`, total);
               }
             );
           },
@@ -277,13 +278,12 @@ const QuestionContainer = (props) => {
   };
 
   const otherOfQuestion = (index) => {
-    // console.log('Index >>', index)    
+    // console.log('Index >>', index)
     const isOther =
       QuestionData &&
-      QuestionData.map((v, k) => v.option_choices===undefined?[]:v.option_choices)[index].filter(
-        (d) => d.option_choice_name === "Other"
-      );
-
+      QuestionData.map((v, k) =>
+        v.option_choices === undefined ? [] : v.option_choices
+      )[index].filter((d) => d.option_choice_name === "Other");
 
     return isOther.length > 0 ? isOther[0].option_choice_id : [];
   };

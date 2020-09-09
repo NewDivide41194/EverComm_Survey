@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { render } from "react-dom";
 import CountryMenu from "../../../EGovernment/country/components/CountryMenu";
-// import SurveySectionContainer from "../surveySection/containers/SurveySectionContainer.js";
 import Countries from "../../../../assets/Countries.json";
 import { AddCountryFetch, GetCountry } from "../../../../api/FetchCountry";
 import { useAlert } from "react-alert";
@@ -14,10 +12,6 @@ const CountryContainer = (props) => {
   const [surveyListCount, setSurveyCount] = useState(0);
   const [organization, setOrganization] = useState("");
   const [close, setClose] = useState(false);
-  const token = localStorage.getItem("token");
-  const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
-  const surveyHeaderName = localStorage.getItem("SurveyHeaderName");
-  const userId = localStorage.getItem("userId");
   const alert = useAlert();
 
   const CountryOptions = Countries.countries.map((v, k) => ({
@@ -25,12 +19,17 @@ const CountryContainer = (props) => {
     label: v.name,
   }));
 
+  const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
+  const userId =localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
+  const surveyHeaderName = localStorage.getItem("SurveyHeaderName");
+
   useEffect(() => {
-    GetCountry({ surveyHeaderId, userId, token }, (err, data) => {
+    GetCountry({ userId ,surveyHeaderId, token} , (err, data) => {
       setCountryList(data.payload);      
     });
     setSurveyCount(data.length)
-  }, []);
+  }, [surveyHeaderId]);
 
   const data = [
     {surveySection: 'The current situation of e-government', amountOfSurvey:2, totalSurvey:10 },

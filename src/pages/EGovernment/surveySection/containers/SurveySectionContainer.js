@@ -1,11 +1,11 @@
 import React from "react";
 import SurveySection from "../components/SurveySection";
 import { ESNavigator } from "../../../../tools/ES_Text";
-import userId from "../../../../assets/StoredData"
 const SurveySectionContainer = (props) => {
+  const userId =localStorage.getItem("userId");
   const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
-  // const userId = localStorage.getItem("userId");
   const surveyHeaderName = localStorage.getItem("SurveyHeaderName");
+
   const handleQuestionRoute = () => {
     props.history.push(`question/${userId}/${surveyHeaderId}`);
   };

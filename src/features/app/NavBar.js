@@ -5,12 +5,12 @@ import withMedia from "react-media-query-hoc/dist/with-media";
 import Auth from "../../security/auth";
 
 const NavBar = (props) => {
-  const userId = localStorage.getItem("userId");
-  const email = localStorage.getItem("email");
-  const userLevel = parseInt(localStorage.getItem("userLevel"));
 
   const { media } = props;
   const queryString = window.location.search;
+  const userId =localStorage.getItem("userId");
+  const email = localStorage.getItem("email");
+  const userLevel = localStorage.getItem("userLevel");
 
   const urlParams = new URLSearchParams(queryString);
 

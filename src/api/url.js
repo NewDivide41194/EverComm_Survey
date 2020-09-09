@@ -1,6 +1,6 @@
 // const serverURL='http://192.168.100.206:7878'
-const serverURL = "http://172.105.123.57:7878";
-// const serverURL = "http://localhost:7878";
+// const serverURL = "http://172.105.123.57:7878";
+const serverURL = "http://localhost:7878";
 
 const UserId = localStorage.getItem("userId");
 
@@ -21,8 +21,8 @@ export const Country_Insert = `${serverURL}/api/v1/country/addCountry`;
 export const Get_Country = (surveyHeaderId) => 
  `${serverURL}/api/v1/country/getCountry/${surveyHeaderId}`;
 
-export const QuestionAPI = (userId, surveyHeaderId, buildingId, bTypeId) =>
-  `${serverURL}/api/v1/survey/questions/${userId}/${surveyHeaderId}/${buildingId}/${bTypeId}`;
+export const QuestionAPI = (userId, surveyHeaderId, buildingId, bTypeId, surveySectionId) =>
+  `${serverURL}/api/v1/survey/questions/${userId}/${surveyHeaderId}/${buildingId}/${bTypeId}/${surveySectionId}`;
 
 export const Survey_List = (userId, surveyHeaderId) =>
   `${serverURL}/api/v1/survey/surveyList/${userId}/${surveyHeaderId}`;

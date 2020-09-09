@@ -4,7 +4,6 @@ import { ESButton } from "../../../tools/ES_Button";
 import { withMedia } from "react-media-query-hoc";
 import ESProgress from "../../../tools/ES_Progress";
 import * as Color from "../../../config/Color.config";
-import moment from 'moment'
 const Question = (props) => {
   const {
     buildingName,
@@ -36,13 +35,14 @@ const Question = (props) => {
     weekAns,
     weekQuestion,
   } = props;
-
   const organization = localStorage.getItem("organization");
+  const countryName = localStorage.getItem("countryName");
   const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
 
   const deviceAmount =
-    amountOfDevice&&amountOfDevice.length>0 ? Object.values(amountOfDevice[0])[pageno - 1]:null;
-    const countryName=localStorage.getItem("countryName")
+    amountOfDevice && amountOfDevice.length > 0
+      ? Object.values(amountOfDevice[0])[pageno - 1]
+      : null;
   return (
     surveyData.length && (
       <div style={{ marginBottom: 32 }}>
@@ -72,14 +72,12 @@ const Question = (props) => {
             className="d-flex flex-row flex-wrap justify-content-between pt-2"
           >
             <div>{surveyData[0].survey_name}</div>
-            {
-              surveyHeaderId != 10 &&
+            {surveyHeaderId != 10 && (
               <div>
-              {buildingName}{" "}
-              <span style={{ fontSize: "15px" }}>{buildingType}</span>
-            </div>
-            }
-          
+                {buildingName}{" "}
+                <span style={{ fontSize: "15px" }}>{buildingType}</span>
+              </div>
+            )}
           </div>
 
           <div
@@ -87,22 +85,28 @@ const Question = (props) => {
             style={{ fontSize: media.mobile ? "18px" : "20px" }}
           >
             <div className="font-weight-bold">
-              {surveyData[0].survey_sections[pageno].section_name+" in "+countryName}
+              {surveyData[0].survey_sections[pageno].section_name +
+                " in " +
+                countryName}
             </div>
-              {surveyData[0].survey_sections[pageno].survey_section_id===10?<div>
-              <span style={{fontWeight:'bold'}}>Organization: </span><span>{organization}</span>
-              </div>:
-            <div>
-              {deviceAmount} {Object.keys(amountOfDevice[0])[pageno - 1]}
-              {deviceAmount > 1 ? "s" : null}
-            </div>}
+            {surveyData[0].survey_sections[pageno].survey_section_id === 10 ? (
+              <div>
+                <span style={{ fontWeight: "bold" }}>Organization: </span>
+                <span>{organization}</span>
+              </div>
+            ) : (
+              <div>
+                {deviceAmount} {Object.keys(amountOfDevice[0])[pageno - 1]}
+                {deviceAmount > 1 ? "s" : null}
+              </div>
+            )}
           </div>
 
           <QuestionCard
             // QuestionData={QuestionData}
             // pageno={pageno}
             {...props}
-            amountOfDevice={amountOfDevice}           
+            amountOfDevice={amountOfDevice}
             sessionId={surveyData[0].survey_sections[pageno].survey_section_id}
             // groupQuestion={surveyData[0].survey_sections[pageno].}
             // otherAns={otherAns}
