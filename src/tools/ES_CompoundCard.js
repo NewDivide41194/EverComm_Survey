@@ -39,7 +39,7 @@ const QuestionCard = (props) => {
     return <QuestionCard1 {...props} />;
   } else if (
     QuestionData.map((ques, k2) => ques.group_question === 1) &&
-    sessionId === 10
+    sessionId > 10
   ) {
     return <ESGroupQuestionCard {...props} />;
   }
@@ -230,7 +230,9 @@ const QuestionCard = (props) => {
                             placeHolder={"Fill Your Answer"}
                             id={remakeQuestionId}
                             value={AnswerData.filter(
-                              (d) => d.questionId === remakeQuestionId
+                              (d) => {
+                                return d.questionId === remakeQuestionId;
+                              }
                             ).map((v, k) => v.other)}
                             onChange={(e) => {
                               _handleInputChange(

@@ -40,7 +40,7 @@ const Question = (props) => {
   const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
   const surveySection = localStorage.getItem("surveySection");
 
-  console.log('surveyData >>> ', surveyData)
+  // console.log('surveyData >>> ', surveyData)
 
   const deviceAmount =
     amountOfDevice && amountOfDevice.length > 0

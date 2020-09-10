@@ -63,7 +63,8 @@ const QuestionContainer = (props) => {
 
   useEffect(() => {
     setIsLoading(true);
-    const typeId = surveyHeaderId === 10 ? countryId : buildingId;
+    const typeId = 33
+    // surveyHeaderId === 10 ? countryId : buildingId;
     QuestionFetch(
       { userId, surveyHeaderId, typeId, bTypeId, surveySectionId, token },
       (err, data) => {
@@ -126,7 +127,7 @@ const QuestionContainer = (props) => {
     });
   };
   const isQuesId = (quesId, subQuesId) => {
-    console.log(quesId,subQuesId);
+    // console.log(quesId,subQuesId);
    if(subQuesId!==undefined){ return AnswerData.filter(
       (e) => e.questionId === quesId && e.subQuestionId === subQuesId
     );}else{
@@ -135,10 +136,11 @@ const QuestionContainer = (props) => {
     }
   };
   const isQuesIdIndex = (quesId, subQuesId) => {
+    // console.log(quesId);
     if(subQuesId!==undefined){ return AnswerData.findIndex(
       (e) => e.questionId === quesId && e.subQuestionId === subQuesId
     );}else{
-      return AnswerData.filter(
+      return AnswerData.findIndex(
         (e) => e.questionId === quesId)
     }
   };
@@ -158,10 +160,11 @@ const QuestionContainer = (props) => {
     }
     setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
   };
-console.log("ANS Data",AnswerData);
+  // console.log("ANS Data",AnswerData);
+
   const handleInputChange = (e, quesId, subQuesId, keys, optionId) => {
-    console.log("isQuesId",isQuesId(quesId));
-    console.log("isIndex",isQuesIdIndex(quesId));
+    // console.log("isQuesId",isQuesId(quesId));
+    // console.log("isIndex",isQuesIdIndex(quesId));
 
     const ImportText = e.target.value.replace(/\s+/g, " ").trimStart();
     const TextAnswer = {
@@ -172,6 +175,7 @@ console.log("ANS Data",AnswerData);
       subQuestionId: subQuesId || null,
       keyValue: keys || quesId,
     };
+  
 
     if (ImportText === "" && isQuesId(quesId).length >= 1) {
       setValue(e.target.value);
@@ -181,6 +185,7 @@ console.log("ANS Data",AnswerData);
       AnswerData.splice(isQuesIdIndex(quesId), 1, TextAnswer);
     } else {
       setValue(e.target.value);
+      // console.log('Text answer >> ', e.target.value)
       AnswerData.push(TextAnswer);
     }
   };
