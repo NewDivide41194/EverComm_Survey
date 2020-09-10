@@ -6,17 +6,26 @@ const SurveySection = (props) => {
     const countryName = localStorage.getItem("countryName");
     const surveyHeaderName = localStorage.getItem("SurveyHeaderName");
 
-    const {handleQuestionRoute} = props
+    const {handleQuestionRoute, sectionList, filterList} = props
+    // console.log('filterList', filterList)
+    if(filterList && filterList.length>0){
+        console.log('filterList >> ', filterList[0].section_name)
+    }
+    
     return (
+        filterList && filterList.length>0 &&
         <div className="p-2">
             <div className="d-flex flex-row py-2">
                 <h4 style={{color: Colors.PrimaryColor}}>{surveyHeaderName}</h4>
             </div>
             <div className="d-flex flex-row">
-                <h5 style={{color:'#999999'}}>{countryName}</h5>
+                <h5 style={{color:'#999999'}}>{filterList[0].section_name}{" in "}{countryName}</h5>
             </div>
            <hr />
-           <SurveySectionList handleQuestionRoute={handleQuestionRoute} />
+           <SurveySectionList
+            handleQuestionRoute={handleQuestionRoute}
+            sectionList={sectionList}
+             />
         </div>
     );
 };
@@ -24,10 +33,10 @@ const SurveySection = (props) => {
 export default SurveySection;
 
 const SurveySectionList = props => {
-    const { handleQuestionRoute } = props
+    const { handleQuestionRoute, sectionList } = props
     return (
         <div className="">
-        {data.map(v => 
+        {sectionList.map(v => 
             <div className="d-flex flex-row p-3 rounded justify-content-between my-2"
                 id="surveyList"
                 style={{
@@ -35,12 +44,12 @@ const SurveySectionList = props => {
                     color:"white",
                     cursor: "pointer",
                 }}
-                onClick={handleQuestionRoute}
+                onClick={() => handleQuestionRoute(v.section_name)}
             >
                 <div style={{ fontWeight:'bold', fontSize:'18px'}}>
-                    {v.surveySection}
+                    {v.section_name}
                 </div> 
-                <span><i className="fa fa-edit">&nbsp;{v.amountOfSurvey} of{" "} {v.totalSurvey} Answered</i></span>    
+                {/* <span><i className="fa fa-edit">&nbsp;{v.amountOfSurvey} of{" "} {v.totalSurvey} Answered</i></span>     */}
             </div>
         )}
         </div>
@@ -48,9 +57,9 @@ const SurveySectionList = props => {
     )
 }
 
-const data = [
-    {surveySection: 'The current situation of e-government', amountOfSurvey:2, totalSurvey:10 },
-    {surveySection: 'Organization Background', amountOfSurvey:0 , totalSurvey:10},
-    {surveySection: 'Legal', amountOfSurvey:1, totalSurvey:10 },
-    {surveySection: 'Strategy', amountOfSurvey:0, totalSurvey:10}
-]
+// const data = [
+//     {surveySection: 'The current situation of e-government', amountOfSurvey:2, totalSurvey:10 },
+//     {surveySection: 'Organization Background', amountOfSurvey:0 , totalSurvey:10},
+//     {surveySection: 'Legal', amountOfSurvey:1, totalSurvey:10 },
+//     {surveySection: 'Strategy', amountOfSurvey:0, totalSurvey:10}
+// ]

@@ -38,6 +38,9 @@ const Question = (props) => {
   const organization = localStorage.getItem("organization");
   const countryName = localStorage.getItem("countryName");
   const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
+  const surveySection = localStorage.getItem("surveySection");
+
+  console.log('surveyData >>> ', surveyData)
 
   const deviceAmount =
     amountOfDevice && amountOfDevice.length > 0
@@ -84,10 +87,13 @@ const Question = (props) => {
             className="d-flex flex-row flex-wrap justify-content-between pt-2"
             style={{ fontSize: media.mobile ? "18px" : "20px" }}
           >
-            <div className="font-weight-bold">
+            {/* <div className="font-weight-bold">
               {surveyData[0].survey_sections[pageno].section_name +
                 " in " +
                 countryName}
+            </div> */}
+            <div className="font-weight-bold">
+              {surveySection}
             </div>
             {surveyData[0].survey_sections[pageno].survey_section_id === 10 ? (
               <div>

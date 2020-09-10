@@ -1,6 +1,7 @@
 // const serverURL='http://192.168.100.206:7878'
 // const serverURL = "http://172.105.123.57:7878";
-const serverURL = "http://localhost:7878";
+const serverURL = "http://192.168.100.133:7878";
+// const serverURL = "http://localhost:7878";
 
 const UserId = localStorage.getItem("userId");
 
@@ -35,6 +36,9 @@ export const User_Report_Answer = (surveyHeaderId) =>
 
 export const Report_Menu = (userId) =>
   ` ${serverURL}/api/v1/report/reportMenu/${userId}`;
+
+export const Survey_Section = (surveyHeaderId, countryId) => 
+  `${serverURL}/api/v1/survey/surveySectionList/${surveyHeaderId}/${countryId}`;
 
 export const Graph_Report = `${serverURL}/api/v1/report/graphReportUserLevel`;
 

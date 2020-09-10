@@ -25,7 +25,12 @@ const SurveyMenuContainer = props => {
       setMenuData(data.payload);
       setIsLoading(false);
     });
-
+    const bTypeId = localStorage.getItem("bTypeId");
+    const buildingId = localStorage.getItem("buildingId");
+    if(bTypeId || buildingId){
+      localStorage.removeItem("bTypeId")
+      localStorage.removeItem("buildingId");
+    }
   }, []);
 
   // console.log('count >>>>> ', menuData)
