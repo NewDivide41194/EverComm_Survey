@@ -94,7 +94,7 @@ const ESGroupQuestionCard = (props) => {
                           subQuesId={subQues.sub_question_id}
                           isAnswer={AnswerData}
                           isQuestion={isQuestion}
-                          keys={ques.sub_question_id}
+                          keys={ques.question_id}
                         />
                       ) : subQues.input_type_id === 1 ? (
                         <ESCheckBox
@@ -118,7 +118,7 @@ const ESGroupQuestionCard = (props) => {
                           placeHolder={"Fill Your Answer"}
                           id={subQues.sub_question_id}
                           value={AnswerData.filter(
-                            (d) => d.questionId === subQues.sub_question_id.toString()
+                            (d) => d.questionId === subQues.sub_question_id
                           ).map((v, k) => v.other)}
                           onChange={(e) => {
                             _handleInputChange(
@@ -140,7 +140,7 @@ const ESGroupQuestionCard = (props) => {
                       <ESRadio
                         value={ques.option_choices}
                         _handleRadioChange={_handleRadioChange}
-                        quesId={ques.question_id}
+                        quesId={questionId}
                         isAnswer={AnswerData}
                         isQuestion={isQuestion}
                         keys={ques.question_id}
@@ -165,12 +165,11 @@ const ESGroupQuestionCard = (props) => {
                     />
                   ) : subQuesInput(ques) === 4 ? (
                     <div>
-                    
                       <ESInput
                         placeHolder={"Fill Your Answer"}
                         id={questionId}
                         value={AnswerData.filter(
-                          (d) => d.questionId === ques.question_id
+                          (d) => d.questionId === questionId
                         ).map((v, k) => v.other)}
                         onChange={(e) => {
                           _handleInputChange(

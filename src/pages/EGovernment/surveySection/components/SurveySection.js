@@ -34,7 +34,6 @@ export default SurveySection;
 
 const SurveySectionList = props => {
     const { handleQuestionRoute, sectionList } = props
-    console.log('sectionList >> ', sectionList)
     return (
         <div className="">
         {sectionList.map(v => 

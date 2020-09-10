@@ -129,29 +129,32 @@ const QuestionContainer = (props) => {
   };
   const isQuesId = (quesId) => {
     console.log("Hi");
+    console.log("QQQQQQQQQ",quesId);
+
     return AnswerData.filter((e) => e.questionId === quesId);
   };
   const isQuesIdIndex = (quesId) => {
+    console.log("QQQQQQQQQ",quesId);
     return AnswerData.findIndex((e) => e.questionId === quesId);
   };
 
   const subIsQuesId = (quesId, subQuesId) => {
-    console.log("Hello");
     return AnswerData.filter(
-      (e) => e.questionId === quesId && e.subQuestionId === subQuesId
+      (e) => parseInt(e.questionId) === quesId && e.subQuestionId === subQuesId
     );
   };
   const subIsQuesIdIndex = (quesId, subQuesId) => {
     return AnswerData.findIndex(
-      (e) => e.questionId === quesId && e.subQuestionId === subQuesId
+      (e) => parseInt(e.questionId) === quesId && e.subQuestionId === subQuesId
     );
   };
 
   const handleRadioChange = (ansId, quesId, subQuesId, keys) => {
+    console.log(ansId, quesId, subQuesId, keys);
     const RadioAns = {
       ...Ans,
       optionChoiceId: ansId,
-      questionId: quesId,
+      questionId: quesId.toString(),
       subQuestionId: subQuesId || null,
       keyValue: keys || quesId,
     };
@@ -161,7 +164,7 @@ const QuestionContainer = (props) => {
       } else {
         AnswerData.push(RadioAns);
       }
-    } else if (subQuesId === undefined) {
+    } else {
       if (isQuesId(quesId).length >= 1) {
         AnswerData.splice(isQuesIdIndex(quesId), 1, RadioAns);
       } else {
@@ -172,27 +175,40 @@ const QuestionContainer = (props) => {
   };
 
   const handleInputChange = (e, quesId, subQuesId, keys, optionId) => {
-    console.log("///////", quesId, subQuesId);
+    console.log("///////", isQuesId(quesId));
     const ImportText = e.target.value.replace(/\s+/g, " ").trimStart();
     const TextAnswer = {
       ...Ans,
       other: ImportText,
       optionChoiceId: optionId || null,
-      questionId: quesId,
+      questionId: quesId.toString(),
       subQuestionId: subQuesId,
       keyValue: keys,
     };
-
-    if (ImportText === "" && isQuesId(quesId, subQuesId).length >= 1) {
-      setValue(e.target.value);
-      AnswerData.splice(isQuesIdIndex(quesId, subQuesId), 1);
-    } else if (isQuesId(quesId, subQuesId).length >= 1) {
-      setValue(e.target.value);
-      AnswerData.splice(isQuesIdIndex(quesId, subQuesId), 1, TextAnswer);
-    } else {
-      setValue(e.target.value);
-      AnswerData.push(TextAnswer);
-    }
+if (subQuesId!==null) {
+  if (ImportText === "" && isQuesId(quesId).length >= 1) {
+    setValue(e.target.value);
+    AnswerData.splice(isQuesIdIndex(quesId), 1);
+  } else if (isQuesId(quesId).length >= 1) {
+    setValue(e.target.value);
+    AnswerData.splice(isQuesIdIndex(quesId), 1, TextAnswer);
+  } else {
+    setValue(e.target.value);
+    AnswerData.push(TextAnswer);
+  }
+}else{
+  if (ImportText === "" && subIsQuesId(quesId, subQuesId).length >= 1) {
+    setValue(e.target.value);
+    AnswerData.splice(subIsQuesIdIndex(quesId, subQuesId), 1);
+  } else if (subIsQuesId(quesId, subQuesId).length >= 1) {
+    setValue(e.target.value);
+    AnswerData.splice(subIsQuesIdIndex(quesId, subQuesId), 1, TextAnswer);
+  } else {
+    setValue(e.target.value);
+    AnswerData.push(TextAnswer);
+  }
+}
+    
   };
 
   const handleCheckChange = (quesId, answerId, keys) => {

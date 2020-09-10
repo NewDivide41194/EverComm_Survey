@@ -231,7 +231,9 @@ const QuestionCard = (props) => {
                             placeHolder={"Fill Your Answer"}
                             id={remakeQuestionId}
                             value={AnswerData.filter(
-                              (d) => d.questionId === remakeQuestionId
+                              (d) => {
+                                return d.questionId === remakeQuestionId;
+                              }
                             ).map((v, k) => v.other)}
                             onChange={(e) => {
                               _handleInputChange(

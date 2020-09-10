@@ -42,13 +42,13 @@ export const ESRadio = (props) => {
       <ThemeProvider theme={customTheme}>
         <Radio
           className="p-0 pr-1"
-          name={`${ID}`}
+          name={`${quesId}`}
           checked={
             checked ||
             isAnswer.filter(
               (d) =>
                 d.optionChoiceId === ans.option_choice_id &&
-                d.questionId === quesId
+                (d.questionId === quesId ||d.subQuestionId===subQuesId)
             ).length > 0
           }
           onChange={() =>
