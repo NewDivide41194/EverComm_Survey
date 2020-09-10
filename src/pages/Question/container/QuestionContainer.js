@@ -33,14 +33,14 @@ const QuestionContainer = (props) => {
   const Ans = {
     other: "",
     optionChoiceId: null,
-    userId: userId,
+    userId: parseInt(userId),
     questionId: null,
-    survey_headers_id: surveyHeaderId,
+    survey_headers_id: parseInt(surveyHeaderId),
     building_id: buildingId,
     keyValue: null,
     subQuestionId: null,
-    surveySectionId: surveySectionId,
-    countryId: countryId,
+    surveySectionId: parseInt(surveySectionId),
+    countryId: parseInt(countryId),
   };
   const amountOfDevice = surveyData.length && surveyData[0].amountOfDevice;
   const deviceAmounts =
@@ -60,11 +60,12 @@ const QuestionContainer = (props) => {
     (questionslength.length == 6
       ? questionslength[questionslength.length - 1] * deviceAmounts[0]
       : 0) + totalQuesCount1;
-console.log("Question Data",surveyData);
+  console.log("Question Data", surveyData);
 
   useEffect(() => {
     setIsLoading(true);
-    const typeId = surveyHeaderId === 10 ? countryId : buildingId;
+    const typeId = 33;
+    // surveyHeaderId === 10 ? countryId : buildingId;
     QuestionFetch(
       { userId, surveyHeaderId, typeId, bTypeId, surveySectionId, token },
       (err, data) => {
@@ -147,29 +148,31 @@ console.log("Question Data",surveyData);
   };
 
   const handleRadioChange = (ansId, quesId, subQuesId, keys) => {
-    console.log(ansId, quesId, subQuesId, keys);
     const RadioAns = {
       ...Ans,
       optionChoiceId: ansId,
       questionId: quesId,
-      subQuestionId: subQuesId,
+      subQuestionId: subQuesId || null,
       keyValue: keys || quesId,
     };
-if(subQuesId!==undefined)
-   { if (subIsQuesId(quesId, subQuesId).length >= 1) {
-      AnswerData.splice(subIsQuesIdIndex(quesId, subQuesId), 1, RadioAns);
-    } else {
-      AnswerData.push(RadioAns);
-    }}else if(subQuesId===undefined){ if (isQuesId(quesId).length >= 1) {
-      AnswerData.splice(isQuesIdIndex(quesId), 1, RadioAns);
-    } else {
-      AnswerData.push(RadioAns);
-    }}
+    if (subQuesId !== undefined) {
+      if (subIsQuesId(quesId, subQuesId).length >= 1) {
+        AnswerData.splice(subIsQuesIdIndex(quesId, subQuesId), 1, RadioAns);
+      } else {
+        AnswerData.push(RadioAns);
+      }
+    } else if (subQuesId === undefined) {
+      if (isQuesId(quesId).length >= 1) {
+        AnswerData.splice(isQuesIdIndex(quesId), 1, RadioAns);
+      } else {
+        AnswerData.push(RadioAns);
+      }
+    }
     setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
   };
 
   const handleInputChange = (e, quesId, subQuesId, keys, optionId) => {
-    console.log("///////", isQuesId(quesId, subQuesId));
+    console.log("///////", quesId, subQuesId);
     const ImportText = e.target.value.replace(/\s+/g, " ").trimStart();
     const TextAnswer = {
       ...Ans,

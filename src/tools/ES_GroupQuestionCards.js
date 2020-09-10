@@ -48,6 +48,7 @@ const ESGroupQuestionCard = (props) => {
 
       {QuestionData &&
         QuestionData.map((ques, k2) => {
+          const questionId = ques.question_id.toString();
           return (
             <div
               className="d-flex flex-row flex-fill flex-wrap w-100 p-3 mb-3 rounded bg-light border" ////////Group question card
@@ -164,9 +165,10 @@ const ESGroupQuestionCard = (props) => {
                     />
                   ) : subQuesInput(ques) === 4 ? (
                     <div>
+                    
                       <ESInput
                         placeHolder={"Fill Your Answer"}
-                        id={ques.question_id}
+                        id={questionId}
                         value={AnswerData.filter(
                           (d) => d.questionId === ques.question_id
                         ).map((v, k) => v.other)}

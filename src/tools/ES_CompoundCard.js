@@ -39,7 +39,7 @@ const QuestionCard = (props) => {
     return <QuestionCard1 {...props} />;
   } else if (
     QuestionData.map((ques, k2) => ques.group_question === 1) &&
-    sessionId === 10
+    sessionId > 9
   ) {
     return <ESGroupQuestionCard {...props} />;
   }

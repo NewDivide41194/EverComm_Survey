@@ -21,10 +21,11 @@ const SurveySectionContainer = (props) => {
     })
   },[]);
 
-  const handleQuestionRoute = (section) => {
+  const handleQuestionRoute = (section, id) => {
+    console.log("=======>",id);
     props.history.push(`question/${userId}/${surveyHeaderId}`);
     localStorage.setItem("surveySection", section);
-    localStorage.setItem("surveySectionId", 10);
+    localStorage.setItem("surveySectionId", id)
   };
  
   const pathData = [
