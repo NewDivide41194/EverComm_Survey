@@ -34,6 +34,7 @@ export default SurveySection;
 
 const SurveySectionList = props => {
     const { handleQuestionRoute, sectionList } = props
+    console.log('sectionList >> ', sectionList)
     return (
         <div className="">
         {sectionList.map(v => 
@@ -44,7 +45,7 @@ const SurveySectionList = props => {
                     color:"white",
                     cursor: "pointer",
                 }}
-                onClick={() => handleQuestionRoute(v.section_name)}
+                onClick={() => handleQuestionRoute(v.section_name, v.survey_section_id)}
             >
                 <div style={{ fontWeight:'bold', fontSize:'18px'}}>
                     {v.section_name}
