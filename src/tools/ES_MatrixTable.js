@@ -18,7 +18,6 @@ const ESMatrix = (props) => {
     rowsPerPage,
     actions
   } = props;
-console.log("=====>",tableAlertInfo);
   const theme = createMuiTheme({
     palette: {
       primary: {
@@ -32,9 +31,9 @@ console.log("=====>",tableAlertInfo);
       <table className="table table-bordered table-striped">
         <thead>
           <tr className="text-center" >
-            <th style={{padding:15}} rowspan="2">Fields of e-Government</th>
+            <th style={{padding:15}} rowSpan="2">Fields of e-Government</th>
             
-            <th style={{padding:5}} colspan="4">Importance</th>
+            <th style={{padding:5}} colSpan="4">Importance</th>
           </tr>
           <tr className="text-center">
             <th style={{padding:5}}>Low</th>
