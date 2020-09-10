@@ -21,16 +21,16 @@ const QuestionContainer = (props) => {
   const [IsLoading, setIsLoading] = useState(false);
   const [total, setTotal] = useState(null);
 
-  const userId =localStorage.getItem("userId");
+  const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
-  const surveySectionId = 1;
+  const surveySectionId = localStorage.getItem("surveySectionId");
   const bTypeId = localStorage.getItem("bTypeId");
   const buildingId = localStorage.getItem("buildingId");
   const buildingName = localStorage.getItem("buildingName");
   const buildingType = localStorage.getItem("buildingType");
   const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
   const countryId = localStorage.getItem("countryId");
-   const Ans = {
+  const Ans = {
     other: "",
     optionChoiceId: null,
     userId: userId,
@@ -38,9 +38,9 @@ const QuestionContainer = (props) => {
     survey_headers_id: surveyHeaderId,
     building_id: buildingId,
     keyValue: null,
-    countryId: null,
-    subQuestionId: countryId,
-    surveySectionId:4
+    subQuestionId: null,
+    surveySectionId: surveySectionId,
+    countryId: countryId,
   };
   const amountOfDevice = surveyData.length && surveyData[0].amountOfDevice;
   const deviceAmounts =
@@ -125,27 +125,64 @@ const QuestionContainer = (props) => {
       ],
     });
   };
-  const isQuesId = (quesId) => {
-    return AnswerData.filter((e) => e.questionId === quesId);
+  const isQuesId = (quesId, subQuesId) => {
+    console.log(quesId,subQuesId);
+   if(subQuesId!==undefined){ return AnswerData.filter(
+      (e) => e.questionId === quesId && e.subQuestionId === subQuesId
+    );}else{
+      return AnswerData.filter(
+        (e) => e.questionId === quesId)
+    }
   };
-  const isQuesIdIndex = (quesId) => {
-    return AnswerData.findIndex((e) => e.questionId === quesId);
+  const isQuesIdIndex = (quesId, subQuesId) => {
+    if(subQuesId!==undefined){ return AnswerData.findIndex(
+      (e) => e.questionId === quesId && e.subQuestionId === subQuesId
+    );}else{
+      return AnswerData.filter(
+        (e) => e.questionId === quesId)
+    }
   };
-
-  const handleRadioChange = (ansId, quesId, keys) => {
+  const handleRadioChange = (ansId, quesId, subQuesId, keys) => {
     const RadioAns = {
       ...Ans,
       optionChoiceId: ansId,
       questionId: quesId,
-      keyValue: keys,
+      subQuestionId: subQuesId,
+      keyValue: keys || quesId,
     };
 
-    if (isQuesId(quesId).length >= 1) {
-      AnswerData.splice(isQuesIdIndex(quesId), 1, RadioAns);
+    if (isQuesId(quesId, subQuesId).length >= 1) {
+      AnswerData.splice(isQuesIdIndex(quesId, subQuesId), 1, RadioAns);
     } else {
       AnswerData.push(RadioAns);
     }
     setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
+  };
+console.log("ANS Data",AnswerData);
+  const handleInputChange = (e, quesId, subQuesId, keys, optionId) => {
+    console.log("isQuesId",isQuesId(quesId));
+    console.log("isIndex",isQuesIdIndex(quesId));
+
+    const ImportText = e.target.value.replace(/\s+/g, " ").trimStart();
+    const TextAnswer = {
+      ...Ans,
+      other: ImportText,
+      optionChoiceId: optionId || null,
+      questionId: quesId,
+      subQuestionId: subQuesId || null,
+      keyValue: keys || quesId,
+    };
+
+    if (ImportText === "" && isQuesId(quesId).length >= 1) {
+      setValue(e.target.value);
+      AnswerData.splice(isQuesIdIndex(quesId), 1);
+    } else if (isQuesId(quesId).length >= 1) {
+      setValue(e.target.value);
+      AnswerData.splice(isQuesIdIndex(quesId), 1, TextAnswer);
+    } else {
+      setValue(e.target.value);
+      AnswerData.push(TextAnswer);
+    }
   };
 
   const handleCheckChange = (quesId, answerId, keys) => {
@@ -171,27 +208,6 @@ const QuestionContainer = (props) => {
     setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
   };
 
-  const handleInputChange = (e, quesId, keys, optionId) => {
-    const ImportText = e.target.value.replace(/\s+/g, " ").trimStart();
-    const TextAnswer = {
-      ...Ans,
-      other: ImportText,
-      optionChoiceId: optionId || null,
-      questionId: quesId,
-      keyValue: keys,
-    };
-
-    if (ImportText === "" && isQuesId(quesId).length >= 1) {
-      setValue(e.target.value);
-      AnswerData.splice(isQuesIdIndex(quesId), 1);
-    } else if (isQuesId(quesId).length >= 1) {
-      setValue(e.target.value);
-      AnswerData.splice(isQuesIdIndex(quesId), 1, TextAnswer);
-    } else {
-      setValue(e.target.value);
-      AnswerData.push(TextAnswer);
-    }
-  };
   const handleSelect = (quesId, e, keys) => {
     setSelectedOption(e);
     if (e !== null && typeof e.label == "string") {
@@ -305,7 +321,6 @@ const QuestionContainer = (props) => {
         a.questionId === remakeQuesId
     );
   };
-  console.log("#####", AnswerData);
 
   if (IsLoading) {
     return <ESLoading />;

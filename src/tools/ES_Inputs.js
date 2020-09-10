@@ -18,7 +18,6 @@ export const ESInput = (props) => {
     pattern,
     myRef,
   } = props;
-
   const defaultStyle = {
     width: width === undefined ? "100%" : width,
     padding: 18,

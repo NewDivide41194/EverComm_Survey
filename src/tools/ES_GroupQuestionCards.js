@@ -30,7 +30,6 @@ const ESGroupQuestionCard = (props) => {
     otherAns,
     otherOfQuestion,
   } = props;
-  console.log("Hello I'm Group Question");
 
   const ageOfBuildingOption = new Array(99)
     .fill(null)
@@ -45,7 +44,7 @@ const ESGroupQuestionCard = (props) => {
 
   return (
     <div>
-      <ESMatrix tableData={priorityFields} />
+      {/* <ESMatrix tableData={priorityFields} /> */}
 
       {QuestionData &&
         QuestionData.map((ques, k2) => {
@@ -77,8 +76,11 @@ const ESGroupQuestionCard = (props) => {
                 </div>
               </div>
               {ques.sub_questions ? (
-                ques.sub_questions.map((subQues) => (
-                  <div className="d-flex flex-row pb-2 w-100 justify-content-between">
+                ques.sub_questions.map((subQues, k3) => (
+                  <div
+                    className="d-flex flex-row pb-2 w-100 justify-content-between"
+                    key={k3}
+                  >
                     <div className="w-25 align-self-center">
                       {subQues.sub_question_name}
                     </div>
@@ -87,10 +89,11 @@ const ESGroupQuestionCard = (props) => {
                         <ESRadio
                           value={subQues.option_choices}
                           _handleRadioChange={_handleRadioChange}
-                          quesId={subQues.sub_question_id}
+                          quesId={ques.question_id}
+                          subQuesId={subQues.sub_question_id}
                           isAnswer={AnswerData}
                           isQuestion={isQuestion}
-                          keys={subQues.sub_question_id}
+                          keys={ques.sub_question_id}
                         />
                       ) : subQues.input_type_id === 1 ? (
                         <ESCheckBox
@@ -111,7 +114,6 @@ const ESGroupQuestionCard = (props) => {
                         />
                       ) : subQues.input_type_id === 4 ? (
                         <ESInput
-                          maxLength={30}
                           placeHolder={"Fill Your Answer"}
                           id={subQues.sub_question_id}
                           value={AnswerData.filter(
@@ -120,8 +122,9 @@ const ESGroupQuestionCard = (props) => {
                           onChange={(e) => {
                             _handleInputChange(
                               e,
+                              ques.question_id,
                               subQues.sub_question_id,
-                              subQues.sub_question_id
+                              ques.question_id
                             );
                           }}
                         />
@@ -136,7 +139,7 @@ const ESGroupQuestionCard = (props) => {
                       <ESRadio
                         value={ques.option_choices}
                         _handleRadioChange={_handleRadioChange}
-                        quesId={ques.question_Id}
+                        quesId={ques.question_id}
                         isAnswer={AnswerData}
                         isQuestion={isQuestion}
                         keys={ques.question_id}
@@ -144,7 +147,7 @@ const ESGroupQuestionCard = (props) => {
                     </div>
                   ) : subQuesInput(ques) === 1 ? (
                     <ESCheckBox
-                      quesId={ques.questionId}
+                      quesId={ques.question_id}
                       value={ques.option_choices}
                       _handleChange={_handleCheckChange}
                       isAnswer={AnswerData}
@@ -162,7 +165,6 @@ const ESGroupQuestionCard = (props) => {
                   ) : subQuesInput(ques) === 4 ? (
                     <div>
                       <ESInput
-                        maxLength={30}
                         placeHolder={"Fill Your Answer"}
                         id={ques.question_id}
                         value={AnswerData.filter(
@@ -172,6 +174,7 @@ const ESGroupQuestionCard = (props) => {
                           _handleInputChange(
                             e,
                             ques.question_id,
+                            null,
                             ques.question_id
                           );
                         }}

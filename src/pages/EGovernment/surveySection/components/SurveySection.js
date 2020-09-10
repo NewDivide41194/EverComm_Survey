@@ -16,7 +16,7 @@ const SurveySection = (props) => {
                 <h5 style={{color:'#999999'}}>{countryName}</h5>
             </div>
            <hr />
-           <SurveySectionList handleQuestionRoute={handleQuestionRoute} />
+           <SurveySectionList handleQuestionRoute={e=>handleQuestionRoute(10)} />
         </div>
     );
 };

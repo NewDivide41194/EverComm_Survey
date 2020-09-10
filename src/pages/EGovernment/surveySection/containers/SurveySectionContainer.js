@@ -6,7 +6,8 @@ const SurveySectionContainer = (props) => {
   const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
   const surveyHeaderName = localStorage.getItem("SurveyHeaderName");
 
-  const handleQuestionRoute = () => {
+  const handleQuestionRoute = (e) => {
+    localStorage.setItem("surveySectionId",e)
     props.history.push(`question/${userId}/${surveyHeaderId}`);
   };
  
