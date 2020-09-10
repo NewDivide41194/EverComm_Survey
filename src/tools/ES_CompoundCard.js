@@ -121,6 +121,7 @@ const QuestionCard = (props) => {
                               _handleRadioChange={_handleRadioChange}
                               quesId={remakeQuestionId}
                               isAnswer={AnswerData}
+                              subQuesId={undefined}
                               isQuestion={isQuestion}
                               keys={ques.question_id}
                             />
@@ -236,6 +237,7 @@ const QuestionCard = (props) => {
                               _handleInputChange(
                                 e,
                                 remakeQuestionId,
+                                null,
                                 ques.question_id
                               );
                             }}

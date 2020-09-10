@@ -156,6 +156,7 @@ const QuestionCard1 = (props) => {
                         _handleInputChange(
                           e,
                           questionId,
+                          null,
                           ques.question_id,
                           otherOfQuestion(k2)
                         );

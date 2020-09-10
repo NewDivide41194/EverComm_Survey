@@ -48,7 +48,7 @@ export const ESRadio = (props) => {
             isAnswer.filter(
               (d) =>
                 d.optionChoiceId === ans.option_choice_id &&
-                (d.questionId === quesId||d.subQuestionId===subQuesId)
+                d.questionId === quesId
             ).length > 0
           }
           onChange={() =>

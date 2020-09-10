@@ -117,7 +117,7 @@ const ESGroupQuestionCard = (props) => {
                           placeHolder={"Fill Your Answer"}
                           id={subQues.sub_question_id}
                           value={AnswerData.filter(
-                            (d) => d.questionId === subQues.sub_question_id
+                            (d) => d.questionId === subQues.sub_question_id.toString()
                           ).map((v, k) => v.other)}
                           onChange={(e) => {
                             _handleInputChange(
