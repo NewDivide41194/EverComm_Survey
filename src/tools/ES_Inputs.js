@@ -60,7 +60,7 @@ export const ESInput = (props) => {
       pattern={pattern?pattern:null}
       placeholder={placeHolder}
       className={`form-control form-rounded ${className}`}
-      // onFocus={__handleFocus}
+      onFocus={__handleFocus}
       onBlur={__handleBlur}
       type={type === undefined ? "text" : `${type}`}
       value={value}
