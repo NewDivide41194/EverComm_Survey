@@ -98,7 +98,7 @@ const ESGroupQuestionCard = (props) => {
                         />
                       ) : subQues.input_type_id === 1 ? (
                         <ESCheckBox
-                          quesId={subQues.sub_question_id}
+                          quesId={questionId}
                           value={subQues.option_choices}
                           _handleChange={_handleCheckChange}
                           isAnswer={AnswerData}

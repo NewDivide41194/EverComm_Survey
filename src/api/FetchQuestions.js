@@ -1,7 +1,7 @@
 import * as API from "./url";
 
 export const QuestionFetch = (
-  { userId, surveyHeaderId, typeId, bTypeId, surveySectionId, token },
+  { userId, surveyHeaderId, typeId, bTypeId, surveySectionId,countryId, token },
   callback
 ) => {
   console.log(userId, surveyHeaderId, typeId, bTypeId);
@@ -12,6 +12,7 @@ export const QuestionFetch = (
       typeId,
       bTypeId,
       surveySectionId,
+      countryId,
       token
     ),
     {

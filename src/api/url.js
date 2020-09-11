@@ -22,8 +22,8 @@ export const Country_Insert = `${serverURL}/api/v1/country/addCountry`;
 export const Get_Country = (surveyHeaderId) => 
  `${serverURL}/api/v1/country/getCountry/${surveyHeaderId}`;
 
-export const QuestionAPI = (userId, surveyHeaderId, buildingId, bTypeId, surveySectionId) =>
-  `${serverURL}/api/v1/survey/questions/${userId}/${surveyHeaderId}/${buildingId}/${bTypeId}/${surveySectionId}`;
+export const QuestionAPI = (userId, surveyHeaderId, buildingId, bTypeId, surveySectionId,countryId) =>
+  `${serverURL}/api/v1/survey/questions/${userId}/${surveyHeaderId}/${buildingId}/${bTypeId}/${surveySectionId}/${countryId}`;
 
 export const Survey_List = (userId, surveyHeaderId) =>
   `${serverURL}/api/v1/survey/surveyList/${userId}/${surveyHeaderId}`;

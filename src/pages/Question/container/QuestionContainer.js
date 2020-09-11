@@ -60,14 +60,14 @@ const QuestionContainer = (props) => {
     (questionslength.length == 6
       ? questionslength[questionslength.length - 1] * deviceAmounts[0]
       : 0) + totalQuesCount1;
-  console.log("Question Data", surveyData);
+  // console.log("Question Data", surveyData);
 
   useEffect(() => {
     setIsLoading(true);
     const typeId = 33;
     // surveyHeaderId === 10 ? countryId : buildingId;
     QuestionFetch(
-      { userId, surveyHeaderId, typeId, bTypeId, surveySectionId, token },
+      { userId, surveyHeaderId, typeId, bTypeId, surveySectionId, countryId,token },
       (err, data) => {
         setSurveyData(data.payload);
         setAnswerData(data.payload[0].answers);
@@ -128,12 +128,12 @@ const QuestionContainer = (props) => {
     });
   };
   const isQuesId = (quesId) => {
-    console.log("QQQQQQQQQ", quesId);
+    // console.log("QQQQQQQQQ", quesId);
 
     return AnswerData.filter((e) => e.questionId === quesId);
   };
   const isQuesIdIndex = (quesId) => {
-    console.log("IIIIIIII", quesId);
+    // console.log("IIIIIIII", quesId);
     return AnswerData.findIndex((e) => e.questionId === quesId);
   };
 
@@ -149,7 +149,7 @@ const QuestionContainer = (props) => {
   };
 
   const handleRadioChange = (ansId, quesId, subQuesId, keys) => {
-    console.log(ansId, quesId, subQuesId, keys);
+    // console.log(ansId, quesId, subQuesId, keys);
     const RadioAns = {
       ...Ans,
       optionChoiceId: ansId,
@@ -224,13 +224,16 @@ const QuestionContainer = (props) => {
       questionId: quesId,
       keyValue: keys,
     };
+    console.log('CheckAns >>> ', CheckAns)
     if (isQuesId.length >= 1) {
       AnswerData.splice(isQuesIdIndex, 1);
     } else {
       AnswerData.push(CheckAns);
     }
+  
     setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
   };
+  // console.log('AnswerData >> ', AnswerData)
 
   const handleSelect = (quesId, e, keys) => {
     setSelectedOption(e);
@@ -345,7 +348,7 @@ const QuestionContainer = (props) => {
         a.questionId === remakeQuesId
     );
   };
-  console.log("#####", AnswerData);
+  // console.log("#####", AnswerData);
 
   if (IsLoading) {
     return <ESLoading />;
