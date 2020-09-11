@@ -44,7 +44,7 @@ const ESGroupQuestionCard = (props) => {
 
   return (
     <div>
-      {/* <ESMatrix tableData={priorityFields} /> */}
+      <ESMatrix tableData={priorityFields} />
 
       {QuestionData &&
         QuestionData.map((ques, k2) => {
@@ -90,7 +90,7 @@ const ESGroupQuestionCard = (props) => {
                         <ESRadio
                           value={subQues.option_choices}
                           _handleRadioChange={_handleRadioChange}
-                          quesId={ques.question_id}
+                          quesId={questionId}
                           subQuesId={subQues.sub_question_id}
                           isAnswer={AnswerData}
                           isQuestion={isQuestion}
@@ -98,7 +98,7 @@ const ESGroupQuestionCard = (props) => {
                         />
                       ) : subQues.input_type_id === 1 ? (
                         <ESCheckBox
-                          quesId={subQues.sub_question_id}
+                          quesId={questionId}
                           value={subQues.option_choices}
                           _handleChange={_handleCheckChange}
                           isAnswer={AnswerData}

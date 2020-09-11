@@ -44,7 +44,7 @@ const SurveySectionList = props => {
                     color:"white",
                     cursor: "pointer",
                 }}
-                onClick={() => handleQuestionRoute(v.section_name, v.survey_section_id)}
+                onClick={() => handleQuestionRoute(v.section_name, v.survey_sections_id)}
             >
                 <div style={{ fontWeight:'bold', fontSize:'18px'}}>
                     {v.section_name}

@@ -138,11 +138,13 @@ const QuestionContainer = (props) => {
   };
 
   const subIsQuesId = (quesId, subQuesId) => {
+    console.log(quesId,subQuesId);
     return AnswerData.filter(
       (e) => e.questionId === quesId && e.subQuestionId === subQuesId
     );
   };
   const subIsQuesIdIndex = (quesId, subQuesId) => {
+    console.log("------->",subQuesId);
     return AnswerData.findIndex(
       (e) => e.questionId === quesId && e.subQuestionId === subQuesId
     );
@@ -174,7 +176,7 @@ const QuestionContainer = (props) => {
   };
 
   const handleInputChange = (e, quesId, subQuesId, keys, optionId) => {
-    // console.log("///////", e, quesId, subQuesId, keys, optionId);
+    console.log("///////", e, quesId, subQuesId, keys, optionId);
     const ImportText = e.target.value.replace(/\s+/g, " ").trimStart();
     const TextAnswer = {
       ...Ans,
