@@ -128,24 +128,23 @@ const QuestionContainer = (props) => {
     });
   };
   const isQuesId = (quesId) => {
-    console.log("Hi");
-    console.log("QQQQQQQQQ",quesId);
+    console.log("QQQQQQQQQ", quesId);
 
     return AnswerData.filter((e) => e.questionId === quesId);
   };
   const isQuesIdIndex = (quesId) => {
-    console.log("QQQQQQQQQ",quesId);
+    console.log("IIIIIIII", quesId);
     return AnswerData.findIndex((e) => e.questionId === quesId);
   };
 
   const subIsQuesId = (quesId, subQuesId) => {
     return AnswerData.filter(
-      (e) => parseInt(e.questionId) === quesId && e.subQuestionId === subQuesId
+      (e) => e.questionId === quesId && e.subQuestionId === subQuesId
     );
   };
   const subIsQuesIdIndex = (quesId, subQuesId) => {
     return AnswerData.findIndex(
-      (e) => parseInt(e.questionId) === quesId && e.subQuestionId === subQuesId
+      (e) => e.questionId === quesId && e.subQuestionId === subQuesId
     );
   };
 
@@ -175,7 +174,7 @@ const QuestionContainer = (props) => {
   };
 
   const handleInputChange = (e, quesId, subQuesId, keys, optionId) => {
-    console.log("///////", isQuesId(quesId));
+    // console.log("///////", e, quesId, subQuesId, keys, optionId);
     const ImportText = e.target.value.replace(/\s+/g, " ").trimStart();
     const TextAnswer = {
       ...Ans,
@@ -185,30 +184,29 @@ const QuestionContainer = (props) => {
       subQuestionId: subQuesId,
       keyValue: keys,
     };
-if (subQuesId!==null) {
-  if (ImportText === "" && isQuesId(quesId).length >= 1) {
-    setValue(e.target.value);
-    AnswerData.splice(isQuesIdIndex(quesId), 1);
-  } else if (isQuesId(quesId).length >= 1) {
-    setValue(e.target.value);
-    AnswerData.splice(isQuesIdIndex(quesId), 1, TextAnswer);
-  } else {
-    setValue(e.target.value);
-    AnswerData.push(TextAnswer);
-  }
-}else{
-  if (ImportText === "" && subIsQuesId(quesId, subQuesId).length >= 1) {
-    setValue(e.target.value);
-    AnswerData.splice(subIsQuesIdIndex(quesId, subQuesId), 1);
-  } else if (subIsQuesId(quesId, subQuesId).length >= 1) {
-    setValue(e.target.value);
-    AnswerData.splice(subIsQuesIdIndex(quesId, subQuesId), 1, TextAnswer);
-  } else {
-    setValue(e.target.value);
-    AnswerData.push(TextAnswer);
-  }
-}
-    
+    if (subQuesId === null) {
+      if (ImportText === "" && isQuesId(quesId).length >= 1) {
+        setValue(e.target.value);
+        AnswerData.splice(isQuesIdIndex(quesId), 1);
+      } else if (isQuesId(quesId).length >= 1) {
+        setValue(e.target.value);
+        AnswerData.splice(isQuesIdIndex(quesId), 1, TextAnswer);
+      } else {
+        setValue(e.target.value);
+        AnswerData.push(TextAnswer);
+      }
+    } else {
+      if (ImportText === "" && subIsQuesId(quesId, subQuesId).length >= 1) {
+        setValue(e.target.value);
+        AnswerData.splice(subIsQuesIdIndex(quesId, subQuesId), 1);
+      } else if (subIsQuesId(quesId, subQuesId).length >= 1) {
+        setValue(e.target.value);
+        AnswerData.splice(subIsQuesIdIndex(quesId, subQuesId), 1, TextAnswer);
+      } else {
+        setValue(e.target.value);
+        AnswerData.push(TextAnswer);
+      }
+    }
   };
 
   const handleCheckChange = (quesId, answerId, keys) => {

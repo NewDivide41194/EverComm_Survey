@@ -68,8 +68,8 @@ const ESGroupQuestionCard = (props) => {
                     {k2 + 1}. {ques.question_name}
                   </div>
                   {AnswerData.map((v, k) => v.questionId).filter(
-                    (v) => v === ques.question_id
-                  )[0] === ques.question_id ? (
+                    (v) => v === questionId
+                  )[0] === questionId ? (
                     <QuestionCardInfo info={"Answered"} media={media} />
                   ) : (
                     <QuestionCardInfo info={"Pending"} media={media} />
@@ -118,14 +118,14 @@ const ESGroupQuestionCard = (props) => {
                           placeHolder={"Fill Your Answer"}
                           id={subQues.sub_question_id}
                           value={AnswerData.filter(
-                            (d) => d.questionId === subQues.sub_question_id
+                            (d) => d.subQuestionId === subQues.sub_question_id
                           ).map((v, k) => v.other)}
                           onChange={(e) => {
                             _handleInputChange(
                               e,
-                              ques.question_id,
+                              questionId,
                               subQues.sub_question_id,
-                              ques.question_id
+                              questionId
                             );
                           }}
                         />
@@ -174,9 +174,9 @@ const ESGroupQuestionCard = (props) => {
                         onChange={(e) => {
                           _handleInputChange(
                             e,
-                            ques.question_id,
+                            questionId,
                             null,
-                            ques.question_id
+                            questionId
                           );
                         }}
                       />
