@@ -6,7 +6,7 @@ import { ESDropDown } from '../../../../tools/ES_DropDown';
 import '../../../../App.css'
 
 const CountryMenu = props => {
-    const { CountryOptions, handleCountrySelect, country, handleSubmit, organization, surveyListCount,
+    const { CountryOptions, handleCountrySelect, country, handleSubmit, organization, sectionCount,
         close, surveyHeaderId, surveyHeaderName, handleOrganization, countryList, handleSelectCountry }=props;
     //console.log('id >>', countryList)
 
@@ -27,7 +27,7 @@ const CountryMenu = props => {
                 </div>
             </div>
             <hr/>
-            <div className="pb-2"><h5 style={{color: Colors.Gray}}>{surveyListCount} {surveyListCount<=1?"Survey List":"Survey Lists"}</h5></div>
+            <div className="pb-2"><h5 style={{color: Colors.Gray}}>({sectionCount}) {sectionCount<=1?"Survey":"Surveys"}</h5></div>
             <CountryList data={countryList} handleSelectCountry={handleSelectCountry}/>
             <div className="modal fade" id="countryModal" role="dialog" aria-hidden="true" aria-labelledby="countryLabel">
                 <div className="modal-dialog modal-dialog-centered" role="document">

@@ -9,9 +9,9 @@ import { ESNavigator } from "../../../../tools/ES_Text.js";
 const CountryContainer = (props) => {
   const [countryList, setCountryList] = useState([]);
   const [country, setCountry] = useState("");
-  const [surveyListCount, setSurveyCount] = useState(0);
   const [organization, setOrganization] = useState("");
   const [close, setClose] = useState(false);
+  const [sectionCount, setSectionCount] = useState(0);
   const alert = useAlert();
 
   const CountryOptions = Countries.countries.map((v, k) => ({
@@ -20,23 +20,31 @@ const CountryContainer = (props) => {
   }));
 
   const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
-  const userId =localStorage.getItem("userId");
+  const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
   const surveyHeaderName = localStorage.getItem("SurveyHeaderName");
 
   useEffect(() => {
-    GetCountry({ userId ,surveyHeaderId, token} , (err, data) => {
-      setCountryList(data.payload);      
+    GetCountry({ userId, surveyHeaderId, token }, (err, data) => {
+      setCountryList(data.payload[0]);
+      setSectionCount(data.payload[1][0].surveyList);
     });
-    setSurveyCount(data.length)
   }, [surveyHeaderId]);
 
   const data = [
-    {surveySection: 'The current situation of e-government', amountOfSurvey:2, totalSurvey:10 },
-    {surveySection: 'Organization Background', amountOfSurvey:0 , totalSurvey:10},
-    {surveySection: 'Legal', amountOfSurvey:1, totalSurvey:10 },
-    {surveySection: 'Strategy', amountOfSurvey:0, totalSurvey:10}
-  ]
+    {
+      surveySection: "The current situation of e-government",
+      amountOfSurvey: 2,
+      totalSurvey: 10,
+    },
+    {
+      surveySection: "Organization Background",
+      amountOfSurvey: 0,
+      totalSurvey: 10,
+    },
+    { surveySection: "Legal", amountOfSurvey: 1, totalSurvey: 10 },
+    { surveySection: "Strategy", amountOfSurvey: 0, totalSurvey: 10 },
+  ];
 
   const _handleCountrySelect = (id, e) => {
     e !== null && setCountry(e.label);
@@ -69,14 +77,14 @@ const CountryContainer = (props) => {
   };
 
   const handleSelectCountry = (country, id, organization) => {
-    console.log('click country >> ', country, id)
+    console.log("click country >> ", country, id);
     props.history.push("/surveySection");
     localStorage.setItem("countryName", country);
     localStorage.setItem("countryId", id);
     localStorage.setItem("bTypeId", 1);
     localStorage.setItem("organization", organization);
   };
-
+console.log(sectionCount);
   const pathData = [
     {
       title: "Survey Menu",
@@ -94,7 +102,7 @@ const CountryContainer = (props) => {
       <ESNavigator pathData={pathData} />
       {countryList.length > 0 && countryList ? (
         <CountryMenu
-          surveyListCount={surveyListCount}
+          sectionCount={sectionCount}
           countryList={countryList}
           CountryOptions={CountryOptions}
           country={country}

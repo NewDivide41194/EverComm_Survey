@@ -16,6 +16,7 @@ const SurveySectionContainer = (props) => {
     SurveySectionFetch(surveyHeaderId, countryId, token, (err, data) => {
       const list = data.payload;
       const filterList = list.splice(0,1);
+      console.log('list >> ', list)
       setFilterList(filterList);
       setSectionList(list);
     })

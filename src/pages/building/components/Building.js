@@ -31,7 +31,6 @@ const Building = (props) => {
     handleBMSCheck,
     BMS
   } = props;
-  console.log(BMS);
   const errClassName = "text-danger d-flex flex-row justify-content-end pb-1";
   return (
     <div className="row justify-content-center py-4">

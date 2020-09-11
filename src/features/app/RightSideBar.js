@@ -21,7 +21,6 @@ const RightSideBar = (props) => {
   const reportMenuPath = `/reportMenu/${userId}`;
   const URL = window.location.pathname;
 
-  // console.log("URL", URL);
   const userLevelName =
   userLevel === 1 ? "ADMIN" : userLevel === 2 ? "USER" : "DISTRIBUTOR";
 
@@ -79,7 +78,6 @@ const RightSideBar = (props) => {
 
   const CloseMenu = () => {
     setMenuOpen(!MenuOpen);
-    console.log(MenuOpen);
   };
 
   const _handleSignOut = () => {

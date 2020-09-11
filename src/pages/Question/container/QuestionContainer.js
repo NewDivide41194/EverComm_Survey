@@ -60,14 +60,14 @@ const QuestionContainer = (props) => {
     (questionslength.length == 6
       ? questionslength[questionslength.length - 1] * deviceAmounts[0]
       : 0) + totalQuesCount1;
-  console.log("Question Data", surveyData);
+  // console.log("Question Data", surveyData);
 
   useEffect(() => {
     setIsLoading(true);
     const typeId = 33;
     // surveyHeaderId === 10 ? countryId : buildingId;
     QuestionFetch(
-      { userId, surveyHeaderId, typeId, bTypeId, surveySectionId, token },
+      { userId, surveyHeaderId, typeId, bTypeId, surveySectionId, countryId,token },
       (err, data) => {
         setSurveyData(data.payload);
         setAnswerData(data.payload[0].answers);
@@ -128,30 +128,24 @@ const QuestionContainer = (props) => {
     });
   };
   const isQuesId = (quesId) => {
-    console.log("QQQQQQQQQ", quesId);
-
     return AnswerData.filter((e) => e.questionId === quesId);
   };
   const isQuesIdIndex = (quesId) => {
-    console.log("IIIIIIII", quesId);
     return AnswerData.findIndex((e) => e.questionId === quesId);
   };
 
   const subIsQuesId = (quesId, subQuesId) => {
-    console.log(quesId,subQuesId);
     return AnswerData.filter(
       (e) => e.questionId === quesId && e.subQuestionId === subQuesId
     );
   };
   const subIsQuesIdIndex = (quesId, subQuesId) => {
-    console.log("------->",subQuesId);
     return AnswerData.findIndex(
       (e) => e.questionId === quesId && e.subQuestionId === subQuesId
     );
   };
 
   const handleRadioChange = (ansId, quesId, subQuesId, keys) => {
-    console.log(ansId, quesId, subQuesId, keys);
     const RadioAns = {
       ...Ans,
       optionChoiceId: ansId,
@@ -176,7 +170,6 @@ const QuestionContainer = (props) => {
   };
 
   const handleInputChange = (e, quesId, subQuesId, keys, optionId) => {
-    console.log("///////", e, quesId, subQuesId, keys, optionId);
     const ImportText = e.target.value.replace(/\s+/g, " ").trimStart();
     const TextAnswer = {
       ...Ans,
@@ -213,7 +206,6 @@ const QuestionContainer = (props) => {
 
   const handleCheckChange = (quesId, answerId, keys) => {
     const isQuesId =
-      // AnswerData.length &&
       AnswerData.filter(
         (e) => e.questionId === quesId && e.optionChoiceId === answerId
       );
@@ -231,6 +223,7 @@ const QuestionContainer = (props) => {
     } else {
       AnswerData.push(CheckAns);
     }
+  
     setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
   };
 
@@ -320,7 +313,6 @@ const QuestionContainer = (props) => {
   };
 
   const otherOfQuestion = (index) => {
-    // console.log('Index >>', index)
     const isOther =
       QuestionData &&
       QuestionData.map((v, k) =>
@@ -347,7 +339,6 @@ const QuestionContainer = (props) => {
         a.questionId === remakeQuesId
     );
   };
-  console.log("#####", AnswerData);
 
   if (IsLoading) {
     return <ESLoading />;

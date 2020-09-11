@@ -4,7 +4,6 @@ export const AddNewSurvey = (
   { surveyHeader, remark, active, surveySections,token },
   callback
 ) => {
-    console.log( surveyHeader, remark, active, surveySections,token);
   fetch(API.InsertSurvey, {
     method: "POST",
     headers: {

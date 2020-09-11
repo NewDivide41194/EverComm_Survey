@@ -50,7 +50,6 @@ export const BuildingFetch = (
 
 
 export const GetBuildingType = ({userId,surveyHeaderId,buildingId,token}, callback) => {
-  console.log(token);
   fetch(API.Building_Type,
   {headers: {
     "Content-Type": "application/json",

@@ -10,6 +10,7 @@ import ESDatePicker from "./ES_DatePicker";
 import Questioncard1 from "./ES_Card";
 import ES_InputTypes from "./ES_InputTypes";
 import ESMatrix from "./ES_MatrixTable";
+import { ESTextArea } from "./ES_TextArea";
 
 const ESGroupQuestionCard = (props) => {
   const {
@@ -31,12 +32,7 @@ const ESGroupQuestionCard = (props) => {
     otherOfQuestion,
   } = props;
 
-  const ageOfBuildingOption = new Array(99)
-    .fill(null)
-    .map((v, k) => ({ label: k + 1, value: k + 1 }));
-
-  const pageDeviceIndex = 1;
-
+const quesNo=()=>{}
   const subQuesInput = (ques) =>
     ques.sub_questions
       ? ques.sub_questions.map((v) => v.input_type_id)
@@ -44,7 +40,7 @@ const ESGroupQuestionCard = (props) => {
 
   return (
     <div>
-      <ESMatrix tableData={priorityFields} />
+      {/* <ESMatrix tableData={priorityFields} /> */}
 
       {QuestionData &&
         QuestionData.map((ques, k2) => {
@@ -65,7 +61,7 @@ const ESGroupQuestionCard = (props) => {
               >
                 <div className="d-flex flex-row pb-3 w-100 justify-content-between">
                   <div>
-                    {k2 + 1}. {ques.question_name}
+                    {ques.key}. {ques.question_name}
                   </div>
                   {AnswerData.map((v, k) => v.questionId).filter(
                     (v) => v === questionId
@@ -165,7 +161,7 @@ const ESGroupQuestionCard = (props) => {
                     />
                   ) : subQuesInput(ques) === 4 ? (
                     <div>
-                      <ESInput
+                      <ESTextArea
                         placeHolder={"Fill Your Answer"}
                         id={questionId}
                         value={AnswerData.filter(
