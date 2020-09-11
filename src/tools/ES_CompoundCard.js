@@ -12,6 +12,7 @@ import moment from "moment";
 import QuestionCard1 from "./ES_Card";
 import ESTimeRange from "./ES_TimeRange";
 import ESGroupQuestionCard from "./ES_GroupQuestionCards";
+import "../App.css"
 
 const QuestionCard = (props) => {
   const {

@@ -8,9 +8,9 @@ const SurveySection = props => {
 
   const { handleQuestionRoute, sectionList, filterList } = props;
   // console.log('filterList', filterList)
-  if (filterList && filterList.length > 0) {
-    console.log("filterList >> ", filterList[0].section_name);
-  }
+  // if (filterList && filterList.length > 0) {
+  //   console.log("filterList >> ", filterList[0].section_name);
+  // }
 
   return (
     filterList &&

@@ -94,6 +94,7 @@ const QuestionContainer = (props) => {
   };
 
   const _handleSubmit = () => {
+    const surveyTotal = surveyData.length && surveyData[0].survey_header_id === 1 ? total :  surveyData.length && surveyData[0].survey_sections[0].questions.length
     confirmAlert({
       title: "Confirm to submit",
       message: `${
@@ -101,7 +102,7 @@ const QuestionContainer = (props) => {
           ? "One question Remains to Answer!"
           : fullQuestion
           ? "All questions are Answered!"
-          : `${total - obtained} questions are Remain to Answer!`
+          : `${surveyTotal - obtained} questions are Remain to Answer!`
       } `,
       buttons: [
         {
@@ -349,6 +350,7 @@ const QuestionContainer = (props) => {
     );
   };
   // console.log("#####", AnswerData);
+
 
   if (IsLoading) {
     return <ESLoading />;

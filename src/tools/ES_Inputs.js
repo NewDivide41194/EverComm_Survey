@@ -1,5 +1,6 @@
 import React,{useState} from "react";
 import * as Color from "../config/Color.config";
+import '../App.css'
 
 export const ESInput = (props) => {
   const {
@@ -18,6 +19,7 @@ export const ESInput = (props) => {
     pattern,
     myRef,
   } = props;
+  console.log("className >> ", className)
   const defaultStyle = {
     width: width === undefined ? "100%" : width,
     padding: 18,
@@ -58,7 +60,7 @@ export const ESInput = (props) => {
       pattern={pattern?pattern:null}
       placeholder={placeHolder}
       className={`form-control form-rounded ${className}`}
-      onFocus={__handleFocus}
+      // onFocus={__handleFocus}
       onBlur={__handleBlur}
       type={type === undefined ? "text" : `${type}`}
       value={value}

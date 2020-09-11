@@ -49,7 +49,6 @@ const Question = (props) => {
 
   
   const surveyTotal = surveyData.length && surveyData[0].survey_header_id === 1 ? total :  surveyData.length && surveyData[0].survey_sections[0].questions.length
-  console.log('survey data >> ', surveyData)
 
   return (
     surveyData.length && (

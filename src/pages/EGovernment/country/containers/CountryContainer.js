@@ -26,7 +26,7 @@ const CountryContainer = (props) => {
 
   useEffect(() => {
     GetCountry({ userId ,surveyHeaderId, token} , (err, data) => {
-      setCountryList(data.payload);      
+      setCountryList(data.payload[0]);      
     });
     setSurveyCount(data.length)
   }, [surveyHeaderId]);
