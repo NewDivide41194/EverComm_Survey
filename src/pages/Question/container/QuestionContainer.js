@@ -129,12 +129,9 @@ const QuestionContainer = (props) => {
     });
   };
   const isQuesId = (quesId) => {
-    // console.log("QQQQQQQQQ", quesId);
-
     return AnswerData.filter((e) => e.questionId === quesId);
   };
   const isQuesIdIndex = (quesId) => {
-    // console.log("IIIIIIII", quesId);
     return AnswerData.findIndex((e) => e.questionId === quesId);
   };
 
@@ -150,7 +147,6 @@ const QuestionContainer = (props) => {
   };
 
   const handleRadioChange = (ansId, quesId, subQuesId, keys) => {
-    // console.log(ansId, quesId, subQuesId, keys);
     const RadioAns = {
       ...Ans,
       optionChoiceId: ansId,
@@ -175,7 +171,6 @@ const QuestionContainer = (props) => {
   };
 
   const handleInputChange = (e, quesId, subQuesId, keys, optionId) => {
-    // console.log("///////", e, quesId, subQuesId, keys, optionId);
     const ImportText = e.target.value.replace(/\s+/g, " ").trimStart();
     const TextAnswer = {
       ...Ans,
@@ -212,7 +207,6 @@ const QuestionContainer = (props) => {
 
   const handleCheckChange = (quesId, answerId, keys) => {
     const isQuesId =
-      // AnswerData.length &&
       AnswerData.filter(
         (e) => e.questionId === quesId && e.optionChoiceId === answerId
       );
@@ -225,7 +219,6 @@ const QuestionContainer = (props) => {
       questionId: quesId,
       keyValue: keys,
     };
-    console.log('CheckAns >>> ', CheckAns)
     if (isQuesId.length >= 1) {
       AnswerData.splice(isQuesIdIndex, 1);
     } else {
@@ -234,7 +227,6 @@ const QuestionContainer = (props) => {
   
     setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
   };
-  // console.log('AnswerData >> ', AnswerData)
 
   const handleSelect = (quesId, e, keys) => {
     setSelectedOption(e);
@@ -322,7 +314,6 @@ const QuestionContainer = (props) => {
   };
 
   const otherOfQuestion = (index) => {
-    // console.log('Index >>', index)
     const isOther =
       QuestionData &&
       QuestionData.map((v, k) =>
@@ -349,7 +340,6 @@ const QuestionContainer = (props) => {
         a.questionId === remakeQuesId
     );
   };
-  // console.log("#####", AnswerData);
 
 
   if (IsLoading) {

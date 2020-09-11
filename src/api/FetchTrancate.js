@@ -1,7 +1,6 @@
 import * as API from "./url";
 
 export const TrancateAns = ({ userId,survey_header_id }, callback) => {
-  console.log(userId,survey_header_id);
   
   fetch(API.Trancate_Answers + userId+`/${survey_header_id}`, {
     method: "DELETE",

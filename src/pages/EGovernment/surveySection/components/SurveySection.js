@@ -56,7 +56,7 @@ const SurveySectionList = props => {
           }
         >
           <div style={{ fontSize: "18px" }}>{v.section_name}</div>
-          <strong className="text-light" style={{opacity:"0.7"}}>
+          <strong className="text-light" style={{opacity:"0.8"}}>
             ({v.question_count})
             {v.question_count > 1 ? " Questions" : " Question"}
           </strong>

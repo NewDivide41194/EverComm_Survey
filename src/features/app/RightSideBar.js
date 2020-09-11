@@ -9,7 +9,7 @@ import auth from "../../security/auth";
 const RightSideBar = (props) => {
   
   const email = localStorage.getItem("email");
-  const userLevel = localStorage.getItem("userLevel");
+  const userLevel = parseInt(localStorage.getItem("userLevel"));
   const userId =localStorage.getItem("userId");
   const accountSettingPath = `/user/editAccount/${userId}`;
   const changePasswordPath = `/user/account/changePassword/${userId}`;
@@ -21,7 +21,6 @@ const RightSideBar = (props) => {
   const reportMenuPath = `/reportMenu/${userId}`;
   const URL = window.location.pathname;
 
-  // console.log("URL", URL);
   const userLevelName =
   userLevel === 1 ? "ADMIN" : userLevel === 2 ? "USER" : "DISTRIBUTOR";
 
@@ -79,7 +78,6 @@ const RightSideBar = (props) => {
 
   const CloseMenu = () => {
     setMenuOpen(!MenuOpen);
-    console.log(MenuOpen);
   };
 
   const _handleSignOut = () => {

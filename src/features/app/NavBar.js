@@ -88,11 +88,11 @@ const NavBar = (props) => {
             <div className="dropdown-divider"></div>
             <div className="dropdown-item text-light bg-dark">
               {/* <i className="text-light far fa-user-circle pr-2 text-secondary" /> */}
-              {userLevel === 1
+              {userLevel === "1"
               ? "Admin"
-              : userLevel === 2
+              : userLevel === "2"
                 ? "User"
-                : userLevel === 3
+                : userLevel === "3"
                   ? "Distributor"
                   : null}            </div>
             <button className="dropdown-item" onClick={_handleSignOut}>

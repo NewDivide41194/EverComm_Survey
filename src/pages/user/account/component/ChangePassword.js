@@ -38,8 +38,6 @@ export const ChangePassword = (props) => {
     // setErr({});
     const id = e.target.id;
     const value = e.target.value;
-    console.log(id);
-
     if (id === "currentPassword") {
       setPasswordData({ ...passwordData, currentPassword: value });
     } else if (id === "newPassword") {
