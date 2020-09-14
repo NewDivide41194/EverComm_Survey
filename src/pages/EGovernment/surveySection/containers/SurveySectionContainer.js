@@ -44,7 +44,7 @@ const SurveySectionContainer = (props) => {
   ];
   return (
     <div className="container">
-      <ESNavigator pathData={pathData} />
+      <div className="p-2"><ESNavigator pathData={pathData} /></div>
       <SurveySection
        handleQuestionRoute={handleQuestionRoute}
        sectionList={sectionList}
