@@ -77,7 +77,7 @@ const CountryContainer = (props) => {
   };
 
   const handleSelectCountry = (country, id, organization) => {
-    console.log("click country >> ", country, id);
+    // console.log("click country >> ", country, id);
     props.history.push("/surveySection");
     localStorage.setItem("countryName", country);
     localStorage.setItem("countryId", id);
@@ -99,7 +99,7 @@ console.log(sectionCount);
   ];
   return (
     <div className="container p-3">
-      <ESNavigator pathData={pathData} />
+      <div className="p-2"><ESNavigator pathData={pathData} /></div>
       {countryList.length > 0 && countryList ? (
         <CountryMenu
           sectionCount={sectionCount}

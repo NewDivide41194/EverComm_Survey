@@ -5,6 +5,7 @@ import { UpdatePassword } from "../../../../api/FetchUser";
 import * as Colors from "../../../../config/Color.config";
 import { useAlert } from "react-alert";
 import { _handleSignOut } from "../../../../helper/functions";
+import { LoginAPI } from "../../../../api/url";
 
 export const ChangePassword = (props) => {
   const [passwordData, setPasswordData] = useState({
@@ -12,22 +13,23 @@ export const ChangePassword = (props) => {
     newPassword: "",
     confirmPassword: "",
   });
-  const [isDisabled, setisDisabled] = useState(false);
+  const [isDisabled, setisDisabled] = useState(true);
   const [visible, setVisible] = useState(false);
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
   const alert = useAlert();
   useEffect(() => {
     document.getElementById("currentPassword").focus();
-    if (
-      passwordData.currentPassword === "" ||
-      passwordData.newPassword === "" ||
-      passwordData.confirmPassword === ""
-    ) {
-      setisDisabled(true);
-    } else {
-      setisDisabled(false);
-    }
+    // if (
+    //   passwordData.currentPassword == "" 
+    //   // ||
+    //   // passwordData.newPassword === "" ||
+    //   // passwordData.confirmPassword === ""
+    // ) {
+    //   setisDisabled(true);
+    // } else {
+    //   setisDisabled(false);
+    // }
   },[]);
   const err = {};
 
@@ -43,6 +45,7 @@ export const ChangePassword = (props) => {
     } else if (id === "newPassword") {
       setPasswordData({ ...passwordData, newPassword: value });
     } else {
+      setisDisabled(false)
       setPasswordData({ ...passwordData, confirmPassword: value });
     }
   };
@@ -178,7 +181,7 @@ const Password = (props) => {
       <ESInput
         // disabled={isDisabled}
         id={id}
-        type={"password"}
+        type={"text"}
         placeHolder={placeHolder}
         value={value}
         onChange={(e) => handlePwdChange(e)}
