@@ -4,7 +4,6 @@ import { ESButton } from "../../../tools/ES_Button";
 import { withMedia } from "react-media-query-hoc";
 import ESProgress from "../../../tools/ES_Progress";
 import * as Color from "../../../config/Color.config";
-
 const Question = (props) => {
   const {
     buildingName,
@@ -36,10 +35,21 @@ const Question = (props) => {
     weekAns,
     weekQuestion,
   } = props;
+  const organization = localStorage.getItem("organization");
+  const countryName = localStorage.getItem("countryName");
+  const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
+  const surveySection = localStorage.getItem("surveySection");
+
+  // console.log('surveyData >>> ', surveyData)
 
   const deviceAmount =
-    amountOfDevice&&amountOfDevice.length>0 ? Object.values(amountOfDevice[0])[pageno - 1]:null;
-    const countryName=localStorage.getItem("countryName")
+    amountOfDevice && amountOfDevice.length > 0
+      ? Object.values(amountOfDevice[0])[pageno - 1]
+      : null;
+
+  
+  const surveyTotal = surveyData.length && surveyData[0].survey_header_id === 1 ? total :  surveyData.length && surveyData[0].survey_sections[0].questions.length
+
   return (
     surveyData.length && (
       <div style={{ marginBottom: 32 }}>
@@ -58,7 +68,7 @@ const Question = (props) => {
                 background: "rgba(0,0,0,0.7)",
                 zIndex: "1",
               }}
-            >{`${obtained || 0} of ${total} Answered`}</div>
+            >{`${obtained || 0} of ${surveyTotal} Answered`}</div>
           </div>
           <div
             style={{
@@ -69,30 +79,44 @@ const Question = (props) => {
             className="d-flex flex-row flex-wrap justify-content-between pt-2"
           >
             <div>{surveyData[0].survey_name}</div>
-            <div>
-              {buildingName}{" "}
-              <span style={{ fontSize: "15px" }}>{buildingType}</span>
-            </div>
+            {surveyHeaderId != 10 && (
+              <div>
+                {buildingName}{" "}
+                <span style={{ fontSize: "15px" }}>{buildingType}</span>
+              </div>
+            )}
           </div>
 
           <div
             className="d-flex flex-row flex-wrap justify-content-between pt-2"
             style={{ fontSize: media.mobile ? "18px" : "20px" }}
           >
+            {/* <div className="font-weight-bold">
+              {surveyData[0].survey_sections[pageno].section_name +
+                " in " +
+                countryName}
+            </div> */}
             <div className="font-weight-bold">
-              {surveyData[0].survey_sections[pageno].section_name+" in "+countryName}
+              {surveySection}
             </div>
-            {surveyData[0].survey_sections[pageno].survey_section_id===10?<div>{"Organization: "+countryName}</div>:
-            <div>
-              {deviceAmount} {Object.keys(amountOfDevice[0])[pageno - 1]}
-              {deviceAmount > 1 ? "s" : null}
-            </div>}
+            {surveyData[0].survey_sections[pageno].survey_section_id === 10 ? (
+              <div>
+                <span style={{ fontWeight: "bold" }}>Organization: </span>
+                <span>{organization}</span>
+              </div>
+            ) : (
+              <div>
+                {deviceAmount} {Object.keys(amountOfDevice[0])[pageno - 1]}
+                {deviceAmount > 1 ? "s" : null}
+              </div>
+            )}
           </div>
+
           <QuestionCard
             // QuestionData={QuestionData}
             // pageno={pageno}
             {...props}
-            amountOfDevice={amountOfDevice}           
+            amountOfDevice={amountOfDevice}
             sessionId={surveyData[0].survey_sections[pageno].survey_section_id}
             // groupQuestion={surveyData[0].survey_sections[pageno].}
             // otherAns={otherAns}
@@ -100,7 +124,6 @@ const Question = (props) => {
             // weekAns={weekAns}
             // weekQuestion={weekQuestion}
           />
-
           <div className="row justify-content-between">
             <div
               className="col-lg-6 align-self-center font-weight-bold"

@@ -1,8 +1,7 @@
 import React,{useState} from "react";
 import * as Color from "../config/Color.config";
-import '../App.css'
 
-export const ESInput = (props) => {
+export const ESTextArea = (props) => {
   const {
     style,
     className,
@@ -19,7 +18,6 @@ export const ESInput = (props) => {
     pattern,
     myRef,
   } = props;
-  console.log("className >> ", className)
   const defaultStyle = {
     width: width === undefined ? "100%" : width,
     padding: 18,
@@ -45,7 +43,7 @@ export const ESInput = (props) => {
   };
 
   return (
-    <input
+    <textarea
       ref={myRef}
       autoComplete="off"
       spellCheck="false"

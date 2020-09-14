@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { ESButton } from "../../../tools/ES_Button";
 import { withRouter } from "react-router-dom";
 import PostedIcon from "../../../assets/images/HMT.gif";
-
 const FinalPage = (props) => {
-  const userId=localStorage.getItem("userId")
-  const surveyHeaderId = localStorage.getItem("surveyHeaderId")
-  const buildingId = localStorage.getItem("buildingId")
+  const userId =localStorage.getItem("userId");
+  const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
+  const buildingId = localStorage.getItem("buildingId");
+
   const _handleMenu = () => {
     props.history.push(`/surveyMenu/${userId}`);
   };

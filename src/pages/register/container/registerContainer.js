@@ -5,7 +5,6 @@ import { useAlert } from "react-alert";
 import { RegisterFormValidation } from "../../../helper/formValidation";
 
 const RegisterContainer = (props) => {
-  const token = localStorage.getItem("token");
   const [visible, setVisible] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -16,6 +15,8 @@ const RegisterContainer = (props) => {
   const [err, setErr] = useState({});
   const [isDisabled, setIsDisabled] = useState(false);
   const alert = useAlert();
+  const token = localStorage.getItem("token");
+
   const errStyle = {
     fontSize: 12,
     marginTop: "-25px",

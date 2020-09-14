@@ -5,14 +5,12 @@ import { withRouter } from "react-router-dom";
 import { EverCommLink } from "../../tools/ES_Text";
 import auth from "../../security/auth";
 
-const userId = localStorage.getItem("userId");
-
-const userLevel = parseInt(localStorage.getItem("userLevel"));
-const userLevelName =
-  userLevel === 1 ? "ADMIN" : userLevel === 2 ? "USER" : "DISTRIBUTOR";
-const eMail = localStorage.getItem("email");
 
 const RightSideBar = (props) => {
+  
+  const email = localStorage.getItem("email");
+  const userLevel = parseInt(localStorage.getItem("userLevel"));
+  const userId =localStorage.getItem("userId");
   const accountSettingPath = `/user/editAccount/${userId}`;
   const changePasswordPath = `/user/account/changePassword/${userId}`;
   const createSurveyPath = `/admin/dashboard/createNewSurvey`;
@@ -23,7 +21,8 @@ const RightSideBar = (props) => {
   const reportMenuPath = `/reportMenu/${userId}`;
   const URL = window.location.pathname;
 
-  // console.log("URL", URL);
+  const userLevelName =
+  userLevel === 1 ? "ADMIN" : userLevel === 2 ? "USER" : "DISTRIBUTOR";
 
   const styles = {
     bmBurgerButton: {
@@ -79,7 +78,6 @@ const RightSideBar = (props) => {
 
   const CloseMenu = () => {
     setMenuOpen(!MenuOpen);
-    console.log(MenuOpen);
   };
 
   const _handleSignOut = () => {
@@ -105,7 +103,7 @@ const RightSideBar = (props) => {
         <div className="d-flex flex-column w-100 text-center h-100">
           <i className="fa fa-user-circle fa-4x w-100 pb-2" />
           <div className="pb-4">
-            {eMail}
+            {email}
             <hr className="bg-light my-2" /> {userLevelName}
           </div>
 

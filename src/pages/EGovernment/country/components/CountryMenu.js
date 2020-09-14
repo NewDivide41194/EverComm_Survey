@@ -6,7 +6,7 @@ import { ESDropDown } from '../../../../tools/ES_DropDown';
 import '../../../../App.css'
 
 const CountryMenu = props => {
-    const { CountryOptions, handleCountrySelect, country, handleSubmit, organization,
+    const { CountryOptions, handleCountrySelect, country, handleSubmit, organization, sectionCount,
         close, surveyHeaderId, surveyHeaderName, handleOrganization, countryList, handleSelectCountry }=props;
     //console.log('id >>', countryList)
 
@@ -27,6 +27,7 @@ const CountryMenu = props => {
                 </div>
             </div>
             <hr/>
+            <div className="pb-2"><h5 style={{color: Colors.Gray}}>({sectionCount}) {sectionCount<=1?"Survey":"Surveys"}</h5></div>
             <CountryList data={countryList} handleSelectCountry={handleSelectCountry}/>
             <div className="modal fade" id="countryModal" role="dialog" aria-hidden="true" aria-labelledby="countryLabel">
                 <div className="modal-dialog modal-dialog-centered" role="document">
@@ -92,7 +93,7 @@ const CountryList = (props) => {
         <div className="row">
             { data.map((v,k)=> 
              <div className="col-lg-6 col-md-6 p-2" key={k}>
-                <div className="rounded shadow p-4" id="countryCard" onClick={() => handleSelectCountry(v.country, v.country_id)}>
+                <div className="rounded shadow p-4" id="countryCard" style={{cursor:'pointer'}} onClick={() => handleSelectCountry(v.country, v.country_id, v.organization)}>
                     <div className="pb-2" style={{color: Colors.PrimaryColor, fontWeight:'bold'}}>{v.country}</div>
                     <div style={{fontSize:11, fontStyle:'italic'}}>{v.organization}</div>
                 </div>

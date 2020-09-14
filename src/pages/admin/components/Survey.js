@@ -20,7 +20,6 @@ const Survey = (props) => {
     disabled,
     surveySections
   } = props;
-  const userId = localStorage.getItem("userId");
 
   return page === 0 ? (
     <AddNewSurvey

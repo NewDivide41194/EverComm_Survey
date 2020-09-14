@@ -43,7 +43,6 @@ export const UpdatePassword = (
   {userId ,password, newPassword, token },
   callback
 ) => {
-  console.log(userId);
   fetch(API.PasswordUpdate(userId), {
     method: "PUT",
     headers: {
@@ -121,7 +120,6 @@ export const UpdateUserAccount = (
   callback,
   { token } = {}
 ) => {
-  console.log("surveyHeaderId >> ", surveyHeaderId);
   const userName = firstName.trim() + " " + lastName.trim();
   fetch(API.Update_User + "/" + id, {
     method: "PUT",

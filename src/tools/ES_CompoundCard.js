@@ -12,6 +12,7 @@ import moment from "moment";
 import QuestionCard1 from "./ES_Card";
 import ESTimeRange from "./ES_TimeRange";
 import ESGroupQuestionCard from "./ES_GroupQuestionCards";
+import "../App.css"
 
 const QuestionCard = (props) => {
   const {
@@ -37,7 +38,10 @@ const QuestionCard = (props) => {
 
   if (sessionId === 1) {
     return <QuestionCard1 {...props} />;
-  } else if (QuestionData.map((ques, k2) => ques.group_question === 1)&&sessionId===10) {
+  } else if (
+    QuestionData.map((ques, k2) => ques.group_question === 1) &&
+    sessionId > 9
+  ) {
     return <ESGroupQuestionCard {...props} />;
   }
 
@@ -118,6 +122,7 @@ const QuestionCard = (props) => {
                               _handleRadioChange={_handleRadioChange}
                               quesId={remakeQuestionId}
                               isAnswer={AnswerData}
+                              subQuesId={undefined}
                               isQuestion={isQuestion}
                               keys={ques.question_id}
                             />
@@ -227,12 +232,15 @@ const QuestionCard = (props) => {
                             placeHolder={"Fill Your Answer"}
                             id={remakeQuestionId}
                             value={AnswerData.filter(
-                              (d) => d.questionId === remakeQuestionId
+                              (d) => {
+                                return d.questionId === remakeQuestionId;
+                              }
                             ).map((v, k) => v.other)}
                             onChange={(e) => {
                               _handleInputChange(
                                 e,
                                 remakeQuestionId,
+                                null,
                                 ques.question_id
                               );
                             }}

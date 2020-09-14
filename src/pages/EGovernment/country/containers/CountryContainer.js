@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { render } from "react-dom";
 import CountryMenu from "../../../EGovernment/country/components/CountryMenu";
-// import SurveySectionContainer from "../surveySection/containers/SurveySectionContainer.js";
 import Countries from "../../../../assets/Countries.json";
 import { AddCountryFetch, GetCountry } from "../../../../api/FetchCountry";
 import { useAlert } from "react-alert";
@@ -13,10 +11,7 @@ const CountryContainer = (props) => {
   const [country, setCountry] = useState("");
   const [organization, setOrganization] = useState("");
   const [close, setClose] = useState(false);
-  const token = localStorage.getItem("token");
-  const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
-  const surveyHeaderName = localStorage.getItem("SurveyHeaderName");
-  const userId = localStorage.getItem("userId");
+  const [sectionCount, setSectionCount] = useState(0);
   const alert = useAlert();
 
   const CountryOptions = Countries.countries.map((v, k) => ({
@@ -24,13 +19,32 @@ const CountryContainer = (props) => {
     label: v.name,
   }));
 
-  useEffect(() => {
-    GetCountry({ surveyHeaderId, userId, token }, (err, data) => {
-      setCountryList(data.payload);      
-    });
-  }, []);
+  const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
+  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
+  const surveyHeaderName = localStorage.getItem("SurveyHeaderName");
 
-  console.log('country list >> ', countryList)
+  useEffect(() => {
+    GetCountry({ userId, surveyHeaderId, token }, (err, data) => {
+      setCountryList(data.payload[0]);
+      setSectionCount(data.payload[1][0].surveyList);
+    });
+  }, [surveyHeaderId]);
+
+  const data = [
+    {
+      surveySection: "The current situation of e-government",
+      amountOfSurvey: 2,
+      totalSurvey: 10,
+    },
+    {
+      surveySection: "Organization Background",
+      amountOfSurvey: 0,
+      totalSurvey: 10,
+    },
+    { surveySection: "Legal", amountOfSurvey: 1, totalSurvey: 10 },
+    { surveySection: "Strategy", amountOfSurvey: 0, totalSurvey: 10 },
+  ];
 
   const _handleCountrySelect = (id, e) => {
     e !== null && setCountry(e.label);
@@ -62,14 +76,15 @@ const CountryContainer = (props) => {
     }
   };
 
-  const handleSelectCountry = (country, id) => {
-    console.log('click country >> ', country, id)
+  const handleSelectCountry = (country, id, organization) => {
+    console.log("click country >> ", country, id);
     props.history.push("/surveySection");
     localStorage.setItem("countryName", country);
-    localStorage.setItem("buildingId", id);
+    localStorage.setItem("countryId", id);
     localStorage.setItem("bTypeId", 1);
+    localStorage.setItem("organization", organization);
   };
-
+console.log(sectionCount);
   const pathData = [
     {
       title: "Survey Menu",
@@ -87,6 +102,7 @@ const CountryContainer = (props) => {
       <ESNavigator pathData={pathData} />
       {countryList.length > 0 && countryList ? (
         <CountryMenu
+          sectionCount={sectionCount}
           countryList={countryList}
           CountryOptions={CountryOptions}
           country={country}

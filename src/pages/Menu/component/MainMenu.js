@@ -3,8 +3,9 @@ import { withRouter } from "react-router-dom";
 import * as Colors from "../../../config/Color.config";
 
 const MainMenu = (props) => {
-  const userId = localStorage.getItem("userId");
+  const userId =localStorage.getItem("userId");
   const userLevel = localStorage.getItem("userLevel");
+
   const _handleReportClick = () => {
     props.history.push(`/reportMenu/${userId}`);
   };

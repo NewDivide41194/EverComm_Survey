@@ -156,6 +156,7 @@ const QuestionCard1 = (props) => {
                         _handleInputChange(
                           e,
                           questionId,
+                          null,
                           ques.question_id,
                           otherOfQuestion(k2)
                         );
@@ -194,7 +195,6 @@ const QuestionCard1 = (props) => {
               keys={ques.question_id}
             />
           ) : null}
-          {/* <ES_InputTypes {...props}/> */}
         </div>
       );
     })

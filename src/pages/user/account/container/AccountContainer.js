@@ -36,6 +36,7 @@ const AccountContainer = (props) => {
   const [editData, setEditData] = useState([]);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [close, setClose] = useState(false);
+  const [IsLoading, setIsLoading] = useState(false);
   const errStyle = {
     marginTop: "-25px",
     fontSize: 12,
@@ -51,16 +52,19 @@ const AccountContainer = (props) => {
   const NameRef = useRef(null);
 
   useEffect(() => {
+    setIsLoading(true);
     if (window.location.pathname === `/user/accountManagement/${userId}`) {
       GetUser({ id: userId, token }, (err, data) => {
         setUserData(data.payload[0]);
         setSurveyList(data.payload[1]);
+        setIsLoading(false);
       });
     }
 
     if (window.location.pathname === `/user/editAccount/${userId}`) {
       GetOneUser({ id: userId, token }, (err, data) => {
         GetOneUserInfo(data.payload[0]);
+        setIsLoading(false);
       });
     }
   }, []);
@@ -345,6 +349,7 @@ const AccountContainer = (props) => {
       handleView={_handleview}
       visible={visible}
       rowsPerPage={rowsPerPage}
+      IsLoading={IsLoading}
     />
   );
 };

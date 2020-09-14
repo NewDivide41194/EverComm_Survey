@@ -12,8 +12,8 @@ const BuildingContainer = (props) => {
   const [country, setCountry] = useState("");
   const [buildingTypeData, setBuildingTypeData] = useState([]);
   const [buildingType, setBuildingType] = useState("");
-  const [buildingTypeId,setBuildingTypeId]=useState(null)
-  const [BMS,setBMS]=useState(false)
+  const [buildingTypeId, setBuildingTypeId] = useState(null);
+  const [BMS, setBMS] = useState(false);
   const [buildingName, setBuildingName] = useState("");
   const [postal, setPostal] = useState("");
   const [address, setAddress] = useState("");
@@ -25,8 +25,9 @@ const BuildingContainer = (props) => {
   const alert = useAlert();
   const token = localStorage.getItem("token");
   const buildingId = localStorage.getItem("buildingId");
-  const userId = localStorage.getItem("userId");
+  const userId =localStorage.getItem("userId");
   const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
+
   const [deviceData, setDeviceData] = useState({
     chiller: 3,
     condenser: 3,
@@ -42,12 +43,12 @@ const BuildingContainer = (props) => {
 
   useEffect(() => {
     // document.getElementById("clientCompany").focus();
-    GetBuildingType({token},(err, data) => {
+    GetBuildingType({ token }, (err, data) => {
       setBuildingTypeData(data);
-    }); 
+    });
   }, []);
 
-console.log(BMS);
+  console.log(BMS);
   const _handleBack = (e) => {
     setChillerPage(chillerPage - 1);
   };
@@ -110,8 +111,8 @@ console.log(BMS);
         } else {
           localStorage.setItem("buildingName", buildingName);
           localStorage.setItem("buildingId", data.payload.insertId);
-          localStorage.setItem("buildingType",buildingType)
-          localStorage.setItem("bTypeId",buildingTypeId)
+          localStorage.setItem("buildingType", buildingType);
+          localStorage.setItem("bTypeId", buildingTypeId);
           props.history.push(
             `/question/${userId}/${surveyHeaderId}/${buildingId}`
           );
@@ -141,9 +142,9 @@ console.log(BMS);
     setComment(e.target.value.replace(/\s+/g, " ").trimStart());
   };
 
-  const _handleBMSCheck=()=>{
-    setBMS(!BMS)
-  }
+  const _handleBMSCheck = () => {
+    setBMS(!BMS);
+  };
   const _handleCountrySelect = (id, e) => {
     setErr({});
     e !== null && setCountry(e.label);
@@ -154,7 +155,7 @@ console.log(BMS);
     console.log(e);
     setErr({});
     e !== null && setBuildingType(e.label);
-    setBuildingTypeId(typeof(e.value)==="string"?6:e.value)
+    setBuildingTypeId(typeof e.value === "string" ? 6 : e.value);
     return;
   };
 
@@ -172,7 +173,7 @@ console.log(BMS);
     value: v.id,
     label: v.building_type,
   }));
-console.log(buildingTypeId,buildingType);
+  console.log(buildingTypeId, buildingType);
   return (
     <div className="container">
       {chillerPage === 1 ? (

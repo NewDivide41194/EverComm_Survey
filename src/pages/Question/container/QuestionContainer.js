@@ -8,7 +8,6 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import moment from "moment";
 
-
 const QuestionContainer = (props) => {
   const { history } = props;
   const [surveyData, setSurveyData] = useState([]);
@@ -21,23 +20,27 @@ const QuestionContainer = (props) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [IsLoading, setIsLoading] = useState(false);
   const [total, setTotal] = useState(null);
+
+  const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
-  const userId = parseInt(localStorage.getItem("userId"));
+  const surveySectionId = localStorage.getItem("surveySectionId");
   const bTypeId = localStorage.getItem("bTypeId");
-  const buildingId = parseInt(localStorage.getItem("buildingId"));
+  const buildingId = localStorage.getItem("buildingId");
   const buildingName = localStorage.getItem("buildingName");
   const buildingType = localStorage.getItem("buildingType");
-  const surveyHeaderId = parseInt(localStorage.getItem("SurveyHeaderId"));
-  console.log(buildingId);
+  const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
+  const countryId = localStorage.getItem("countryId");
   const Ans = {
     other: "",
     optionChoiceId: null,
-    userId: userId,
+    userId: parseInt(userId),
     questionId: null,
-    survey_headers_id: surveyHeaderId,
+    survey_headers_id: parseInt(surveyHeaderId),
     building_id: buildingId,
     keyValue: null,
-    countryId:null
+    subQuestionId: null,
+    surveySectionId: parseInt(surveySectionId),
+    countryId: parseInt(countryId),
   };
   const amountOfDevice = surveyData.length && surveyData[0].amountOfDevice;
   const deviceAmounts =
@@ -57,10 +60,14 @@ const QuestionContainer = (props) => {
     (questionslength.length == 6
       ? questionslength[questionslength.length - 1] * deviceAmounts[0]
       : 0) + totalQuesCount1;
+  // console.log("Question Data", surveyData);
+
   useEffect(() => {
     setIsLoading(true);
+    const typeId = 33;
+    // surveyHeaderId === 10 ? countryId : buildingId;
     QuestionFetch(
-      { userId, surveyHeaderId, buildingId, bTypeId, token },
+      { userId, surveyHeaderId, typeId, bTypeId, surveySectionId, countryId,token },
       (err, data) => {
         setSurveyData(data.payload);
         setAnswerData(data.payload[0].answers);
@@ -87,6 +94,7 @@ const QuestionContainer = (props) => {
   };
 
   const _handleSubmit = () => {
+    const surveyTotal = surveyData.length && surveyData[0].survey_header_id === 1 ? total :  surveyData.length && surveyData[0].survey_sections[0].questions.length
     confirmAlert({
       title: "Confirm to submit",
       message: `${
@@ -94,7 +102,7 @@ const QuestionContainer = (props) => {
           ? "One question Remains to Answer!"
           : fullQuestion
           ? "All questions are Answered!"
-          : `${total - obtained} questions are Remain to Answer!`
+          : `${surveyTotal - obtained} questions are Remain to Answer!`
       } `,
       buttons: [
         {
@@ -106,7 +114,7 @@ const QuestionContainer = (props) => {
               (err, data) => {
                 setIsLoading(false);
                 history.push("/finalPage");
-                localStorage.setItem(`${buildingId}`, total);
+                // localStorage.setItem(`${buildingId}`, total);
               }
             );
           },
@@ -127,25 +135,78 @@ const QuestionContainer = (props) => {
     return AnswerData.findIndex((e) => e.questionId === quesId);
   };
 
-  const handleRadioChange = (ansId, quesId, keys) => {
+  const subIsQuesId = (quesId, subQuesId) => {
+    return AnswerData.filter(
+      (e) => e.questionId === quesId && e.subQuestionId === subQuesId
+    );
+  };
+  const subIsQuesIdIndex = (quesId, subQuesId) => {
+    return AnswerData.findIndex(
+      (e) => e.questionId === quesId && e.subQuestionId === subQuesId
+    );
+  };
+
+  const handleRadioChange = (ansId, quesId, subQuesId, keys) => {
     const RadioAns = {
       ...Ans,
       optionChoiceId: ansId,
-      questionId: quesId,
-      keyValue: keys,
+      questionId: quesId.toString(),
+      subQuestionId: subQuesId || null,
+      keyValue: keys || quesId,
     };
-
-    if (isQuesId(quesId).length >= 1) {
-      AnswerData.splice(isQuesIdIndex(quesId), 1, RadioAns);
+    if (subQuesId !== undefined) {
+      if (subIsQuesId(quesId, subQuesId).length >= 1) {
+        AnswerData.splice(subIsQuesIdIndex(quesId, subQuesId), 1, RadioAns);
+      } else {
+        AnswerData.push(RadioAns);
+      }
     } else {
-      AnswerData.push(RadioAns);
+      if (isQuesId(quesId).length >= 1) {
+        AnswerData.splice(isQuesIdIndex(quesId), 1, RadioAns);
+      } else {
+        AnswerData.push(RadioAns);
+      }
     }
     setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
   };
 
+  const handleInputChange = (e, quesId, subQuesId, keys, optionId) => {
+    const ImportText = e.target.value.replace(/\s+/g, " ").trimStart();
+    const TextAnswer = {
+      ...Ans,
+      other: ImportText,
+      optionChoiceId: optionId || null,
+      questionId: quesId.toString(),
+      subQuestionId: subQuesId,
+      keyValue: keys,
+    };
+    if (subQuesId === null) {
+      if (ImportText === "" && isQuesId(quesId).length >= 1) {
+        setValue(e.target.value);
+        AnswerData.splice(isQuesIdIndex(quesId), 1);
+      } else if (isQuesId(quesId).length >= 1) {
+        setValue(e.target.value);
+        AnswerData.splice(isQuesIdIndex(quesId), 1, TextAnswer);
+      } else {
+        setValue(e.target.value);
+        AnswerData.push(TextAnswer);
+      }
+    } else {
+      if (ImportText === "" && subIsQuesId(quesId, subQuesId).length >= 1) {
+        setValue(e.target.value);
+        AnswerData.splice(subIsQuesIdIndex(quesId, subQuesId), 1);
+      } else if (subIsQuesId(quesId, subQuesId).length >= 1) {
+        setValue(e.target.value);
+        AnswerData.splice(subIsQuesIdIndex(quesId, subQuesId), 1, TextAnswer);
+      } else {
+        setValue(e.target.value);
+        AnswerData.push(TextAnswer);
+      }
+    }
+  };
+
   const handleCheckChange = (quesId, answerId, keys) => {
     const isQuesId =
-      // AnswerData.length &&
       AnswerData.filter(
         (e) => e.questionId === quesId && e.optionChoiceId === answerId
       );
@@ -163,30 +224,10 @@ const QuestionContainer = (props) => {
     } else {
       AnswerData.push(CheckAns);
     }
+  
     setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
   };
 
-  const handleInputChange = (e, quesId, keys, optionId) => {
-    const ImportText = e.target.value.replace(/\s+/g, " ").trimStart();
-    const TextAnswer = {
-      ...Ans,
-      other: ImportText,
-      optionChoiceId: optionId || null,
-      questionId: quesId,
-      keyValue: keys,
-    };
-
-    if (ImportText === "" && isQuesId(quesId).length >= 1) {
-      setValue(e.target.value);
-      AnswerData.splice(isQuesIdIndex(quesId), 1);
-    } else if (isQuesId(quesId).length >= 1) {
-      setValue(e.target.value);
-      AnswerData.splice(isQuesIdIndex(quesId), 1, TextAnswer);
-    } else {
-      setValue(e.target.value);
-      AnswerData.push(TextAnswer);
-    }
-  };
   const handleSelect = (quesId, e, keys) => {
     setSelectedOption(e);
     if (e !== null && typeof e.label == "string") {
@@ -273,14 +314,13 @@ const QuestionContainer = (props) => {
   };
 
   const otherOfQuestion = (index) => {
-    console.log('Index >>', index)
-    console.log('QuestionData >', QuestionData.map(v => v.option_choices)[index])
     const isOther =
       QuestionData &&
-      QuestionData.map((v, k) => v.option_choices)[index].filter(
-        (d) => d.option_choice_name === "Other"
-      );
-    return isOther.length > 0 ? isOther[0].option_choice_id : null;
+      QuestionData.map((v, k) =>
+        v.option_choices === undefined ? [] : v.option_choices
+      )[index].filter((d) => d.option_choice_name === "Other");
+
+    return isOther.length > 0 ? isOther[0].option_choice_id : [];
   };
 
   const weekQuestion = (index) => {
@@ -300,7 +340,7 @@ const QuestionContainer = (props) => {
         a.questionId === remakeQuesId
     );
   };
-  console.log("#####", AnswerData);
+
 
   if (IsLoading) {
     return <ESLoading />;

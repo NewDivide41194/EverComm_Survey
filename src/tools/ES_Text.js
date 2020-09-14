@@ -43,6 +43,7 @@ export const ESNavigator = (props) => {
   const { pathData } = props;
   return pathData.map((v, k) => (
     <EverCommLink
+    key={k}
       pathName={v.pathName}
       to={v.linkTo}
       text={v.title + `${pathData.lastIndexOf(v)===0?" > ":""}`}
