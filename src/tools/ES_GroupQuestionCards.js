@@ -36,9 +36,13 @@ const ESGroupQuestionCard = (props) => {
     .map((v, k) => ({ label: k + 1, value: k + 1 }));
 
   const pageDeviceIndex = 1;
-  
-  const subQues = QuestionData.filter(v => v.sub_questions ? v : null)
 
+  const subQues =
+    QuestionData.length > 0 &&
+    QuestionData.map(
+      (v) => v.sub_questions && v.sub_questions.map((subQues) => subQues)
+    );
+  console.log("----->", subQues);
   return (
     <div>
       {QuestionData &&
@@ -70,13 +74,9 @@ const ESGroupQuestionCard = (props) => {
                   )}
                 </div>
               </div>
-              {
-                ques.sub_questions &&
-                ques.sub_questions.map(v =>
-                  <div>{v.sub_question_name}</div>
-                  )
-              }
-             
+              {ques.sub_questions &&
+                ques.sub_questions.map((v) => <div>{v.sub_question_name}</div>)}
+
               {ques.input_type_id === 1 ? (
                 <ESCheckBox
                   quesId={ques.question_id}
