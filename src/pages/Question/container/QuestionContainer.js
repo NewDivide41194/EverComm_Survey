@@ -206,6 +206,7 @@ const QuestionContainer = (props) => {
   };
 
   const handleCheckChange = (quesId, answerId, keys) => {
+    console.log("------>",quesId,answerId,keys);
     const isQuesId =
       AnswerData.filter(
         (e) => e.questionId === quesId && e.optionChoiceId === answerId

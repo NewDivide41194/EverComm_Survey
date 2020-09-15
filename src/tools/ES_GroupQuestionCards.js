@@ -71,7 +71,7 @@ const ESGroupQuestionCard = (props) => {
                   )}
                 </div>
               </div>
-              {ques.categories && ques.input_type_id === 10 ? (
+              { ques.input_type_id === 10 ? (
                 <div>
                   <ESMatrix
                     categories={ques.categories}
@@ -79,7 +79,7 @@ const ESGroupQuestionCard = (props) => {
                     subQuestions={ques.sub_questions}
                     id={questionId}
                     quesId={questionId}
-                    subQuesId={subQues.map(v=>v.sub_question_id)}
+                    subQuesId={subQues.map(v=>v===undefined?null:v.sub_question_id)}
                     isAnswer={AnswerData}
                     keys={ques.question_id}
                     value={AnswerData.filter(
@@ -89,6 +89,7 @@ const ESGroupQuestionCard = (props) => {
                       _handleInputChange(e, questionId, null, questionId);
                     }}
                     _handleRadioChange={_handleRadioChange}
+                    _handleCheckChange={_handleCheckChange}
                   />
                 </div>
               ) : ques.sub_questions ? (
@@ -128,7 +129,7 @@ const ESGroupQuestionCard = (props) => {
                           vertical={ques.option_group_id === 10 ? true : false}
                         />
                       ) : subQues.input_type_id === 4 ? (
-                        <ESInput
+                        <ESTextArea
                           placeHolder={"Fill Your Answer"}
                           id={subQues.sub_question_id}
                           value={AnswerData.filter(
@@ -139,7 +140,7 @@ const ESGroupQuestionCard = (props) => {
                               e,
                               questionId,
                               subQues.sub_question_id,
-                              questionId
+                              ques.question_id
                             );
                           }}
                         />
