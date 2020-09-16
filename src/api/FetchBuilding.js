@@ -1,6 +1,6 @@
 import * as API from "./url";
 
-export const BuildingFetch = (
+export const  BuildingFetch =async (
   {
     clientCompany,
     buildingName,

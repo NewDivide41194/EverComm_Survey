@@ -7,6 +7,7 @@ import { withMedia } from "react-media-query-hoc";
 import { ESInput } from "./ES_Inputs";
 import ESMatrix from "./ES_MatrixTable";
 import { ESTextArea } from "./ES_TextArea";
+import { ESTableInput } from "./ES_TableInput";
 
 const ESGroupQuestionCard = (props) => {
   const {
@@ -71,15 +72,17 @@ const ESGroupQuestionCard = (props) => {
                   )}
                 </div>
               </div>
-              { ques.input_type_id === 10 ? (
-                <div>
+              {ques.input_type_id === 10 ? (
+                <div className="table-responsive">
                   <ESMatrix
                     categories={ques.categories}
                     optionChoices={ques.option_choices}
                     subQuestions={ques.sub_questions}
                     id={questionId}
                     quesId={questionId}
-                    subQuesId={subQues.map(v=>v===undefined?null:v.sub_question_id)}
+                    subQuesId={subQues.map((v) =>
+                      v === undefined ? null : v.sub_question_id
+                    )}
                     isAnswer={AnswerData}
                     keys={ques.question_id}
                     value={AnswerData.filter(
@@ -92,15 +95,19 @@ const ESGroupQuestionCard = (props) => {
                     _handleCheckChange={_handleCheckChange}
                   />
                 </div>
+              ) : ques.input_type_id === 13 ? (
+                <ESTableInput
+                  placeHolder={"Please Specify"}
+                  AnswerData={AnswerData}
+                  _handleInputChange={_handleInputChange}
+                />
               ) : ques.sub_questions ? (
                 ques.sub_questions.map((subQues, k3) => (
                   <div
-                    className="d-flex flex-row pb-2 w-100 justify-content-between"
+                    className="d-flex flex-row pb-1 w-100 justify-content-between"
                     key={k3}
                   >
-                    <div className="w-25 align-self-center">
-                      {subQues.sub_question_name}
-                    </div>
+                    <div className="w-25">{subQues.sub_question_name}</div>
                     <div className="w-75">
                       {subQues.input_type_id === 2 ? (
                         <ESRadio

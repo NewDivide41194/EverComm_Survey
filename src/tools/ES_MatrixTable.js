@@ -53,9 +53,9 @@ const ESMatrix = (props) => {
       <tbody>
         {subQuestions.map((v, k) => (
           <tr>
-            <td style={{ padding: 5 }}>{v.sub_question_name}</td>
+            <td>{v.sub_question_name}</td>
             {v.option_choices.map((v1) => (
-              <td>
+              <td className="p-0 text-center">
                 {v.input_type_id === 1 ? (
                   <ESCheckBox value={v1} _handleChange={_handleCheckChange} quesId={quesId}
                   subQuesId={v.sub_question_id}

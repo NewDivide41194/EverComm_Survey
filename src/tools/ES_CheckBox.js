@@ -77,8 +77,8 @@ const ESCheckbox = (props) => {
     ))
   ) : (
     <div
-      style={{ minHeight: 230 }}
-      class="text-center d-flex flex-row justify-content-center align-content-between flex-wrap"
+      style={{ minHeight: 200 }}
+      class="d-flex flex-row justify-content-center align-content-between flex-wrap"
     >
       <div>{value.option_choice_name}</div>
       <ThemeProvider theme={customTheme}>
