@@ -173,6 +173,7 @@ console.log(AnswerData);
   };
 
   const handleInputChange = (e, quesId, subQuesId, keys, optionId) => {
+    console.log('handle input >> ', e.target.value, quesId, subQuesId, keys, optionId)
     const ImportText = e.target.value.replace(/\s+/g, " ").trimStart();
     const TextAnswer = {
       ...Ans,

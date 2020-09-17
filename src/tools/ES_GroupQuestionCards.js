@@ -45,6 +45,8 @@ const ESGroupQuestionCard = (props) => {
       {QuestionData &&
         QuestionData.map((ques, k2) => {
           const questionId = ques.question_id.toString();
+          console.log('Answer data >>> ', AnswerData)
+          console.log('Quesiont >> ', ques)
           return (
             <div
               className="d-flex flex-row flex-fill flex-wrap w-100 p-3 mb-3 rounded bg-light border" ////////Group question card
@@ -64,8 +66,8 @@ const ESGroupQuestionCard = (props) => {
                     {ques.key}. {ques.question_name}
                   </div>
                   {AnswerData.map((v, k) => v.keyValue).filter(
-                    (v) => v === ques.question_id
-                  )[0] === ques.question_id ? (
+                    (v) => v == ques.question_id
+                  )[0] == ques.question_id ? (
                     <QuestionCardInfo info={"Answered"} media={media} />
                   ) : (
                     <QuestionCardInfo info={"Pending"} media={media} />
