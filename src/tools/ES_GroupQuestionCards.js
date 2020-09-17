@@ -39,7 +39,7 @@ const ESGroupQuestionCard = (props) => {
     QuestionData.map(
       (v) => v.sub_questions && v.sub_questions.map((subQues) => subQues)
     );
-
+  console.log("ANS=====>", AnswerData.filter((v) => v.other===undefined&&v.subQuestionId===subQues.sub_question_id));
   return (
     <div>
       {QuestionData &&
@@ -109,15 +109,39 @@ const ESGroupQuestionCard = (props) => {
                   >
                     <div className="w-25">{subQues.sub_question_name}</div>
                     <div className="w-75">
-                      {subQues.input_type_id === 2 ? (
-                        <ESRadio
-                          value={subQues.option_choices}
-                          _handleRadioChange={_handleRadioChange}
-                          quesId={questionId}
-                          subQuesId={subQues.sub_question_id}
-                          isAnswer={AnswerData}
-                          keys={ques.question_id}
-                        />
+                      {subQues.input_type_id === 2 ||
+                      subQues.input_type_id === 15 ? (
+                        <div>
+                          {" "}
+                          <ESRadio
+                            value={subQues.option_choices}
+                            _handleRadioChange={_handleRadioChange}
+                            quesId={questionId}
+                            subQuesId={subQues.sub_question_id}
+                            isAnswer={AnswerData}
+                            keys={ques.question_id}
+                          />
+                          {subQues.input_type_id === 15 &&
+                          AnswerData.filter((v) => (v.other===undefined||v.other.length>0)&&v.subQuestionId===subQues.sub_question_id).length>0 ? (
+                            <ESTextArea
+                              placeHolder={"Fill Your Answer"}
+                              id={subQues.sub_question_id}
+                              value={AnswerData.filter(
+                                (d) =>
+                                  d.subQuestionId === subQues.sub_question_id
+                              ).map((v, k) => v.other)}
+                              onChange={(e) => {
+                                _handleInputChange(
+                                  e,
+                                  questionId,
+                                  subQues.sub_question_id,
+                                  ques.question_id,
+                                  subQues.option_choices.filter(v=>v.option_choice_name==="Yes")[0].option_choice_id
+                                );
+                              }}
+                            />
+                          ) : null}
+                        </div>
                       ) : subQues.input_type_id === 1 ? (
                         <ESCheckBox
                           quesId={questionId}
@@ -167,6 +191,10 @@ const ESGroupQuestionCard = (props) => {
                         isQuestion={isQuestion}
                         keys={ques.question_id}
                       />
+                      {subQues.input_type_id == 15 &&
+                      AnswerData.filter((v) => v.other === "Yes").length > 0 ? (
+                        <ESTextArea />
+                      ) : null}
                     </div>
                   ) : subQuesInput(ques) === 1 ? (
                     <ESCheckBox

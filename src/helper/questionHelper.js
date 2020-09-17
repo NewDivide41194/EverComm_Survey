@@ -1,7 +1,7 @@
 const AnswerCount = (AnswerData) => [
   ...AnswerData.reduce((mp, o) => {
-    if (!mp.has(o.questionId)) mp.set(o.questionId, { ...o, count: 0 });
-    mp.get(o.questionId).count++;
+    if (!mp.has(o.keyValue)) mp.set(o.keyValue, { ...o, count: 0 });
+    mp.get(o.keyValue).count++;
     return mp;
   }, new Map()).values(),
 ];

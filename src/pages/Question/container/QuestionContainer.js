@@ -145,14 +145,15 @@ const QuestionContainer = (props) => {
       (e) => e.questionId === quesId && e.subQuestionId === subQuesId
     );
   };
-
-  const handleRadioChange = (ansId, quesId, subQuesId, keys) => {
+console.log(AnswerData);
+  const handleRadioChange = (ansId, quesId, subQuesId, keys,other) => {
     const RadioAns = {
       ...Ans,
       optionChoiceId: ansId,
       questionId: quesId.toString(),
       subQuestionId: subQuesId || null,
       keyValue: keys || quesId,
+      other:other
     };
     if (subQuesId !== undefined) {
       if (subIsQuesId(quesId, subQuesId).length >= 1) {

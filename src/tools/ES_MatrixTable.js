@@ -23,7 +23,7 @@ const ESMatrix = (props) => {
   return (
     <table className="table table-bordered table-striped">
       <thead>
-        {quesId === "357" ? (
+        {categories ? (
           <tr className="text-center">
             <th style={{ padding: 15 }} rowSpan="2">
               {categories[0].categories}

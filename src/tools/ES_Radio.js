@@ -13,6 +13,7 @@ export const ESRadio = (props) => {
     checked,
     keys,
     subQuesId,
+    other
   } = props;
   const ID = quesId || subQuesId;
   const customTheme = createMuiTheme({
@@ -53,7 +54,7 @@ export const ESRadio = (props) => {
               ).length > 0
             }
             onChange={() =>
-              _handleRadioChange(ans.option_choice_id, quesId, subQuesId, keys)
+              _handleRadioChange(ans.option_choice_id, quesId, subQuesId, keys,ans.option_choice_name==="Yes"?undefined:"")
             }
             id={`${ans.option_choice_id + ID}`}
             value={ans.option_choice_name}
@@ -75,7 +76,7 @@ export const ESRadio = (props) => {
           ).length > 0
         }
         onChange={() =>
-          _handleRadioChange(value.option_choice_id, quesId, subQuesId, keys)
+          _handleRadioChange(value.option_choice_id, quesId, subQuesId, keys, other)
         }
         id={`${value.option_choice_id + ID}`}
       ></Radio>
