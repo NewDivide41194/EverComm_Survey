@@ -112,7 +112,6 @@ const ESGroupQuestionCard = (props) => {
                       {subQues.input_type_id === 2 ||
                       subQues.input_type_id === 15 ? (
                         <div>
-                          {" "}
                           <ESRadio
                             value={subQues.option_choices}
                             _handleRadioChange={_handleRadioChange}
@@ -122,7 +121,7 @@ const ESGroupQuestionCard = (props) => {
                             keys={ques.question_id}
                           />
                           {subQues.input_type_id === 15 &&
-                          AnswerData.filter((v) => (v.other===undefined||v.other.length>0)&&v.subQuestionId===subQues.sub_question_id).length>0 ? (
+                          AnswerData.filter((v) => (v.other===undefined||(v.other!==null?v.other.length>0:""))&&v.subQuestionId===subQues.sub_question_id).length>0 ? (
                             <ESTextArea
                               placeHolder={"Fill Your Answer"}
                               id={subQues.sub_question_id}
