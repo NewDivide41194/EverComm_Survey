@@ -2,7 +2,15 @@ import React from "react";
 import { ESTextArea } from "./ES_TextArea";
 
 export const ESTableInput = (props) => {
-  const { AnswerData, _handleInputChange } = props;
+  const { 
+    AnswerData,
+     _handleInputChange,
+    quesId,
+    subQuesId,
+    quesName,
+    inputTypeId,
+    key
+   } = props;
   const subQuestions = data.sub_questions;
   const addedQuestionId = 1000;
 console.log(AnswerData);
@@ -11,7 +19,7 @@ console.log(AnswerData);
       <thead>
         <tr className="text-center">
           <th>Serial No.</th>
-          {subQuestions.map((v) => (
+          {subQuesId.map((v) => (
             <th className="align-middle">{v.sub_question_name}</th>
           ))}
         </tr>
@@ -20,7 +28,7 @@ console.log(AnswerData);
         {new Array(10).fill(null).map((v, k) => (
           <tr className="text-center">
             <td>{k + 1}</td>
-            {subQuestions.map((v1, k1) => {
+            {subQuesId.map((v1, k1) => {
               const remakeQuestionId =
                 addedQuestionId + v1.sub_question_id + k.toString();
               return (
@@ -43,7 +51,7 @@ console.log(AnswerData);
                           e,
                           remakeQuestionId,
                           v1.sub_question_id,
-                          data.question_id
+                          key
                         );
                       }}
                     />

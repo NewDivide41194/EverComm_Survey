@@ -49,7 +49,7 @@ const ESGroupQuestionCard = (props) => {
             <div
               className="d-flex flex-row flex-fill flex-wrap w-100 p-3 mb-3 rounded bg-light border" ////////Group question card
               key={k2}
-              id={ques.question_id}
+              // id={ques.question_id}
               style={{
                 fontSize: media.mobile ? "12px" : "15px",
               }}
@@ -63,9 +63,9 @@ const ESGroupQuestionCard = (props) => {
                   <div>
                     {ques.key}. {ques.question_name}
                   </div>
-                  {AnswerData.map((v, k) => v.questionId).filter(
-                    (v) => v === questionId
-                  )[0] === questionId ? (
+                  {AnswerData.map((v, k) => v.keyValue).filter(
+                    (v) => v === ques.question_id
+                  )[0] === ques.question_id ? (
                     <QuestionCardInfo info={"Answered"} media={media} />
                   ) : (
                     <QuestionCardInfo info={"Pending"} media={media} />
@@ -100,6 +100,11 @@ const ESGroupQuestionCard = (props) => {
                   placeHolder={"Please Specify"}
                   AnswerData={AnswerData}
                   _handleInputChange={_handleInputChange}
+                  quesId = {questionId}
+                  subQuesId = {ques.sub_questions}
+                  quesName = {ques.question_name}
+                  inputTypeId = {ques.input_type_id}
+                  key={questionId}
                 />
               ) : ques.sub_questions ? (
                 ques.sub_questions.map((subQues, k3) => (
@@ -148,7 +153,7 @@ const ESGroupQuestionCard = (props) => {
                           _handleChange={_handleCheckChange}
                           isAnswer={AnswerData}
                           isQuestion={isQuestion}
-                          keys={subQues.sub_question_id}
+                          keys={ques.question_id}
                           className={
                             ques.option_group_id === 10
                               ? `${
