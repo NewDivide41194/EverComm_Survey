@@ -31,21 +31,6 @@ const CountryContainer = (props) => {
     });
   }, [surveyHeaderId]);
 
-  const data = [
-    {
-      surveySection: "The current situation of e-government",
-      amountOfSurvey: 2,
-      totalSurvey: 10,
-    },
-    {
-      surveySection: "Organization Background",
-      amountOfSurvey: 0,
-      totalSurvey: 10,
-    },
-    { surveySection: "Legal", amountOfSurvey: 1, totalSurvey: 10 },
-    { surveySection: "Strategy", amountOfSurvey: 0, totalSurvey: 10 },
-  ];
-
   const _handleCountrySelect = (id, e) => {
     e !== null && setCountry(e.label);
     return;

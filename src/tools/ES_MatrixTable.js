@@ -25,17 +25,17 @@ const ESMatrix = (props) => {
       <thead>
         {categories ? (
           <tr className="text-center">
-            <th style={{ padding: 15 }} rowSpan="2">
+            <th style={{ padding: 15 }} rowSpan="2" className="align-middle">
               {categories[0].categories}
             </th>
-            <th style={{ padding: 5 }} colSpan="4">
+            <th style={{ padding: 5 }} colSpan="4" className="align-middle">
               {categories[1].categories}
             </th>
           </tr>
         ) : (
           <tr className="text-center">
             {categories.map((v) => (
-              <th style={{ padding: 15 }} className="align-middle">
+              <th style={{ padding: 15 }} className="align-middle" className="align-middle">
                 {v.categories}
               </th>
             ))}

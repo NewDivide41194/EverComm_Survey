@@ -42,10 +42,11 @@ const SurveySectionList = props => {
   const { handleQuestionRoute, sectionList } = props;
   return (
     <div className="">
-      {sectionList.map(v => (
+      {sectionList.map((v,k) => (
         <div
           className="d-flex flex-row p-3 rounded justify-content-between my-2"
           id="surveyList"
+          key={k}
           style={{
             // background:Colors.PrimaryColor,
             color: "white",

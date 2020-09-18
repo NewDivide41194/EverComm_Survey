@@ -39,14 +39,12 @@ const ESGroupQuestionCard = (props) => {
     QuestionData.map(
       (v) => v.sub_questions && v.sub_questions.map((subQues) => subQues)
     );
-  console.log("ANS=====>", AnswerData.filter((v) => v.other===undefined&&v.subQuestionId===subQues.sub_question_id));
+    console.log(AnswerData);
   return (
     <div>
       {QuestionData &&
         QuestionData.map((ques, k2) => {
           const questionId = ques.question_id.toString();
-          console.log('Answer data >>> ', AnswerData)
-          console.log('Quesiont >> ', ques)
           return (
             <div
               className="d-flex flex-row flex-fill flex-wrap w-100 p-3 mb-3 rounded bg-light border" ////////Group question card
@@ -99,14 +97,15 @@ const ESGroupQuestionCard = (props) => {
                 </div>
               ) : ques.input_type_id === 13 ? (
                 <ESTableInput
+                  data={ques}
                   placeHolder={"Please Specify"}
                   AnswerData={AnswerData}
                   _handleInputChange={_handleInputChange}
-                  quesId = {questionId}
-                  subQuesId = {ques.sub_questions}
-                  quesName = {ques.question_name}
-                  inputTypeId = {ques.input_type_id}
-                  key={questionId}
+                  quesId={questionId}
+                  subQuesId={ques.sub_questions}
+                  quesName={ques.question_name}
+                  inputTypeId={ques.input_type_id}
+                  keyValue={ques.question_id}
                 />
               ) : ques.sub_questions ? (
                 ques.sub_questions.map((subQues, k3) => (
@@ -128,7 +127,12 @@ const ESGroupQuestionCard = (props) => {
                             keys={ques.question_id}
                           />
                           {subQues.input_type_id === 15 &&
-                          AnswerData.filter((v) => (v.other===undefined||(v.other!==null?v.other.length>0:""))&&v.subQuestionId===subQues.sub_question_id).length>0 ? (
+                          AnswerData.filter(
+                            (v) =>
+                              (v.other === undefined ||
+                                (v.other !== null ? v.other.length > 0 : "")) &&
+                              v.subQuestionId === subQues.sub_question_id
+                          ).length > 0 ? (
                             <ESTextArea
                               placeHolder={"Fill Your Answer"}
                               id={subQues.sub_question_id}
@@ -142,7 +146,9 @@ const ESGroupQuestionCard = (props) => {
                                   questionId,
                                   subQues.sub_question_id,
                                   ques.question_id,
-                                  subQues.option_choices.filter(v=>v.option_choice_name==="Yes")[0].option_choice_id
+                                  subQues.option_choices.filter(
+                                    (v) => v.option_choice_name === "Yes"
+                                  )[0].option_choice_id
                                 );
                               }}
                             />
