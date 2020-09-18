@@ -29,7 +29,7 @@ const ESGroupQuestionCard = (props) => {
     otherOfQuestion,
   } = props;
 
-  const subQuesInput = (ques) =>
+  const subQuesInput = (ques) => 
     ques.sub_questions
       ? ques.sub_questions.map((v) => v.input_type_id)
       : ques.input_type_id;
@@ -39,7 +39,7 @@ const ESGroupQuestionCard = (props) => {
     QuestionData.map(
       (v) => v.sub_questions && v.sub_questions.map((subQues) => subQues)
     );
-    console.log(AnswerData);
+    // console.log(AnswerData);
   return (
     <div>
       {QuestionData &&
@@ -95,6 +95,9 @@ const ESGroupQuestionCard = (props) => {
                     _handleCheckChange={_handleCheckChange}
                   />
                 </div>
+              // ) : ques.input_type_id === 2 ? (
+              //     <div>hello</div>
+              
               ) : ques.input_type_id === 13 ? (
                 <ESTableInput
                   data={ques}

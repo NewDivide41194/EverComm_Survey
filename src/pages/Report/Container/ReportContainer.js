@@ -9,9 +9,9 @@ import ReactToPrint from "react-to-print";
 import { ESButton } from "../../../tools/ES_Button";
 import Cover from "../component/Cover";
 import BackCover from "../component/BackCover";
-import Text from "../component/text/textReport";
+// import Text from "../component/text/textReport";
 import { ChartTheme1 } from "../../../config/Color.config";
-import ESLoading from "../../../tools/ES_Loading";
+// import ESLoading from "../../../tools/ES_Loading";
 import TextContainer from "./TextContainer";
 
 const ReportContainer = (props) => {
@@ -23,7 +23,7 @@ const ReportContainer = (props) => {
   const [ageData, setAgeData] = useState([]);
   const [TreeMapData, setTreeData] = useState([]);
   const [chillerInstallation, setChillerInstallation] = useState([]);
-  const [isLoading,setIsLoading]=useState(false)
+  // const [isLoading,setIsLoading]=useState(false)
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);

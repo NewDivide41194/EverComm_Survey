@@ -9,7 +9,7 @@ export const ESRadio = (props) => {
     quesId,
     _handleRadioChange,
     isAnswer,
-    isQuestion,
+    // isQuestion,
     checked,
     keys,
     subQuesId,

@@ -13,8 +13,7 @@ const CountryMenu = (props) => {
     handleSubmit,
     organization,
     sectionCount,
-    close,
-    surveyHeaderId,
+    // surveyHeaderId,
     surveyHeaderName,
     handleOrganization,
     countryList,
@@ -56,7 +55,7 @@ const CountryMenu = (props) => {
         aria-labelledby="countryLabel"
       >
         <div className="modal-dialog modal-dialog-centered" role="document">
-          <form className="modal-content">
+          <form className="modal-content" onSubmit={handleSubmit}>
             <div className="modal-header">
               <h5
                 className="modal-title"
@@ -100,7 +99,7 @@ const CountryMenu = (props) => {
                     placeHolder={"Organization"}
                     value={organization}
                     onChange={(e) => handleOrganization(e)}
-                    required={require}
+                    required={true}
                   />
                 </div>
               </div>
@@ -113,7 +112,7 @@ const CountryMenu = (props) => {
                   text={"CREATE SURVEY"}
                   id={"CreateSurvey"}
                   leftIcon={<i className="fas fa-plus-circle px-1"></i>}
-                  onClick={handleSubmit}
+                  // onClick={handleSubmit}
                 />
               </div>
             </div>

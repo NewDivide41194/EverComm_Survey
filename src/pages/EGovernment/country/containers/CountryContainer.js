@@ -10,7 +10,6 @@ const CountryContainer = (props) => {
   const [countryList, setCountryList] = useState([]);
   const [country, setCountry] = useState("");
   const [organization, setOrganization] = useState("");
-  const [close, setClose] = useState(false);
   const [sectionCount, setSectionCount] = useState(0);
   const alert = useAlert();
 
@@ -69,7 +68,7 @@ const CountryContainer = (props) => {
     localStorage.setItem("bTypeId", 1);
     localStorage.setItem("organization", organization);
   };
-console.log(sectionCount);
+// console.log(sectionCount);
   const pathData = [
     {
       title: "Survey Menu",
@@ -98,7 +97,6 @@ console.log(sectionCount);
           handleSelectCountry={handleSelectCountry}
           surveyHeaderId={surveyHeaderId}
           surveyHeaderName={surveyHeaderName}
-          close={close}
         />
       ) : null}
     </div>
