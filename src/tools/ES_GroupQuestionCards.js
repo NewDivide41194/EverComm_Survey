@@ -28,7 +28,7 @@ const ESGroupQuestionCard = (props) => {
     otherOfQuestion,
   } = props;
 
-  const subQuesInput = (ques) =>
+  const subQuesInput = (ques) => 
     ques.sub_questions
       ? ques.sub_questions.map((v) => v.input_type_id)
       : ques.input_type_id;

@@ -34,11 +34,11 @@ const ESMatrix = (props) => {
           </tr>
         ) : (
           <tr className="text-center">
-            {categories.map((v) => (
+            { categories ? categories.map((v) => (
               <th style={{ padding: 15 }} className="align-middle" className="align-middle">
                 {v.categories}
               </th>
-            ))}
+            )):null}
           </tr>
         )}
 

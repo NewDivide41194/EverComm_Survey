@@ -153,7 +153,7 @@ const CollapseSurveyList = (props) => {
     handleExpend,
     expend,
   } = props;
-  console.log(SurveyData);
+  // console.log(SurveyData);
   return (
     <div className="">
       <div

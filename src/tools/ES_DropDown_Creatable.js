@@ -7,24 +7,22 @@ export const ESDropDownBuilding =(props) => {
     options,
     quesId,
     _handleSelect,
-    selectedOption,
+    // selectedOption,
     disabled,
     notClearable,
     id,
     defaultValue,
     keys,
-    onInputChange,
+    // onInputChange,
     placeHolder
   } = props;
 
-  
-
-  const AnsSelected =
-    selectedOption &&
-    selectedOption.map((v, k) => ({
-      value: v.option_choice_id,
-      label: v.option_choice_name,
-    }));
+  // const AnsSelected =
+  //   selectedOption &&
+  //   selectedOption.map((v, k) => ({
+  //     value: v.option_choice_id,
+  //     label: v.option_choice_name,
+  //   }));
 
   const customStyles = {
     option: (provided, state) => ({
