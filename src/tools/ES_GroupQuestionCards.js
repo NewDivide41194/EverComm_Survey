@@ -107,15 +107,24 @@ const ESGroupQuestionCard = (props) => {
                     inputTypeId={ques.input_type_id}
                     keyValue={ques.question_id}
                   />
-                ) : ques.input_type_id === 24 ? (
+                ): ques.input_type_id === 2 ? (
                   <div>
-                    <ESRadio
+                     <ESRadio
                       value={ques.option_choices}
                       _handleRadioChange={_handleRadioChange}
                       quesId={questionId}
                       isAnswer={AnswerData}
                       keys={ques.question_id}
                     />
+                  </div>) : ques.input_type_id === 24 ? (
+                  <div>
+                    {/* <ESRadio
+                      value={ques.option_choices}
+                      _handleRadioChange={_handleRadioChange}
+                      quesId={questionId}
+                      isAnswer={AnswerData}
+                      keys={ques.question_id}
+                    /> */}
                     {/* <ESTextArea
                       placeHolder={"Fill Your Answer"}
                       id={questionId}
@@ -126,7 +135,7 @@ const ESGroupQuestionCard = (props) => {
                         _handleInputChange(e, questionId, null, questionId);
                       }}
                     /> */}
-                    {
+                    {/* {
                     
             AnswerData.filter(
               (v) =>
@@ -152,7 +161,7 @@ const ESGroupQuestionCard = (props) => {
                   );
                 }}
               />
-            ) : null}
+            ) : null} */}
                     {ques.sub_questions && (
                       <SubQuestionInput
                         {...props}
