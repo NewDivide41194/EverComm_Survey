@@ -18,7 +18,6 @@ const ESGroupQuestionCard = (props) => {
     _handleStartChange,
     _handleSelect,
     _handleEndChange,
-    isQuestion,
     pageno,
     media,
     selectedOption,
@@ -39,7 +38,7 @@ const ESGroupQuestionCard = (props) => {
     QuestionData.map(
       (v) => v.sub_questions && v.sub_questions.map((subQues) => subQues)
     );
-    console.log(AnswerData);
+  console.log(AnswerData);
   return (
     <div>
       {QuestionData &&
@@ -72,175 +71,133 @@ const ESGroupQuestionCard = (props) => {
                   )}
                 </div>
               </div>
-              {ques.input_type_id === 10 ? (
-                <div className="table-responsive">
-                  <ESMatrix
-                    categories={ques.categories}
-                    optionChoices={ques.option_choices}
-                    subQuestions={ques.sub_questions}
-                    id={questionId}
+              <div className="w-100">
+                {ques.input_type_id === 10 ? (
+                  <div className="table-responsive">
+                    <ESMatrix
+                      categories={ques.categories}
+                      optionChoices={ques.option_choices}
+                      subQuestions={ques.sub_questions}
+                      id={questionId}
+                      quesId={questionId}
+                      subQuesId={subQues.map((v) =>
+                        v === undefined ? null : v.sub_question_id
+                      )}
+                      isAnswer={AnswerData}
+                      keys={ques.question_id}
+                      value={AnswerData.filter(
+                        (d) => d.questionId === questionId
+                      ).map((v, k) => v.other)}
+                      onChange={(e) => {
+                        _handleInputChange(e, questionId, null, questionId);
+                      }}
+                      _handleRadioChange={_handleRadioChange}
+                      _handleCheckChange={_handleCheckChange}
+                    />
+                  </div>
+                ) : ques.input_type_id === 13 ? (
+                  <ESTableInput
+                    data={ques}
+                    placeHolder={"Please Specify"}
+                    AnswerData={AnswerData}
+                    _handleInputChange={_handleInputChange}
                     quesId={questionId}
-                    subQuesId={subQues.map((v) =>
-                      v === undefined ? null : v.sub_question_id
+                    subQuesId={ques.sub_questions}
+                    quesName={ques.question_name}
+                    inputTypeId={ques.input_type_id}
+                    keyValue={ques.question_id}
+                  />
+                ) : ques.input_type_id === 24 ? (
+                  <div>
+                    <ESRadio
+                      value={ques.option_choices}
+                      _handleRadioChange={_handleRadioChange}
+                      quesId={questionId}
+                      isAnswer={AnswerData}
+                      keys={ques.question_id}
+                    />
+                    {/* <ESTextArea
+                      placeHolder={"Fill Your Answer"}
+                      id={questionId}
+                      value={AnswerData.filter(
+                        (d) => d.questionId === questionId
+                      ).map((v, k) => v.other)}
+                      onChange={(e) => {
+                        _handleInputChange(e, questionId, null, questionId);
+                      }}
+                    /> */}
+                    {
+                    
+            AnswerData.filter(
+              (v) =>
+                (v.other === undefined ||
+                  (v.other !== null ? v.other.length > 0 : "")) &&
+                v.questionId === questionId
+            ).length > 0 ? (
+              <ESTextArea
+                placeHolder={"Fill Your Answer"}
+                id={questionId}
+                value={AnswerData.filter(
+                  (d) => d.questionId === questionId&&d.subQuestionId===null
+                ).map((v, k) => v.other)}
+                onChange={(e) => {
+                  _handleInputChange(
+                    e,
+                    questionId,
+                    null,
+                    ques.question_id,
+                    ques.option_choices.filter(
+                      (v) => v.option_choice_name === "Yes" || v.option_choice_name==="No"
+                    )[0].option_choice_id
+                  );
+                }}
+              />
+            ) : null}
+                    {ques.sub_questions && (
+                      <SubQuestionInput
+                        {...props}
+                        ques={ques}
+                        questionId={questionId}
+                      />
                     )}
+                  </div>
+                ) : ques.input_type_id === 1 ? (
+                  <ESCheckBox
+                    quesId={ques.question_id}
+                    value={ques.option_choices}
+                    _handleChange={_handleCheckChange}
                     isAnswer={AnswerData}
                     keys={ques.question_id}
-                    value={AnswerData.filter(
-                      (d) => d.questionId === questionId
-                    ).map((v, k) => v.other)}
-                    onChange={(e) => {
-                      _handleInputChange(e, questionId, null, questionId);
-                    }}
-                    _handleRadioChange={_handleRadioChange}
-                    _handleCheckChange={_handleCheckChange}
+                    className={
+                      ques.option_group_id === 10
+                        ? `${
+                            media.mobile ? null : "mr-4"
+                          } text-center  font-weight-bold`
+                        : null
+                    }
+                    vertical={ques.option_group_id === 10 ? true : false}
                   />
-                </div>
-              ) : ques.input_type_id === 13 ? (
-                <ESTableInput
-                  data={ques}
-                  placeHolder={"Please Specify"}
-                  AnswerData={AnswerData}
-                  _handleInputChange={_handleInputChange}
-                  quesId={questionId}
-                  subQuesId={ques.sub_questions}
-                  quesName={ques.question_name}
-                  inputTypeId={ques.input_type_id}
-                  keyValue={ques.question_id}
-                />
-              ) : ques.sub_questions ? (
-                ques.sub_questions.map((subQues, k3) => (
-                  <div
-                    className="d-flex flex-row pb-1 w-100 justify-content-between"
-                    key={k3}
-                  >
-                    <div className="w-25">{subQues.sub_question_name}</div>
-                    <div className="w-75">
-                      {subQues.input_type_id === 2 ||
-                      subQues.input_type_id === 15 ? (
-                        <div>
-                          <ESRadio
-                            value={subQues.option_choices}
-                            _handleRadioChange={_handleRadioChange}
-                            quesId={questionId}
-                            subQuesId={subQues.sub_question_id}
-                            isAnswer={AnswerData}
-                            keys={ques.question_id}
-                          />
-                          {subQues.input_type_id === 15 &&
-                          AnswerData.filter(
-                            (v) =>
-                              (v.other === undefined ||
-                                (v.other !== null ? v.other.length > 0 : "")) &&
-                              v.subQuestionId === subQues.sub_question_id
-                          ).length > 0 ? (
-                            <ESTextArea
-                              placeHolder={"Fill Your Answer"}
-                              id={subQues.sub_question_id}
-                              value={AnswerData.filter(
-                                (d) =>
-                                  d.subQuestionId === subQues.sub_question_id
-                              ).map((v, k) => v.other)}
-                              onChange={(e) => {
-                                _handleInputChange(
-                                  e,
-                                  questionId,
-                                  subQues.sub_question_id,
-                                  ques.question_id,
-                                  subQues.option_choices.filter(
-                                    (v) => v.option_choice_name === "Yes"
-                                  )[0].option_choice_id
-                                );
-                              }}
-                            />
-                          ) : null}
-                        </div>
-                      ) : subQues.input_type_id === 1 ? (
-                        <ESCheckBox
-                          quesId={questionId}
-                          value={subQues.option_choices}
-                          _handleChange={_handleCheckChange}
-                          isAnswer={AnswerData}
-                          isQuestion={isQuestion}
-                          keys={ques.question_id}
-                          className={
-                            ques.option_group_id === 10
-                              ? `${
-                                  media.mobile ? null : "mr-4"
-                                } text-center  font-weight-bold`
-                              : null
-                          }
-                          vertical={ques.option_group_id === 10 ? true : false}
-                        />
-                      ) : subQues.input_type_id === 4 ? (
-                        <ESTextArea
-                          placeHolder={"Fill Your Answer"}
-                          id={subQues.sub_question_id}
-                          value={AnswerData.filter(
-                            (d) => d.subQuestionId === subQues.sub_question_id
-                          ).map((v, k) => v.other)}
-                          onChange={(e) => {
-                            _handleInputChange(
-                              e,
-                              questionId,
-                              subQues.sub_question_id,
-                              ques.question_id
-                            );
-                          }}
-                        />
-                      ) : null}
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <div className="w-100">
-                  {subQuesInput(ques) === 2 ? (
-                    <div>
-                      <ESRadio
-                        value={ques.option_choices}
-                        _handleRadioChange={_handleRadioChange}
-                        quesId={questionId}
-                        isAnswer={AnswerData}
-                        isQuestion={isQuestion}
-                        keys={ques.question_id}
-                      />
-                      {subQues.input_type_id == 15 &&
-                      AnswerData.filter((v) => v.other === "Yes").length > 0 ? (
-                        <ESTextArea />
-                      ) : null}
-                    </div>
-                  ) : subQuesInput(ques) === 1 ? (
-                    <ESCheckBox
-                      quesId={ques.question_id}
-                      value={ques.option_choices}
-                      _handleChange={_handleCheckChange}
-                      isAnswer={AnswerData}
-                      isQuestion={isQuestion}
-                      keys={ques.question_id}
-                      className={
-                        ques.option_group_id === 10
-                          ? `${
-                              media.mobile ? null : "mr-4"
-                            } text-center  font-weight-bold`
-                          : null
-                      }
-                      vertical={ques.option_group_id === 10 ? true : false}
+                ) : ques.input_type_id === 4 ? (
+                  <div>
+                    <ESTextArea
+                      placeHolder={"Fill Your Answer"}
+                      id={questionId}
+                      value={AnswerData.filter(
+                        (d) => d.questionId === questionId
+                      ).map((v, k) => v.other)}
+                      onChange={(e) => {
+                        _handleInputChange(e, questionId, null, questionId);
+                      }}
                     />
-                  ) : subQuesInput(ques) === 4 ? (
-                    <div>
-                      <ESTextArea
-                        placeHolder={"Fill Your Answer"}
-                        id={questionId}
-                        value={AnswerData.filter(
-                          (d) => d.questionId === questionId
-                        ).map((v, k) => v.other)}
-                        onChange={(e) => {
-                          _handleInputChange(e, questionId, null, questionId);
-                        }}
-                      />
-                    </div>
-                  ) : null}
-                </div>
-              )}
+                  </div>
+                ) : ques.sub_questions ? (
+                  <SubQuestionInput
+                    {...props}
+                    ques={ques}
+                    questionId={questionId}
+                  />
+                ) : null}
+              </div>
             </div>
           );
         })}
@@ -264,4 +221,96 @@ const QuestionCardInfo = (props) => {
       />
     </div>
   );
+};
+
+const SubQuestionInput = (props) => {
+  const {
+    ques,
+    media,
+    _handleCheckChange,
+    _handleRadioChange,
+    questionId,
+    AnswerData,
+    _handleInputChange,
+  } = props;
+  return ques.sub_questions.map((subQues, k3) => (
+    <div
+      className="d-flex flex-row pb-1 w-100 justify-content-between"
+      key={k3}
+    >
+      <div className="w-25">{subQues.sub_question_name}</div>
+      <div className="w-75">
+        {subQues.input_type_id === 2 || subQues.input_type_id === 15 ? (
+          <div>
+            <ESRadio
+              value={subQues.option_choices}
+              _handleRadioChange={_handleRadioChange}
+              quesId={questionId}
+              subQuesId={subQues.sub_question_id}
+              isAnswer={AnswerData}
+              keys={ques.question_id}
+            />
+            {subQues.input_type_id === 15 &&
+            AnswerData.filter(
+              (v) =>
+                (v.other === undefined ||
+                  (v.other !== null ? v.other.length > 0 : "")) &&
+                v.subQuestionId === subQues.sub_question_id
+            ).length > 0 ? (
+              <ESTextArea
+                placeHolder={"Fill Your Answer"}
+                id={subQues.sub_question_id}
+                value={AnswerData.filter(
+                  (d) => d.subQuestionId === subQues.sub_question_id
+                ).map((v, k) => v.other)}
+                onChange={(e) => {
+                  _handleInputChange(
+                    e,
+                    questionId,
+                    subQues.sub_question_id,
+                    ques.question_id,
+                    subQues.option_choices.filter(
+                      (v) => v.option_choice_name === "Yes"
+                    )[0].option_choice_id
+                  );
+                }}
+              />
+            ) : null}
+          </div>
+        ) : subQues.input_type_id === 1 ? (
+          <ESCheckBox
+            quesId={questionId}
+            value={subQues.option_choices}
+            _handleChange={_handleCheckChange}
+            isAnswer={AnswerData}
+            keys={ques.question_id}
+            className={
+              ques.option_group_id === 10
+                ? `${
+                    media.mobile ? null : "mr-4"
+                  } text-center  font-weight-bold`
+                : null
+            }
+            vertical={ques.option_group_id === 10 ? true : false}
+          />
+        ) : subQues.input_type_id === 4 ? (
+          <ESTextArea
+            placeHolder={"Fill Your Answer"}
+            id={subQues.sub_question_id}
+            value={AnswerData.filter(
+              (d) => d.subQuestionId === subQues.sub_question_id
+            ).map((v, k) => v.other)}
+            onChange={(e) => {
+              _handleInputChange(
+                e,
+                questionId,
+                subQues.sub_question_id,
+                ques.question_id
+              );
+            }}
+          />
+        ) : null}
+      </div>
+    </div>
+  ));
 };
