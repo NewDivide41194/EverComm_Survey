@@ -38,7 +38,20 @@ const ESGroupQuestionCard = (props) => {
     QuestionData.map(
       (v) => v.sub_questions && v.sub_questions.map((subQues) => subQues)
     );
-  console.log(AnswerData);
+
+  const getOption = (quesId) => {
+    const selectedQuestion = QuestionData.find(q => q.question_id.toString() === quesId);
+    if(selectedQuestion && selectedQuestion.option_choices) {
+      const noOption = selectedQuestion.option_choices.find(o => o.option_choice_name === "No");
+      if (noOption) {
+        return noOption.option_choice_id;
+      }
+    }
+    return -1;
+  }
+
+  console.log('Answer data >>> ', AnswerData)
+
   return (
     <div>
       {QuestionData &&
@@ -115,6 +128,7 @@ const ESGroupQuestionCard = (props) => {
                       quesId={questionId}
                       isAnswer={AnswerData}
                       keys={ques.question_id}
+                      subQuesId={null}
                     />
                     {/* <ESTextArea
                       placeHolder={"Fill Your Answer"}
@@ -128,31 +142,27 @@ const ESGroupQuestionCard = (props) => {
                     /> */}
                     {
                     
-            AnswerData.filter(
-              (v) =>
-                (v.other === undefined ||
-                  (v.other !== null ? v.other.length > 0 : "")) &&
-                v.questionId === questionId
-            ).length > 0 ? (
-              <ESTextArea
-                placeHolder={"Fill Your Answer"}
-                id={questionId}
-                value={AnswerData.filter(
-                  (d) => d.questionId === questionId&&d.subQuestionId===null
-                ).map((v, k) => v.other)}
-                onChange={(e) => {
-                  _handleInputChange(
-                    e,
-                    questionId,
-                    null,
-                    ques.question_id,
-                    ques.option_choices.filter(
-                      (v) => v.option_choice_name === "Yes" || v.option_choice_name==="No"
-                    )[0].option_choice_id
-                  );
-                }}
-              />
-            ) : null}
+                    AnswerData.filter(v => v.optionChoiceId === getOption(v.questionId)).length > 0
+                      ? (
+                      <ESTextArea
+                        placeHolder={"Fill Your Answer"}
+                        id={questionId}
+                        value={AnswerData.filter(
+                          (d) => d.questionId === questionId&&d.subQuestionId===null
+                        ).map((v, k) => v.other)}
+                        onChange={(e) => {
+                          _handleInputChange(
+                            e,
+                            questionId,
+                            null,
+                            ques.question_id,
+                            ques.option_choices.filter(
+                              (v) => v.option_choice_name==="No"
+                            )[0].option_choice_id
+                          );
+                        }}
+                      />
+                     ) : null}
                     {ques.sub_questions && (
                       <SubQuestionInput
                         {...props}
@@ -189,6 +199,24 @@ const ESGroupQuestionCard = (props) => {
                         _handleInputChange(e, questionId, null, questionId);
                       }}
                     />
+                  </div>
+                ) : ques.input_type_id === 2 ? (
+                  <div>
+                  <ESRadio
+                    value={ques.option_choices}
+                    _handleRadioChange={_handleRadioChange}
+                    quesId={questionId}
+                    isAnswer={AnswerData}
+                    keys={ques.question_id}
+                    subQuesId={null}
+                  />
+                  {ques.sub_questions && (
+                    <SubQuestionInput
+                      {...props}
+                      ques={ques}
+                      questionId={questionId}
+                    />
+                  )}
                   </div>
                 ) : ques.sub_questions ? (
                   <SubQuestionInput
