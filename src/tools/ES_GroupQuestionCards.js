@@ -17,6 +17,7 @@ const ESGroupQuestionCard = (props) => {
     _handleInputChange,
     _handleStartChange,
     _handleSelect,
+    _handleSelectList,
     _handleEndChange,
     pageno,
     media,
@@ -57,6 +58,11 @@ const ESGroupQuestionCard = (props) => {
       {QuestionData &&
         QuestionData.map((ques, k2) => {
           const questionId = ques.question_id.toString();
+          const temp = AnswerData.find(
+            (d) => d.questionId === questionId
+          )
+        
+          console.log('temp >>> ', temp)
           return (
             <div
               className="d-flex flex-row flex-fill flex-wrap w-100 p-3 mb-3 rounded bg-light border" ////////Group question card
@@ -207,6 +213,49 @@ const ESGroupQuestionCard = (props) => {
                       />
                     )}
                   </div>
+                  ) : ques.input_type_id === 20 ? (
+                    ques.option_choices &&
+                      <div className="d-flex flex-row justify-content-between p-2">
+                        <div className="w-50 p-1">
+                        <div className="pb-2">Please choose list</div>
+                        <ESDropDown
+                        quesId={questionId}
+                        id={-1}
+                        options={ques.option_choices.map((v, k) => ({
+                          value: v.option_choice_id,
+                          label: v.option_choice_name,
+                        }))}
+                        _handleSelect={_handleSelect}
+                        // selectedOption={
+                        //   AnswerData.filter((d) => d.questionId === questionId)
+                        //     ? AnswerData.filter(
+                        //         (d) => d.questionId === questionId
+                        //       ).map(
+                        //         (v, k) =>
+                        //           ques.option_choices.filter(
+                        //             (x, y) => x.option_choice_id === v.optionChoiceId
+                        //           )[0]
+                        //       )
+                        //     : selectedOption
+                        // }
+                        keys={ques.question_id}
+                        />
+                        </div>
+                        <div className="w-50 p-1">
+                          <div className="pb-2">Please provide link</div>
+                          <ESTextArea
+                            placeHolder={"Link"}
+                            id={questionId}
+                            value={AnswerData.filter(
+                              (d) => d.questionId === questionId
+                            ).map((v, k) => v.other)}
+                            onChange={(e) => {
+                              _handleInputChange(e, questionId, null, questionId);
+                            }}
+                            clear={true}
+                          />
+                        </div>
+                      </div>
                 ) : ques.input_type_id === 2 ? (
                   <div>
                   <ESRadio
