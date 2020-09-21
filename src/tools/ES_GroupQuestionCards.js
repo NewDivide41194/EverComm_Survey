@@ -199,6 +199,13 @@ const ESGroupQuestionCard = (props) => {
                         _handleInputChange(e, questionId, null, questionId);
                       }}
                     />
+                    {ques.sub_questions && (
+                      <SubQuestionInput
+                        {...props}
+                        ques={ques}
+                        questionId={questionId}
+                      />
+                    )}
                   </div>
                 ) : ques.input_type_id === 2 ? (
                   <div>
