@@ -196,7 +196,23 @@ const ESGroupQuestionCard = (props) => {
                 ))
               ) : (
                 <div className="w-100">
-                  {subQuesInput(ques) === 2 ? (
+                  {subQuesInput(ques) === 15 ? (
+                    <div>
+                      <ESRadio
+                        value={ques.option_choices}
+                        _handleRadioChange={_handleRadioChange}
+                        quesId={questionId}
+                        isAnswer={AnswerData}
+                        isQuestion={isQuestion}
+                        keys={ques.question_id}
+                      />
+                      {subQues.input_type_id == 15 &&
+                      AnswerData.filter((v) => v.other === "Yes").length > 0 ? (
+                        <ESTextArea />
+                      ) : null}
+                    </div>
+                  ) :
+                  subQuesInput(ques) === 2 ? (
                     <div>
                       <ESRadio
                         value={ques.option_choices}
