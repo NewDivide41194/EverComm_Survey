@@ -62,7 +62,7 @@ const ESGroupQuestionCard = (props) => {
             (d) => d.questionId === questionId
           )
         
-          console.log('temp >>> ', temp)
+          // console.log('temp >>> ', temp)
           return (
             <div
               className="d-flex flex-row flex-fill flex-wrap w-100 p-3 mb-3 rounded bg-light border" ////////Group question card

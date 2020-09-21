@@ -26,7 +26,7 @@ export const ESRadio = (props) => {
   // console.log('value >>>> ', value.length)
   return value.length ? (
     value.map((ans, k3) => (
-      console.log("ans option choice",ans.option_choice_id  , ID),
+      // console.log("ans option choice",ans.option_choice_id  , ID),
       <label
         id={`${ans.option_choice_id + ID} div`}
         className="option flex-col w-50"

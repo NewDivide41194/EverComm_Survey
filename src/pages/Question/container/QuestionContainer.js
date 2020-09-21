@@ -269,52 +269,52 @@ const QuestionContainer = (props) => {
   };
 
   const handleSelectList = (quesId, e, keys) => {
-    console.log('result >> ', quesId, e, keys)
-    setSelectedOption(e);
+    // console.log('result >> ', quesId, e, keys)
+    // setSelectedOption(e);
     
-    if (e !== null && typeof e.label == "string") {
-      let ansId = e.value;
-      const SelectAnswer = {
-        ...Ans,
-        optionChoiceId: ansId,
-        questionId: quesId,
-        keyValue: keys,
-      };
-      console.log('ansId >>> ', ansId)
-      console.log('select answer >> ', SelectAnswer)
-      // console.log('>>>> ', AnswerData && AnswerData.map(v => v.optionChoiceId))
-      // const ansOther = AnswerData && AnswerData.filter(v => v.questionId === quesId && v.optionChoiceId == ansId).map(vv => vv.other)[0]
-      // const matchAnswer = {
-      //   ...SelectAnswer,
-      //   other: ansOther
-      // }
-      // console.log('test >> ', matchAnswer)
-      // if (isQuesId(quesId).length >= 1) {
-      //   AnswerData.splice(isQuesIdIndex(quesId), 1, matchAnswer);
-      // } else {
-      //   AnswerData.push(matchAnswer);
-      // }
-      // setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
-    } 
-    else if (e !== null && e.label !== "string") {
-      let ansId = e.value;
-      const SelectAnswer = {
-        ...Ans,
-        other: ansId,
-        questionId: quesId,
-        keyValue: keys,
-      };
-      if (isQuesId(quesId).length >= 1) {
-        AnswerData.splice(isQuesIdIndex(quesId), 1, SelectAnswer);
-      } else {
-        AnswerData.push(SelectAnswer);
-      }
-      setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
-    } 
-    else if (isQuesId(quesId).length >= 1) {
-      AnswerData.splice(isQuesIdIndex(quesId), 1);
-      setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
-    }
+    // if (e !== null && typeof e.label == "string") {
+    //   let ansId = e.value;
+    //   const SelectAnswer = {
+    //     ...Ans,
+    //     optionChoiceId: ansId,
+    //     questionId: quesId,
+    //     keyValue: keys,
+    //   };
+    //   console.log('ansId >>> ', ansId)
+    //   console.log('select answer >> ', SelectAnswer)
+    //   // console.log('>>>> ', AnswerData && AnswerData.map(v => v.optionChoiceId))
+    //   // const ansOther = AnswerData && AnswerData.filter(v => v.questionId === quesId && v.optionChoiceId == ansId).map(vv => vv.other)[0]
+    //   // const matchAnswer = {
+    //   //   ...SelectAnswer,
+    //   //   other: ansOther
+    //   // }
+    //   // console.log('test >> ', matchAnswer)
+    //   // if (isQuesId(quesId).length >= 1) {
+    //   //   AnswerData.splice(isQuesIdIndex(quesId), 1, matchAnswer);
+    //   // } else {
+    //   //   AnswerData.push(matchAnswer);
+    //   // }
+    //   // setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
+    // } 
+    // else if (e !== null && e.label !== "string") {
+    //   let ansId = e.value;
+    //   const SelectAnswer = {
+    //     ...Ans,
+    //     other: ansId,
+    //     questionId: quesId,
+    //     keyValue: keys,
+    //   };
+    //   if (isQuesId(quesId).length >= 1) {
+    //     AnswerData.splice(isQuesIdIndex(quesId), 1, SelectAnswer);
+    //   } else {
+    //     AnswerData.push(SelectAnswer);
+    //   }
+    //   setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
+    // } 
+    // else if (isQuesId(quesId).length >= 1) {
+    //   AnswerData.splice(isQuesIdIndex(quesId), 1);
+    //   setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
+    // }
   };
 
   console.log('selected option >> ', selectedOption)
