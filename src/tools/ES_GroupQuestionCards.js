@@ -187,7 +187,26 @@ const ESGroupQuestionCard = (props) => {
                     }
                     vertical={ques.option_group_id === 10 ? true : false}
                   />
-                
+                ) : ques.input_type_id === 4 ? (
+                  <div>
+                    <ESTextArea
+                      placeHolder={"Fill Your Answer"}
+                      id={questionId}
+                      value={AnswerData.filter(
+                        (d) => d.questionId === questionId
+                      ).map((v, k) => v.other)}
+                      onChange={(e) => {
+                        _handleInputChange(e, questionId, null, questionId);
+                      }}
+                    />
+                    {ques.sub_questions && (
+                      <SubQuestionInput
+                        {...props}
+                        ques={ques}
+                        questionId={questionId}
+                      />
+                    )}
+                  </div>
                 ) : ques.input_type_id === 2 ? (
                   <div>
                   <ESRadio
