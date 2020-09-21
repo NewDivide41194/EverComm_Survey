@@ -15,7 +15,7 @@ export const ESRadio = (props) => {
     subQuesId,
     other
   } = props;
-  const ID = quesId || subQuesId;
+  const ID = subQuesId !== null ? subQuesId : quesId;
   const customTheme = createMuiTheme({
     palette: {
       secondary: {
@@ -23,9 +23,10 @@ export const ESRadio = (props) => {
       },
     },
   });
-  // console.log('value >>>> ', value)
+  // console.log('value >>>> ', value.length)
   return value.length ? (
     value.map((ans, k3) => (
+      console.log("ans option choice",ans.option_choice_id  , ID),
       <label
         id={`${ans.option_choice_id + ID} div`}
         className="option flex-col w-50"
@@ -50,12 +51,13 @@ export const ESRadio = (props) => {
               checked ||
               isAnswer.filter(
                 (d) =>
+
                   d.optionChoiceId === ans.option_choice_id &&
-                  (d.questionId === quesId || d.subQuestionId === subQuesId)
+                  (d.subQuestionId == null ? d.questionId === quesId || d.subQuestionId === subQuesId : d.subQuestionId == subQuesId)
               ).length > 0
             }
             onChange={() =>
-              _handleRadioChange(ans.option_choice_id, quesId, subQuesId, keys,ans.option_choice_name==="Yes"?undefined:"")
+              _handleRadioChange(ans.option_choice_id, quesId, subQuesId, keys, ans.option_choice_name === "Yes" ? undefined : "")
             }
             id={`${ans.option_choice_id + ID}`}
             value={ans.option_choice_name}
@@ -65,23 +67,23 @@ export const ESRadio = (props) => {
       </label>
     ))
   ) : (
-    <label>
-      <ThemeProvider theme={customTheme}>
-        <Radio value={value.option_choice_name}
-        checked={
-          checked ||
-          isAnswer.filter(
-            (d) =>
-              d.optionChoiceId === value.option_choice_id &&
-               d.subQuestionId === subQuesId
-          ).length > 0
-        }
-        onChange={() =>
-          _handleRadioChange(value.option_choice_id, quesId, subQuesId, keys, other)
-        }
-        id={`${value.option_choice_id + ID}`}
-      ></Radio>
-      </ThemeProvider>
-    </label>
-  );
+      <label>
+        <ThemeProvider theme={customTheme}>
+          <Radio value={value.option_choice_name}
+            checked={
+              checked ||
+              isAnswer.filter(
+                (d) =>
+                  d.optionChoiceId === value.option_choice_id &&
+                  d.subQuestionId === subQuesId
+              ).length > 0
+            }
+            onChange={() =>
+              _handleRadioChange(value.option_choice_id, quesId, subQuesId, keys, other)
+            }
+            id={`${value.option_choice_id + ID}`}
+          ></Radio>
+        </ThemeProvider>
+      </label>
+    );
 };
