@@ -23,7 +23,8 @@ export const ESRadio = (props) => {
       },
     },
   });
-  return value.length ? (
+  console.log('value >>>> ', value)
+  return value.length && value.length != undefined ? (
     value.map((ans, k3) => (
       <label
         id={`${ans.option_choice_id + ID} div`}

@@ -133,7 +133,8 @@ const QuestionContainer = (props) => {
     return AnswerData.filter((e) => e.questionId === quesId);
   };
   const isQuesIdIndex = (quesId) => {
-    return AnswerData.findIndex((e) => e.questionId === quesId);
+    const quesIdIndex = AnswerData.findIndex((e) => e.questionId === quesId && e.subQuestionId === null);
+    return quesIdIndex;
   };
 
   const subIsQuesId = (quesId, subQuesId) => {
