@@ -6,7 +6,7 @@ import Logo from "../../../assets/images/Logo.png";
 
 const BackCover = (props) => {
   const { reportData, startDate, endDate, viewType, media } = props;
-
+  
   return (
     <div
       className="container border pt-4"
