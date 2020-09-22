@@ -16,6 +16,7 @@ export const ESRadio = (props) => {
     other
   } = props;
   const ID = subQuesId !== null ? subQuesId : quesId;
+  console.log('Id >> ', subQuesId)
   const customTheme = createMuiTheme({
     palette: {
       secondary: {
@@ -32,6 +33,7 @@ export const ESRadio = (props) => {
         className="option flex-col w-50"
         key={k3}
         onMouseOver={() =>
+          // console.log('result >> ', ans.option_choice_id, ID)
           (document.getElementById(
             `${ans.option_choice_id + ID} div`
           ).style.background = "rgb(211, 226, 237)")

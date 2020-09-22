@@ -19,6 +19,7 @@ const ESGroupQuestionCard = (props) => {
     _handleSelect,
     _handleSelectList,
     _handleEndChange,
+    _handleInputChangeList,
     pageno,
     media,
     selectedOption,
@@ -39,9 +40,10 @@ const ESGroupQuestionCard = (props) => {
     QuestionData.map(
       (v) => v.sub_questions && v.sub_questions.map((subQues) => subQues)
     );
+    // console.log("QuestionData",QuestionData)
 
   const getOption = (quesId) => {
-    const selectedQuestion = QuestionData.find(q => q.question_id.toString() === quesId);
+    const selectedQuestion = QuestionData.find(q => q.question_id.toString() === quesId && q.input_type_id === 24);
     if (selectedQuestion && selectedQuestion.option_choices) {
       const noOption = selectedQuestion.option_choices.find(o => o.option_choice_name === "Yes");
       if (noOption) {
@@ -51,7 +53,7 @@ const ESGroupQuestionCard = (props) => {
     return -1;
   }
 
-  console.log('Answer data >>> ', AnswerData)
+  console.log('answer data >> ', AnswerData)
 
   return (
     <div>
@@ -147,7 +149,7 @@ const ESGroupQuestionCard = (props) => {
                       }}
                     /> */}
                     {
-
+                      // console.log("bla lba",AnswerData.filter(v => v.optionChoiceId === getOption(v.questionId))),
                       AnswerData.filter(v => v.optionChoiceId === getOption(v.questionId)).length > 0
                         ? (
                           <ESTextArea
@@ -224,7 +226,7 @@ const ESGroupQuestionCard = (props) => {
                           value: v.option_choice_id,
                           label: v.option_choice_name,
                         }))}
-                        _handleSelect={_handleSelect}
+                        _handleSelect={_handleSelectList}
                         // selectedOption={
                         //   AnswerData.filter((d) => d.questionId === questionId)
                         //     ? AnswerData.filter(
@@ -242,14 +244,25 @@ const ESGroupQuestionCard = (props) => {
                         </div>
                         <div className="w-50 p-1">
                           <div className="pb-2">Please provide link</div>
+                          {/* <pre>{JSON.stringify(AnswerData, null, 2) }</pre> */}
                           <ESTextArea
                             placeHolder={"Link"}
                             id={questionId}
-                            value={AnswerData.filter(
-                              (d) => d.questionId === questionId
-                            ).map((v, k) => v.other)}
+                            value={
+                              AnswerData.filter(d => d.questionId === questionId && d.selected).length > 0
+                              ? 
+                              AnswerData.filter(
+                                (d) => d.questionId === questionId && d.selected === true
+                                )[0].other
+                              : ""
+                            }
                             onChange={(e) => {
-                              _handleInputChange(e, questionId, null, questionId);
+                              
+                              _handleInputChangeList(e, questionId, null, ques.question_id, 
+                                AnswerData.filter(v => v.questionId === questionId).length > 1
+                                ? AnswerData.filter(v => v.questionId === questionId && v.selected === true)[0].optionChoiceId
+                                : AnswerData.filter(v => v.questionId === questionId)[0].optionChoiceId
+                                );
                             }}
                             clear={true}
                           />

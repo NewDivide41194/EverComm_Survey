@@ -45,7 +45,7 @@ export const ESTextArea = (props) => {
 
   useEffect(() => {
     if(clear){
-      document.getElementById(id).value='';
+      // document.getElementById(id).value='';
     }
   })
 
