@@ -41,7 +41,7 @@ const ESGroupQuestionCard = (props) => {
     // console.log("QuestionData",QuestionData)
 
   const getOption = (quesId) => {
-    const selectedQuestion = QuestionData.find(q => q.question_id.toString() === quesId && q.input_type_id === 24);
+    const selectedQuestion = QuestionData.find(q => q.question_id.toString() === quesId);
     if (selectedQuestion && selectedQuestion.option_choices) {
       const noOption = selectedQuestion.option_choices.find(o => o.option_choice_name === "Yes");
       if (noOption) {
@@ -148,7 +148,7 @@ const ESGroupQuestionCard = (props) => {
                     /> */}
                     {
                       // console.log("bla lba",AnswerData.filter(v => v.optionChoiceId === getOption(v.questionId))),
-                      AnswerData.filter(v => v.optionChoiceId === getOption(v.questionId)).length > 0
+                      AnswerData.filter(v => v.questionId === questionId && v.optionChoiceId === getOption(v.questionId)).length > 0
                         ? (
                           <ESTextArea
                             placeHolder={"Fill Your Answer"}
@@ -346,7 +346,7 @@ const SubQuestionInput = (props) => {
                 e,
                 questionId,
                 subQues.sub_question_id,
-                ques.question_id
+                ques.question_id,
               );
             }}
           />
