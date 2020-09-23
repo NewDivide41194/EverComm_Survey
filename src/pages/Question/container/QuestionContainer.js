@@ -180,7 +180,7 @@ const QuestionContainer = (props) => {
   };
 
   const handleInputChange = (e, quesId, subQuesId, keys, optionId) => {
-    console.log('input change >>> ', e, quesId, subQuesId, keys, optionId)
+    // console.log('input change >>> ', e.target.value, quesId, subQuesId, keys, optionId)
     const ImportText = e.target.value.replace(/\s+/g, " ").trimStart();
     const TextAnswer = {
       ...Ans,
@@ -193,22 +193,28 @@ const QuestionContainer = (props) => {
     if (subQuesId === null) {
       if (ImportText === "" && isQuesId(quesId).length >= 1) {
         setValue(e.target.value);
+        console.log('1');
         AnswerData.splice(isQuesIdIndex(quesId), 1);
       } else if (isQuesId(quesId).length >= 1) {
+        console.log('2');
         setValue(e.target.value);
         AnswerData.splice(isQuesIdIndex(quesId), 1, TextAnswer);
       } else {
+        console.log('3',e.target.value, TextAnswer);
         setValue(e.target.value);
         AnswerData.push(TextAnswer);
       }
     } else {
       if (ImportText === "" && subIsQuesId(quesId, subQuesId).length >= 1) {
+        console.log('4')
         setValue(e.target.value);
         AnswerData.splice(subIsQuesIdIndex(quesId, subQuesId), 1);
       } else if (subIsQuesId(quesId, subQuesId).length >= 1) {
+        console.log('5')
         setValue(e.target.value);
         AnswerData.splice(subIsQuesIdIndex(quesId, subQuesId), 1, TextAnswer);
       } else {
+        console.log('6', e.target.value, TextAnswer)
         setValue(e.target.value);
         AnswerData.push(TextAnswer);
       }
