@@ -21,11 +21,9 @@ const App = (history, props) => {
     <MediaQueryProvider queries={Media}>
       <div id="outer-container">
       <RightSideBar/>
-
       <div id="page-wrap" className= "page-container">
         <NavBar />
         <div className="content-wrap">
-
       <Switch>
         <Route exact path="/" component={LoginContainer} />
         <Route path="/register" component={RegisterContainer} />

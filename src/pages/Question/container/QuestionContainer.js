@@ -149,7 +149,6 @@ const QuestionContainer = (props) => {
     );
   };
   const handleRadioChange = (ansId, quesId, subQuesId, keys,other) => {
-    console.log('radio change >>> ', ansId, quesId, subQuesId, keys,other)
     const RadioAns = {
       ...Ans,
       optionChoiceId: ansId,
