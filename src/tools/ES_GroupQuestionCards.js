@@ -17,9 +17,7 @@ const ESGroupQuestionCard = (props) => {
     _handleInputChange,
     _handleStartChange,
     _handleSelect,
-    _handleSelectList,
     _handleEndChange,
-    _handleInputChangeList,
     pageno,
     media,
     selectedOption,
@@ -214,60 +212,7 @@ const ESGroupQuestionCard = (props) => {
                       />
                     )}
                   </div>
-                  ) : ques.input_type_id === 20 ? (
-                    ques.option_choices &&
-                      <div className="d-flex flex-row justify-content-between p-2">
-                        <div className="w-50 p-1">
-                        <div className="pb-2">Please choose list</div>
-                        <ESDropDown
-                        quesId={questionId}
-                        id={-1}
-                        options={ques.option_choices.map((v, k) => ({
-                          value: v.option_choice_id,
-                          label: v.option_choice_name,
-                        }))}
-                        _handleSelect={_handleSelectList}
-                        // selectedOption={
-                        //   AnswerData.filter((d) => d.questionId === questionId)
-                        //     ? AnswerData.filter(
-                        //         (d) => d.questionId === questionId
-                        //       ).map(
-                        //         (v, k) =>
-                        //           ques.option_choices.filter(
-                        //             (x, y) => x.option_choice_id === v.optionChoiceId
-                        //           )[0]
-                        //       )
-                        //     : selectedOption
-                        // }
-                        keys={ques.question_id}
-                        />
-                        </div>
-                        <div className="w-50 p-1">
-                          <div className="pb-2">Please provide link</div>
-                          {/* <pre>{JSON.stringify(AnswerData, null, 2) }</pre> */}
-                          <ESTextArea
-                            placeHolder={"Link"}
-                            id={questionId}
-                            value={
-                              AnswerData.filter(d => d.questionId === questionId && d.selected).length > 0
-                              ? 
-                              AnswerData.filter(
-                                (d) => d.questionId === questionId && d.selected === true
-                                )[0].other
-                              : ""
-                            }
-                            onChange={(e) => {
-                              
-                              _handleInputChangeList(e, questionId, null, ques.question_id, 
-                                AnswerData.filter(v => v.questionId === questionId).length > 1
-                                ? AnswerData.filter(v => v.questionId === questionId && v.selected === true)[0].optionChoiceId
-                                : AnswerData.filter(v => v.questionId === questionId)[0].optionChoiceId
-                                );
-                            }}
-                            clear={true}
-                          />
-                        </div>
-                      </div>
+                  
                 ) : ques.input_type_id === 2 ? (
                   <div>
                     <ESRadio
@@ -327,6 +272,7 @@ const SubQuestionInput = (props) => {
     questionId,
     AnswerData,
     _handleInputChange,
+    _handleSelect
   } = props;
   return ques.sub_questions.map((subQues, k3) => (
     <div
@@ -403,6 +349,18 @@ const SubQuestionInput = (props) => {
                 ques.question_id
               );
             }}
+          />
+        ) : subQues.input_type_id === 5 ? (
+          <ESDropDown
+            quesId={questionId}
+            id={-1}
+            subQuesId={subQues.sub_question_id}
+            options={subQues.option_choices.map((v, k) => ({
+              value: v.option_choice_id,
+              label: v.option_choice_name,
+            }))}
+            _handleSelect={_handleSelect}
+            keys={ques.question_id}
           />
         ) : null}
       </div>

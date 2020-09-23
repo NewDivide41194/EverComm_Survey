@@ -14,6 +14,7 @@ export const ESDropDown = (props) => {
     id,
     defaultValue,
     keys,
+    subQuesId
   } = props;
 
   // console.log('dropdown >> ', options)
@@ -72,7 +73,7 @@ return (
           ? selectedOption
           : AnsSelected
       }
-      onChange={(e) => _handleSelect(quesId || id, e, keys)}
+      onChange={(e) => _handleSelect(quesId || id, e, keys, subQuesId)}
       // value={selectedOption}
       options={options}
     />
