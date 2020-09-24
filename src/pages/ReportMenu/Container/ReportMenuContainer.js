@@ -11,6 +11,7 @@ const ReportMenuContainer = (props) => {
   const [isClearable, setisClearable] = useState(false);
   const [isDisable, setIsDisable] = useState(true);
   const [viewType, setViewType] = useState("all");
+  const [countryName, setCountry] = useState(null);
 
   const _handleReport = () => {
     window.open("/report/totalReport");
@@ -34,7 +35,12 @@ const ReportMenuContainer = (props) => {
       isDisabled: v.amount_of_survey.length <= 0 && v.amount_of_country.length <=0
     }));
 
-  // console.log('survey name options >> ', SurveyNameOptions)
+  const CountryOptions =
+    menuData && 
+    menuData[1] && menuData[1].amount_of_country.map(v => ({
+      value: v.country_id,
+      label: v.country_name
+    }));
 
   const _handleSelectChange = (e) => {
     setViewType(e.target.value);
@@ -51,6 +57,10 @@ const ReportMenuContainer = (props) => {
     }
   };
 
+  const _handleSelectCountry = (SurveyHeaderId, e) => {
+    setCountry(e.value);
+  }
+
   const _handleClearable = () => {
     setisClearable(!isClearable);
   };
@@ -60,12 +70,15 @@ const ReportMenuContainer = (props) => {
       isDisable={isDisable}
       ReportDetailData={menuData}
       SurveyNameOptions={SurveyNameOptions}
+      countryName={countryName}
+      CountryOptions={CountryOptions}
       surveyId={surveyId}
       isClearable={isClearable}
       viewType={viewType}
       _handleSelectChange={_handleSelectChange}
       _handleClearable={_handleClearable}
       _handleSelectSurvey={_handleSelectSurvey}
+      _handleSelectCountry={_handleSelectCountry}
       _handleReport={_handleReport}
     />
   );

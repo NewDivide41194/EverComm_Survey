@@ -7,6 +7,8 @@ const TextContainer = props => {
   const [testValue,setTestValue]=useState([])
   const [sectName, setSectName] = useState([]);
   const [sectId, setSectId] = useState([]);
+
+  console.log('report data >>> ', reportData)
   
   useEffect(() => {
     const r = reportData[0].survey_sections.map((v, k) =>

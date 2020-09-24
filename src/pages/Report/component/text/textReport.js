@@ -5,13 +5,15 @@ import Logo from "../../../../assets/images/Logo.png";
 
 const Text = (props) => {
   const { reportData, startDate, endDate, viewType, section } = props;
+  const surveyHeaderId = parseInt(localStorage.getItem("SurveyHeaderId"));
 
-  console.log('reportData >> ', reportData)
-  console.log('section >>> ', section)
+  // console.log('reportData >> ', reportData)
+  // console.log('section >>> ', section)
  
   const TotalBuilding =
     reportData &&
     reportData.map((v, k) => v.building_count[0].Number_of_buildings)[0];
+  
   const TotalChiller =
     reportData && reportData.map((v, k) => v.building_count[0].chiller)[0];
   const TotalCondenser =
@@ -21,6 +23,11 @@ const Text = (props) => {
   const TotalCoolingTower =
     reportData &&
     reportData.map((v, k) => v.building_count[0].cooling_tower)[0];
+  const TotalCountry = 
+    reportData &&
+    reportData.map((v,k) => v.building_count[0].Number_of_countrys)[0]
+  console.log('total country >> ', TotalCountry)
+
   return (
     <div className="">
       {section.length &&
@@ -112,6 +119,8 @@ const Text = (props) => {
                             v3.totalAns,
                             v.survey_section_id === 1
                               ? TotalBuilding
+                              : surveyHeaderId === 10 
+                              ? TotalCountry
                               : v.survey_section_id === 2
                               ? TotalChiller
                               : v.survey_section_id === 3

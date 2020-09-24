@@ -103,7 +103,7 @@ const ReportContainer = (props) => {
   const yearCount=Math.max.apply(Math, chillerInstallation.map(function(o) { return o.count; }))
   const typeCount=Math.max.apply(Math, typeAndArea.map(function(o) { return o.count; }))
 
-console.log("TC",typeCount,yearCount);
+// console.log("TC",typeCount,yearCount);
   const categoriesData = BMS.map((v, k) => v.name);
   const componentGraphRef = useRef();
   const componentTextRef = useRef();
