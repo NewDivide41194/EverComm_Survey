@@ -26,9 +26,7 @@ const ESGroupQuestionCard = (props) => {
     );
 
   const getOption = (quesId) => {
-    const selectedQuestion = QuestionData.find(
-      (q) => q.question_id.toString() === quesId && q.input_type_id === 24
-    );
+    const selectedQuestion = QuestionData.find(q => q.question_id.toString() === quesId);
     if (selectedQuestion && selectedQuestion.option_choices) {
       const noOption = selectedQuestion.option_choices.find(
         (o) => o.option_choice_name === "Yes"
@@ -132,30 +130,29 @@ const ESGroupQuestionCard = (props) => {
                         _handleInputChange(e, questionId, null, questionId);
                       }}
                     /> */}
-                    {AnswerData.filter(
-                      (v) => v.optionChoiceId === getOption(v.questionId)
-                    ).length > 0 ? (
-                      <ESTextArea
-                        placeHolder={"Fill Your Answer"}
-                        id={questionId}
-                        value={AnswerData.filter(
-                          (d) =>
-                            d.questionId === questionId &&
-                            d.subQuestionId === null
-                        ).map((v, k) => v.other)}
-                        onChange={(e) => {
-                          _handleInputChange(
-                            e,
-                            questionId,
-                            null,
-                            ques.question_id,
-                            ques.option_choices.filter(
-                              (v) => v.option_choice_name === "Yes"
-                            )[0].option_choice_id
-                          );
-                        }}
-                      />
-                    ) : null}
+                    {
+                      // console.log("bla lba",AnswerData.filter(v => v.optionChoiceId === getOption(v.questionId))),
+                      AnswerData.filter(v => v.questionId === questionId && v.optionChoiceId === getOption(v.questionId)).length > 0
+                        ? (
+                          <ESTextArea
+                            placeHolder={"Fill Your Answer"}
+                            id={questionId}
+                            value={AnswerData.filter(
+                              (d) => d.questionId === questionId && d.subQuestionId === null
+                            ).map((v, k) => v.other)}
+                            onChange={(e) => {
+                              _handleInputChange(
+                                e,
+                                questionId,
+                                null,
+                                ques.question_id,
+                                ques.option_choices.filter(
+                                  (v) => v.option_choice_name === "Yes"
+                                )[0].option_choice_id
+                              );
+                            }}
+                          />
+                        ) : null}
                     {ques.sub_questions && (
                       <SubQuestionInput
                         {...props}
@@ -342,7 +339,7 @@ const SubQuestionInput = (props) => {
                 e,
                 questionId,
                 subQues.sub_question_id,
-                ques.question_id
+                ques.question_id,
               );
             }}
           />

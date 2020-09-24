@@ -18,6 +18,9 @@ const ReportMenu = (props) => {
     ReportDetailData,
     viewType,
     _handleSelectChange,
+    _handleSelectCountry,
+    CountryOptions,
+    countryName
   } = props;
   const userLevel = localStorage.getItem("userLevel");
 
@@ -67,7 +70,21 @@ const ReportMenu = (props) => {
             />
           </div>
         </div>
-        <div className="w-100 row justify-content-center py-5">
+        {
+          (surveyId && surveyId == 10) && (viewType === "one") &&
+          <div className="w-100 row justify-content-center">
+          <div className="col-lg-5 col-sm-12 py-2">
+          <h5 className="py-3" style={{ color: Colors.PrimaryColor }}>Select Country</h5>
+              <ESDropDown 
+                _handleSelect = {_handleSelectCountry}
+                options = {CountryOptions}
+                value={countryName}
+                onClick={_handleClearable}
+              />
+          </div>
+          </div>
+        }
+        <div className="w-100 row justify-content-center pt-5 pb-3">
           <div className="col-lg-3 col-12">
             <ESButton
               disabled={isDisable}
@@ -83,6 +100,7 @@ const ReportMenu = (props) => {
             />
           </div>
         </div>
+       
       </div>
       <ReportDetail ReportDetailData={ReportDetailData} surveyId={surveyId} />
     </div>

@@ -125,7 +125,6 @@ const ReportContainer = (props) => {
     })
   );
 
-  console.log("TC", typeCount, yearCount);
   const categoriesData = BMS.map((v, k) => v.name);
   const componentGraphRef = useRef();
   const componentTextRef = useRef();
