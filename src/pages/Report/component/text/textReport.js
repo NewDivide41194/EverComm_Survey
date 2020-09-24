@@ -5,9 +5,6 @@ import Logo from "../../../../assets/images/Logo.png";
 
 const Text = (props) => {
   const { reportData, startDate, endDate, viewType, section } = props;
-
-  console.log('reportData >> ', reportData)
-  console.log('section >>> ', section)
  
   const TotalBuilding =
     reportData &&
@@ -21,6 +18,8 @@ const Text = (props) => {
   const TotalCoolingTower =
     reportData &&
     reportData.map((v, k) => v.building_count[0].cooling_tower)[0];
+
+    console.log("----->",section);
   return (
     <div className="">
       {section.length &&
@@ -131,7 +130,6 @@ const Text = (props) => {
                       </div>
                     )
                   )}
-
                   {v2.input_type_id === 1 ||
                   v.survey_section_id !== 1 ? null : (
                     <div className="d-flex flex-row flex-wrap">

@@ -83,6 +83,7 @@ const ESCheckbox = (props) => {
       <div>{value.option_choice_name}</div>
       <ThemeProvider theme={customTheme}>
         <Checkbox
+        disabled={disabled}
           value={value.option_choice_name}
           checked={
             isAnswer

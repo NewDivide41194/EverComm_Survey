@@ -9,7 +9,7 @@ export const ESRadio = (props) => {
     quesId,
     _handleRadioChange,
     isAnswer,
-    // isQuestion,
+    isDisable,
     checked,
     keys,
     subQuesId,
@@ -32,7 +32,7 @@ export const ESRadio = (props) => {
         onMouseOver={() =>
           (document.getElementById(
             `${ans.option_choice_id} div ${ID}`
-          ).style.background = "rgb(211, 226, 237)")
+          ).style.background = isDisable?"none":"rgb(211, 226, 237)")
         }
         onMouseLeave={() =>
           (document.getElementById(
@@ -44,6 +44,7 @@ export const ESRadio = (props) => {
         <ThemeProvider theme={customTheme}>
           <Radio
             className="p-0 pr-1"
+            disabled={isDisable}
             name={`${quesId}`}
             checked={
               checked ||
@@ -75,6 +76,7 @@ export const ESRadio = (props) => {
     <label>
       <ThemeProvider theme={customTheme}>
         <Radio
+        disabled={isDisable}
           value={value.option_choice_name}
           checked={
             checked ||

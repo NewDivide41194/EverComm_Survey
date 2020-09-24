@@ -2,16 +2,16 @@ import React from "react";
 import { ESTextArea } from "./ES_TextArea";
 
 export const ESTableInput = (props) => {
-  const { 
+  const {
     AnswerData,
-     _handleInputChange,
+    _handleInputChange,
     quesId,
     subQuesId,
     quesName,
-    inputTypeId,
+    reportText,
     keyValue,
-    data
-   } = props;
+    data,
+  } = props;
   const subQuestions = data.sub_questions;
   const addedQuestionId = 1000;
   return (
@@ -19,8 +19,10 @@ export const ESTableInput = (props) => {
       <thead>
         <tr className="text-center">
           <th>Serial No.</th>
-          {subQuesId.map((a,b) => (
-            <th className="align-middle" key={b}>{a.sub_question_name}</th>
+          {subQuesId.map((a, b) => (
+            <th className="align-middle" key={b}>
+              {a.sub_question_name}
+            </th>
           ))}
         </tr>
       </thead>
@@ -34,27 +36,42 @@ export const ESTableInput = (props) => {
               return (
                 v1.input_type_id === 4 && (
                   <td key={k1}>
-                    <ESTextArea
-                      id={remakeQuestionId}
-                      placeHolder={"Please Specify"}
-                      value={
-                        AnswerData.filter(
-                          (d) => d.questionId === remakeQuestionId
-                        ).length && AnswerData.length
-                          ? AnswerData.filter(
-                              (d) => d.questionId === remakeQuestionId
-                            ).map((v, k) => v.other)[0]
-                          : undefined
-                      }
-                      onChange={(e) => {
-                        _handleInputChange(
-                          e,
-                          remakeQuestionId,
-                          v1.sub_question_id,
-                          keyValue
-                        );
-                      }}
-                    />
+                    {reportText ? (
+                        <span
+                          className="text-primary text-left"
+                          
+                        >
+                          {AnswerData.filter(
+                            (d) => d.questionId === remakeQuestionId
+                          ).length && AnswerData.length
+                            ? AnswerData.filter(
+                                (d) => d.questionId === remakeQuestionId
+                              ).map((v, k) => v.other)[0]
+                            : undefined}
+                        </span>
+                    ) : (
+                      <ESTextArea
+                        id={remakeQuestionId}
+                        placeHolder={"Please Specify"}
+                        value={
+                          AnswerData.filter(
+                            (d) => d.questionId === remakeQuestionId
+                          ).length && AnswerData.length
+                            ? AnswerData.filter(
+                                (d) => d.questionId === remakeQuestionId
+                              ).map((v, k) => v.other)[0]
+                            : undefined
+                        }
+                        onChange={(e) => {
+                          _handleInputChange(
+                            e,
+                            remakeQuestionId,
+                            v1.sub_question_id,
+                            keyValue
+                          );
+                        }}
+                      />
+                    )}
                   </td>
                 )
               );

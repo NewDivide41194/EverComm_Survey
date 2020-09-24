@@ -1,7 +1,7 @@
 import * as API from "./url";
 
 export const UserReportAnswers = (
-  { userId, surveyHeaderId, startDate, endDate, viewType, token },
+  { userId, surveyHeaderId, startDate, endDate, viewType,countryId, token },
   callback
 ) => {
   fetch(API.User_Report_Answer(surveyHeaderId), {
@@ -16,6 +16,7 @@ export const UserReportAnswers = (
       endDate: endDate,
       userId: userId,
       viewType: viewType,
+      countryId:countryId
     }),
   })
     .then((res) => res.json())
