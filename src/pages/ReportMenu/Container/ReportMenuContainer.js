@@ -11,6 +11,7 @@ const ReportMenuContainer = (props) => {
   const [isClearable, setisClearable] = useState(false);
   const [isDisable, setIsDisable] = useState(true);
   const [viewType, setViewType] = useState("all");
+  const [countryName, setCountry] = useState(null);
 
   const _handleReport = () => {
     window.open("/report/totalReport");
@@ -18,17 +19,27 @@ const ReportMenuContainer = (props) => {
   useEffect(() => {
     surveyId && setIsDisable(false);
     FetchReportMenu({ userId, viewType, token }, (err, data) => {
+      const surveySection = data.payload.filter(v => v.survey_header_id === 10)[0].survey_section
+      surveySection.splice(0,1)
+
       setMenuData(data.payload);
       localStorage.setItem("viewType", viewType);
     });
   }, [surveyId, viewType]);
-console.log(menuData);
-  const SurveyNameOptions =
+
+  const SurveyNameOptions = 
     menuData &&
     menuData.map((v, k) => ({
       value: v.survey_header_id,
       label: v.survey_name,
-      isDisabled: v.amount_of_survey <= 0,
+      isDisabled: v.amount_of_survey.length <= 0 && v.amount_of_country.length <=0
+    }));
+
+  const CountryOptions =
+    menuData && 
+    menuData[1] && menuData[1].amount_of_country.map(v => ({
+      value: v.country_id,
+      label: v.country_name
     }));
 
   const _handleSelectChange = (e) => {
@@ -46,6 +57,10 @@ console.log(menuData);
     }
   };
 
+  const _handleSelectCountry = (SurveyHeaderId, e) => {
+    setCountry(e.value);
+  }
+
   const _handleClearable = () => {
     setisClearable(!isClearable);
   };
@@ -55,12 +70,15 @@ console.log(menuData);
       isDisable={isDisable}
       ReportDetailData={menuData}
       SurveyNameOptions={SurveyNameOptions}
+      countryName={countryName}
+      CountryOptions={CountryOptions}
       surveyId={surveyId}
       isClearable={isClearable}
       viewType={viewType}
       _handleSelectChange={_handleSelectChange}
       _handleClearable={_handleClearable}
       _handleSelectSurvey={_handleSelectSurvey}
+      _handleSelectCountry={_handleSelectCountry}
       _handleReport={_handleReport}
     />
   );

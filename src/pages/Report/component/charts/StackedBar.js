@@ -2,7 +2,7 @@ import React from "react";
 import { ResponsiveBar } from "@nivo/bar";
 
 export const StackedBar = ({ data, horizontal, dataKeys, index, bottomLegend, leftLegend, chartTheme,maxCount /* see data tab */ }) => (
-  console.log("Stack bar is ", maxCount),
+  // console.log("Stack bar is ", maxCount),
   <ResponsiveBar
     data={data}
     keys={dataKeys}

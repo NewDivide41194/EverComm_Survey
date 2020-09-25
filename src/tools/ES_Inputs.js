@@ -17,7 +17,7 @@ export const ESInput = (props) => {
     value,
     maxLength,
     pattern,
-    myRef,
+    myRef
   } = props;
 
   const defaultStyle = {
@@ -29,7 +29,7 @@ export const ESInput = (props) => {
     shapeOutline: "none",
     outline: "none",
     border: `1px solid ${Color.SecondaryColor}`,
-    borderRadius: 5,
+    borderRadius: 5
   };
   const userStyle = style === undefined ? {} : style;
 

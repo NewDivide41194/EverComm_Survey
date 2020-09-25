@@ -9,10 +9,10 @@ import ReactToPrint from "react-to-print";
 import { ESButton } from "../../../tools/ES_Button";
 import Cover from "../component/Cover";
 import BackCover from "../component/BackCover";
-// import Text from "../component/text/textReport";
 import { ChartTheme1 } from "../../../config/Color.config";
-// import ESLoading from "../../../tools/ES_Loading";
 import TextContainer from "./TextContainer";
+import { QuestionFetch } from "../../../api/FetchQuestions";
+import ESLoading from "../../../tools/ES_Loading";
 
 const ReportContainer = (props) => {
   const [reportData, setReportData] = useState([]);
@@ -23,7 +23,9 @@ const ReportContainer = (props) => {
   const [ageData, setAgeData] = useState([]);
   const [TreeMapData, setTreeData] = useState([]);
   const [chillerInstallation, setChillerInstallation] = useState([]);
-  // const [isLoading,setIsLoading]=useState(false)
+  const bTypeId = localStorage.getItem("bTypeId");
+  const countryId = localStorage.getItem("countryId");
+  const surveySectionId = localStorage.getItem("surveySectionId");
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -32,26 +34,36 @@ const ReportContainer = (props) => {
   const userId = localStorage.getItem("userId");
   const viewType = localStorage.getItem("viewType");
   const userLevel = parseInt(localStorage.getItem("userLevel"));
+  const [surveyData, setSurveyData] = useState([]);
+  const [answerData, setAnswerData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const countryId = 48;
+    // surveyHeaderId === 10
+    //   ?
     UserReportAnswers(
-      { userId, surveyHeaderId, startDate, endDate, viewType, token },
+      { userId, surveyHeaderId, startDate, endDate, viewType,countryId, token },
       (err, data) => {
         setReportData(data.payload);
       }
     );
-    FetchGraphReport(
-      { userId, surveyHeaderId, startDate, endDate, viewType, token },
-      (err, data) => {
-        setTypeAndArea(data.payload[1]);
-        setBMS(data.payload[2]);
-        setAgeData(data.payload[0]);
-        setTreeData(data.payload[3]);
-        setChillerInstallation(data.payload[4]);
-      }
-    );
+    setIsLoading(false);
+
+    //   :
+
+    // FetchGraphReport(
+    //   { userId, surveyHeaderId, startDate, endDate, viewType, token },
+    //   (err, data) => {
+    //     setTypeAndArea(data.payload[1]);
+    //     setBMS(data.payload[2]);
+    //     setAgeData(data.payload[0]);
+    //     setTreeData(data.payload[3]);
+    //     setChillerInstallation(data.payload[4]);
+    //   }
+    // );
   }, []);
-  
+
   const AgeData1 = ageData.length && ageData.map((v, k) => v.categories);
 
   const AgeData2 = new Array(5).fill(null).map((v, k) => ({
@@ -85,7 +97,7 @@ const ReportContainer = (props) => {
     Hotel: v.categories.Hotel,
     "Residential Building": v.categories.ResidentialBuilding,
     "Office Building": v.categories.OfficeBuilding,
-    ShoppingMall: v.categories.ShoppingMall
+    ShoppingMall: v.categories.ShoppingMall,
   }));
 
   const chillerInstallationData = chillerInstallation.map((v, k) => ({
@@ -97,13 +109,22 @@ const ReportContainer = (props) => {
     Haier: v.categories.Haier,
     Mitsubishi: v.categories.Mitsubishi,
     "Johnson Controls": v.categories.JohnsonControls,
-    Ingersoll: v.categories.Ingersoll
+    Ingersoll: v.categories.Ingersoll,
   }));
 
-  const yearCount=Math.max.apply(Math, chillerInstallation.map(function(o) { return o.count; }))
-  const typeCount=Math.max.apply(Math, typeAndArea.map(function(o) { return o.count; }))
+  const yearCount = Math.max.apply(
+    Math,
+    chillerInstallation.map(function (o) {
+      return o.count;
+    })
+  );
+  const typeCount = Math.max.apply(
+    Math,
+    typeAndArea.map(function (o) {
+      return o.count;
+    })
+  );
 
-console.log("TC",typeCount,yearCount);
   const categoriesData = BMS.map((v, k) => v.name);
   const componentGraphRef = useRef();
   const componentTextRef = useRef();
@@ -111,8 +132,10 @@ console.log("TC",typeCount,yearCount);
     Array(Math.ceil((stop - start) / step))
       .fill(start)
       .map((x, y) => x + y * step);
-//console.log("===>",modifiedAgeData);
-  return (
+  //console.log("===>",modifiedAgeData);
+  return isLoading ? (
+    <ESLoading />
+  ) : (
     <div className="container">
       <h3 className="text-primary">Report</h3>
       <ul className="nav nav-tabs" role="tablist">
@@ -158,7 +181,13 @@ console.log("TC",typeCount,yearCount);
               endDate={endDate}
               viewType={userLevel === 2 ? null : viewType}
             />
-            {reportData&&reportData.length>0&&<TextContainer reportData={reportData} />}
+            {reportData && reportData.length > 0 && (
+              <TextContainer
+                reportData={reportData}
+                answerData={answerData}
+                surveyData={surveyData}
+              />
+            )}
             <BackCover
               reportData={reportData}
               startDate={startDate}
@@ -166,47 +195,47 @@ console.log("TC",typeCount,yearCount);
             />
           </div>
         </div>
-          <div className="tab-pane mt-4" id="reportGraph">
-            <ReactToPrint
-              trigger={() => (
-                <div className="col-3 py-2 px-0" style={{ minWidth: 172 }}>
-                  <ESButton
-                    text={"Print"}
-                    leftIcon={<i className="fa fa-print pr-2" />}
-                  />
-                </div>
-              )}
-              content={() => componentGraphRef.current}
-              pageStyle="{ size: A4 portrait;}"
+        {/* <div className="tab-pane mt-4" id="reportGraph">
+          <ReactToPrint
+            trigger={() => (
+              <div className="col-3 py-2 px-0" style={{ minWidth: 172 }}>
+                <ESButton
+                  text={"Print"}
+                  leftIcon={<i className="fa fa-print pr-2" />}
+                />
+              </div>
+            )}
+            content={() => componentGraphRef.current}
+            pageStyle="{ size: A4 portrait;}"
+          />
+          <div ref={componentGraphRef}>
+            <Cover
+              reportData={reportData}
+              startDate={startDate}
+              endDate={endDate}
+              viewType={userLevel === 2 ? null : viewType}
             />
-            <div ref={componentGraphRef} >
-              <Cover
-                reportData={reportData}
-                startDate={startDate}
-                endDate={endDate}
-                viewType={userLevel === 2 ? null : viewType}
-              />
-              <Report
-                reportData={reportData}
-                modifiedAgeData={modifiedAgeData}
-                BMSdata={BMSdata}
-                categories={categoriesData}
-                typeAndArea={TypeData}
-                buildingTypeCount={typeCount}
-              />
-              <ReportG1
-                reportData={reportData}
-                TreeData={TreeMapData}
-                BarData={chillerInstallationData}
-                yearCount={yearCount}
-              />
-              <BackCover
-                reportData={reportData}
-                startDate={startDate}
-                endDate={endDate}
-              />
-            </div>
-        </div>
+            <Report
+              reportData={reportData}
+              modifiedAgeData={modifiedAgeData}
+              BMSdata={BMSdata}
+              categories={categoriesData}
+              typeAndArea={TypeData}
+              buildingTypeCount={typeCount}
+            />
+            <ReportG1
+              reportData={reportData}
+              TreeData={TreeMapData}
+              BarData={chillerInstallationData}
+              yearCount={yearCount}
+            />
+            <BackCover
+              reportData={reportData}
+              startDate={startDate}
+              endDate={endDate}
+            />
+          </div>
+        </div> */}
       </div>
     </div>
   );

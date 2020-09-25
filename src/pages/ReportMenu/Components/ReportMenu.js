@@ -18,6 +18,9 @@ const ReportMenu = (props) => {
     ReportDetailData,
     viewType,
     _handleSelectChange,
+    _handleSelectCountry,
+    CountryOptions,
+    countryName
   } = props;
   const userLevel = localStorage.getItem("userLevel");
 
@@ -67,7 +70,21 @@ const ReportMenu = (props) => {
             />
           </div>
         </div>
-        <div className="w-100 row justify-content-center py-5">
+        {
+          (surveyId && surveyId == 10) && (viewType === "one") &&
+          <div className="w-100 row justify-content-center">
+          <div className="col-lg-5 col-sm-12 py-2">
+          <h5 className="py-3" style={{ color: Colors.PrimaryColor }}>Select Country</h5>
+              <ESDropDown 
+                _handleSelect = {_handleSelectCountry}
+                options = {CountryOptions}
+                value={countryName}
+                onClick={_handleClearable}
+              />
+          </div>
+          </div>
+        }
+        <div className="w-100 row justify-content-center pt-5 pb-3">
           <div className="col-lg-3 col-12">
             <ESButton
               disabled={isDisable}
@@ -83,6 +100,7 @@ const ReportMenu = (props) => {
             />
           </div>
         </div>
+       
       </div>
       <ReportDetail ReportDetailData={ReportDetailData} surveyId={surveyId} />
     </div>
@@ -99,31 +117,43 @@ const ReportDetail = (props) => {
     <div>
       {filteredData
         ? filteredData.map((v, k) => (
-            <div
-              className="d-flex flex-row flex-fill flex-wrap"
-              style={{ fontSize: 13 }}
-              key={k}
-            >
-              <div className="col-12">
-                <h4 style={{ color: Colors.PrimaryColor }}>Report Detail</h4>
-                <hr />
-              </div>
+          <div
+            className="d-flex flex-row flex-fill flex-wrap"
+            style={{ fontSize: 13 }}
+            key={k}
+          >
+            <div className="col-12">
+              <h4 style={{ color: Colors.PrimaryColor }}>Report Detail</h4>
+              <hr />
+            </div>
+            {v.amount_of_survey.length != '' ?
               <div className="d-flex flex-row flex-fill col-lg-6 col-sm-12">
                 <div className="col-4 px-0 font-weight-bold">
                   Building Count
+              </div>
+                <div className="col-1">:</div>
+
+                <div className="col-7">
+                  {v.amount_of_survey.length}buildings
+              </div>
+              </div> : <div className="d-flex flex-row flex-fill col-lg-6 col-sm-12">
+                <div className="col-4 px-0 font-weight-bold">
+                  Country Count
                 </div>
                 <div className="col-1">:</div>
 
                 <div className="col-7">
-                  {v.amount_of_survey.length} buildings
+                  {v.amount_of_country.length}countrys
                 </div>
-              </div>
-              <div className="d-flex flex-row flex-fill col-lg-6 col-sm-12 ">
-                <div className="col-4 px-0 font-weight-bold">Section Count</div>
-                <div className="col-1">:</div>
-                <div className="col-7">{v.survey_section.length} sections</div>
-              </div>
+              </div>}
 
+            <div className="d-flex flex-row flex-fill col-lg-6 col-sm-12 ">
+              <div className="col-4 px-0 font-weight-bold">Section Count</div>
+              <div className="col-1">:</div>
+              <div className="col-7">{v.survey_section.length} sections</div>
+            </div>
+
+            {v.amount_of_survey.length != '' ?
               <div className="d-flex flex-row flex-fill col-lg-6 col-sm-12 ">
                 <div className="col-4 px-0 font-weight-bold">Building Name</div>
                 <div className="col-1">:</div>
@@ -134,32 +164,42 @@ const ReportDetail = (props) => {
                       `${k1 + 1 !== v.amount_of_survey.length ? ", " : "."}`
                   )}
                 </div>
-              </div>
-              <div className="d-flex flex-row flex-fill col-lg-6 col-sm-12">
-                <div className="col-4 px-0 font-weight-bold">
-                  Survey Sections
-                </div>
+              </div> : <div className="d-flex flex-row flex-fill col-lg-6 col-sm-12 ">
+                <div className="col-4 px-0 font-weight-bold">Country Name</div>
                 <div className="col-1">:</div>
                 <div className="col-7">
-                  {v.survey_section.map(
+                  {v.amount_of_country.map(
                     (v1, k1) =>
-                      v1.survey_section_name +
-                      `${k1 + 1 !== v.survey_section.length ? ", " : "."}`
+                      v1.country_name +
+                      `${k1 + 1 !== v.amount_of_country.length ? ", " : "."}`
                   )}
                 </div>
-              </div>
-              <div className="col-lg-6"></div>
-              <div className="d-flex flex-row flex-fill col-lg-6 col-sm-12">
-                <div className="col-4 px-0 font-weight-bold">
-                  Survey Created Date
+              </div>}
+            <div className="d-flex flex-row flex-fill col-lg-6 col-sm-12">
+              <div className="col-4 px-0 font-weight-bold">
+                Survey Sections
                 </div>
-                <div className="col-1">:</div>
-                <div className="col-7">
-                  {moment(v.survey_created_date).format("DD-MMM-YYYY")}
-                </div>
+              <div className="col-1">:</div>
+              <div className="col-7">
+                {v.survey_section.map(
+                  (v1, k1) =>
+                    v1.survey_section_name +
+                    `${k1 + 1 !== v.survey_section.length ? ", " : "."}`
+                )}
               </div>
             </div>
-          ))
+            <div className="col-lg-6"></div>
+            <div className="d-flex flex-row flex-fill col-lg-6 col-sm-12">
+              <div className="col-4 px-0 font-weight-bold">
+                Survey Created Date
+                </div>
+              <div className="col-1">:</div>
+              <div className="col-7">
+                {moment(v.survey_created_date).format("DD-MMM-YYYY")}
+              </div>
+            </div>
+          </div>
+        ))
         : null}
     </div>
   );

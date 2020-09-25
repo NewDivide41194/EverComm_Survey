@@ -1,8 +1,4 @@
 import React, { useState, useEffect } from "react";
-import MaterialTable from "material-table";
-import { ESButton } from "./ES_Button";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
-import * as Colors from "../config/Color.config";
 import { ESRadio } from "./ES_Radio";
 import ESCheckBox from "./ES_CheckBox";
 
@@ -16,10 +12,11 @@ const ESMatrix = (props) => {
     optionChoices,
     keys,
     subQuesId,
+    isDisable,
     _handleRadioChange,
     _handleCheckChange,
   } = props;
-  console.log(isAnswer);
+  console.log("MMMMMM",isDisable);
   return (
     <table className="table table-bordered table-striped">
       <thead>
@@ -34,11 +31,17 @@ const ESMatrix = (props) => {
           </tr>
         ) : (
           <tr className="text-center">
-            { categories ? categories.map((v) => (
-              <th style={{ padding: 15 }} className="align-middle" className="align-middle">
-                {v.categories}
-              </th>
-            )):null}
+            {categories
+              ? categories.map((v) => (
+                  <th
+                    style={{ padding: 15 }}
+                    className="align-middle"
+                    className="align-middle"
+                  >
+                    {v.categories}
+                  </th>
+                ))
+              : null}
           </tr>
         )}
 
@@ -57,12 +60,18 @@ const ESMatrix = (props) => {
             {v.option_choices.map((v1) => (
               <td className="p-0 text-center">
                 {v.input_type_id === 1 ? (
-                  <ESCheckBox value={v1} _handleChange={_handleCheckChange} quesId={quesId}
-                  subQuesId={v.sub_question_id}
-                  isAnswer={isAnswer}
-                  keys={keys}/>
+                  <ESCheckBox
+                    disabled={isDisable}
+                    value={v1}
+                    _handleChange={_handleCheckChange}
+                    quesId={quesId}
+                    subQuesId={v.sub_question_id}
+                    isAnswer={isAnswer}
+                    keys={keys}
+                  />
                 ) : (
                   <ESRadio
+                    isDisable={isDisable}
                     value={v1}
                     _handleRadioChange={_handleRadioChange}
                     quesId={quesId}

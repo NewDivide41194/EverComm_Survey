@@ -46,7 +46,6 @@ const Question = (props) => {
     amountOfDevice && amountOfDevice.length > 0
       ? Object.values(amountOfDevice[0])[pageno - 1]
       : null;
-
   
   const surveyTotal = surveyData.length && surveyData[0].survey_header_id === 1 ? total :  surveyData.length && surveyData[0].survey_sections[0].questions.length
 
