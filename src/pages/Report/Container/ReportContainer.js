@@ -39,7 +39,7 @@ const ReportContainer = (props) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const countryId = 48;
+    // const countryId = 48;
     // surveyHeaderId === 10
     //   ?
     UserReportAnswers(
