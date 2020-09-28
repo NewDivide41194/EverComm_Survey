@@ -353,30 +353,32 @@ const SubQuestionInput = (props) => {
               );
             }}
           />
-        ) : subQues.input_type_id === 5 ? (
-          <ESDropDown
-            quesId={questionId}
-            subQuesId={subQues.sub_question_id}
-            options={subQues.option_choices.map((v, k) => ({
-              value: v.option_choice_id,
-              label: v.option_choice_name,
-            }))}
-            selectedOption={
-              AnswerData.filter((d) => d.subQuestionId === subQues.sub_question_id)
-                      ? AnswerData.filter(
-                          (d) => d.subQuestionId === subQues.sub_question_id
-                        ).map(
-                          (v, k) =>
-                            subQues.option_choices.filter(
-                              (x, y) => x.option_choice_id === v.optionChoiceId
-                            )[0]
-                        )
-                : selectedOption
-            }
-            _handleSelect={_handleSelect}
-            keys={ques.question_id}
-          />
-        ) : null}
+        ) 
+        // : subQues.input_type_id === 5 ? (
+        //   <ESDropDown
+        //     quesId={questionId}
+        //     subQuesId={subQues.sub_question_id}
+        //     options={subQues.option_choices.map((v, k) => ({
+        //       value: v.option_choice_id,
+        //       label: v.option_choice_name,
+        //     }))}
+        //     selectedOption={
+        //       AnswerData.filter((d) => d.subQuestionId === subQues.sub_question_id)
+        //               ? AnswerData.filter(
+        //                   (d) => d.subQuestionId === subQues.sub_question_id
+        //                 ).map(
+        //                   (v, k) =>
+        //                     subQues.option_choices.filter(
+        //                       (x, y) => x.option_choice_id === v.optionChoiceId
+        //                     )[0]
+        //                 )
+        //         : selectedOption
+        //     }
+        //     _handleSelect={_handleSelect}
+        //     keys={ques.question_id}
+        //   />
+        // )
+         : null}
       </div>
     </div>
   ));

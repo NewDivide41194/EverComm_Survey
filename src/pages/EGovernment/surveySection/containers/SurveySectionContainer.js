@@ -5,7 +5,7 @@ import { SurveySectionFetch } from "../../../../api/FetchSurveyList";
 
 const SurveySectionContainer = (props) => {
   const [sectionList, setSectionList] = useState([]);
-  const [filterList, setFilterList] = useState([]);
+  const [surveyTitle,setSurveyTitle]=useState(null)
   const userId =localStorage.getItem("userId");
   const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
   const surveyHeaderName = localStorage.getItem("SurveyHeaderName");
@@ -14,10 +14,10 @@ const SurveySectionContainer = (props) => {
 
   useEffect(() => {
     SurveySectionFetch(surveyHeaderId, countryId, token, (err, data) => {
-      const list = data.payload;
-      const filterList = list.splice(0,1);
-      setFilterList(filterList);
+      const list = data.payload[0];
+      const title=data.payload[1][0].survey_title
       setSectionList(list);
+      setSurveyTitle(title)
     })
   },[]);
 
@@ -48,7 +48,7 @@ const SurveySectionContainer = (props) => {
       <SurveySection
        handleQuestionRoute={handleQuestionRoute}
        sectionList={sectionList}
-        filterList={filterList}
+       surveyTitle={surveyTitle}
       />
     </div>
   );

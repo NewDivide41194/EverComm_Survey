@@ -10,44 +10,30 @@ const Question = (props) => {
     buildingType,
     surveyData,
     media,
-    userId,
     pageno,
     AnswerData,
-    QuestionData,
-    selectedOption,
     obtained,
     total,
-    bTypeId,
     _handleNext,
     _handlePrevious,
     _handleSubmit,
-    _handleRadioChange,
-    _handleCheckChange,
-    _handleSelect,
-    _handleInputChange,
-    _handleStartChange,
-    _handleEndChange,
     amountOfDevice,
-    percent,
-    otherQuestion,
-    otherAns,
-    otherOfQuestion,
-    weekAns,
-    weekQuestion,
+    percent
   } = props;
   const organization = localStorage.getItem("organization");
   const countryName = localStorage.getItem("countryName");
   const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
   const surveySection = localStorage.getItem("surveySection");
 
-  // console.log('surveyData >>> ', surveyData)
-
   const deviceAmount =
     amountOfDevice && amountOfDevice.length > 0
       ? Object.values(amountOfDevice[0])[pageno - 1]
       : null;
-  
-  const surveyTotal = surveyData.length && surveyData[0].survey_header_id === 1 ? total :  surveyData.length && surveyData[0].survey_sections[0].questions.length
+
+  const surveyTotal =
+    surveyData.length && surveyData[0].survey_header_id === 1
+      ? total
+      : surveyData.length && surveyData[0].survey_sections[0].questions.length;
 
   return (
     surveyData.length && (
@@ -90,13 +76,10 @@ const Question = (props) => {
             className="d-flex flex-row flex-wrap justify-content-between pt-2"
             style={{ fontSize: media.mobile ? "18px" : "20px" }}
           >
-            {/* <div className="font-weight-bold">
-              {surveyData[0].survey_sections[pageno].section_name +
-                " in " +
-                countryName}
-            </div> */}
             <div className="font-weight-bold">
-              {surveySection}
+              {surveyHeaderId === "1"
+                ? surveyData[0].survey_sections[pageno].section_name
+                : surveySection}
             </div>
             {surveyData[0].survey_sections[pageno].survey_section_id === 10 ? (
               <div>
@@ -112,16 +95,10 @@ const Question = (props) => {
           </div>
 
           <QuestionCard
-            // QuestionData={QuestionData}
-            // pageno={pageno}
             {...props}
             amountOfDevice={amountOfDevice}
+            surveyHeaderId={surveyHeaderId}
             sessionId={surveyData[0].survey_sections[pageno].survey_section_id}
-            // groupQuestion={surveyData[0].survey_sections[pageno].}
-            // otherAns={otherAns}
-            // otherOfQuestion={otherOfQuestion}
-            // weekAns={weekAns}
-            // weekQuestion={weekQuestion}
           />
           <div className="row justify-content-between">
             <div

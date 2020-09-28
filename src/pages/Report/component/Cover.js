@@ -1,6 +1,5 @@
 import React from "react";
 import * as Colors from "../../../config/Color.config";
-import { NotAnswered, Percentage } from "../../../helper/reportHelper";
 import moment from "moment";
 import Logo from "../../../assets/images/Logo.png";
 
@@ -9,7 +8,7 @@ const Cover = (props) => {
 
   return (
     <div
-      className="container pt-4"
+      className="container"
       style={{
         width: "8.27in",
         height: "15.66in",

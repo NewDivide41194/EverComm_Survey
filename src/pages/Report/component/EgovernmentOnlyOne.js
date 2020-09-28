@@ -1,12 +1,10 @@
 import React from "react";
 import ESCheckBox from "../../../tools/ES_CheckBox";
 import { ESRadio } from "../../../tools/ES_Radio";
-import { ESDropDown } from "../../../tools/ES_DropDown";
 import EGA from "../../../assets/images/eGovernment/EGA.jpg";
 import UNDP from "../../../assets/images/eGovernment/UNDP.jpeg";
 import { withMedia } from "react-media-query-hoc";
 import ESMatrix from "../../../tools/ES_MatrixTable";
-import { ESTextArea } from "../../../tools/ES_TextArea";
 import { ESTableInput } from "../../../tools/ES_TableInput";
 import * as Colors from "../../../config/Color.config";
 
@@ -19,7 +17,7 @@ const ESGroupQuestionCard = (props) => {
     AnswerData,
     sectionName,
     surveyTitle,
-    id,
+    isHeader,
   } = props;
   const subQues =
     QuestionData.length > 0 &&
@@ -42,27 +40,22 @@ const ESGroupQuestionCard = (props) => {
     }
     return -1;
   };
-  const PageBreaker = () => <div className="page-break">hello</div>;
 
-  ;
-console.log("Id=====>",id);
   return (
     <div
       className="container"
-      id={id}
       style={{
         width: "8.27in",
       }}
     >
-      <Header
+      {isHeader?<Header
         sectionName={sectionName}
         surveyTitle={surveyTitle}
         countryName={countryName}
-      />
+      />:<Section sectionName={sectionName}/>}
       {QuestionData &&
         QuestionData.map((ques, k2) => {
           const questionId = ques.question_id.toString();
-          const temp = AnswerData.find((d) => d.questionId === questionId);
           return (
             <div
               className="p-3"
@@ -293,21 +286,6 @@ const SubQuestionInput = (props) => {
           />
         ) : subQues.input_type_id === 4 ? (
           <TextAnswers AnswerData={AnswerData} subQues={subQues} />
-        ) : subQues.input_type_id === 5 ? (
-          <div>
-            {/* {AnswerData.filter(
-              (d) => d.subQuestionId === subQues.sub_question_id
-            )
-              ? AnswerData.filter(
-                  (d) => d.subQuestionId === subQues.sub_question_id
-                ).map(
-                  (v, k) =>
-                    subQues.option_choices.filter(
-                      (x, y) => x.option_choice_id === v.optionChoiceId
-                    )[0]
-                )[0].option_choice_name
-              : "Not Answered"} */}
-          </div>
         ) : null}
       </div>
     </div>
@@ -336,7 +314,7 @@ const TextAnswers = (props) => {
   );
 };
 
-const Header = (props) => {
+export const Header = (props) => {
   const { sectionName, surveyTitle, countryName } = props;
   return (
     <div className="d-flex px-3 flex-row justify-content-between align-items-baseline font-italic">
@@ -357,6 +335,23 @@ const Header = (props) => {
         <img src={EGA} style={{ width: 100, height: 40 }} alt="EGA logo" />
         <img src={UNDP} style={{ width: 70 }} alt="EGA logo" />
       </div>
+    </div>
+  );
+};
+
+
+export const Section = (props) => {
+  const { sectionName, surveyTitle, countryName } = props;
+  return (
+      <div
+        style={{
+          color: Colors.SparkGreen,
+          fontSize: 18,
+        }}
+        className="px-3"
+
+      >
+        <span>{sectionName}</span>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Text from "../component/text/textReport";
-import EgovernmentReport from "../component/EgovernmentOnlyOne.js";
+import EgovernmentReport, { Header } from "../component/EgovernmentOnlyOne.js";
 import ESLoading from "../../../tools/ES_Loading";
 import "../../../App.css";
 
@@ -11,7 +11,6 @@ const TextContainer = (props) => {
   const [testValue, setTestValue] = useState([]);
   const [sectName, setSectName] = useState([]);
   const [sectId, setSectId] = useState([]);
-
   useEffect(() => {
     const r = reportData[0].survey_sections.map((v, k) =>
       v.questions.map((v1) => v1)
@@ -54,20 +53,62 @@ const TextContainer = (props) => {
   return reportData[0].survey_header_id === 1 ? (
     <Text reportData={reportData} section={section} />
   ) : (
-    reportData[0].survey_sections.map((v, k) => (
-      <div>
-        <EgovernmentReport
-          id={k}
+    reportData[0].survey_sections.map((v, k) =>
+      k > 0 ? (
+        <div>
+          <EgovernmentReport
+            sectionName={v.section_name}
+            isHeader={k === 1 ? false : true}
+            AnswerData={reportData[0].answers}
+            section={section}
+            QuestionData={v.questions}
+            surveyTitle={reportData[0].surveyTitle}
+          />
+          <div className="page-break">.</div>
+        </div>
+      ) : (
+        <DataProvider
           sectionName={v.section_name}
           AnswerData={reportData[0].answers}
-          section={section}
           QuestionData={v.questions}
           surveyTitle={reportData[0].surveyTitle}
         />
-        <div className="page-break"></div>
-      </div>
-    ))
+      )
+    )
   );
 };
 
 export default TextContainer;
+
+const DataProvider = (props) => {
+  const { AnswerData, QuestionData, surveyTitle, sectionName } = props;
+  const countryName = localStorage.getItem("countryName");
+
+  return (
+    <div
+      className="container"
+      style={{
+        width: "8.27in",
+      }}
+    >
+      <Header
+        sectionName={sectionName}
+        surveyTitle={surveyTitle}
+        countryName={countryName}
+      />
+      {QuestionData &&
+        QuestionData.map((ques, k2) => {
+          const questionId = ques.question_id.toString();
+          return (
+            <div>
+              {questionId
+                ? AnswerData.filter((d) => d.questionId === questionId).map(
+                    (v, k) => v.other
+                  )
+                : null}
+            </div>
+          );
+        })}
+    </div>
+  );
+};

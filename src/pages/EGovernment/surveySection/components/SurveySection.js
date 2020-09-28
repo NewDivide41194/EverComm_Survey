@@ -6,22 +6,18 @@ const SurveySection = props => {
   const countryName = localStorage.getItem("countryName");
   const surveyHeaderName = localStorage.getItem("SurveyHeaderName");
 
-  const { handleQuestionRoute, sectionList, filterList } = props;
-  // console.log('filterList', filterList)
-  // if (filterList && filterList.length > 0) {
-  //   console.log("filterList >> ", filterList[0].section_name);
-  // }
-
+  const { handleQuestionRoute, sectionList, surveyTitle } = props;
+  
   return (
-    filterList &&
-    filterList.length > 0 && (
+    sectionList &&
+    sectionList.length > 0 && (
       <div className="p-2">
         <div className="d-flex flex-row py-2">
           <h4 style={{ color: Colors.PrimaryColor }}>{surveyHeaderName}</h4>
         </div>
         <div className="d-flex flex-row">
           <h5 style={{ color: "#999999" }}>
-            {filterList[0].section_name}
+            {surveyTitle}
             {" in "}
             {countryName}
           </h5>

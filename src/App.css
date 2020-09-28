@@ -5,6 +5,7 @@
 @media all {
   .page-break {
     display: none;
+    margin-top: 13in;
   }
 }
 
@@ -18,8 +19,7 @@
 
 @media print {
   .page-break {
-    margin-top: 11.69in;
-    
+    margin-top: 13in;    
     display: block;
     page-break-before: auto;
   }

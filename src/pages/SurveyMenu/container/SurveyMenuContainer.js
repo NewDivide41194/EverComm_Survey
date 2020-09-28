@@ -6,64 +6,68 @@ import { TrancateAns } from "../../../api/FetchTrancate";
 import Loading from "../../../assets/images/loading1.gif";
 import * as Colors from "../../../config/Color.config";
 
-const SurveyMenuContainer = props => {
+const SurveyMenuContainer = (props) => {
   const [menuData, setMenuData] = useState([]);
-  const userId = localStorage.getItem("userId")
-  const [IsLoading,setIsLoading]=useState(false);
- 
-  const _handleChoose = (e,header )=> {
+  const userId = localStorage.getItem("userId");
+  const [IsLoading, setIsLoading] = useState(false);
+
+  const _handleChoose = (e, header) => {
     localStorage.setItem("SurveyHeaderId", e.target.id);
     localStorage.setItem("SurveyHeaderName", header);
-    e.target.id==1?props.history.push("/surveylist"):
-    props.history.push("/countryMenu")
+    e.target.id == 1
+      ? props.history.push("/surveylist")
+      : props.history.push("/countryMenu");
   };
-  const token=localStorage.getItem("token")
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     setIsLoading(true);
-    MenuInfoFetch({ userId,token }, (err, data) => {      
+    MenuInfoFetch({ userId, token }, (err, data) => {
       setMenuData(data.payload);
       setIsLoading(false);
     });
     const bTypeId = localStorage.getItem("bTypeId");
     const buildingId = localStorage.getItem("buildingId");
-    if(bTypeId || buildingId){
-      localStorage.removeItem("bTypeId")
+    if (bTypeId || buildingId) {
+      localStorage.removeItem("bTypeId");
       localStorage.removeItem("buildingId");
     }
+    localStorage.removeItem("surveySection");
   }, []);
 
   // console.log('count >>>>> ', menuData)
 
-  const _handleReset = survey_header_id => {
+  const _handleReset = (survey_header_id) => {
     TrancateAns({ userId, survey_header_id }, (err, data) => {
-      window.location.reload()
+      window.location.reload();
     });
   };
 
-  const filterSurvey = menuData.filter(v => v.survey_header_id === 1)
-  const surveyAmount = filterSurvey.map(v=> v.amount_of_survey)
+  const filterSurvey = menuData.filter((v) => v.survey_header_id === 1);
+  const surveyAmount = filterSurvey.map((v) => v.amount_of_survey);
   return (
-    
     <div className="container justify-content-center">
       <div
-         className="w-100"
-         style={{
-           margin: 0,
-           position: "relative",
-           color:Colors.PrimaryColor
-         }}
+        className="w-100"
+        style={{
+          margin: 0,
+          position: "relative",
+          color: Colors.PrimaryColor,
+        }}
       >
         <h2>{"Select Project"}</h2>
-        { IsLoading &&
-        <div className="text-center" style={{
-          height: "100%",
-          paddingTop: "25vh",
-        }}>
+        {IsLoading && (
+          <div
+            className="text-center"
+            style={{
+              height: "100%",
+              paddingTop: "25vh",
+            }}
+          >
             <img src={Loading} style={{ width: 150 }} alt="loading" />
             <div className="w-100 font-weight-bold">Loading...</div>
-        </div>  
-      }
+          </div>
+        )}
         {menuData.map((v, k) => (
           <SurveyMenu
             key={k}
@@ -73,12 +77,12 @@ const SurveyMenuContainer = props => {
             amountOfSurvey={v.amount_of_survey}
             id={v.survey_header_id}
             countryCount={v.count}
-            surveyAmount = {surveyAmount}
+            surveyAmount={surveyAmount}
           />
         ))}
       </div>
-   </div>
+    </div>
   );
 };
 
-export default SurveyMenuContainer ;
+export default SurveyMenuContainer;

@@ -31,16 +31,14 @@ const QuestionCard = (props) => {
     sessionId,
     otherAns,
     otherOfQuestion,
-    weekAns,
-    weekQuestion,
-    groupQuestion,
+    surveyHeaderId
   } = props;
 
   if (sessionId === 1) {
     return <QuestionCard1 {...props} />;
   } else if (
     QuestionData.map((ques, k2) => ques.group_question === 1) &&
-    sessionId > 9
+    sessionId > 10
   ) {
     return <ESGroupQuestionCard {...props} />;
   }
@@ -64,9 +62,9 @@ const QuestionCard = (props) => {
           fontSize: media.mobile ? "12px" : "15px",
         }}
       >
-        <div className="font-weight-bold pt-2 pl-2  py-1">{k3 + 1}.</div>
+        {surveyHeaderId===1?<div className="py-2 font-weight-bold">{k3 + 1.`Device No.` + (k3 + 1)}</div>:null}
+
         <div className="flex-fill pr-2 ">
-          <div className="py-2 font-weight-bold">{`Device No.` + (k3 + 1)}</div>
           {QuestionData &&
             QuestionData.map((ques, k2) => {
               const remakeQuestionId =

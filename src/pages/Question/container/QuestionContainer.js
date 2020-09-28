@@ -216,15 +216,12 @@ const QuestionContainer = (props) => {
       }
     } else {
       if (ImportText === "" && subIsQuesId(quesId, subQuesId).length >= 1) {
-        console.log("4");
         setValue(e.target.value);
         AnswerData.splice(subIsQuesIdIndex(quesId, subQuesId), 1);
       } else if (subIsQuesId(quesId, subQuesId).length >= 1) {
-        console.log("5");
         setValue(e.target.value);
         AnswerData.splice(subIsQuesIdIndex(quesId, subQuesId), 1, TextAnswer);
       } else {
-        console.log("6", e.target.value, TextAnswer);
         setValue(e.target.value);
         AnswerData.push(TextAnswer);
       }
