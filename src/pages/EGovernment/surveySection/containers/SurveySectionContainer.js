@@ -14,9 +14,9 @@ const SurveySectionContainer = (props) => {
 
   useEffect(() => {
     SurveySectionFetch(surveyHeaderId, countryId, token, (err, data) => {
-      const list = data.payload;
-      const filterList = list.splice(0,1);
-      setFilterList(filterList);
+      const list = data.payload[0];
+      // const filterList = list.splice(0,1);
+      setFilterList(list);
       setSectionList(list);
     })
   },[]);

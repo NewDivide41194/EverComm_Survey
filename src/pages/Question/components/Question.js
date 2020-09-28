@@ -21,6 +21,7 @@ const Question = (props) => {
     _handleNext,
     _handlePrevious,
     _handleSubmit,
+    _handleDateChange,
     _handleRadioChange,
     _handleCheckChange,
     _handleSelect,
@@ -34,6 +35,7 @@ const Question = (props) => {
     otherOfQuestion,
     weekAns,
     weekQuestion,
+    startDate
   } = props;
   const organization = localStorage.getItem("organization");
   const countryName = localStorage.getItem("countryName");

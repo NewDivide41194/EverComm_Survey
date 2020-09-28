@@ -17,12 +17,14 @@ const QuestionCard1 = (props) => {
     _handleStartChange,
     _handleSelect,
     _handleEndChange,
+    _handleDateChange,
     isQuestion,
     media,
     selectedOption,
     AnswerData,
     otherAns,
     otherOfQuestion,
+    startDate
   } = props;
 
   const ageOfBuildingOption = new Array(99)
@@ -194,6 +196,27 @@ const QuestionCard1 = (props) => {
               _handleStartChange={_handleStartChange}
               keys={ques.question_id}
             />
+          ) : ques.input_type_id === 8 ? (
+            <div className="w-100">
+              <ESDatePicker
+                quesId={questionId}
+                placeHolder={ques.question_name}
+                startDate={
+                  // startDate
+                  AnswerData.filter(
+                  (d) => d.questionId === questionId
+                  ).length && AnswerData.length
+                  ? AnswerData.filter(
+                    (d) => d.questionId === questionId
+                    ).map((v, k) => new Date(v.other))[0]
+                    : null
+                }
+                _handleDateChange={_handleDateChange}
+                keys={ques.question_id}
+                type={ques.question_name}
+                isDate={true}
+              />
+            </div>
           ) : null}
         </div>
       );

@@ -22,6 +22,7 @@ const QuestionCard = (props) => {
     _handleInputChange,
     _handleStartChange,
     _handleSelect,
+    _handleDateChange,
     isQuestion,
     pageno,
     media,
@@ -34,9 +35,10 @@ const QuestionCard = (props) => {
     weekAns,
     weekQuestion,
     groupQuestion,
+    startDate
   } = props;
 
-  if (sessionId === 1) {
+  if (sessionId === 1 || sessionId === 9) {
     return <QuestionCard1 {...props} />;
   } else if (
     QuestionData.map((ques, k2) => ques.group_question === 1) &&
