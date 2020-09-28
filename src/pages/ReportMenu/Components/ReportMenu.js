@@ -38,7 +38,6 @@ const ReportMenu = (props) => {
             value="all"
             name="type"
             onChange={_handleSelectChange}
-            checked={viewType === "all"}
           />
           All users
         </div>
@@ -49,6 +48,8 @@ const ReportMenu = (props) => {
             value="one"
             name="type"
             onChange={_handleSelectChange}
+            checked={viewType === "one"}
+
           />
           Only me
         </div>
@@ -76,6 +77,7 @@ const ReportMenu = (props) => {
           <div className="col-lg-5 col-sm-12 py-2">
           <h5 className="py-3" style={{ color: Colors.PrimaryColor }}>Select Country</h5>
               <ESDropDown 
+              notClearable
                 _handleSelect = {_handleSelectCountry}
                 options = {CountryOptions}
                 value={countryName}

@@ -10,7 +10,7 @@ const ReportMenuContainer = (props) => {
   const [menuData, setMenuData] = useState([]);
   const [isClearable, setisClearable] = useState(false);
   const [isDisable, setIsDisable] = useState(true);
-  const [viewType, setViewType] = useState("all");
+  const [viewType, setViewType] = useState("one");
   const [countryName, setCountry] = useState(null);
 
   const _handleReport = () => {
@@ -26,7 +26,6 @@ const ReportMenuContainer = (props) => {
       localStorage.setItem("viewType", viewType);
     });
   }, [surveyId, viewType]);
-
   const SurveyNameOptions = 
     menuData &&
     menuData.map((v, k) => ({
@@ -58,6 +57,7 @@ const ReportMenuContainer = (props) => {
   };
 
   const _handleSelectCountry = (SurveyHeaderId, e) => {
+    localStorage.setItem("countryName",e.label)
     setCountry(e.value);
   }
 

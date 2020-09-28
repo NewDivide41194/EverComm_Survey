@@ -51,14 +51,14 @@ const TextContainer = (props) => {
       <Text reportData={reportData} section={section} />
     ) : (
       reportData[0].survey_sections.map((v, k) => (
-        <div>
           <EgovernmentReport
-            reportData={reportData}
+            id={k}
+            sectionName={v.section_name}
             AnswerData={reportData[0].answers}
             section={section}
             QuestionData={v.questions}
+            surveyTitle={reportData[0].surveyTitle}
           />
-        </div>
       ))
     )
   ) 

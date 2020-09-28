@@ -2,32 +2,32 @@ import React from "react";
 import ESCheckBox from "../../../tools/ES_CheckBox";
 import { ESRadio } from "../../../tools/ES_Radio";
 import { ESDropDown } from "../../../tools/ES_DropDown";
-
+import EGA from "../../../assets/images/eGovernment/EGA.jpg";
+import UNDP from "../../../assets/images/eGovernment/UNDP.jpeg";
 import { withMedia } from "react-media-query-hoc";
-// import { ESInput } from "./ES_Inputs";
 import ESMatrix from "../../../tools/ES_MatrixTable";
 import { ESTextArea } from "../../../tools/ES_TextArea";
 import { ESTableInput } from "../../../tools/ES_TableInput";
+import * as Colors from "../../../config/Color.config";
+import "../../../App.css";
 
 const ESGroupQuestionCard = (props) => {
   const {
     QuestionData,
     _handleRadioChange,
     _handleCheckChange,
-    _handleInputChange,
-    _handleStartChange,
-    _handleSelect,
-    _handleEndChange,
     media,
     AnswerData,
+    sectionName,
+    surveyTitle,
+    id,
   } = props;
-
   const subQues =
     QuestionData.length > 0 &&
     QuestionData.map(
       (v) => v.sub_questions && v.sub_questions.map((subQues) => subQues)
     );
-  console.log("Question2Data", QuestionData);
+  const countryName = localStorage.getItem("countryName");
 
   const getOption = (quesId) => {
     const selectedQuestion = QuestionData.find(
@@ -43,28 +43,33 @@ const ESGroupQuestionCard = (props) => {
     }
     return -1;
   };
+  console.log(surveyTitle);
 
+  // const PageBreaker = () => {
+  // return( id!==null&& document.getElementById(id).clientHeight > "8in" ? <div className="page-break"/> : null);
+  // };
+  console.log((id));
   return (
-    <div 
-    // className="container my-4 text-dark border"
-    // style={{
-    //   width: "8.27in",
-    //   height: "15.66in",
-    //   paddingLeft: "0.5in",
-    //   paddingTop: "0.3in",
-    //   paddingRight: "0.5in",
-    //   paddingBottom: "0.3in",
-    //   backgroundColor: "",
-    //   pageBreakInside: 'auto'
-    // }}
+    <div
+      className="container"
+      id={id}
+      style={{
+        width: "8.27in",
+      }}
     >
+      <Header
+        sectionName={sectionName}
+        surveyTitle={surveyTitle}
+        countryName={countryName}
+      />
+      {/* <PageBreaker/> */}
       {QuestionData &&
         QuestionData.map((ques, k2) => {
           const questionId = ques.question_id.toString();
           const temp = AnswerData.find((d) => d.questionId === questionId);
           return (
             <div
-              className="d-flex flex-row flex-fill flex-wrap w-100 p-3 mb-3 rounded bg-light border" ////////Group question card
+              className="p-3"
               key={k2}
               style={{
                 fontSize: media.mobile ? "12px" : "15px",
@@ -75,7 +80,7 @@ const ESGroupQuestionCard = (props) => {
                 key={k2}
                 style={{ fontSize: media.mobile ? "15px" : "18px" }}
               >
-                <div className="d-flex flex-row pb-3 w-100 justify-content-between">
+                <div className="d-flex flex-row pb-1 w-100 justify-content-between">
                   <div>
                     {ques.key}. {ques.question_name}
                   </div>
@@ -90,36 +95,27 @@ const ESGroupQuestionCard = (props) => {
               </div>
               <div className="w-100">
                 {ques.input_type_id === 10 ? (
-                  <div className="table-responsive">
-                    <ESMatrix
-                      isDisable={true}
-                      categories={ques.categories}
-                      optionChoices={ques.option_choices}
-                      subQuestions={ques.sub_questions}
-                      id={questionId}
-                      quesId={questionId}
-                      subQuesId={subQues.map((v) =>
-                        v === undefined ? null : v.sub_question_id
-                      )}
-                      isAnswer={AnswerData}
-                      keys={ques.question_id}
-                      value={AnswerData.filter(
-                        (d) => d.questionId === questionId
-                      ).map((v, k) => v.other)}
-                      onChange={(e) => {
-                        _handleInputChange(e, questionId, null, questionId);
-                      }}
-                      _handleRadioChange={_handleRadioChange}
-                      _handleCheckChange={_handleCheckChange}
-                    />
-                  </div>
+                  <ESMatrix
+                    isDisable={true}
+                    categories={ques.categories}
+                    optionChoices={ques.option_choices}
+                    subQuestions={ques.sub_questions}
+                    id={questionId}
+                    quesId={questionId}
+                    subQuesId={subQues.map((v) =>
+                      v === undefined ? null : v.sub_question_id
+                    )}
+                    isAnswer={AnswerData}
+                    keys={ques.question_id}
+                    value={AnswerData.filter(
+                      (d) => d.questionId === questionId
+                    ).map((v, k) => v.other)}
+                  />
                 ) : ques.input_type_id === 13 ? (
                   <ESTableInput
                     reportText
                     data={ques}
-                    placeHolder={"Please Specify"}
                     AnswerData={AnswerData}
-                    _handleInputChange={_handleInputChange}
                     quesId={questionId}
                     subQuesId={ques.sub_questions}
                     quesName={ques.question_name}
@@ -248,6 +244,7 @@ const SubQuestionInput = (props) => {
     AnswerData,
     _handleInputChange,
     _handleSelect,
+    selectedOption,
   } = props;
   return ques.sub_questions.map((subQues, k3) => (
     <div
@@ -301,17 +298,20 @@ const SubQuestionInput = (props) => {
         ) : subQues.input_type_id === 4 ? (
           <TextAnswers AnswerData={AnswerData} subQues={subQues} />
         ) : subQues.input_type_id === 5 ? (
-          <ESDropDown
-            quesId={questionId}
-            id={-1}
-            subQuesId={subQues.sub_question_id}
-            options={subQues.option_choices.map((v, k) => ({
-              value: v.option_choice_id,
-              label: v.option_choice_name,
-            }))}
-            _handleSelect={_handleSelect}
-            keys={ques.question_id}
-          />
+          <div>
+            {AnswerData.filter(
+              (d) => d.subQuestionId === subQues.sub_question_id
+            )
+              ? AnswerData.filter(
+                  (d) => d.subQuestionId === subQues.sub_question_id
+                ).map(
+                  (v, k) =>
+                    subQues.option_choices.filter(
+                      (x, y) => x.option_choice_id === v.optionChoiceId
+                    )[0]
+                )[0].option_choice_name
+              : "Not Answered"}
+          </div>
         ) : null}
       </div>
     </div>
@@ -321,12 +321,13 @@ const SubQuestionInput = (props) => {
 const TextAnswers = (props) => {
   const { AnswerData, subQues, questionId } = props;
   return (
-    <span className="text-primary"
-     style={{
-      width: "100%",
-      wordWrap: "break-word",
-      display: "inline-block",
-    }}
+    <span
+      className="text-primary"
+      style={{
+        width: "100%",
+        wordWrap: "break-word",
+        display: "inline-block",
+      }}
     >
       {questionId
         ? AnswerData.filter(
@@ -336,5 +337,30 @@ const TextAnswers = (props) => {
             (d) => d.subQuestionId === subQues.sub_question_id
           ).map((v, k) => v.other)}
     </span>
+  );
+};
+
+const Header = (props) => {
+  const { sectionName, surveyTitle, countryName } = props;
+  return (
+    <div className="d-flex px-3 flex-row justify-content-between align-items-baseline font-italic">
+      <div
+        style={{
+          color: Colors.SparkGreen,
+          fontSize: 18,
+          alignSelf: "flex-end",
+        }}
+      >
+        <div className="font-weight-bold">
+          {surveyTitle} in {countryName}
+        </div>
+
+        <span>{sectionName}</span>
+      </div>
+      <div>
+        <img src={EGA} style={{ width: 100, height: 40 }} alt="EGA logo" />
+        <img src={UNDP} style={{ width: 70 }} alt="EGA logo" />
+      </div>
+    </div>
   );
 };

@@ -9,9 +9,8 @@ const BackCover = (props) => {
   
   return (
     <div
-      className="container border pt-4"
+      className="container pt-4"
       style={{
-        border: "0.1px solid #cecece",
         width: "8.27in",
         height: "15.66in",
         backgroundColor: "",
@@ -28,7 +27,7 @@ const BackCover = (props) => {
       </div>
 
             <div
-              className="container-row mt-4"
+              // className="container-row mt-4"
               style={{ paddingTop: "550px" }}
             >
               <h1
