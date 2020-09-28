@@ -59,6 +59,7 @@ const ReportMenuContainer = (props) => {
   const _handleSelectCountry = (SurveyHeaderId, e) => {
     localStorage.setItem("countryName",e.label)
     setCountry(e.value);
+    localStorage.setItem("countryId", e.value);
   }
 
   const _handleClearable = () => {
