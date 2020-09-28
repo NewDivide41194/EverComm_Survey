@@ -9,7 +9,6 @@ import ESMatrix from "../../../tools/ES_MatrixTable";
 import { ESTextArea } from "../../../tools/ES_TextArea";
 import { ESTableInput } from "../../../tools/ES_TableInput";
 import * as Colors from "../../../config/Color.config";
-import "../../../App.css";
 
 const ESGroupQuestionCard = (props) => {
   const {
@@ -43,12 +42,10 @@ const ESGroupQuestionCard = (props) => {
     }
     return -1;
   };
-  console.log(surveyTitle);
+  const PageBreaker = () => <div className="page-break">hello</div>;
 
-  // const PageBreaker = () => {
-  // return( id!==null&& document.getElementById(id).clientHeight > "8in" ? <div className="page-break"/> : null);
-  // };
-  console.log((id));
+  ;
+console.log("Id=====>",id);
   return (
     <div
       className="container"
@@ -62,7 +59,6 @@ const ESGroupQuestionCard = (props) => {
         surveyTitle={surveyTitle}
         countryName={countryName}
       />
-      {/* <PageBreaker/> */}
       {QuestionData &&
         QuestionData.map((ques, k2) => {
           const questionId = ques.question_id.toString();
@@ -299,7 +295,7 @@ const SubQuestionInput = (props) => {
           <TextAnswers AnswerData={AnswerData} subQues={subQues} />
         ) : subQues.input_type_id === 5 ? (
           <div>
-            {AnswerData.filter(
+            {/* {AnswerData.filter(
               (d) => d.subQuestionId === subQues.sub_question_id
             )
               ? AnswerData.filter(
@@ -310,7 +306,7 @@ const SubQuestionInput = (props) => {
                       (x, y) => x.option_choice_id === v.optionChoiceId
                     )[0]
                 )[0].option_choice_name
-              : "Not Answered"}
+              : "Not Answered"} */}
           </div>
         ) : null}
       </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Text from "../component/text/textReport";
 import EgovernmentReport from "../component/EgovernmentOnlyOne.js";
 import ESLoading from "../../../tools/ES_Loading";
+import "../../../App.css";
 
 const TextContainer = (props) => {
   const { reportData } = props;
@@ -46,22 +47,27 @@ const TextContainer = (props) => {
       }
     }
   }, []);
-  return (
-    reportData[0].survey_header_id === 1 ? (
-      <Text reportData={reportData} section={section} />
-    ) : (
-      reportData[0].survey_sections.map((v, k) => (
-          <EgovernmentReport
-            id={k}
-            sectionName={v.section_name}
-            AnswerData={reportData[0].answers}
-            section={section}
-            QuestionData={v.questions}
-            surveyTitle={reportData[0].surveyTitle}
-          />
-      ))
-    )
-  ) 
+
+  // console.log(document.getElementById("0")&&document.getElementById("0").clientHeight);
+  // const PageBreaker=()=> document.getElementById("1")&&document.getElementById("1").clientHeight < "8in" ? <div className="page-break"></div> : <div>hello</div>;
+  const PageBreaker = () => <div className="page-break"></div>;
+  return reportData[0].survey_header_id === 1 ? (
+    <Text reportData={reportData} section={section} />
+  ) : (
+    reportData[0].survey_sections.map((v, k) => (
+      <div>
+        <EgovernmentReport
+          id={k}
+          sectionName={v.section_name}
+          AnswerData={reportData[0].answers}
+          section={section}
+          QuestionData={v.questions}
+          surveyTitle={reportData[0].surveyTitle}
+        />
+        <div className="page-break"></div>
+      </div>
+    ))
+  );
 };
 
 export default TextContainer;
