@@ -35,12 +35,18 @@ const ReportMenuContainer = (props) => {
     }));
 
   const CountryOptions =
-    menuData && 
-    menuData[1] && menuData[1].amount_of_country.map(v => ({
-      value: v.country_id,
-      label: v.country_name
-    }));
-
+    menuData.length > 1 ?
+      menuData &&
+      menuData[1] && menuData[1].amount_of_country.map(v => ({
+        value: v.country_id,
+        label: v.country_name
+      })) :
+      menuData &&
+      menuData[0] && menuData[0].amount_of_country.map(v => ({
+        value: v.country_id,
+        label: v.country_name
+      }))
+      
   const _handleSelectChange = (e) => {
     setViewType(e.target.value);
     localStorage.setItem("viewType", e.target.value);

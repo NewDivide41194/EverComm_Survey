@@ -29,7 +29,7 @@ const QuestionCard1 = (props) => {
   const ageOfBuildingOption = new Array(99)
     .fill(null)
     .map((v, k) => ({ label: k + 1, value: k + 1 }));
-console.log(AnswerData);
+// console.log(AnswerData);
   return (
     QuestionData &&
     QuestionData.map((ques, k2) => {
@@ -86,14 +86,18 @@ console.log(AnswerData);
                     placeHolder={"Fill Your Answer"}
                     id={questionId}
                     value={AnswerData.filter(
-                      (d) => d.questionId === questionId
+                      (d) => d.questionId === questionId && 
+                      d.subQuestionId === null
                     ).map((v, k) => v.other)}
                     onChange={(e) => {
                       _handleInputChange(
                         e,
                         questionId,
+                        null,
                         ques.question_id,
-                        otherOfQuestion(k2)
+                        ques.option_choices.filter(
+                          (v) => v.option_choice_name === "Other"
+                        )[0].option_choice_id
                       );
                     }}
                   />

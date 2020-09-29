@@ -136,7 +136,7 @@ const ReportDetail = (props) => {
                 <div className="col-1">:</div>
 
                 <div className="col-7">
-                  {v.amount_of_survey.length}buildings
+                  {v.amount_of_survey.length} buildings
               </div>
               </div> : <div className="d-flex flex-row flex-fill col-lg-6 col-sm-12">
                 <div className="col-4 px-0 font-weight-bold">
@@ -145,7 +145,7 @@ const ReportDetail = (props) => {
                 <div className="col-1">:</div>
 
                 <div className="col-7">
-                  {v.amount_of_country.length}countrys
+                  {`${v.amount_of_country.length > 1 ? v.amount_of_country.length + ' countries' : v.amount_of_country.length + ' country'}`}
                 </div>
               </div>}
 
