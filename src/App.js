@@ -7,8 +7,8 @@ import RegisterContainer from "./pages/register/container/registerContainer";
 import LoginContainer from "./pages/login/container/LoginContainer";
 import ErrorPage from "./pages/error/errorPage";
 import Footer from "./features/app/Footer";
-import RightSideBar from "./features/app/RightSideBar";
 import './App.css'
+import LeftSideBar from "./features/app/LeftSideBar";
 
 const App = (history, props) => {
   const Media = {
@@ -20,7 +20,7 @@ const App = (history, props) => {
   return (
     <MediaQueryProvider queries={Media}>
       <div id="outer-container">
-      <RightSideBar/>
+      <LeftSideBar/>
       <div id="page-wrap" className= "page-container">
         <NavBar />
         <div className="content-wrap">

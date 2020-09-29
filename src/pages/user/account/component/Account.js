@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ESInput } from "../../../../../src/tools/ES_Inputs.js";
 import { ESButton } from "../../../../../src/tools/ES_Button.js";
 import * as Colors from "../../../../config/Color.config";
-import RightSideBar from "../../../../features/app/RightSideBar.js";
 import AddAccountForm from "./AddAccount";
-import UserTable from "../../../../tools/ES_Table.js";
 import ESTable from "../../../../tools/ES_Table.js";
 import { Edit } from "@material-ui/icons";
 import ESLoading from "../../../../tools/ES_Loading";

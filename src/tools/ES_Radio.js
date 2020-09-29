@@ -15,7 +15,7 @@ export const ESRadio = (props) => {
     subQuesId,
     other,
   } = props;
-  const ID = subQuesId !== null ? subQuesId : quesId;
+  const ID = subQuesId !== null && subQuesId ? subQuesId : quesId;
   const customTheme = createMuiTheme({
     palette: {
       secondary: {
@@ -32,7 +32,7 @@ export const ESRadio = (props) => {
         onMouseOver={() =>
           (document.getElementById(
             `${ans.option_choice_id} div ${ID}`
-          ).style.background = isDisable?"none":"rgb(211, 226, 237)")
+          ).style.background = isDisable ? "none" : "rgb(211, 226, 237)")
         }
         onMouseLeave={() =>
           (document.getElementById(
@@ -76,7 +76,7 @@ export const ESRadio = (props) => {
     <label>
       <ThemeProvider theme={customTheme}>
         <Radio
-        disabled={isDisable}
+          disabled={isDisable}
           value={value.option_choice_name}
           checked={
             checked ||

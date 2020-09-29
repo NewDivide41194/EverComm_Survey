@@ -89,7 +89,6 @@ const QuestionContainer = (props) => {
       ? total
       : surveyData.length && surveyData[0].survey_sections[0].questions.length;
   const obtained = AnswerCount(AnswerData).length;
-
   const percent = (obtained * 100) / surveyTotal;
   const oneQuestion = total - obtained === 1;
   const fullQuestion = total - obtained === 0;

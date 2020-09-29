@@ -11,9 +11,7 @@ import Cover from "../component/Cover";
 import BackCover from "../component/BackCover";
 import { ChartTheme1 } from "../../../config/Color.config";
 import TextContainer from "./TextContainer";
-import { QuestionFetch } from "../../../api/FetchQuestions";
 import ESLoading from "../../../tools/ES_Loading";
-import { Graph_Report } from "../../../api/url";
 
 const ReportContainer = (props) => {
   const [reportData, setReportData] = useState([]);
@@ -58,20 +56,21 @@ const ReportContainer = (props) => {
         setReportData(data.payload);
         setIsLoading(false);
       }
-    )
+    );
   }, []);
 
-const _handleGraphClick=()=>{
-  FetchGraphReport(
-    { userId, surveyHeaderId, startDate, endDate, viewType, token },
-    (err, data) => {
-      setTypeAndArea(data.payload[1]);
-      setBMS(data.payload[2]);
-      setAgeData(data.payload[0]);
-      setTreeData(data.payload[3]);
-      setChillerInstallation(data.payload[4]);
-    }
-  )}
+  const _handleGraphClick = () => {
+    FetchGraphReport(
+      { userId, surveyHeaderId, startDate, endDate, viewType, token },
+      (err, data) => {
+        setTypeAndArea(data.payload[1]);
+        setBMS(data.payload[2]);
+        setAgeData(data.payload[0]);
+        setTreeData(data.payload[3]);
+        setChillerInstallation(data.payload[4]);
+      }
+    );
+  };
   const AgeData1 = ageData.length && ageData.map((v, k) => v.categories);
 
   const AgeData2 = new Array(5).fill(null).map((v, k) => ({
@@ -136,11 +135,7 @@ const _handleGraphClick=()=>{
   const categoriesData = BMS.map((v, k) => v.name);
   const componentGraphRef = useRef();
   const componentTextRef = useRef();
-  const range = (start, stop, step = 1) =>
-    Array(Math.ceil((stop - start) / step))
-      .fill(start)
-      .map((x, y) => x + y * step);
-  //console.log("===>",modifiedAgeData);
+  
   return isLoading ? (
     <ESLoading />
   ) : (
@@ -163,7 +158,7 @@ const _handleGraphClick=()=>{
             role="tab"
             className="nav-link"
             data-toggle="tab"
-            onClick={()=>_handleGraphClick()}
+            onClick={() => _handleGraphClick()}
           >
             Report
           </a>
@@ -198,20 +193,22 @@ const _handleGraphClick=()=>{
             <BackCover reportData={reportData} />
           </div>
         </div>
-        <GraphReport
-          componentGraphRef={componentGraphRef}
-          reportData={reportData}
-          userLevel={userLevel}
-          viewType={viewType}
-          BMSdata={BMSdata}
-          categoriesData={categoriesData}
-          TypeData={TypeData}
-          typeCount={typeCount}
-          yearCount={yearCount}
-          chillerInstallationData={chillerInstallationData}
-          TreeMapData={TreeMapData}
-          modifiedAgeData={modifiedAgeData}
-        />
+        {/* {surveyHeaderId !== 10 && (
+          <GraphReport
+            componentGraphRef={componentGraphRef}
+            reportData={reportData}
+            userLevel={userLevel}
+            viewType={viewType}
+            BMSdata={BMSdata}
+            categoriesData={categoriesData}
+            TypeData={TypeData}
+            typeCount={typeCount}
+            yearCount={yearCount}
+            chillerInstallationData={chillerInstallationData}
+            TreeMapData={TreeMapData}
+            modifiedAgeData={modifiedAgeData}
+          />
+        )} */}
       </div>
     </div>
   );

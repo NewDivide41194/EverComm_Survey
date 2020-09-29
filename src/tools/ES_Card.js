@@ -123,6 +123,7 @@ const QuestionCard1 = (props) => {
               <div className="w-100">
                 <ESDropDown
                   quesId={questionId}
+                  subQuesId={null}
                   options={ques.option_choices.map((v, k) => ({
                     value: v.option_choice_id,
                     label: v.option_choice_name,

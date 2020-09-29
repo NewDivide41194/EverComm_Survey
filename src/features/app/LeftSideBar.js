@@ -6,7 +6,7 @@ import { EverCommLink } from "../../tools/ES_Text";
 import auth from "../../security/auth";
 
 
-const RightSideBar = (props) => {
+const LeftSideBar = (props) => {
   
   const email = localStorage.getItem("email");
   const userLevel = parseInt(localStorage.getItem("userLevel"));
@@ -151,7 +151,7 @@ const RightSideBar = (props) => {
   );
 };
 
-export default withRouter(RightSideBar);
+export default withRouter(LeftSideBar);
 
 const HomeLink = (props) => {
   const { surveyMenuPath, URL } = props;
@@ -159,7 +159,7 @@ const HomeLink = (props) => {
     <EverCommLink
       pathName={surveyMenuPath}
       to={surveyMenuPath}
-      text={"SURVEY LIST"}
+      text={"PROJECT LIST"}
     />
   );
 };

@@ -2,13 +2,12 @@ import React from "react";
 import * as Colors from "../../../../config/Color.config";
 import { NotAnswered, Percentage } from "../../../../helper/reportHelper";
 import Logo from "../../../../assets/images/Logo.png";
+import "../../../../App.css";
 
 const Text = (props) => {
   const { reportData, startDate, endDate, viewType, section } = props;
   const surveyHeaderId = parseInt(localStorage.getItem("SurveyHeaderId"));
 
-  // console.log('reportData >> ', reportData)
-  // console.log('section >>> ', section)
  
   const TotalBuilding =
     reportData &&
@@ -34,16 +33,10 @@ const Text = (props) => {
         section.map((v, k) => (
           <div
             key={v.key}
-            className="container my-4 text-dark border"
+            className="container text-dark"
             style={{
               width: "8.27in",
-              height: "15.66in",
-              paddingLeft: "0.5in",
-              paddingTop: "0.3in",
-              paddingRight: "0.5in",
-              paddingBottom: "0.3in",
-              backgroundColor: "",
-              pageBreakInside: 'auto'
+              
             }}
           >
            <div className="row justify-content-between border-bottom">
@@ -168,6 +161,8 @@ const Text = (props) => {
                 </div>
               ))}
             </div>
+            <div className="page-break">.</div>
+
           </div>
         ))}
     </div>
