@@ -17,8 +17,6 @@ export const ESDropDown = (props) => {
     subQuesId
   } = props;
 
-  console.log('dropdown >> ', selectedOption)
-
   const AnsSelected =
   selectedOption &&
   selectedOption.map((v, k) => ({
