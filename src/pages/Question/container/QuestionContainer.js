@@ -61,7 +61,7 @@ const QuestionContainer = (props) => {
     (questionslength.length == 6
       ? questionslength[questionslength.length - 1] * deviceAmounts[0]
       : 0) + totalQuesCount1;
-  // console.log("Question Data", surveyData);
+
   const typeId = surveyHeaderId === "10" ? 33 : buildingId;
 
   useEffect(() => {
@@ -246,10 +246,11 @@ const QuestionContainer = (props) => {
 
     setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
   };
-
+console.log("ANS",AnswerData);
+console.log("Ques",surveyData);
   const handleSelect = (quesId, e, keys, subQuesId) => {
     setSelectedOption(e);
-
+    console.log("Handle Select", quesId, e, keys, subQuesId);
     if (e !== null && typeof e.label == "string") {
       let ansId = e.value;
       const SelectAnswer = {
@@ -309,24 +310,21 @@ const QuestionContainer = (props) => {
   };
 
   const handleDateChange = (date, quesId, keys, type) => {
-      setEndDate(date);
-      const StartDateAnswer = {
-        ...Ans,
-        other: moment(date).format("DD MMMM YYYY"),
-        questionId: quesId,
-        keyValue: keys || quesId,
-      };
-      if (isQuesId(quesId).length >= 1) {
-        AnswerData.splice(isQuesIdIndex(quesId), 1, StartDateAnswer);
-      } else {
-        AnswerData.push(StartDateAnswer);
-      }
-  }
+    setEndDate(date);
+    const StartDateAnswer = {
+      ...Ans,
+      other: moment(date).format("DD MMMM YYYY"),
+      questionId: quesId,
+      keyValue: keys || quesId,
+    };
+    if (isQuesId(quesId).length >= 1) {
+      AnswerData.splice(isQuesIdIndex(quesId), 1, StartDateAnswer);
+    } else {
+      AnswerData.push(StartDateAnswer);
+    }
+  };
 
   const handleStartChange = (date, quesId, keys, type) => {
-    if (endDate < date) {
-      alert("Year of Installation is Later Than Year of Manufacturing!");
-    }
     if (type === "Year of Manufacture") {
       setStartDate(date);
       const StartDateAnswer = {

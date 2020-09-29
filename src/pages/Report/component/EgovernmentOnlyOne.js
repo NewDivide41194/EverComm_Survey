@@ -48,11 +48,15 @@ const ESGroupQuestionCard = (props) => {
         width: "8.27in",
       }}
     >
-      {isHeader?<Header
-        sectionName={sectionName}
-        surveyTitle={surveyTitle}
-        countryName={countryName}
-      />:<Section sectionName={sectionName}/>}
+      {isHeader ? (
+        <Header
+          sectionName={sectionName}
+          surveyTitle={surveyTitle}
+          countryName={countryName}
+        />
+      ) : (
+        <Section sectionName={sectionName} />
+      )}
       {QuestionData &&
         QuestionData.map((ques, k2) => {
           const questionId = ques.question_id.toString();
@@ -339,19 +343,17 @@ export const Header = (props) => {
   );
 };
 
-
 export const Section = (props) => {
   const { sectionName, surveyTitle, countryName } = props;
   return (
-      <div
-        style={{
-          color: Colors.SparkGreen,
-          fontSize: 18,
-        }}
-        className="px-3"
-
-      >
-        <span>{sectionName}</span>
+    <div
+      style={{
+        color: Colors.SparkGreen,
+        fontSize: 18,
+      }}
+      className="px-3"
+    >
+      <span>{sectionName}</span>
     </div>
   );
 };

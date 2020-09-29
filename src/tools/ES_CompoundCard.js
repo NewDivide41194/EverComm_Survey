@@ -2,15 +2,12 @@ import React from "react";
 import ESCheckBox from "./ES_CheckBox";
 import { ESRadio } from "./ES_Radio";
 import { ESDropDown } from "./ES_DropDown";
-import { ESButton } from "./ES_Button";
 
 import { withMedia } from "react-media-query-hoc";
 import { ESInput } from "./ES_Inputs";
 import ESDatePicker from "./ES_DatePicker";
-import moment from "moment";
 
 import QuestionCard1 from "./ES_Card";
-import ESTimeRange from "./ES_TimeRange";
 import ESGroupQuestionCard from "./ES_GroupQuestionCards";
 import "../App.css"
 
@@ -68,8 +65,6 @@ const QuestionCard = (props) => {
         <div className="flex-fill pr-2 ">
           {QuestionData &&
             QuestionData.map((ques, k2) => {
-              const questionId = ques.question_id.toString();
-
               const remakeQuestionId =
                 pageDeviceIndex > 1
                   ? Object.keys(amountOfDevice[0])[
@@ -171,6 +166,7 @@ const QuestionCard = (props) => {
                             <div>
                               <ESDropDown
                                 quesId={remakeQuestionId}
+                                subQuesId={null}
                                 options={ques.option_choices.map((v, k) => ({
                                   value: v.option_choice_id,
                                   label: v.option_choice_name,
