@@ -31,14 +31,14 @@ const QuestionCard = (props) => {
     sessionId,
     otherAns,
     otherOfQuestion,
-    surveyHeaderId
+    surveyHeaderId,
   } = props;
 
-  if (sessionId === 1) {
+  if (sessionId === 1||sessionId === 9) {
     return <QuestionCard1 {...props} />;
   } else if (
     QuestionData.map((ques, k2) => ques.group_question === 1) &&
-    sessionId > 10
+    sessionId > 9
   ) {
     return <ESGroupQuestionCard {...props} />;
   }
@@ -54,6 +54,7 @@ const QuestionCard = (props) => {
   const pageDeviceIndex =
     pageno === 0 ? 1 : 5 ? deviceIndexValue[0] : deviceIndexValue[pageno - 1];
   const QuestionCards = new Array(pageDeviceIndex).fill(null).map((v, k3) => {
+
     return (
       <div
         key={k3}
@@ -67,6 +68,8 @@ const QuestionCard = (props) => {
         <div className="flex-fill pr-2 ">
           {QuestionData &&
             QuestionData.map((ques, k2) => {
+              const questionId = ques.question_id.toString();
+
               const remakeQuestionId =
                 pageDeviceIndex > 1
                   ? Object.keys(amountOfDevice[0])[
@@ -261,7 +264,7 @@ const QuestionCard = (props) => {
                             keys={ques.question_id}
                             type={ques.question_name}
                           />
-                        ) : null}
+                        ): null}
                       </div>
                       <div>
                         {AnswerData.map((v, k) => v.questionId).filter(

@@ -36,19 +36,20 @@ const ReportContainer = (props) => {
   const userLevel = parseInt(localStorage.getItem("userLevel"));
   const [surveyData, setSurveyData] = useState([]);
   const [answerData, setAnswerData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     // const countryId = 48;
     // surveyHeaderId === 10
     //   ?
+    setIsLoading(true);
     UserReportAnswers(
       { userId, surveyHeaderId, startDate, endDate, viewType,countryId, token },
       (err, data) => {
         setReportData(data.payload);
+        setIsLoading(false);
       }
     );
-    setIsLoading(false);
 
     //   :
 

@@ -164,7 +164,7 @@ const QuestionContainer = (props) => {
     );
   };
   const handleRadioChange = (ansId, quesId, subQuesId, keys, other) => {
-    console.log("radio change >> ", ansId, quesId, subQuesId, keys, other);
+    // console.log("radio change >> ", ansId, quesId, subQuesId, keys, other);
     const RadioAns = {
       ...Ans,
       optionChoiceId: ansId,
@@ -198,19 +198,16 @@ const QuestionContainer = (props) => {
       optionChoiceId: optionId || null,
       questionId: quesId.toString(),
       subQuestionId: subQuesId,
-      keyValue: keys,
+      keyValue: keys || quesId,
     };
     if (subQuesId === null) {
       if (ImportText === "" && isQuesId(quesId).length >= 1) {
         setValue(e.target.value);
-        console.log("1");
         AnswerData.splice(isQuesIdIndex(quesId), 1);
       } else if (isQuesId(quesId).length >= 1) {
-        console.log("2");
         setValue(e.target.value);
         AnswerData.splice(isQuesIdIndex(quesId), 1, TextAnswer);
       } else {
-        console.log("3", e.target.value, TextAnswer);
         setValue(e.target.value);
         AnswerData.push(TextAnswer);
       }
@@ -249,7 +246,7 @@ const QuestionContainer = (props) => {
 
     setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
   };
-  console.log("Ans", AnswerData);
+
   const handleSelect = (quesId, e, keys, subQuesId) => {
     setSelectedOption(e);
 
@@ -310,6 +307,21 @@ const QuestionContainer = (props) => {
       setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
     }
   };
+
+  const handleDateChange = (date, quesId, keys, type) => {
+      setEndDate(date);
+      const StartDateAnswer = {
+        ...Ans,
+        other: moment(date).format("DD MMMM YYYY"),
+        questionId: quesId,
+        keyValue: keys || quesId,
+      };
+      if (isQuesId(quesId).length >= 1) {
+        AnswerData.splice(isQuesIdIndex(quesId), 1, StartDateAnswer);
+      } else {
+        AnswerData.push(StartDateAnswer);
+      }
+  }
 
   const handleStartChange = (date, quesId, keys, type) => {
     if (endDate < date) {
@@ -393,6 +405,7 @@ const QuestionContainer = (props) => {
   } else {
     return (
       <Question
+        startDate={startDate}
         value={value}
         buildingName={buildingName}
         surveyData={surveyData}
@@ -413,6 +426,7 @@ const QuestionContainer = (props) => {
         _handleRadioChange={handleRadioChange}
         _handleInputChange={handleInputChange}
         _handleStartChange={handleStartChange}
+        _handleDateChange={handleDateChange}
         _handleNext={_handleNext}
         _handlePrevious={_handlePrevious}
         _handleSubmit={_handleSubmit}

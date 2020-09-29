@@ -6,7 +6,6 @@ import { ESDropDown } from "./ES_DropDown";
 import { withMedia } from "react-media-query-hoc";
 import { ESInput } from "./ES_Inputs";
 import ESDatePicker from "./ES_DatePicker";
-import ES_InputTypes from "./ES_InputTypes";
 
 const QuestionCard1 = (props) => {
   const {
@@ -17,18 +16,20 @@ const QuestionCard1 = (props) => {
     _handleStartChange,
     _handleSelect,
     _handleEndChange,
+    _handleDateChange,
     isQuestion,
     media,
     selectedOption,
     AnswerData,
     otherAns,
     otherOfQuestion,
+    startDate
   } = props;
 
   const ageOfBuildingOption = new Array(99)
     .fill(null)
     .map((v, k) => ({ label: k + 1, value: k + 1 }));
-
+console.log(AnswerData);
   return (
     QuestionData &&
     QuestionData.map((ques, k2) => {
@@ -194,6 +195,27 @@ const QuestionCard1 = (props) => {
               _handleStartChange={_handleStartChange}
               keys={ques.question_id}
             />
+          ) : ques.input_type_id === 8 ? (
+            <div className="w-100">
+              <ESDatePicker
+                quesId={questionId}
+                placeHolder={ques.question_name}
+                startDate={
+                  startDate||
+                  AnswerData.filter(
+                  (d) => d.questionId === questionId
+                  ).length && AnswerData.length
+                  ? AnswerData.filter(
+                    (d) => d.questionId === questionId
+                    ).map((v, k) => new Date(v.other))[0]
+                    : null
+                }
+                _handleDateChange={_handleDateChange}
+                keys={ques.question_id}
+                type={ques.question_name}
+                isDate={true}
+              />
+            </div>
           ) : null}
         </div>
       );

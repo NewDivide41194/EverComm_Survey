@@ -1,18 +1,24 @@
 import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import '../App.css'
 
 const ESDatePicker = (props) => {
   const {
     _handleStartChange,
+    _handleDateChange,
     placeHolder,
     startDate,
     quesId,
     type,
-    keys
+    keys,
+    isDate
   } = props;
+
   return (
-        <DatePicker
+    <div className="">
+    { isDate === undefined ? 
+      <DatePicker
           className="form-control shadow-none border"
           selected={startDate}
           onChange={(date) => _handleStartChange(date, quesId,keys,type)}
@@ -22,9 +28,23 @@ const ESDatePicker = (props) => {
           maxDate={new Date()}
           // endDate={endDate}
           showYearPicker
-          dateFormat="yyyy"
+          dateFormat= "yyyy"
           keys={keys}
         />
+        : 
+        <DatePicker
+          className="w-100 form-control shadow-none border"
+          
+          placeholderText={placeHolder}
+          selected={startDate}
+          startDate={startDate}
+          onChange={date => _handleDateChange(date, quesId,keys,type)}
+          dateFormat= "dd MMMM yyyy"
+          keys={keys}
+        />
+    }
+    </div>
+   
   );
 };
 

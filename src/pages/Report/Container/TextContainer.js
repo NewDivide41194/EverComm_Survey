@@ -100,7 +100,7 @@ const DataProvider = (props) => {
         QuestionData.map((ques, k2) => {
           const questionId = ques.question_id.toString();
           return (
-            <div>
+            <div className="px-3">
               {questionId
                 ? AnswerData.filter((d) => d.questionId === questionId).map(
                     (v, k) => v.other
