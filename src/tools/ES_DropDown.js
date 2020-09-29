@@ -17,6 +17,8 @@ export const ESDropDown = (props) => {
     subQuesId
   } = props;
 
+  console.log('dropdown >> ', selectedOption)
+
   const AnsSelected =
   selectedOption &&
   selectedOption.map((v, k) => ({
@@ -41,12 +43,6 @@ export const ESDropDown = (props) => {
       fontWeight: state.isSelected && "bold",
       padding: 10,
     })
-    // option: (provided, state) => ({
-    //   ...provided,
-    //   // color: state.isSelected ? "white" : "black",
-    //   // fontWeight: state.isSelected && "bold",
-    //   padding: 10,
-    // }),
   };
 return (
     <Select

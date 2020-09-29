@@ -13,6 +13,7 @@ import { ChartTheme1 } from "../../../config/Color.config";
 import TextContainer from "./TextContainer";
 import { QuestionFetch } from "../../../api/FetchQuestions";
 import ESLoading from "../../../tools/ES_Loading";
+import { Graph_Report } from "../../../api/url";
 
 const ReportContainer = (props) => {
   const [reportData, setReportData] = useState([]);
@@ -37,34 +38,40 @@ const ReportContainer = (props) => {
   const [surveyData, setSurveyData] = useState([]);
   const [answerData, setAnswerData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [graph, setGraph] = useState(false);
   useEffect(() => {
     // const countryId = 48;
     // surveyHeaderId === 10
     //   ?
     setIsLoading(true);
     UserReportAnswers(
-      { userId, surveyHeaderId, startDate, endDate, viewType,countryId, token },
+      {
+        userId,
+        surveyHeaderId,
+        startDate,
+        endDate,
+        viewType,
+        countryId,
+        token,
+      },
       (err, data) => {
         setReportData(data.payload);
         setIsLoading(false);
       }
-    );
-
-    //   :
-
-    // FetchGraphReport(
-    //   { userId, surveyHeaderId, startDate, endDate, viewType, token },
-    //   (err, data) => {
-    //     setTypeAndArea(data.payload[1]);
-    //     setBMS(data.payload[2]);
-    //     setAgeData(data.payload[0]);
-    //     setTreeData(data.payload[3]);
-    //     setChillerInstallation(data.payload[4]);
-    //   }
-    // );
+    )
   }, []);
 
+const _handleGraphClick=()=>{
+  FetchGraphReport(
+    { userId, surveyHeaderId, startDate, endDate, viewType, token },
+    (err, data) => {
+      setTypeAndArea(data.payload[1]);
+      setBMS(data.payload[2]);
+      setAgeData(data.payload[0]);
+      setTreeData(data.payload[3]);
+      setChillerInstallation(data.payload[4]);
+    }
+  )}
   const AgeData1 = ageData.length && ageData.map((v, k) => v.categories);
 
   const AgeData2 = new Array(5).fill(null).map((v, k) => ({
@@ -156,6 +163,7 @@ const ReportContainer = (props) => {
             role="tab"
             className="nav-link"
             data-toggle="tab"
+            onClick={()=>_handleGraphClick()}
           >
             Report
           </a>
@@ -178,8 +186,6 @@ const ReportContainer = (props) => {
           <div ref={componentTextRef}>
             <Cover
               reportData={reportData}
-              startDate={startDate}
-              endDate={endDate}
               viewType={userLevel === 2 ? null : viewType}
             />
             {reportData && reportData.length > 0 && (
@@ -189,57 +195,80 @@ const ReportContainer = (props) => {
                 surveyData={surveyData}
               />
             )}
-            <BackCover
-              reportData={reportData}
-              startDate={startDate}
-              endDate={endDate}
-            />
+            <BackCover reportData={reportData} />
           </div>
         </div>
-        {/* <div className="tab-pane mt-4" id="reportGraph">
-          <ReactToPrint
-            trigger={() => (
-              <div className="col-3 py-2 px-0" style={{ minWidth: 172 }}>
-                <ESButton
-                  text={"Print"}
-                  leftIcon={<i className="fa fa-print pr-2" />}
-                />
-              </div>
-            )}
-            content={() => componentGraphRef.current}
-            pageStyle="{ size: A4 portrait;}"
-          />
-          <div ref={componentGraphRef}>
-            <Cover
-              reportData={reportData}
-              startDate={startDate}
-              endDate={endDate}
-              viewType={userLevel === 2 ? null : viewType}
-            />
-            <Report
-              reportData={reportData}
-              modifiedAgeData={modifiedAgeData}
-              BMSdata={BMSdata}
-              categories={categoriesData}
-              typeAndArea={TypeData}
-              buildingTypeCount={typeCount}
-            />
-            <ReportG1
-              reportData={reportData}
-              TreeData={TreeMapData}
-              BarData={chillerInstallationData}
-              yearCount={yearCount}
-            />
-            <BackCover
-              reportData={reportData}
-              startDate={startDate}
-              endDate={endDate}
-            />
-          </div>
-        </div> */}
+        <GraphReport
+          componentGraphRef={componentGraphRef}
+          reportData={reportData}
+          userLevel={userLevel}
+          viewType={viewType}
+          BMSdata={BMSdata}
+          categoriesData={categoriesData}
+          TypeData={TypeData}
+          typeCount={typeCount}
+          yearCount={yearCount}
+          chillerInstallationData={chillerInstallationData}
+          TreeMapData={TreeMapData}
+          modifiedAgeData={modifiedAgeData}
+        />
       </div>
     </div>
   );
 };
 
 export default ReportContainer;
+
+const GraphReport = (props) => {
+  const {
+    componentGraphRef,
+    reportData,
+    userLevel,
+    viewType,
+    BMSdata,
+    categoriesData,
+    TypeData,
+    typeCount,
+    yearCount,
+    chillerInstallationData,
+    TreeMapData,
+    modifiedAgeData,
+  } = props;
+  return (
+    <div className="tab-pane mt-4" id="reportGraph">
+      <ReactToPrint
+        trigger={() => (
+          <div className="col-3 py-2 px-0" style={{ minWidth: 172 }}>
+            <ESButton
+              text={"Print"}
+              leftIcon={<i className="fa fa-print pr-2" />}
+            />
+          </div>
+        )}
+        content={() => componentGraphRef.current}
+        pageStyle="{ size: A4 portrait;}"
+      />
+      <div ref={componentGraphRef}>
+        <Cover
+          reportData={reportData}
+          viewType={userLevel === 2 ? null : viewType}
+        />
+        <Report
+          reportData={reportData}
+          modifiedAgeData={modifiedAgeData}
+          BMSdata={BMSdata}
+          categories={categoriesData}
+          typeAndArea={TypeData}
+          buildingTypeCount={typeCount}
+        />
+        <ReportG1
+          reportData={reportData}
+          TreeData={TreeMapData}
+          BarData={chillerInstallationData}
+          yearCount={yearCount}
+        />
+        <BackCover reportData={reportData} />
+      </div>
+    </div>
+  );
+};
