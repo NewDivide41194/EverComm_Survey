@@ -25,10 +25,14 @@ export const ESRadio = (props) => {
     },
   });
 
+<<<<<<< HEAD
   const _handleBlur = () => {
     autoSaveAnswer();
   }
 
+=======
+  console.log("Value--------->",value);
+>>>>>>> 71e58fed1925937b4e99bb07106b349ec3699d8e
   return value.length ? (
     value.map((ans, k3) => (
       <label

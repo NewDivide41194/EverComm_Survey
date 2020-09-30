@@ -1,9 +1,18 @@
 import * as API from "./url";
 
 export const QuestionFetch = (
-  { userId, surveyHeaderId, typeId, bTypeId, surveySectionId,countryId, token },
+  {
+    userId,
+    surveyHeaderId,
+    typeId,
+    bTypeId,
+    surveySectionId,
+    countryId,
+    token,
+  },
   callback
 ) => {
+<<<<<<< HEAD
   // console.log( userId, surveyHeaderId, typeId, bTypeId, surveySectionId,countryId, token );
   fetch(
     API.QuestionAPI(
@@ -23,6 +32,24 @@ export const QuestionFetch = (
       },
     }
   )
+=======
+  fetch(API.QuestionAPI, {
+    method: `POST`,
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "*/*",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      admin_id: userId,
+      survey_header_id: surveyHeaderId,
+      buildingId: typeId,
+      buildingTypeId: bTypeId,
+      surveySectionId: surveySectionId,
+      countryId: countryId,
+    }),
+  })
+>>>>>>> 71e58fed1925937b4e99bb07106b349ec3699d8e
     .then((res) => res.json())
     .then((data) => callback(null, data))
     .catch((err) => console.log(err));

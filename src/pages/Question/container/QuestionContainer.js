@@ -63,7 +63,6 @@ const QuestionContainer = (props) => {
       : 0) + totalQuesCount1;
 
   const typeId = surveyHeaderId === "10" ? 33 : buildingId;
-
   useEffect(() => {
     setIsLoading(true);
     QuestionFetch(
@@ -128,7 +127,6 @@ const QuestionContainer = (props) => {
               (err, data) => {
                 setIsLoading(false);
                 history.push("/finalPage");
-                // localStorage.setItem(`${buildingId}`, total);
               }
             );
           },
@@ -257,7 +255,6 @@ const QuestionContainer = (props) => {
 
     setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
   };
-
   const handleSelect = (quesId, e, keys, subQuesId) => {
     setSelectedOption(e);
     // console.log("Handle Select", quesId, e, keys, subQuesId);

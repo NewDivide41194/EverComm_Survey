@@ -110,6 +110,8 @@ const QuestionCard1 = (props) => {
             ques.option_choices[0].option_choice_id === null ? (
               <ESDropDown
                 quesId={questionId}
+                subQuesId={null}
+
                 options={ageOfBuildingOption}
                 subQuesId={null}
                 _handleSelect={_handleSelect}
