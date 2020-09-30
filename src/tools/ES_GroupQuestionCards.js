@@ -18,6 +18,7 @@ const ESGroupQuestionCard = (props) => {
     media,
     AnswerData,
     selectedOption,
+    autoSaveAnswer
   } = props;
 
   const subQues =
@@ -41,8 +42,6 @@ const ESGroupQuestionCard = (props) => {
     return -1;
   };
 
-  console.log("answer data >> ", AnswerData);
-  console.log("Selected Data >>", selectedOption);
   return (
     <div>
       {QuestionData &&
@@ -99,6 +98,7 @@ const ESGroupQuestionCard = (props) => {
                       }}
                       _handleRadioChange={_handleRadioChange}
                       _handleCheckChange={_handleCheckChange}
+                      autoSaveAnswer={autoSaveAnswer}
                     />
                   </div>
                 ) : ques.input_type_id === 13 ? (
@@ -112,6 +112,7 @@ const ESGroupQuestionCard = (props) => {
                     quesName={ques.question_name}
                     inputTypeId={ques.input_type_id}
                     keyValue={ques.question_id}
+                    autoSaveAnswer={autoSaveAnswer}
                   />
                 ) : ques.input_type_id === 24 ? (
                   <div>
@@ -122,6 +123,7 @@ const ESGroupQuestionCard = (props) => {
                       isAnswer={AnswerData}
                       keys={ques.question_id}
                       subQuesId={null}
+                      autoSaveAnswer={autoSaveAnswer}
                     />
                     {/* <ESTextArea
                       placeHolder={"Fill Your Answer"}
@@ -143,6 +145,7 @@ const ESGroupQuestionCard = (props) => {
                         <ESTextArea
                           placeHolder={"Fill Your Answer"}
                           id={questionId}
+                          autoSaveAnswer={autoSaveAnswer}
                           value={AnswerData.filter(
                             (d) =>
                               d.questionId === questionId &&
@@ -175,6 +178,7 @@ const ESGroupQuestionCard = (props) => {
                     quesId={ques.question_id}
                     value={ques.option_choices}
                     _handleChange={_handleCheckChange}
+                    autoSaveAnswer={autoSaveAnswer}
                     isAnswer={AnswerData}
                     keys={ques.question_id}
                     className={
@@ -191,6 +195,7 @@ const ESGroupQuestionCard = (props) => {
                     <ESTextArea
                       placeHolder={"Fill Your Answer"}
                       id={questionId}
+                      autoSaveAnswer={autoSaveAnswer}
                       value={AnswerData.filter(
                         (d) =>
                           d.questionId === questionId &&
@@ -222,6 +227,7 @@ const ESGroupQuestionCard = (props) => {
                       isAnswer={AnswerData}
                       keys={ques.question_id}
                       subQuesId={null}
+                      autoSaveAnswer={autoSaveAnswer}
                     />
                     {ques.sub_questions && (
                       <SubQuestionInput
@@ -275,6 +281,7 @@ const SubQuestionInput = (props) => {
     _handleInputChange,
     _handleSelect,
     selectedOption,
+    autoSaveAnswer
   } = props;
   return ques.sub_questions.map((subQues, k3) => (
     <div
@@ -293,6 +300,7 @@ const SubQuestionInput = (props) => {
               subQuesId={subQues.sub_question_id}
               isAnswer={AnswerData}
               keys={ques.question_id}
+              autoSaveAnswer={autoSaveAnswer}
             />
             {subQues.input_type_id === 15 &&
             AnswerData.filter(
@@ -304,6 +312,7 @@ const SubQuestionInput = (props) => {
               <ESTextArea
                 placeHolder={"Fill Your Answer"}
                 id={subQues.sub_question_id}
+                autoSaveAnswer={autoSaveAnswer}
                 value={AnswerData.filter(
                   (d) => d.subQuestionId === subQues.sub_question_id
                 ).map((v, k) => v.other)}
@@ -336,11 +345,13 @@ const SubQuestionInput = (props) => {
                 : null
             }
             vertical={ques.option_group_id === 10 ? true : false}
+            autoSaveAnswer={autoSaveAnswer}
           />
         ) : subQues.input_type_id === 4 ? (
           <ESTextArea
             placeHolder={"Fill Your Answer"}
             id={subQues.sub_question_id}
+            autoSaveAnswer={autoSaveAnswer}
             value={AnswerData.filter(
               (d) => d.subQuestionId === subQues.sub_question_id
             ).map((v, k) => v.other)}

@@ -17,7 +17,8 @@ export const ESTextArea = (props) => {
     maxLength,
     pattern,
     myRef,
-    clear
+    clear,
+    autoSaveAnswer
   } = props;
   const defaultStyle = {
     width: width === undefined ? "100%" : width,
@@ -41,6 +42,7 @@ export const ESTextArea = (props) => {
     document.getElementById(
       id
     ).style.border = `1px solid ${Color.SecondaryColor}`;
+    autoSaveAnswer();
   };
 
   useEffect(() => {

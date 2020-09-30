@@ -4,7 +4,7 @@ export const QuestionFetch = (
   { userId, surveyHeaderId, typeId, bTypeId, surveySectionId,countryId, token },
   callback
 ) => {
-  console.log( userId, surveyHeaderId, typeId, bTypeId, surveySectionId,countryId, token );
+  // console.log( userId, surveyHeaderId, typeId, bTypeId, surveySectionId,countryId, token );
   fetch(
     API.QuestionAPI(
       userId,

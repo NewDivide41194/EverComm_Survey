@@ -12,13 +12,14 @@ const ESDatePicker = (props) => {
     quesId,
     type,
     keys,
-    isDate
+    isDate,
+    autoSaveAnswer
   } = props;
 
   return (
     <div className="">
     { isDate === undefined ? 
-      <DatePicker
+        <DatePicker
           className="form-control shadow-none border"
           selected={startDate}
           onChange={(date) => _handleStartChange(date, quesId,keys,type)}
@@ -32,7 +33,7 @@ const ESDatePicker = (props) => {
           keys={keys}
         />
         : 
-        <DatePicker
+          <DatePicker
           className="w-100 form-control shadow-none border"
           
           placeholderText={placeHolder}
@@ -42,6 +43,7 @@ const ESDatePicker = (props) => {
           dateFormat= "dd MMMM yyyy"
           keys={keys}
         />
+        
     }
     </div>
    

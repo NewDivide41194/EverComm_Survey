@@ -15,8 +15,9 @@ const ESMatrix = (props) => {
     isDisable,
     _handleRadioChange,
     _handleCheckChange,
+    autoSaveAnswer
   } = props;
-  console.log("MMMMMM",isDisable);
+
   return (
     <table className="table table-bordered table-striped">
       <thead>
@@ -68,6 +69,7 @@ const ESMatrix = (props) => {
                     subQuesId={v.sub_question_id}
                     isAnswer={isAnswer}
                     keys={keys}
+                    autoSaveAnswer={autoSaveAnswer}
                   />
                 ) : (
                   <ESRadio
@@ -78,6 +80,7 @@ const ESMatrix = (props) => {
                     subQuesId={v.sub_question_id}
                     isAnswer={isAnswer}
                     keys={keys}
+                    autoSaveAnswer={autoSaveAnswer}
                   />
                 )}
               </td>

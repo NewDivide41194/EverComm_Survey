@@ -14,10 +14,9 @@ export const ESDropDown = (props) => {
     id,
     defaultValue,
     keys,
-    subQuesId
+    subQuesId,
+    autoSaveAnswer
   } = props;
-
-  console.log('dropdown >> ', selectedOption)
 
   const AnsSelected =
   selectedOption &&
@@ -44,6 +43,11 @@ export const ESDropDown = (props) => {
       padding: 10,
     })
   };
+
+  const _handleBlur = () => {
+    autoSaveAnswer();
+  }
+
 return (
     <Select
       isClearable={notClearable ? false : true}
@@ -70,6 +74,7 @@ return (
       onChange={(e) => _handleSelect(quesId || id, e, keys, subQuesId)}
       // value={selectedOption}
       options={options}
+      onBlur={_handleBlur}
     />
   );
 };

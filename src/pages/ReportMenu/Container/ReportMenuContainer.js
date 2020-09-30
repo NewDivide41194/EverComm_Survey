@@ -17,7 +17,8 @@ const ReportMenuContainer = (props) => {
     window.open("/report/totalReport");
   };
   useEffect(() => {
-    surveyId && setIsDisable(false);
+    surveyId && countryName && setIsDisable(false);
+
     FetchReportMenu({ userId, viewType, token }, (err, data) => {
       const surveySection = data.payload.filter(v => v.survey_header_id === 10)[0].survey_section
       surveySection.splice(0,1)
@@ -26,12 +27,13 @@ const ReportMenuContainer = (props) => {
       localStorage.setItem("viewType", viewType);
     });
   }, [surveyId, viewType]);
+
   const SurveyNameOptions = 
     menuData &&
     menuData.map((v, k) => ({
       value: v.survey_header_id,
       label: v.survey_name,
-      isDisabled: v.amount_of_survey.length <= 0 && v.amount_of_country.length <=0
+      isDisabled: (v.amount_of_survey.length <= 0 && v.amount_of_country.length <=0) || (viewType === "all" &&  v.amount_of_survey.length <=0)
     }));
 
   const CountryOptions =
@@ -65,6 +67,7 @@ const ReportMenuContainer = (props) => {
   const _handleSelectCountry = (SurveyHeaderId, e) => {
     localStorage.setItem("countryName",e.label)
     setCountry(e.value);
+    setIsDisable(false);
     localStorage.setItem("countryId", e.value);
   }
 

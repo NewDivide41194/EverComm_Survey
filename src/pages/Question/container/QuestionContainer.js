@@ -142,6 +142,18 @@ const QuestionContainer = (props) => {
       ],
     });
   };
+  
+  const autoSaveAnswer = () => {
+    PostAnswer(
+      { data: AnswerData, total, buildingType, token },
+      (err, data) => {
+        setIsLoading(false);
+        console.log("auto save")
+        // history.push("/finalPage");
+      }
+    );
+  }
+
   const isQuesId = (quesId) => {
     return AnswerData.filter((e) => e.questionId === quesId);
   };
@@ -245,11 +257,10 @@ const QuestionContainer = (props) => {
 
     setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
   };
-console.log("ANS",AnswerData);
-console.log("Ques",surveyData);
+
   const handleSelect = (quesId, e, keys, subQuesId) => {
     setSelectedOption(e);
-    console.log("Handle Select", quesId, e, keys, subQuesId);
+    // console.log("Handle Select", quesId, e, keys, subQuesId);
     if (e !== null && typeof e.label == "string") {
       let ansId = e.value;
       const SelectAnswer = {
@@ -321,6 +332,7 @@ console.log("Ques",surveyData);
     } else {
       AnswerData.push(StartDateAnswer);
     }
+    autoSaveAnswer();
   };
 
   const handleStartChange = (date, quesId, keys, type) => {
@@ -351,6 +363,7 @@ console.log("Ques",surveyData);
         AnswerData.push(StartDateAnswer);
       }
     }
+    autoSaveAnswer();
   };
 
   const Data1 =
@@ -430,6 +443,7 @@ console.log("Ques",surveyData);
         // isWeek={isWeek}
         weekAns={weekAns}
         weekQuestion={weekQuestion}
+        autoSaveAnswer={autoSaveAnswer}
       />
     );
   }
