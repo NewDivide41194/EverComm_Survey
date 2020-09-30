@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReportMenu from "../Components/ReportMenu";
 import { FetchReportMenu } from "../../../api/FetchReportAnswers";
-import moment from "moment";
 
 const ReportMenuContainer = (props) => {
   const userId = localStorage.getItem("userId");
@@ -17,7 +16,8 @@ const ReportMenuContainer = (props) => {
     window.open("/report/totalReport");
   };
   useEffect(() => {
-    surveyId && setIsDisable(false);
+    surveyId && countryName && setIsDisable(false);
+
     FetchReportMenu({ userId, viewType, token }, (err, data) => {
       const surveySection = data.payload.filter(v => v.survey_header_id === 10)[0].survey_section
       surveySection.splice(0,1)
@@ -26,27 +26,31 @@ const ReportMenuContainer = (props) => {
       localStorage.setItem("viewType", viewType);
     });
   }, [surveyId, viewType]);
-  const SurveyNameOptions = 
+  const SurveyNameOptions =
     menuData &&
     menuData.map((v, k) => ({
       value: v.survey_header_id,
       label: v.survey_name,
-      isDisabled: v.amount_of_survey.length <= 0 && v.amount_of_country.length <=0
+      isDisabled:
+        (v.amount_of_survey.length <= 0 && v.amount_of_country.length <= 0) ||
+        (viewType === "all" && v.amount_of_survey.length <= 0),
     }));
 
   const CountryOptions =
-    menuData.length > 1 ?
-      menuData &&
-      menuData[1] && menuData[1].amount_of_country.map(v => ({
-        value: v.country_id,
-        label: v.country_name
-      })) :
-      menuData &&
-      menuData[0] && menuData[0].amount_of_country.map(v => ({
-        value: v.country_id,
-        label: v.country_name
-      }))
-      
+    menuData.length > 1
+      ? menuData &&
+        menuData[1] &&
+        menuData[1].amount_of_country.map((v) => ({
+          value: v.country_id,
+          label: v.country_name,
+        }))
+      : menuData &&
+        menuData[0] &&
+        menuData[0].amount_of_country.map((v) => ({
+          value: v.country_id,
+          label: v.country_name,
+        }));
+
   const _handleSelectChange = (e) => {
     setViewType(e.target.value);
     localStorage.setItem("viewType", e.target.value);
@@ -65,6 +69,7 @@ const ReportMenuContainer = (props) => {
   const _handleSelectCountry = (SurveyHeaderId, e) => {
     localStorage.setItem("countryName",e.label)
     setCountry(e.value);
+    setIsDisable(false);
     localStorage.setItem("countryId", e.value);
   }
 
