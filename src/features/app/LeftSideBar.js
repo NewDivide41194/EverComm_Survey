@@ -5,7 +5,6 @@ import { withRouter } from "react-router-dom";
 import { EverCommLink } from "../../tools/ES_Text";
 import auth from "../../security/auth";
 
-
 const LeftSideBar = (props) => {
   
   const email = localStorage.getItem("email");
@@ -227,7 +226,7 @@ const AdminLink = (props) => {
           />
         </li>
         {
-          props.userLevel !== 2 && 
+          props.userLevel !== "2" && 
           <li>
           <EverCommLink
             pathName={reportMenuPath}

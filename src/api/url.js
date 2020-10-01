@@ -19,11 +19,10 @@ export const Building_Insert = `${serverURL}/api/v1/building/addBuilding`;
 
 export const Country_Insert = `${serverURL}/api/v1/country/addCountry`;
 
-export const Get_Country = (surveyHeaderId) => 
- `${serverURL}/api/v1/country/getCountry/${surveyHeaderId}`;
+export const Get_Country = (surveyHeaderId) =>
+  `${serverURL}/api/v1/country/getCountry/${surveyHeaderId}`;
 
-export const QuestionAPI = (userId, surveyHeaderId, buildingId, bTypeId, surveySectionId,countryId) =>
-  `${serverURL}/api/v1/survey/questions/${userId}/${surveyHeaderId}/${buildingId}/${bTypeId}/${surveySectionId}/${countryId}`;
+export const QuestionAPI = `${serverURL}/api/v1/survey/questions`;
 
 export const Survey_List = (userId, surveyHeaderId) =>
   `${serverURL}/api/v1/survey/surveyList/${userId}/${surveyHeaderId}`;
@@ -37,7 +36,7 @@ export const User_Report_Answer = (surveyHeaderId) =>
 export const Report_Menu = (userId) =>
   ` ${serverURL}/api/v1/report/reportMenu/${userId}`;
 
-export const Survey_Section = (surveyHeaderId, countryId) => 
+export const Survey_Section = (surveyHeaderId, countryId) =>
   `${serverURL}/api/v1/survey/surveySectionList/${surveyHeaderId}/${countryId}`;
 
 export const Graph_Report = `${serverURL}/api/v1/report/graphReportUserLevel`;

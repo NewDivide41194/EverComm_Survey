@@ -18,6 +18,7 @@ const ESCheckbox = (props) => {
     checked,
     fontSize,
     disabled,
+    autoSaveAnswer
   } = props;
 
   const customTheme = createMuiTheme({
@@ -27,6 +28,10 @@ const ESCheckbox = (props) => {
       },
     },
   });
+
+  const _handleBlur = () => {
+    autoSaveAnswer();
+  }
 
   return value.length ? (
     value.map((ans, k3) => (
@@ -69,6 +74,7 @@ const ESCheckbox = (props) => {
             id={`${ans.option_choice_id + quesId}`}
             value={ans.option_choice_id}
             onChange={() => _handleChange(quesId, ans.option_choice_id, keys)}
+            onBlur={_handleBlur}
             name={`${quesId}`}
           />
         </ThemeProvider>
@@ -96,6 +102,7 @@ const ESCheckbox = (props) => {
           }
           id={`${value.option_choice_id + quesId}`}
           onChange={() => _handleChange(quesId, value.option_choice_id, keys)}
+          onBlur={_handleBlur}
           name={`${quesId}`}
         />
       </ThemeProvider>

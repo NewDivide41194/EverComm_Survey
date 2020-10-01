@@ -17,6 +17,7 @@ const Question = (props) => {
     _handleNext,
     _handlePrevious,
     _handleSubmit,
+    autoSaveAnswer,
     amountOfDevice,
     percent
   } = props;
@@ -81,7 +82,7 @@ const Question = (props) => {
                 ? surveyData[0].survey_sections[pageno].section_name
                 : surveySection}
             </div>
-            {surveyData[0].survey_sections[pageno].survey_section_id === 10 ? (
+            {surveyData[0].survey_sections[pageno].survey_section_id !== 1 ? (
               <div>
                 <span style={{ fontWeight: "bold" }}>Organization: </span>
                 <span>{organization}</span>

@@ -11,6 +11,7 @@ export const ESTableInput = (props) => {
     reportText,
     keyValue,
     data,
+    autoSaveAnswer
   } = props;
   const subQuestions = data.sub_questions;
   const addedQuestionId = 1000;
@@ -53,6 +54,7 @@ export const ESTableInput = (props) => {
                       <ESTextArea
                         id={remakeQuestionId}
                         placeHolder={"Please Specify"}
+                        autoSaveAnswer={autoSaveAnswer}
                         value={
                           AnswerData.filter(
                             (d) => d.questionId === remakeQuestionId

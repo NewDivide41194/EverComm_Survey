@@ -17,7 +17,8 @@ export const ESInput = (props) => {
     value,
     maxLength,
     pattern,
-    myRef
+    myRef,
+    autoSaveAnswer
   } = props;
 
   const defaultStyle = {
@@ -42,6 +43,8 @@ export const ESInput = (props) => {
     document.getElementById(
       id
     ).style.border = `1px solid ${Color.SecondaryColor}`;
+    autoSaveAnswer();
+    console.log('on blur')
   };
 
   return (

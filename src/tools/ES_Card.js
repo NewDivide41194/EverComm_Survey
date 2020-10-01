@@ -23,7 +23,8 @@ const QuestionCard1 = (props) => {
     AnswerData,
     otherAns,
     otherOfQuestion,
-    startDate
+    startDate,
+    autoSaveAnswer
   } = props;
 
   const ageOfBuildingOption = new Array(99)
@@ -85,6 +86,7 @@ const QuestionCard1 = (props) => {
                     maxLength={30}
                     placeHolder={"Fill Your Answer"}
                     id={questionId}
+                    autoSaveAnswer={autoSaveAnswer}
                     value={AnswerData.filter(
                       (d) => d.questionId === questionId && 
                       d.subQuestionId === null
@@ -108,7 +110,10 @@ const QuestionCard1 = (props) => {
             ques.option_choices[0].option_choice_id === null ? (
               <ESDropDown
                 quesId={questionId}
+                subQuesId={null}
+
                 options={ageOfBuildingOption}
+                subQuesId={null}
                 _handleSelect={_handleSelect}
                 selectedOption={
                   AnswerData.filter((d) => d.questionId === questionId)
@@ -118,6 +123,7 @@ const QuestionCard1 = (props) => {
                     : selectedOption
                 }
                 keys={ques.question_id}
+                autoSaveAnswer={autoSaveAnswer}
               />
             ) : (
               <div className="w-100">
@@ -142,6 +148,7 @@ const QuestionCard1 = (props) => {
                       : selectedOption
                   }
                   keys={ques.question_id}
+                  autoSaveAnswer={autoSaveAnswer}
                 />
                 {otherAns(questionId, ques.question_id, otherOfQuestion(k2))
                   .length > 0 ? (
@@ -150,6 +157,7 @@ const QuestionCard1 = (props) => {
                       maxLength={30}
                       placeHolder={"Fill Your Answer"}
                       id={questionId}
+                      autoSaveAnswer={autoSaveAnswer}
                       value={
                         AnswerData.filter((d) => d.questionId === questionId)
                           .length && AnswerData.length
@@ -177,6 +185,7 @@ const QuestionCard1 = (props) => {
               maxLength={30}
               placeHolder={"Fill Your Answer"}
               id={questionId}
+              autoSaveAnswer={autoSaveAnswer}
               value={AnswerData.filter((d) => d.questionId === questionId).map(
                 (v, k) => v.other
               )}
@@ -199,6 +208,7 @@ const QuestionCard1 = (props) => {
               _handleEndChange={_handleEndChange}
               _handleStartChange={_handleStartChange}
               keys={ques.question_id}
+              autoSaveAnswer={autoSaveAnswer}
             />
           ) : ques.input_type_id === 8 ? (
             <div className="w-100">
@@ -219,6 +229,7 @@ const QuestionCard1 = (props) => {
                 keys={ques.question_id}
                 type={ques.question_name}
                 isDate={true}
+                autoSaveAnswer={autoSaveAnswer}
               />
             </div>
           ) : null}
