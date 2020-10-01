@@ -80,7 +80,7 @@ const DataProvider = (props) => {
 
   return (
     <div
-      className="container"
+      className="container pb-3"
       style={{
         width: "8.27in",
       }}
@@ -94,12 +94,15 @@ const DataProvider = (props) => {
         QuestionData.map((ques, k2) => {
           const questionId = ques.question_id.toString();
           return (
-            <div className="px-3">
-              {questionId
+            <div className="px-3 row">
+              <div className="col-4">{ques && ques.question_name} :</div>
+              <div className="col-8 text-primary">
+               {questionId
                 ? AnswerData.filter((d) => d.questionId === questionId).map(
                     (v, k) => v.other
                   )
                 : null}
+              </div>
             </div>
           );
         })}
