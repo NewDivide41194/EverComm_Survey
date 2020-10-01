@@ -95,8 +95,8 @@ const DataProvider = (props) => {
           const questionId = ques.question_id.toString();
           return (
             <div className="px-3 row">
-              <div className="col-4">{ques && ques.question_name} :</div>
-              <div className="col-8 text-primary">
+              <div className="col-3">{ques && ques.question_name} :</div>
+              <div className="col-7 text-primary">
                {questionId
                 ? AnswerData.filter((d) => d.questionId === questionId).map(
                     (v, k) => v.other
