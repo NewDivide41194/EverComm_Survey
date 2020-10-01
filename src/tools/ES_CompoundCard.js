@@ -29,7 +29,6 @@ const QuestionCard = (props) => {
     otherAns,
     otherOfQuestion,
     surveyHeaderId,
-    autoSaveAnswer
   } = props;
 
   if (sessionId === 1||sessionId === 9) {
@@ -110,7 +109,6 @@ const QuestionCard = (props) => {
                               vertical={
                                 ques.option_group_id === 10 ? true : false
                               }
-                              autoSaveAnswer={autoSaveAnswer}
                             />
                           </div>
                         ) : ques.input_type_id === 2 ? (
@@ -123,7 +121,6 @@ const QuestionCard = (props) => {
                               subQuesId={undefined}
                               isQuestion={isQuestion}
                               keys={ques.question_id}
-                              autoSaveAnswer={autoSaveAnswer}
                             />
                             {otherAns(
                               remakeQuestionId,
@@ -134,7 +131,6 @@ const QuestionCard = (props) => {
                                 maxLength={30}
                                 placeHolder={"Please Specify"}
                                 id={remakeQuestionId}
-                                autoSaveAnswer={autoSaveAnswer}
                                 value={AnswerData.filter(
                                   (d) => d.questionId === remakeQuestionId
                                 ).map((v, k) => v.other)}
@@ -164,7 +160,6 @@ const QuestionCard = (props) => {
                                     ).map((v, k) => v.other)
                                   : selectedOption
                               }
-                              autoSaveAnswer={autoSaveAnswer}
                               keys={ques.question_id}
                             />
                           ) : (
@@ -194,7 +189,6 @@ const QuestionCard = (props) => {
                                     : selectedOption
                                 }
                                 keys={ques.question_id}
-                                autoSaveAnswer={autoSaveAnswer}
                               />
                               {otherAns(
                                 remakeQuestionId,
@@ -206,7 +200,6 @@ const QuestionCard = (props) => {
                                     maxLength={30}
                                     placeHolder={"Please Specify"}
                                     id={remakeQuestionId}
-                                    autoSaveAnswer={autoSaveAnswer}
                                     value={
                                       AnswerData.filter(
                                         (d) => d.questionId === remakeQuestionId
@@ -236,7 +229,6 @@ const QuestionCard = (props) => {
                             maxLength={30}
                             placeHolder={"Fill Your Answer"}
                             id={remakeQuestionId}
-                            autoSaveAnswer={autoSaveAnswer}
                             value={AnswerData.filter(
                               (d) => {
                                 return d.questionId === remakeQuestionId;
@@ -267,7 +259,6 @@ const QuestionCard = (props) => {
                             _handleStartChange={_handleStartChange}
                             keys={ques.question_id}
                             type={ques.question_name}
-                            autoSaveAnswer={autoSaveAnswer}
                           />
                         ): null}
                       </div>

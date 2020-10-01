@@ -13,7 +13,6 @@ const ESDatePicker = (props) => {
     type,
     keys,
     isDate,
-    autoSaveAnswer
   } = props;
 
   return (

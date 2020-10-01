@@ -17,7 +17,6 @@ const Question = (props) => {
     _handleNext,
     _handlePrevious,
     _handleSubmit,
-    autoSaveAnswer,
     amountOfDevice,
     percent
   } = props;

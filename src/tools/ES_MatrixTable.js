@@ -15,7 +15,6 @@ const ESMatrix = (props) => {
     isDisable,
     _handleRadioChange,
     _handleCheckChange,
-    autoSaveAnswer
   } = props;
 
   return (
@@ -69,7 +68,6 @@ const ESMatrix = (props) => {
                     subQuesId={v.sub_question_id}
                     isAnswer={isAnswer}
                     keys={keys}
-                    autoSaveAnswer={autoSaveAnswer}
                   />
                 ) : (
                   <ESRadio
@@ -80,7 +78,7 @@ const ESMatrix = (props) => {
                     subQuesId={v.sub_question_id}
                     isAnswer={isAnswer}
                     keys={keys}
-                    autoSaveAnswer={autoSaveAnswer}
+
                   />
                 )}
               </td>

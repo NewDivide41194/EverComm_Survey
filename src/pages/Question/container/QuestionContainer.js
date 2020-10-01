@@ -140,17 +140,6 @@ const QuestionContainer = (props) => {
       ],
     });
   };
-  
-  const autoSaveAnswer = () => {
-    PostAnswer(
-      { data: AnswerData, total, buildingType, token },
-      (err, data) => {
-        setIsLoading(false);
-        console.log("auto save")
-        // history.push("/finalPage");
-      }
-    );
-  }
 
   const isQuesId = (quesId) => {
     return AnswerData.filter((e) => e.questionId === quesId);
@@ -329,7 +318,6 @@ const QuestionContainer = (props) => {
     } else {
       AnswerData.push(StartDateAnswer);
     }
-    autoSaveAnswer();
   };
 
   const handleStartChange = (date, quesId, keys, type) => {
@@ -360,7 +348,6 @@ const QuestionContainer = (props) => {
         AnswerData.push(StartDateAnswer);
       }
     }
-    autoSaveAnswer();
   };
 
   const Data1 =
@@ -440,7 +427,6 @@ const QuestionContainer = (props) => {
         // isWeek={isWeek}
         weekAns={weekAns}
         weekQuestion={weekQuestion}
-        autoSaveAnswer={autoSaveAnswer}
       />
     );
   }
