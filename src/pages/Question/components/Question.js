@@ -82,7 +82,7 @@ const Question = (props) => {
                 ? surveyData[0].survey_sections[pageno].section_name
                 : surveySection}
             </div>
-            {surveyData[0].survey_sections[pageno].survey_section_id !== 1 ? (
+            {surveyData[0].survey_header_id === 10 ? (
               <div>
                 <span style={{ fontWeight: "bold" }}>Organization: </span>
                 <span>{organization}</span>

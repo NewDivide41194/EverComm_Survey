@@ -26,23 +26,15 @@ const ReportMenuContainer = (props) => {
       localStorage.setItem("viewType", viewType);
     });
   }, [surveyId, viewType]);
-<<<<<<< HEAD
 
   const SurveyNameOptions = 
-=======
-  const SurveyNameOptions =
->>>>>>> 71e58fed1925937b4e99bb07106b349ec3699d8e
     menuData &&
     menuData.map((v, k) => ({
       value: v.survey_header_id,
       label: v.survey_name,
-<<<<<<< HEAD
-      isDisabled: (v.amount_of_survey.length <= 0 && v.amount_of_country.length <=0) || (viewType === "all" &&  v.amount_of_survey.length <=0)
-=======
       isDisabled:
         (v.amount_of_survey.length <= 0 && v.amount_of_country.length <= 0) ||
         (viewType === "all" && v.amount_of_survey.length <= 0),
->>>>>>> 71e58fed1925937b4e99bb07106b349ec3699d8e
     }));
 
   const CountryOptions =

@@ -39,6 +39,7 @@ const UserLogin = (props) => {
               >{`*${err.eMailErr}`}</div>
             )}
             <ESInput
+              isLogin={true}
               disabled={isDisabled}
               required={true}
               id={"Email"}
@@ -54,6 +55,7 @@ const UserLogin = (props) => {
                 >{`*${err.passwordErr}`}</div>
               )}
               <ESInput
+                isLogin={true}
                 disabled={isDisabled}
                 required={true}
                 id={"password"}

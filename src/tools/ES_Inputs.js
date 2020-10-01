@@ -18,8 +18,10 @@ export const ESInput = (props) => {
     maxLength,
     pattern,
     myRef,
-    autoSaveAnswer
+    autoSaveAnswer,
+    isLogin
   } = props;
+
 
   const defaultStyle = {
     width: width === undefined ? "100%" : width,
@@ -43,7 +45,12 @@ export const ESInput = (props) => {
     document.getElementById(
       id
     ).style.border = `1px solid ${Color.SecondaryColor}`;
-    autoSaveAnswer();
+    if(isLogin === undefined)
+    {
+      console.log('isLogin >> ', isLogin)
+      autoSaveAnswer();
+    }
+  
     console.log('on blur')
   };
 
