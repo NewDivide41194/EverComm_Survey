@@ -17,9 +17,9 @@ const Question = (props) => {
     _handleNext,
     _handlePrevious,
     _handleSubmit,
-    autoSaveAnswer,
     amountOfDevice,
-    percent
+    percent,
+    autoSave,
   } = props;
   const organization = localStorage.getItem("organization");
   const countryName = localStorage.getItem("countryName");
@@ -56,6 +56,8 @@ const Question = (props) => {
               }}
             >{`${obtained || 0} of ${surveyTotal} Answered`}</div>
           </div>
+          {autoSave && <AutoSave />}
+
           <div
             style={{
               fontSize: media.mobile ? "20px" : "25px",
@@ -82,7 +84,7 @@ const Question = (props) => {
                 ? surveyData[0].survey_sections[pageno].section_name
                 : surveySection}
             </div>
-            {surveyData[0].survey_sections[pageno].survey_section_id !== 1 ? (
+            {surveyData[0].survey_header_id === 10 ? (
               <div>
                 <span style={{ fontWeight: "bold" }}>Organization: </span>
                 <span>{organization}</span>
@@ -149,3 +151,20 @@ const Question = (props) => {
 };
 
 export default withMedia(Question);
+
+const AutoSave = () => {
+  return (
+      <div
+        className={`text-light w-100px-2 fixed-bottom`}
+        style={{
+          minWidth: 160,          
+          // borderRadius: media.mobile ? "20px 0px 0 20px" : "20px",
+          transition: "1s",
+          background: Color.PrimaryColor,
+          zIndex: "1",
+        }}
+      >
+        Saving Answers . . .
+      </div>
+  );
+};

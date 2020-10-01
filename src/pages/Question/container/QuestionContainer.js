@@ -7,6 +7,7 @@ import ESLoading from "../../../tools/ES_Loading.js";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import moment from "moment";
+import { TurnedIn } from "@material-ui/icons";
 
 const QuestionContainer = (props) => {
   const { history } = props;
@@ -30,6 +31,8 @@ const QuestionContainer = (props) => {
   const buildingType = localStorage.getItem("buildingType");
   const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
   const countryId = localStorage.getItem("countryId");
+  const [autoSave, setAutoSave] = useState(false);
+
   const Ans = {
     other: "",
     optionChoiceId: null,
@@ -61,8 +64,29 @@ const QuestionContainer = (props) => {
     (questionslength.length == 6
       ? questionslength[questionslength.length - 1] * deviceAmounts[0]
       : 0) + totalQuesCount1;
-
   const typeId = surveyHeaderId === "10" ? 33 : buildingId;
+
+  const _handlePostAnswer = () => {
+      setAutoSave(true);
+    
+    PostAnswer(
+      { data: AnswerData, total, buildingType, token },
+      (err, data) => {
+        setTimeout(() => {
+          setAutoSave(false);
+
+        }, 1500);
+      }
+    );
+  };
+  console.log(autoSave);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      _handlePostAnswer();
+    }, 10000);
+    return () => clearInterval(interval);
+  });
+
   useEffect(() => {
     setIsLoading(true);
     QuestionFetch(
@@ -140,17 +164,6 @@ const QuestionContainer = (props) => {
       ],
     });
   };
-  
-  const autoSaveAnswer = () => {
-    PostAnswer(
-      { data: AnswerData, total, buildingType, token },
-      (err, data) => {
-        setIsLoading(false);
-        console.log("auto save")
-        // history.push("/finalPage");
-      }
-    );
-  }
 
   const isQuesId = (quesId) => {
     return AnswerData.filter((e) => e.questionId === quesId);
@@ -186,20 +199,19 @@ const QuestionContainer = (props) => {
       if (subIsQuesId(quesId, subQuesId).length >= 1) {
         AnswerData.splice(subIsQuesIdIndex(quesId, subQuesId), 1, RadioAns);
       } else {
-        AnswerData.push(RadioAns);
+        setAnswerData(AnswerData.concat(RadioAns));
       }
     } else {
       if (isQuesId(quesId).length >= 1) {
         AnswerData.splice(isQuesIdIndex(quesId), 1, RadioAns);
       } else {
-        AnswerData.push(RadioAns);
+        setAnswerData(AnswerData.concat(RadioAns));
       }
     }
     setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
   };
 
   const handleInputChange = (e, quesId, subQuesId, keys, optionId) => {
-    // console.log('input change >>> ', e.target.value, quesId, subQuesId, keys, optionId)
     const ImportText = e.target.value.replace(/\s+/g, " ").trimStart();
     const TextAnswer = {
       ...Ans,
@@ -329,7 +341,6 @@ const QuestionContainer = (props) => {
     } else {
       AnswerData.push(StartDateAnswer);
     }
-    autoSaveAnswer();
   };
 
   const handleStartChange = (date, quesId, keys, type) => {
@@ -360,7 +371,6 @@ const QuestionContainer = (props) => {
         AnswerData.push(StartDateAnswer);
       }
     }
-    autoSaveAnswer();
   };
 
   const Data1 =
@@ -412,6 +422,7 @@ const QuestionContainer = (props) => {
   } else {
     return (
       <Question
+        autoSave={autoSave}
         startDate={startDate}
         value={value}
         buildingName={buildingName}
@@ -440,7 +451,6 @@ const QuestionContainer = (props) => {
         // isWeek={isWeek}
         weekAns={weekAns}
         weekQuestion={weekQuestion}
-        autoSaveAnswer={autoSaveAnswer}
       />
     );
   }

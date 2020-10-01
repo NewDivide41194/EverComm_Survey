@@ -18,7 +18,6 @@ const ESCheckbox = (props) => {
     checked,
     fontSize,
     disabled,
-    autoSaveAnswer
   } = props;
 
   const customTheme = createMuiTheme({

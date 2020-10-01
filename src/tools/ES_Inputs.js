@@ -18,8 +18,8 @@ export const ESInput = (props) => {
     maxLength,
     pattern,
     myRef,
-    autoSaveAnswer
   } = props;
+
 
   const defaultStyle = {
     width: width === undefined ? "100%" : width,
@@ -58,6 +58,7 @@ export const ESInput = (props) => {
         ...defaultStyle,
         ...userStyle,
       }}
+      onBlur={__handleBlur}
       pattern={pattern?pattern:null}
       placeholder={placeHolder}
       className={`form-control form-rounded ${className}`}

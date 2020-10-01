@@ -43,7 +43,6 @@ export const ESDropDown = (props) => {
     })
   };
 
-
 return (
     <Select
       isClearable={notClearable ? false : true}

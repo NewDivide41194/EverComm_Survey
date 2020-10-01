@@ -28,7 +28,8 @@ const ReportMenuContainer = (props) => {
       localStorage.setItem("viewType", viewType);
     });
   }, [surveyId, viewType]);
-  const SurveyNameOptions =
+
+  const SurveyNameOptions = 
     menuData &&
     menuData.map((v, k) => ({
       value: v.survey_header_id,
