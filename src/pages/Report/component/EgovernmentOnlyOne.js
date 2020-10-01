@@ -241,10 +241,11 @@ const SubQuestionInput = (props) => {
   } = props;
   return ques.sub_questions.map((subQues, k3) => (
     <div
-      className="d-flex flex-row pb-1 w-100 justify-content-between"
-      key={k3}
+    className="d-flex flex-row flex-fill flex-wrap w-100 p-3 mb-3 "
+    key={k3}
     >
-      <div className="w-25">{subQues.sub_question_name}</div>
+    {subQues.input_type_id === 14 ? <div className='w-100'>{subQues.sub_question_name}</div> :
+     <div className ='w-25'>{subQues.sub_question_name}</div>}
       <div className="w-75 text-primary">
         {subQues.input_type_id === 2 || subQues.input_type_id === 15 ? (
           <div>

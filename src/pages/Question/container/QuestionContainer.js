@@ -83,7 +83,7 @@ const QuestionContainer = (props) => {
   useEffect(() => {
     const interval = setInterval(() => {
       _handlePostAnswer();
-    }, 10000);
+    }, 30000);
     return () => clearInterval(interval);
   });
 
