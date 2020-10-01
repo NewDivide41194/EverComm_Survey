@@ -43,7 +43,6 @@ export const ESInput = (props) => {
     document.getElementById(
       id
     ).style.border = `1px solid ${Color.SecondaryColor}`;
-
   };
 
   return (
@@ -59,11 +58,11 @@ export const ESInput = (props) => {
         ...defaultStyle,
         ...userStyle,
       }}
+      onBlur={__handleBlur}
       pattern={pattern?pattern:null}
       placeholder={placeHolder}
       className={`form-control form-rounded ${className}`}
       onFocus={__handleFocus}
-      onBlur={__handleBlur}
       type={type === undefined ? "text" : `${type}`}
       value={value}
       maxLength={maxLength}

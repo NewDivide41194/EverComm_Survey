@@ -19,8 +19,10 @@ const ReportMenuContainer = (props) => {
   useEffect(() => {
   
     FetchReportMenu({ userId, viewType, token }, (err, data) => {
-      const surveySection = data.payload.filter(v => v.survey_header_id === 10)[0].survey_section
-      surveySection.splice(0,1)
+      const surveySection = data.payload.filter(
+        (v) => v.survey_header_id === 10
+      )[0].survey_section;
+      surveySection.splice(0, 1);
 
       setMenuData(data.payload);
       localStorage.setItem("viewType", viewType);
@@ -74,11 +76,11 @@ const ReportMenuContainer = (props) => {
   };
 
   const _handleSelectCountry = (SurveyHeaderId, e) => {
-    localStorage.setItem("countryName",e.label)
+    localStorage.setItem("countryName", e.label);
     setCountry(e.value);
     setIsDisable(false);
     localStorage.setItem("countryId", e.value);
-  }
+  };
 
   const _handleClearable = () => {
     setisClearable(!isClearable);

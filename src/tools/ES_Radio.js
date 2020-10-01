@@ -24,7 +24,6 @@ export const ESRadio = (props) => {
     },
   });
 
-
   return value.length ? (
     value.map((ans, k3) => (
       <label

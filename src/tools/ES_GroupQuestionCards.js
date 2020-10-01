@@ -100,17 +100,19 @@ const ESGroupQuestionCard = (props) => {
                     />
                   </div>
                 ) : ques.input_type_id === 13 ? (
-                  <ESTableInput
-                    data={ques}
-                    placeHolder={"Please Specify"}
-                    AnswerData={AnswerData}
-                    _handleInputChange={_handleInputChange}
-                    quesId={questionId}
-                    subQuesId={ques.sub_questions}
-                    quesName={ques.question_name}
-                    inputTypeId={ques.input_type_id}
-                    keyValue={ques.question_id}
-                  />
+                  <div className="table-responsive">
+                    <ESTableInput
+                      data={ques}
+                      placeHolder={"Please Specify"}
+                      AnswerData={AnswerData}
+                      _handleInputChange={_handleInputChange}
+                      quesId={questionId}
+                      subQuesId={ques.sub_questions}
+                      quesName={ques.question_name}
+                      inputTypeId={ques.input_type_id}
+                      keyValue={ques.question_id}
+                    />
+                  </div>
                 ) : ques.input_type_id === 24 ? (
                   <div>
                     <ESRadio
@@ -291,7 +293,6 @@ const SubQuestionInput = (props) => {
               subQuesId={subQues.sub_question_id}
               isAnswer={AnswerData}
               keys={ques.question_id}
-
             />
             {subQues.input_type_id === 15 &&
             AnswerData.filter(
@@ -335,7 +336,6 @@ const SubQuestionInput = (props) => {
                 : null
             }
             vertical={ques.option_group_id === 10 ? true : false}
- 
           />
         ) : subQues.input_type_id === 4 ? (
           <ESTextArea
@@ -353,8 +353,7 @@ const SubQuestionInput = (props) => {
               );
             }}
           />
-        ) 
-        // : subQues.input_type_id === 5 ? (
+        ) : // : subQues.input_type_id === 5 ? (
         //   <ESDropDown
         //     quesId={questionId}
         //     subQuesId={subQues.sub_question_id}
@@ -378,7 +377,7 @@ const SubQuestionInput = (props) => {
         //     keys={ques.question_id}
         //   />
         // )
-         : null}
+        null}
       </div>
     </div>
   ));
