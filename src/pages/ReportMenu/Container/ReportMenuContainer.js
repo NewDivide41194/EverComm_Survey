@@ -15,9 +15,9 @@ const ReportMenuContainer = (props) => {
   const _handleReport = () => {
     window.open("/report/totalReport");
   };
-  useEffect(() => {
-    surveyId && countryName && setIsDisable(false);
 
+  useEffect(() => {
+  
     FetchReportMenu({ userId, viewType, token }, (err, data) => {
       const surveySection = data.payload.filter(
         (v) => v.survey_header_id === 10
@@ -63,6 +63,12 @@ const ReportMenuContainer = (props) => {
     if (e !== null) {
       localStorage.setItem("SurveyHeaderId", e.value);
       setSurveyId(e.value);
+      if(e.value === 10){
+        setIsDisable(true);
+      }else {
+        setIsDisable(false);
+      }
+   
     } else {
       setIsDisable(true);
       setSurveyId(null);
