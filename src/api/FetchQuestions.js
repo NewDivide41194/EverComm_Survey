@@ -12,27 +12,6 @@ export const QuestionFetch = (
   },
   callback
 ) => {
-<<<<<<< HEAD
-  // console.log( userId, surveyHeaderId, typeId, bTypeId, surveySectionId,countryId, token );
-  fetch(
-    API.QuestionAPI(
-      userId,
-      surveyHeaderId,
-      typeId,
-      bTypeId,
-      surveySectionId,
-      countryId,
-      token
-    ),
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "*/*",
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  )
-=======
   fetch(API.QuestionAPI, {
     method: `POST`,
     headers: {
@@ -49,7 +28,6 @@ export const QuestionFetch = (
       countryId: countryId,
     }),
   })
->>>>>>> 71e58fed1925937b4e99bb07106b349ec3699d8e
     .then((res) => res.json())
     .then((data) => callback(null, data))
     .catch((err) => console.log(err));

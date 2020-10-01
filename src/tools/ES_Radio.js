@@ -14,7 +14,6 @@ export const ESRadio = (props) => {
     keys,
     subQuesId,
     other,
-    autoSaveAnswer
   } = props;
   const ID = subQuesId !== null && subQuesId ? subQuesId : quesId;
   const customTheme = createMuiTheme({
@@ -25,14 +24,6 @@ export const ESRadio = (props) => {
     },
   });
 
-<<<<<<< HEAD
-  const _handleBlur = () => {
-    autoSaveAnswer();
-  }
-
-=======
-  console.log("Value--------->",value);
->>>>>>> 71e58fed1925937b4e99bb07106b349ec3699d8e
   return value.length ? (
     value.map((ans, k3) => (
       <label
@@ -66,7 +57,6 @@ export const ESRadio = (props) => {
                     : d.subQuestionId == subQuesId)
               ).length > 0
             }
-            onBlur={ _handleBlur}
             onChange={() =>
               _handleRadioChange(
                 ans.option_choice_id,
@@ -89,7 +79,6 @@ export const ESRadio = (props) => {
         <Radio
           disabled={isDisable}
           value={value.option_choice_name}
-          onBlur={ _handleBlur}
           checked={
             checked ||
             isAnswer.filter(

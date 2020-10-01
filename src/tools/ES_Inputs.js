@@ -43,8 +43,6 @@ export const ESInput = (props) => {
     document.getElementById(
       id
     ).style.border = `1px solid ${Color.SecondaryColor}`;
-    autoSaveAnswer();
-    console.log('on blur')
   };
 
   return (
@@ -64,7 +62,6 @@ export const ESInput = (props) => {
       placeholder={placeHolder}
       className={`form-control form-rounded ${className}`}
       onFocus={__handleFocus}
-      onBlur={__handleBlur}
       type={type === undefined ? "text" : `${type}`}
       value={value}
       maxLength={maxLength}

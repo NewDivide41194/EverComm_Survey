@@ -19,30 +19,23 @@ const ReportMenuContainer = (props) => {
     surveyId && countryName && setIsDisable(false);
 
     FetchReportMenu({ userId, viewType, token }, (err, data) => {
-      const surveySection = data.payload.filter(v => v.survey_header_id === 10)[0].survey_section
-      surveySection.splice(0,1)
+      const surveySection = data.payload.filter(
+        (v) => v.survey_header_id === 10
+      )[0].survey_section;
+      surveySection.splice(0, 1);
 
       setMenuData(data.payload);
       localStorage.setItem("viewType", viewType);
     });
   }, [surveyId, viewType]);
-<<<<<<< HEAD
-
-  const SurveyNameOptions = 
-=======
   const SurveyNameOptions =
->>>>>>> 71e58fed1925937b4e99bb07106b349ec3699d8e
     menuData &&
     menuData.map((v, k) => ({
       value: v.survey_header_id,
       label: v.survey_name,
-<<<<<<< HEAD
-      isDisabled: (v.amount_of_survey.length <= 0 && v.amount_of_country.length <=0) || (viewType === "all" &&  v.amount_of_survey.length <=0)
-=======
       isDisabled:
         (v.amount_of_survey.length <= 0 && v.amount_of_country.length <= 0) ||
         (viewType === "all" && v.amount_of_survey.length <= 0),
->>>>>>> 71e58fed1925937b4e99bb07106b349ec3699d8e
     }));
 
   const CountryOptions =
@@ -76,11 +69,11 @@ const ReportMenuContainer = (props) => {
   };
 
   const _handleSelectCountry = (SurveyHeaderId, e) => {
-    localStorage.setItem("countryName",e.label)
+    localStorage.setItem("countryName", e.label);
     setCountry(e.value);
     setIsDisable(false);
     localStorage.setItem("countryId", e.value);
-  }
+  };
 
   const _handleClearable = () => {
     setisClearable(!isClearable);
