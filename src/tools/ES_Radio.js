@@ -80,20 +80,24 @@ export const ESRadio = (props) => {
           disabled={isDisable}
           value={value.option_choice_name}
           checked={
-            checked ||
-            isAnswer.filter(
-              (d) =>
-                d.optionChoiceId === value.option_choice_id &&
-                d.subQuestionId === subQuesId
-            ).length > 0
+            checked === true
+              ? true
+              : checked === undefined
+              ? isAnswer.filter(
+                  (d) =>
+                    d.optionChoiceId === value.option_choice_id &&
+                    d.subQuestionId === subQuesId
+                ).length > 0
+              : false
           }
-          onChange={() =>
+          onChange={(e) =>
             _handleRadioChange(
               value.option_choice_id,
               quesId,
               subQuesId,
               keys,
-              other
+              other,
+              e
             )
           }
           id={`${value.option_choice_id + ID}`}

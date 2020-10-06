@@ -72,7 +72,7 @@ const ReportMenuContainer = (props) => {
           id: v.building_type_id,
         }));
 
-  const _handleSelectChange = (e) => {
+  const _handleSelectChange = (d, quesId, subQuesId, keys, other, e) => {
     setViewType(e.target.value);
     localStorage.setItem("viewType", e.target.value);
   };
@@ -101,7 +101,7 @@ const ReportMenuContainer = (props) => {
 
   const _handleSelectBuilding = (SurveyHeaderId, e) => {
     localStorage.setItem("buildingName", e.label);
-    localStorage.setItem("buildingTypeId",e.id)
+    localStorage.setItem("buildingTypeId", e.id);
     setBuilding(e.value);
     setIsDisable(false);
     localStorage.setItem("buildingId", e.value);

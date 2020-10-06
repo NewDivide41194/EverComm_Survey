@@ -82,7 +82,7 @@ const CountryContainer = (props) => {
     },
   ];
   return (
-    <div className="container p-3">
+    <div className="container">
       <div className="p-2"><ESNavigator pathData={pathData} /></div>
       {countryList.length > 0 && countryList ? (
         <CountryMenu

@@ -34,24 +34,21 @@ console.log(BuildingOptions);
         style={{ fontSize: "18px" }}
       >
         <label style={{ fontWeight: "bold" }}>Types of View :</label>
-        <div className="pl-2">
-          <input
-            className="mr-1"
-            type="radio"
-            value="all"
-            name="type"
-            onChange={_handleSelectChange}
+        <div className="pl-2">        
+          <ESRadio
+          value={{option_choice_name:"all"}}
+          name="type"
+          checked={viewType==="all"}
+          _handleRadioChange={_handleSelectChange}
           />
           All users
         </div>
         <div className="pl-2 ">
-          <input
-            className="mr-1"
-            type="radio"
-            value="one"
-            name="type"
-            onChange={_handleSelectChange}
-            checked={viewType === "one"}
+          <ESRadio
+          value={{option_choice_name:"one"}}
+          name="type"
+          checked={viewType==="one"}
+          _handleRadioChange={_handleSelectChange}
           />
           Only me
         </div>
