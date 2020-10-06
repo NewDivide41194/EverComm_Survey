@@ -154,17 +154,17 @@ export default withMedia(Question);
 
 const AutoSave = () => {
   return (
-      <div
-        className={`text-light w-100px-2 fixed-bottom`}
-        style={{
-          minWidth: 160,          
-          // borderRadius: media.mobile ? "20px 0px 0 20px" : "20px",
-          transition: "1s",
-          background: Color.PrimaryColor,
-          zIndex: "1",
-        }}
-      >
-        Saving Answers . . .
-      </div>
+    <div
+      className={`text-light w-100px-2 fixed-bottom`}
+      style={{
+        minWidth: 160,
+        // borderRadius: media.mobile ? "20px 0px 0 20px" : "20px",
+        transition: "1s",
+        background: Color.PrimaryColor,
+        zIndex: "1",
+      }}
+    >
+      Saving Answers . . .
+    </div>
   );
 };

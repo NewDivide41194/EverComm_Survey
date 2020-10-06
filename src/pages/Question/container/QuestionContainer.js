@@ -7,7 +7,6 @@ import ESLoading from "../../../tools/ES_Loading.js";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import moment from "moment";
-import { TurnedIn } from "@material-ui/icons";
 
 const QuestionContainer = (props) => {
   const { history } = props;
@@ -67,14 +66,13 @@ const QuestionContainer = (props) => {
   const typeId = surveyHeaderId === "10" ? 33 : buildingId;
 
   const _handlePostAnswer = () => {
-      setAutoSave(true);
-    
+    setAutoSave(true);
+
     PostAnswer(
       { data: AnswerData, total, buildingType, token },
       (err, data) => {
         setTimeout(() => {
           setAutoSave(false);
-
         }, 1500);
       }
     );

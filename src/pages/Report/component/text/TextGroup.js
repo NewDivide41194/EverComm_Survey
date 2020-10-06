@@ -1,12 +1,12 @@
-import React from "react";
-import ESCheckBox from "../../../tools/ES_CheckBox";
-import { ESRadio } from "../../../tools/ES_Radio";
-import EGA from "../../../assets/images/eGovernment/EGA.jpg";
-import UNDP from "../../../assets/images/eGovernment/UNDP.jpeg";
+import React, { useEffect } from "react";
+import ESCheckBox from "../../../../tools/ES_CheckBox";
+import { ESRadio } from "../../../../tools/ES_Radio";
+import EGA from "../../../../assets/images/eGovernment/EGA.jpg";
+import UNDP from "../../../../assets/images/eGovernment/UNDP.jpeg";
 import { withMedia } from "react-media-query-hoc";
-import ESMatrix from "../../../tools/ES_MatrixTable";
-import { ESTableInput } from "../../../tools/ES_TableInput";
-import * as Colors from "../../../config/Color.config";
+import ESMatrix from "../../../../tools/ES_MatrixTable";
+import { ESTableInput } from "../../../../tools/ES_TableInput";
+import * as Colors from "../../../../config/Color.config";
 
 const ESGroupQuestionCard = (props) => {
   const {
@@ -18,6 +18,7 @@ const ESGroupQuestionCard = (props) => {
     sectionName,
     surveyTitle,
     isHeader,
+    id
   } = props;
   const subQues =
     QuestionData.length > 0 &&
@@ -44,6 +45,7 @@ const ESGroupQuestionCard = (props) => {
   return (
     <div
       className="container"
+      id={id}
       style={{
         width: "8.27in",
       }}
@@ -241,11 +243,14 @@ const SubQuestionInput = (props) => {
   } = props;
   return ques.sub_questions.map((subQues, k3) => (
     <div
-    className="d-flex flex-row flex-fill flex-wrap w-100 p-3 mb-3 "
-    key={k3}
+      className="d-flex flex-row flex-fill flex-wrap w-100 p-3 mb-3 "
+      key={k3}
     >
-    {subQues.input_type_id === 14 ? <div className='w-100'>{subQues.sub_question_name}</div> :
-     <div className ='w-25'>{subQues.sub_question_name}</div>}
+      {subQues.input_type_id === 14 ? (
+        <div className="w-100">{subQues.sub_question_name}</div>
+      ) : (
+        <div className="w-25">{subQues.sub_question_name}</div>
+      )}
       <div className="w-75 text-primary">
         {subQues.input_type_id === 2 || subQues.input_type_id === 15 ? (
           <div>

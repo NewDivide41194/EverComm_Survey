@@ -21,9 +21,12 @@ const ReportMenu = (props) => {
     _handleSelectCountry,
     CountryOptions,
     countryName,
+    BuildingOptions,
+    building,
+    _handleSelectBuilding
   } = props;
   const userLevel = localStorage.getItem("userLevel");
-
+console.log(BuildingOptions);
   return (
     <div className="container">
       <div
@@ -86,6 +89,22 @@ const ReportMenu = (props) => {
             </div>
           </div>
         )}
+        {surveyId && surveyId == 1 && viewType === "one" && (
+          <div className="w-100 row justify-content-center">
+            <div className="col-lg-5 col-sm-12 py-2">
+              <h5 className="py-3" style={{ color: Colors.PrimaryColor }}>
+                Select Building
+              </h5>
+              <ESDropDown
+                notClearable
+                _handleSelect={_handleSelectBuilding}
+                options={BuildingOptions}
+                value={building}
+                onClick={_handleClearable}
+              />
+            </div>
+          </div>
+        )}
         <div className="w-100 row justify-content-center pt-5 pb-3">
           <div className="col-lg-3 col-12">
             <ESButton
@@ -127,7 +146,7 @@ const ReportDetail = (props) => {
                 <h4 style={{ color: Colors.PrimaryColor }}>Report Detail</h4>
                 <hr />
               </div>
-              {v.amount_of_survey.length != "" ? (
+              {v.amount_of_building.length != "" ? (
                 <div className="d-flex flex-row flex-fill col-lg-6 col-sm-12">
                   <div className="col-4 px-0 font-weight-bold">
                     Building Count
@@ -135,7 +154,7 @@ const ReportDetail = (props) => {
                   <div className="col-1">:</div>
 
                   <div className="col-7">
-                    {v.amount_of_survey.length} buildings
+                    {v.amount_of_building.length} buildings
                   </div>
                 </div>
               ) : (
@@ -161,17 +180,17 @@ const ReportDetail = (props) => {
                 <div className="col-7">{v.survey_section.length} sections</div>
               </div>
 
-              {v.amount_of_survey.length != "" ? (
+              {v.amount_of_building.length != "" ? (
                 <div className="d-flex flex-row flex-fill col-lg-6 col-sm-12 ">
                   <div className="col-4 px-0 font-weight-bold">
                     Building Name
                   </div>
                   <div className="col-1">:</div>
                   <div className="col-7">
-                    {v.amount_of_survey.map(
+                    {v.amount_of_building.map(
                       (v1, k1) =>
                         v1.building_name +
-                        `${k1 + 1 !== v.amount_of_survey.length ? ", " : "."}`
+                        `${k1 + 1 !== v.amount_of_building.length ? ", " : "."}`
                     )}
                   </div>
                 </div>

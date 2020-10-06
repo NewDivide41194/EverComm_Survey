@@ -1,13 +1,13 @@
 import React from "react";
-import ESCheckBox from "./ES_CheckBox";
-import { ESRadio } from "./ES_Radio";
-import { ESDropDown } from "./ES_DropDown";
+import ESCheckBox from "../../../../tools/ES_CheckBox";
+import { ESRadio } from "../../../../tools/ES_Radio";
+import { ESDropDown } from "../../../../tools/ES_DropDown";
 
 import { withMedia } from "react-media-query-hoc";
-import { ESInput } from "./ES_Inputs";
-import ESDatePicker from "./ES_DatePicker";
+import { ESInput } from "../../../../tools/ES_Inputs";
+import ESDatePicker from "../../../../tools/ES_DatePicker";
 
-const QuestionCard1 = (props) => {
+const TextSimple = (props) => {
   const {
     QuestionData,
     _handleRadioChange,
@@ -25,11 +25,11 @@ const QuestionCard1 = (props) => {
     otherOfQuestion,
     startDate,
   } = props;
-
+  console.log("Question", QuestionData);
   const ageOfBuildingOption = new Array(99)
     .fill(null)
     .map((v, k) => ({ label: k + 1, value: k + 1 }));
-// console.log(AnswerData);
+
   return (
     QuestionData &&
     QuestionData.map((ques, k2) => {
@@ -86,8 +86,8 @@ const QuestionCard1 = (props) => {
                     placeHolder={"Fill Your Answer"}
                     id={questionId}
                     value={AnswerData.filter(
-                      (d) => d.questionId === questionId && 
-                      d.subQuestionId === null
+                      (d) =>
+                        d.questionId === questionId && d.subQuestionId === null
                     ).map((v, k) => v.other)}
                     onChange={(e) => {
                       _handleInputChange(
@@ -208,13 +208,13 @@ const QuestionCard1 = (props) => {
                 quesId={questionId}
                 placeHolder={ques.question_name}
                 startDate={
-                  startDate||
-                  AnswerData.filter(
-                  (d) => d.questionId === questionId
-                  ).length && AnswerData.length
-                  ? AnswerData.filter(
-                    (d) => d.questionId === questionId
-                    ).map((v, k) => new Date(v.other))[0]
+                  startDate ||
+                  (AnswerData.filter((d) => d.questionId === questionId)
+                    .length &&
+                    AnswerData.length)
+                    ? AnswerData.filter((d) => d.questionId === questionId).map(
+                        (v, k) => new Date(v.other)
+                      )[0]
                     : null
                 }
                 _handleDateChange={_handleDateChange}
@@ -230,7 +230,7 @@ const QuestionCard1 = (props) => {
   );
 };
 
-export default withMedia(QuestionCard1);
+export default withMedia(TextSimple);
 
 const QuestionCardInfo = (props) => {
   const { info, media } = props;

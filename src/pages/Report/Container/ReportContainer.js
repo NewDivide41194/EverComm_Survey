@@ -10,7 +10,7 @@ import { ESButton } from "../../../tools/ES_Button";
 import Cover from "../component/Cover";
 import BackCover from "../component/BackCover";
 import { ChartTheme1 } from "../../../config/Color.config";
-import TextContainer from "./TextContainer";
+import TextContainer from "./TextReportContainer";
 import ESLoading from "../../../tools/ES_Loading";
 
 const ReportContainer = (props) => {
@@ -28,14 +28,14 @@ const ReportContainer = (props) => {
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const startDate = urlParams.get("startDate");
-  const endDate = urlParams.get("endDate");
   const userId = localStorage.getItem("userId");
   const viewType = localStorage.getItem("viewType");
   const userLevel = parseInt(localStorage.getItem("userLevel"));
   const [surveyData, setSurveyData] = useState([]);
   const [answerData, setAnswerData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const buildingId=localStorage.getItem("buildingId")
+  const buildingTypeId=localStorage.getItem("buildingTypeId")
   const [graph, setGraph] = useState(false);
   useEffect(() => {
     // const countryId = 48;
@@ -46,10 +46,10 @@ const ReportContainer = (props) => {
       {
         userId,
         surveyHeaderId,
-        startDate,
-        endDate,
         viewType,
         countryId,
+        buildingId,
+        buildingTypeId,
         token,
       },
       (err, data) => {
@@ -61,7 +61,7 @@ const ReportContainer = (props) => {
 
   const _handleGraphClick = () => {
     FetchGraphReport(
-      { userId, surveyHeaderId, startDate, endDate, viewType, token },
+      { userId, surveyHeaderId, viewType, token },
       (err, data) => {
         setTypeAndArea(data.payload[1]);
         setBMS(data.payload[2]);

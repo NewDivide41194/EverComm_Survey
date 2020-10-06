@@ -29,13 +29,14 @@ const Building = (props) => {
     errStyle,
     isDisabled,
     handleBMSCheck,
-    BMS
+    BMS,
   } = props;
   const errClassName = "text-danger d-flex flex-row justify-content-end pb-1";
   return (
     <div className="row justify-content-center py-4">
-      <form className="col-lg-5 col-md-8"
-      onSubmit={handleNext}
+      <form
+        className="col-lg-5 col-md-8"
+        onSubmit={handleNext}
         // style={{
         //   position: "absolute",
         //   top: "50%",
@@ -167,18 +168,17 @@ const Building = (props) => {
             />
           </div>
           <div className="py-2 col-12">
-            {err.commentErr === undefined ? null : (
-              <div
-                className={errClassName}
-                style={{ ...errStyle }}
-              >{`*${err.commentErr}`}</div>
-            )}
             <ESCheckBox
               disabled={isDisabled}
               checked={BMS}
               id={"comment"}
               placeHolder={"Comment"}
-              value={[{ option_choice_id: 1, option_choice_name: "Building Management System Installed" }]}
+              value={[
+                {
+                  option_choice_id: 1,
+                  option_choice_name: "Building Management System Installed",
+                },
+              ]}
               _handleChange={(e) => handleBMSCheck(e)}
               className={"w-100"}
             />
