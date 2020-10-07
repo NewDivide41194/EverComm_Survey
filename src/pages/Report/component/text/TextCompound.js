@@ -6,6 +6,9 @@ import { ESDropDown } from "../../../../tools/ES_DropDown";
 import { withMedia } from "react-media-query-hoc";
 import { ESInput } from "../../../../tools/ES_Inputs";
 import ESDatePicker from "../../../../tools/ES_DatePicker";
+import * as Colors from "../../../../config/Color.config";
+import EGA from "../../../../assets/images/eGovernment/EGA.jpg";
+import UNDP from "../../../../assets/images/eGovernment/UNDP.jpeg";
 
 // import "../App.css"
 
@@ -24,14 +27,39 @@ const TextCompound = (props) => {
     AnswerData,
     amountOfDevice,
     sessionId,
-    otherAns,
-    otherOfQuestion,
     surveyHeaderId,
-    reportData
+    reportData,
+    sectionName,
+    surveyTitle
   } = props;
+
+  console.log('AnswerData text >>>> ', AnswerData)
+
   const buildingId = localStorage.getItem("buildingId");
+  const countryName = localStorage.getItem("countryName");
+  const buildingName = localStorage.getItem("buildingName");
   const deviceIndexValue = amountOfDevice && Object.values(amountOfDevice[0]);
   const addedQuestionId = 1000;
+
+  const otherAns = (remakeQuesId, QuesId, OptionId) => {
+    return AnswerData.filter(
+      (a) =>
+        a.keyValue === QuesId &&
+        a.optionChoiceId === OptionId &&
+        a.questionId === remakeQuesId
+    );
+  };
+
+  const otherOfQuestion = (index) => {
+    const isOther =
+      QuestionData &&
+      QuestionData.map((v, k) =>
+        v.option_choices === undefined ? [] : v.option_choices
+      )[index].filter((d) => d.option_choice_name === "Other");
+
+    return isOther.length > 0 ? isOther[0].option_choice_id : [];
+  };
+
 
   const deviceOption = new Array(99)
     .fill(null)
@@ -43,17 +71,28 @@ const TextCompound = (props) => {
   const MultiplyQuestions = new Array(pageDeviceIndex).fill(null).map((v, k3) => {
     return (
       <div
-        key={k3}
+        className="container py-2 border"
+        style={{
+          width: "8.27in",
+        }}
+      >
+        <Header
+          sectionName={sectionName}
+          buildingName={buildingName}
+          countryName={countryName}
+        /> 
+      <div
+        // key={k3}
         className="d-flex my-3 p-2 pt-2 rounded bg-light border"
         style={{
           fontSize: media.mobile ? "12px" : "15px",
         }}
       >
-        {surveyHeaderId === 1 ? (
+        {/* {surveyHeaderId === 1 ? (
           <div className="py-2 font-weight-bold">
             {k3 + 1`Device No.` + (k3 + 1)}
           </div>
-        ) : null}
+        ) : null} */}
 
         <div className="flex-fill pr-2 ">
           {QuestionData &&
@@ -61,13 +100,16 @@ const TextCompound = (props) => {
               const remakeQuestionId =
                 pageDeviceIndex > 1
                   ? Object.keys(amountOfDevice[0])[
-                      pageno === 5 ? 0 : pageno - 1
+                      // pageno === 5 ? 0 : pageno - 1
+                      0
                     ] +
                     addedQuestionId +
                     k3 +
                     buildingId +
-                    ques.question_id
-                  : ques.question_id.toString();
+                    ques.question_id: 
+                    ques.question_id.toString();
+                console.log('remake question >>> ', remakeQuestionId)
+                console.log('amountOfDevice >> ', pageno)
               return (
                 <div
                   className="d-flex flex-row flex-fill flex-wrap w-100 py-0"
@@ -115,7 +157,7 @@ const TextCompound = (props) => {
                               isQuestion={isQuestion}
                               keys={ques.question_id}
                             />
-                            {/* {otherAns(
+                            {otherAns(
                               remakeQuestionId,
                               ques.question_id,
                               otherOfQuestion(k2)
@@ -136,7 +178,7 @@ const TextCompound = (props) => {
                                   );
                                 }}
                               />
-                            ) : null} */}
+                            ) : null}
                           </div>
                         ) : ques.input_type_id === 5 ? (
                           ques.option_choices.length === 1 ? (
@@ -183,7 +225,7 @@ const TextCompound = (props) => {
                                 }
                                 keys={ques.question_id}
                               />
-                              {/* {otherAns(
+                              {otherAns(
                                 remakeQuestionId,
                                 ques.question_id,
                                 otherOfQuestion(k2)
@@ -214,7 +256,7 @@ const TextCompound = (props) => {
                                     }}
                                   />
                                 </div>
-                              ) : null} */}
+                              ) : null}
                             </div>
                           )
                         ) : ques.input_type_id === 4 ? (
@@ -269,6 +311,7 @@ const TextCompound = (props) => {
             })}
         </div>
       </div>
+      </div>
     );
   });
   return MultiplyQuestions;
@@ -294,6 +337,53 @@ const QuestionCardInfo = (props) => {
         style={{ fontSize: 18, opacity: 0.9 }}
         title="Answered"
       />
+    </div>
+  );
+};
+
+const TextAnswers = (props) => {
+  const { AnswerData, subQues, questionId } = props;
+  return (
+    <span
+      className="text-primary"
+      style={{
+        width: "100%",
+        wordWrap: "break-word",
+        display: "inline-block",
+      }}
+    >
+      {questionId
+        ? AnswerData.filter(
+            (d) => d.questionId === questionId && d.subQuestionId === null
+          ).map((v, k) => v.other)
+        : AnswerData.filter(
+            (d) => d.subQuestionId === subQues.sub_question_id
+          ).map((v, k) => v.other)}
+    </span>
+  );
+};
+
+export const Header = (props) => {
+  const { sectionName, buildingName, countryName } = props;
+  return (
+    <div className="d-flex py-2 px-3 flex-row justify-content-between align-items-baseline font-italic">
+      <div
+        style={{
+          color: Colors.SparkGreen,
+          fontSize: 18,
+          alignSelf: "flex-end",
+        }}
+      >
+        <div className="font-weight-bold">
+          {buildingName}
+        </div>
+
+        <span>{sectionName}</span>
+      </div>
+      <div>
+        <img src={EGA} style={{ width: 100, height: 40 }} alt="EGA logo" />
+        <img src={UNDP} style={{ width: 70 }} alt="EGA logo" />
+      </div>
     </div>
   );
 };

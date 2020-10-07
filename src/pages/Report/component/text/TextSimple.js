@@ -6,6 +6,9 @@ import { ESDropDown } from "../../../../tools/ES_DropDown";
 import { withMedia } from "react-media-query-hoc";
 import { ESInput } from "../../../../tools/ES_Inputs";
 import ESDatePicker from "../../../../tools/ES_DatePicker";
+import * as Colors from "../../../../config/Color.config";
+import EGA from "../../../../assets/images/eGovernment/EGA.jpg";
+import UNDP from "../../../../assets/images/eGovernment/UNDP.jpeg";
 
 const TextSimple = (props) => {
   const {
@@ -21,17 +24,48 @@ const TextSimple = (props) => {
     media,
     selectedOption,
     AnswerData,
-    otherAns,
-    otherOfQuestion,
     startDate,
+    sectionName,
+    surveyTitle
   } = props;
-  console.log("Question", QuestionData);
+  const countryName = localStorage.getItem("countryName");
+  const buildingName = localStorage.getItem("buildingName");
   const ageOfBuildingOption = new Array(99)
     .fill(null)
     .map((v, k) => ({ label: k + 1, value: k + 1 }));
 
+    const otherAns = (remakeQuesId, QuesId, OptionId) => {
+      return AnswerData.filter(
+        (a) =>
+          a.keyValue === QuesId &&
+          a.optionChoiceId === OptionId &&
+          a.questionId === remakeQuesId
+      );
+    };
+
+    const otherOfQuestion = (index) => {
+      const isOther =
+        QuestionData &&
+        QuestionData.map((v, k) =>
+          v.option_choices === undefined ? [] : v.option_choices
+        )[index].filter((d) => d.option_choice_name === "Other");
+  
+      return isOther.length > 0 ? isOther[0].option_choice_id : [];
+    };
+
   return (
-    QuestionData &&
+    <div 
+    className="container py-2 border"
+    style={{
+      width: "8.27in",
+    }}
+    >
+      <Header 
+        sectionName={sectionName}
+        buildingName={buildingName}
+        countryName={countryName}
+      />
+    {QuestionData &&
     QuestionData.map((ques, k2) => {
       const questionId = ques.question_id.toString();
       return (
@@ -81,25 +115,9 @@ const TextSimple = (props) => {
               {otherAns(questionId, ques.question_id, otherOfQuestion(k2))
                 .length > 0 ? (
                 <div className="pt-2">
-                  <ESInput
-                    maxLength={30}
-                    placeHolder={"Fill Your Answer"}
-                    id={questionId}
-                    value={AnswerData.filter(
-                      (d) =>
-                        d.questionId === questionId && d.subQuestionId === null
-                    ).map((v, k) => v.other)}
-                    onChange={(e) => {
-                      _handleInputChange(
-                        e,
-                        questionId,
-                        null,
-                        ques.question_id,
-                        ques.option_choices.filter(
-                          (v) => v.option_choice_name === "Other"
-                        )[0].option_choice_id
-                      );
-                    }}
+                  <TextAnswers
+                      AnswerData={AnswerData}
+                      questionId={questionId}
                   />
                 </div>
               ) : null}
@@ -148,28 +166,10 @@ const TextSimple = (props) => {
                 {otherAns(questionId, ques.question_id, otherOfQuestion(k2))
                   .length > 0 ? (
                   <div className="pt-2">
-                    <ESInput
-                      maxLength={30}
-                      placeHolder={"Fill Your Answer"}
-                      id={questionId}
-                      value={
-                        AnswerData.filter((d) => d.questionId === questionId)
-                          .length && AnswerData.length
-                          ? AnswerData.filter(
-                              (d) => d.questionId === questionId
-                            ).map((v, k) => v.other)[0]
-                          : null
-                      }
-                      onChange={(e) => {
-                        _handleInputChange(
-                          e,
-                          questionId,
-                          null,
-                          ques.question_id,
-                          otherOfQuestion(k2)
-                        );
-                      }}
-                    />
+                     <TextAnswers
+                      AnswerData={AnswerData}
+                      questionId={questionId}
+                  />
                   </div>
                 ) : null}
               </div>
@@ -227,10 +227,59 @@ const TextSimple = (props) => {
         </div>
       );
     })
+    }
+    </div>
   );
 };
 
 export default withMedia(TextSimple);
+
+export const Header = (props) => {
+  const { sectionName, buildingName, countryName } = props;
+  return (
+    <div className="d-flex py-2 px-3 flex-row justify-content-between align-items-baseline font-italic">
+      <div
+        style={{
+          color: Colors.SparkGreen,
+          fontSize: 18,
+          alignSelf: "flex-end",
+        }}
+      >
+        <div className="font-weight-bold">
+          {buildingName}
+        </div>
+
+        <span>{sectionName}</span>
+      </div>
+      <div>
+        <img src={EGA} style={{ width: 100, height: 40 }} alt="EGA logo" />
+        <img src={UNDP} style={{ width: 70 }} alt="EGA logo" />
+      </div>
+    </div>
+  );
+};
+
+const TextAnswers = (props) => {
+  const { AnswerData, subQues, questionId } = props;
+  return (
+    <span
+      className="text-primary"
+      style={{
+        width: "100%",
+        wordWrap: "break-word",
+        display: "inline-block",
+      }}
+    >
+      {questionId
+        ? AnswerData.filter(
+            (d) => d.questionId === questionId && d.subQuestionId === null
+          ).map((v, k) => v.other)
+        : AnswerData.filter(
+            (d) => d.subQuestionId === subQues.sub_question_id
+          ).map((v, k) => v.other)}
+    </span>
+  );
+};
 
 const QuestionCardInfo = (props) => {
   const { info, media } = props;

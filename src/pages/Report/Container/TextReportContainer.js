@@ -77,12 +77,16 @@ const TextContainer = (props) => {
             AnswerData={reportData[0].answers}
             otherOfQuestion={otherOfQuestion}
             otherAns={OtherAns}
+            sectionName={v.section_name}
+            surveyTitle={reportData[0].surveyTitle}
           />
         ) : (
           <CompoundText
             QuestionData={v.questions}
             AnswerData={reportData[0].answers}
             amountOfDevice={reportData[0].amountOfDevice}
+            sectionName={v.section_name}
+            surveyTitle={reportData[0].surveyTitle}
           />
         )
       )

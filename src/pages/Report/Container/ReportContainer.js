@@ -183,6 +183,7 @@ const ReportContainer = (props) => {
               reportData={reportData}
               viewType={userLevel === 2 ? null : viewType}
             />
+            <br /> 
             {reportData && reportData.length > 0 && (
               <TextContainer
                 reportData={reportData}
@@ -190,6 +191,7 @@ const ReportContainer = (props) => {
                 surveyData={surveyData}
               />
             )}
+            <br />
             <BackCover reportData={reportData} />
           </div>
         </div>
