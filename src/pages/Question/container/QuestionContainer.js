@@ -266,6 +266,7 @@ const QuestionContainer = (props) => {
     setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
   };
   const handleSelect = (quesId, e, keys, subQuesId) => {
+    console.log('e >>> ', e);
     setSelectedOption(e);
     // console.log("Handle Select", quesId, e, keys, subQuesId);
     if (e !== null && typeof e.label == "string") {
@@ -277,6 +278,7 @@ const QuestionContainer = (props) => {
         keyValue: keys,
         subQuestionId: subQuesId || null,
       };
+      console.log('select answer >> ', SelectAnswer)
       if (subQuesId === null) {
         if (isQuesId(quesId).length >= 1) {
           AnswerData.splice(isQuesIdIndex(quesId), 1, SelectAnswer);
@@ -301,6 +303,7 @@ const QuestionContainer = (props) => {
         keyValue: keys,
         subQuestionId: subQuesId || null,
       };
+      
       if (subQuesId === null) {
         if (isQuesId(quesId).length >= 1) {
           AnswerData.splice(isQuesIdIndex(quesId), 1, SelectAnswer);

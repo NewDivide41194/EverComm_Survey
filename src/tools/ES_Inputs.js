@@ -20,7 +20,7 @@ export const ESInput = (props) => {
     myRef,
   } = props;
 
-  console.log('es input >>> ', value)
+  // console.log('es input >>> ', value)
 
   const defaultStyle = {
     width: width === undefined ? "100%" : width,
