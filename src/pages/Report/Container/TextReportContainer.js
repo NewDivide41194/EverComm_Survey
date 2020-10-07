@@ -3,14 +3,14 @@ import CompoundText from "../component/text/TextCompound";
 import EgovernmentReport, { Header } from "../component/text/TextGroup.js";
 import "../../../App.css";
 import TextSimple from "../component/text/TextSimple";
+import * as Colors from "../../../config/Color.config";
+import UNDP from "../../../assets/images/Logo.png";
 
 const TextContainer = (props) => {
   const { reportData } = props;
   console.log("====>", reportData);
   const [section, setSection] = useState([]);
-  const [testValue, setTestValue] = useState([]);
-  const [sectName, setSectName] = useState([]);
-  const [sectId, setSectId] = useState([]);
+
   useEffect(() => {
     console.log(
       document.getElementById("1") && document.getElementById("1").clientHeight
@@ -18,34 +18,6 @@ const TextContainer = (props) => {
     if (document.getElementById("1")) {
       document.getElementById("1").style.border = "1px solid gray";
     }
-    // const r = reportData[0].survey_sections.map((v, k) =>
-    //   v.questions.map((v1) => v1)
-    // );
-    // reportData[0].survey_sections.map((v, k) =>
-    //   sectName.push([k, v.section_name])
-    // );
-    // reportData[0].survey_sections.map((v, k) =>
-    //   sectId.push([k, v.survey_section_id])
-    // );
-    // var i,
-    //   j,
-    //   k,
-    //   questions,
-    //   chunk = 10;
-    // for (k = 0; k < r.length; k++) {
-    //   const array = r[k];
-    //   for (i = 0, j = array.length; i < j; i += chunk) {
-    //     questions = array.slice(i, i + chunk);
-    //     const filterSection = sectName.filter((v) => v[0] === k);
-    //     const filterSectId = sectId.filter((v) => v[0] === k);
-    //     const section_name = filterSection[0][1];
-    //     const survey_section_id = filterSectId[0][1];
-    //     const key = k;
-    //     setTestValue([]);
-    //     const list = { key, survey_section_id, section_name, questions };
-    //     section.push(list);
-    //   }
-    // }
   }, []);
 
   const AnswerData = reportData[0].answers;
@@ -70,26 +42,44 @@ const TextContainer = (props) => {
     return isOther.length > 0 ? isOther[0].option_choice_id : [];
   };
   return reportData[0].survey_header_id === 1
-    ? reportData[0].survey_sections.map((v, k) =>
-        reportData[0].survey_sections[k].survey_section_id === 1 ? (
-          <TextSimple
-            QuestionData={v.questions}
-            AnswerData={reportData[0].answers}
-            otherOfQuestion={otherOfQuestion}
-            otherAns={OtherAns}
-            sectionName={v.section_name}
-            surveyTitle={reportData[0].surveyTitle}
-          />
-        ) : (
-          <CompoundText
-            QuestionData={v.questions}
-            AnswerData={reportData[0].answers}
-            amountOfDevice={reportData[0].amountOfDevice}
-            sectionName={v.section_name}
-            surveyTitle={reportData[0].surveyTitle}
-          />
-        )
-      )
+    ? reportData[0].survey_sections.map((v, k) => (
+        <div
+          className="container border"
+          style={{
+            width: "8.27in",
+          }}
+        >
+          {reportData[0].survey_sections[k].survey_section_id === 1 ? (
+            <div>
+              <ChillerHeader
+                sectionName={v.section_name}
+                buildingName={v.buildingName}
+              />
+              <TextSimple
+                QuestionData={v.questions}
+                AnswerData={reportData[0].answers}
+                otherOfQuestion={otherOfQuestion}
+                otherAns={OtherAns}
+                sectionName={v.section_name}
+                surveyTitle={reportData[0].surveyTitle}
+              />
+            </div>
+          ) : (
+            <div>
+              <ChillerHeader
+                sectionName={v.section_name}
+                buildingName={v.buildingName}
+              />
+              <CompoundText
+                QuestionData={v.questions}
+                AnswerData={reportData[0].answers}
+                amountOfDevice={reportData[0].amountOfDevice}
+                pageno={k}
+              />
+            </div>
+          )}
+        </div>
+      ))
     : reportData[0].survey_sections.map((v, k) =>
         k > 0 ? (
           <div>
@@ -152,3 +142,53 @@ const DataProvider = (props) => {
     </div>
   );
 };
+
+export const ChillerHeader = (props) => {
+  const { sectionName, buildingName, countryName } = props;
+  return (
+    <div className="d-flex py-2 px-3 flex-row justify-content-between align-items-baseline font-weight-bold">
+      <div
+        style={{
+          color: Colors.PrimaryColor,
+          fontSize: 18,
+          alignSelf: "flex-end",
+        }}
+      >
+        <div className="font-weight-bold">{buildingName}</div>
+        <span>{sectionName}</span>
+      </div>
+      <div>
+        <img src={UNDP} style={{ width: 120 }} alt="EGA logo" />
+      </div>
+    </div>
+  );
+};
+
+// const r = reportData[0].survey_sections.map((v, k) =>
+//   v.questions.map((v1) => v1)
+// );
+// reportData[0].survey_sections.map((v, k) =>
+//   sectName.push([k, v.section_name])
+// );
+// reportData[0].survey_sections.map((v, k) =>
+//   sectId.push([k, v.survey_section_id])
+// );
+// var i,
+//   j,
+//   k,
+//   questions,
+//   chunk = 10;
+// for (k = 0; k < r.length; k++) {
+//   const array = r[k];
+//   for (i = 0, j = array.length; i < j; i += chunk) {
+//     questions = array.slice(i, i + chunk);
+//     const filterSection = sectName.filter((v) => v[0] === k);
+//     const filterSectId = sectId.filter((v) => v[0] === k);
+//     const section_name = filterSection[0][1];
+//     const survey_section_id = filterSectId[0][1];
+//     const key = k;
+//     setTestValue([]);
+//     const list = { key, survey_section_id, section_name, questions };
+//     section.push(list);
+//   }
+// }

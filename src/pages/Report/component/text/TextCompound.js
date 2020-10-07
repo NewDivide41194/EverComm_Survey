@@ -6,9 +6,6 @@ import { ESDropDown } from "../../../../tools/ES_DropDown";
 import { withMedia } from "react-media-query-hoc";
 import { ESInput } from "../../../../tools/ES_Inputs";
 import ESDatePicker from "../../../../tools/ES_DatePicker";
-import * as Colors from "../../../../config/Color.config";
-import EGA from "../../../../assets/images/eGovernment/EGA.jpg";
-import UNDP from "../../../../assets/images/eGovernment/UNDP.jpeg";
 
 // import "../App.css"
 
@@ -30,14 +27,12 @@ const TextCompound = (props) => {
     surveyHeaderId,
     reportData,
     sectionName,
-    surveyTitle
+    surveyTitle,
   } = props;
 
-  console.log('AnswerData text >>>> ', AnswerData)
+  console.log("AnswerData text >>>> ", AnswerData);
 
   const buildingId = localStorage.getItem("buildingId");
-  const countryName = localStorage.getItem("countryName");
-  const buildingName = localStorage.getItem("buildingName");
   const deviceIndexValue = amountOfDevice && Object.values(amountOfDevice[0]);
   const addedQuestionId = 1000;
 
@@ -60,7 +55,6 @@ const TextCompound = (props) => {
     return isOther.length > 0 ? isOther[0].option_choice_id : [];
   };
 
-
   const deviceOption = new Array(99)
     .fill(null)
     .map((v, k) => ({ label: k + 1, value: k + 1 }));
@@ -68,252 +62,255 @@ const TextCompound = (props) => {
   const pageDeviceIndex =
     pageno === 0 ? 1 : 5 ? deviceIndexValue[0] : deviceIndexValue[pageno - 1];
 
-  const MultiplyQuestions = new Array(pageDeviceIndex).fill(null).map((v, k3) => {
-    return (
-      <div
-        className="container py-2 border"
-        style={{
-          width: "8.27in",
-        }}
-      >
-        <Header
-          sectionName={sectionName}
-          buildingName={buildingName}
-          countryName={countryName}
-        /> 
-      <div
-        // key={k3}
-        className="d-flex my-3 p-2 pt-2 rounded bg-light border"
-        style={{
-          fontSize: media.mobile ? "12px" : "15px",
-        }}
-      >
-        {/* {surveyHeaderId === 1 ? (
+  const MultiplyQuestions = new Array(pageDeviceIndex)
+    .fill(null)
+    .map((v, k3) => {
+      return (
+        <div className="py-2">
+          <div
+            key={k3}
+            className="d-flex my-3 p-2 pt-2 rounded bg-light border"
+            style={{
+              fontSize: media.mobile ? "12px" : "15px",
+            }}
+          >
+            {/* {surveyHeaderId === 1 ? (
           <div className="py-2 font-weight-bold">
             {k3 + 1`Device No.` + (k3 + 1)}
           </div>
         ) : null} */}
 
-        <div className="flex-fill pr-2 ">
-          {QuestionData &&
-            QuestionData.map((ques, k2) => {
-              const remakeQuestionId =
-                pageDeviceIndex > 1
-                  ? Object.keys(amountOfDevice[0])[
-                      // pageno === 5 ? 0 : pageno - 1
-                      0
-                    ] +
-                    addedQuestionId +
-                    k3 +
-                    buildingId +
-                    ques.question_id: 
-                    ques.question_id.toString();
-                console.log('remake question >>> ', remakeQuestionId)
-                console.log('amountOfDevice >> ', pageno)
-              return (
-                <div
-                  className="d-flex flex-row flex-fill flex-wrap w-100 py-0"
-                  key={k2}
-                  id={ques.questionId}
-                  style={{
-                    fontSize: media.mobile ? "12px" : "15px",
-                  }}
-                >
-                  <div className="d-flex flex-row flex-wrap w-100" key={k2}>
-                    <div className="d-flex flex-row pb-2 w-100 justify-content-between">
-                      <div className="w-25 align-self-center">
-                        {ques.question_name}
-                      </div>
-                      <div className="w-75">
-                        {ques.input_type_id === 1 ? (
-                          <div>
-                            <ESCheckBox
-                              quesId={remakeQuestionId}
-                              value={ques.option_choices}
-                              _handleChange={_handleCheckChange}
-                              isAnswer={AnswerData}
-                              isQuestion={isQuestion}
-                              keys={ques.question_id}
-                              className={
-                                ques.option_group_id === 10
-                                  ? `${
-                                      media.mobile ? null : "mr-4"
-                                    } text-center  font-weight-bold`
-                                  : null
-                              }
-                              vertical={
-                                ques.option_group_id === 10 ? true : false
-                              }
-                            />
+            <div className="flex-fill pr-2 ">
+              {QuestionData &&
+                QuestionData.map((ques, k2) => {
+                  const remakeQuestionId =
+                    pageDeviceIndex > 1
+                      ? Object.keys(amountOfDevice[0])[
+                          pageno === 5 ? 0 : pageno - 1
+                        ] +
+                        addedQuestionId +
+                        k3 +
+                        buildingId +
+                        ques.question_id
+                      : ques.question_id.toString();
+                  console.log("remake question >>> ", remakeQuestionId);
+                  console.log("amountOfDevice >> ", pageno);
+                  return (
+                    <div
+                      className="d-flex flex-row flex-fill flex-wrap w-100 py-0"
+                      key={k2}
+                      id={ques.questionId}
+                      style={{
+                        fontSize: media.mobile ? "12px" : "15px",
+                      }}
+                    >
+                      <div className="d-flex flex-row flex-wrap w-100" key={k2}>
+                        <div className="d-flex flex-row pb-2 w-100 justify-content-between">
+                          <div className="w-25 align-self-center">
+                            {ques.question_name}
                           </div>
-                        ) : ques.input_type_id === 2 ? (
-                          <div>
-                            <ESRadio
-                              value={ques.option_choices}
-                              _handleRadioChange={_handleRadioChange}
-                              quesId={remakeQuestionId}
-                              isAnswer={AnswerData}
-                              subQuesId={undefined}
-                              isQuestion={isQuestion}
-                              keys={ques.question_id}
-                            />
-                            {otherAns(
-                              remakeQuestionId,
-                              ques.question_id,
-                              otherOfQuestion(k2)
-                            ).length > 0 ? (
-                              <ESInput
-                                maxLength={30}
-                                placeHolder={"Please Specify"}
-                                id={remakeQuestionId}
-                                value={AnswerData.filter(
-                                  (d) => d.questionId === remakeQuestionId
-                                ).map((v, k) => v.other)}
-                                onChange={(e) => {
-                                  _handleInputChange(
-                                    e,
-                                    remakeQuestionId,
-                                    ques.question_id,
-                                    otherOfQuestion(k2)
-                                  );
-                                }}
-                              />
-                            ) : null}
-                          </div>
-                        ) : ques.input_type_id === 5 ? (
-                          ques.option_choices.length === 1 ? (
-                            <ESDropDown
-                              quesId={remakeQuestionId}
-                              options={deviceOption}
-                              _handleSelect={_handleSelect}
-                              selectedOption={
-                                AnswerData.filter(
-                                  (d) => d.questionId === remakeQuestionId
-                                )
-                                  ? AnswerData.filter(
-                                      (d) => d.questionId === remakeQuestionId
-                                    ).map((v, k) => v.other)
-                                  : selectedOption
-                              }
-                              keys={ques.question_id}
-                            />
-                          ) : (
-                            <div>
-                              <ESDropDown
-                                quesId={remakeQuestionId}
-                                subQuesId={null}
-                                options={ques.option_choices.map((v, k) => ({
-                                  value: v.option_choice_id,
-                                  label: v.option_choice_name,
-                                }))}
-                                _handleSelect={_handleSelect}
-                                selectedOption={
-                                  AnswerData.filter(
-                                    (d) => d.questionId === remakeQuestionId
-                                  )
-                                    ? AnswerData.filter(
-                                        (d) => d.questionId === remakeQuestionId
-                                      ).map(
-                                        (v, k) =>
-                                          ques.option_choices.filter(
-                                            (x, y) =>
-                                              x.option_choice_id ===
-                                              v.optionChoiceId
-                                          )[0]
-                                      )
-                                    : selectedOption
-                                }
-                                keys={ques.question_id}
-                              />
-                              {otherAns(
-                                remakeQuestionId,
-                                ques.question_id,
-                                otherOfQuestion(k2)
-                              ).length > 0 ? (
-                                <div className="pt-2">
+                          <div className="w-75">
+                            {ques.input_type_id === 1 ? (
+                              <div>
+                                <ESCheckBox
+                                  quesId={remakeQuestionId}
+                                  value={ques.option_choices}
+                                  _handleChange={_handleCheckChange}
+                                  isAnswer={AnswerData}
+                                  isQuestion={isQuestion}
+                                  keys={ques.question_id}
+                                  className={
+                                    ques.option_group_id === 10
+                                      ? `${
+                                          media.mobile ? null : "mr-4"
+                                        } text-center  font-weight-bold`
+                                      : null
+                                  }
+                                  vertical={
+                                    ques.option_group_id === 10 ? true : false
+                                  }
+                                />
+                              </div>
+                            ) : ques.input_type_id === 2 ? (
+                              <div>
+                                <ESRadio
+                                  value={ques.option_choices}
+                                  _handleRadioChange={_handleRadioChange}
+                                  quesId={remakeQuestionId}
+                                  isAnswer={AnswerData}
+                                  subQuesId={undefined}
+                                  isQuestion={isQuestion}
+                                  keys={ques.question_id}
+                                />
+                                {otherAns(
+                                  remakeQuestionId,
+                                  ques.question_id,
+                                  otherOfQuestion(k2)
+                                ).length > 0 ? (
                                   <ESInput
                                     maxLength={30}
                                     placeHolder={"Please Specify"}
                                     id={remakeQuestionId}
-                                    value={
-                                      AnswerData.filter(
-                                        (d) => d.questionId === remakeQuestionId
-                                      ).length && AnswerData.length
-                                        ? AnswerData.filter(
-                                            (d) =>
-                                              d.questionId === remakeQuestionId
-                                          ).map((v, k) => v.other)[0]
-                                        : null
-                                    }
+                                    value={AnswerData.filter(
+                                      (d) => d.questionId === remakeQuestionId
+                                    ).map((v, k) => v.other)}
                                     onChange={(e) => {
                                       _handleInputChange(
                                         e,
                                         remakeQuestionId,
-                                        null,
                                         ques.question_id,
                                         otherOfQuestion(k2)
                                       );
                                     }}
                                   />
+                                ) : null}
+                              </div>
+                            ) : ques.input_type_id === 5 ? (
+                              ques.option_choices.length === 1 ? (
+                                <ESDropDown
+                                  quesId={remakeQuestionId}
+                                  options={deviceOption}
+                                  _handleSelect={_handleSelect}
+                                  selectedOption={
+                                    AnswerData.filter(
+                                      (d) => d.questionId === remakeQuestionId
+                                    )
+                                      ? AnswerData.filter(
+                                          (d) =>
+                                            d.questionId === remakeQuestionId
+                                        ).map((v, k) => v.other)
+                                      : selectedOption
+                                  }
+                                  keys={ques.question_id}
+                                />
+                              ) : (
+                                <div>
+                                  <ESDropDown
+                                    quesId={remakeQuestionId}
+                                    subQuesId={null}
+                                    options={ques.option_choices.map(
+                                      (v, k) => ({
+                                        value: v.option_choice_id,
+                                        label: v.option_choice_name,
+                                      })
+                                    )}
+                                    _handleSelect={_handleSelect}
+                                    selectedOption={
+                                      AnswerData.filter(
+                                        (d) => d.questionId === remakeQuestionId
+                                      )
+                                        ? AnswerData.filter(
+                                            (d) =>
+                                              d.questionId === remakeQuestionId
+                                          ).map(
+                                            (v, k) =>
+                                              ques.option_choices.filter(
+                                                (x, y) =>
+                                                  x.option_choice_id ===
+                                                  v.optionChoiceId
+                                              )[0]
+                                          )
+                                        : selectedOption
+                                    }
+                                    keys={ques.question_id}
+                                  />
+                                  {otherAns(
+                                    remakeQuestionId,
+                                    ques.question_id,
+                                    otherOfQuestion(k2)
+                                  ).length > 0 ? (
+                                    <div className="pt-2">
+                                      <ESInput
+                                        maxLength={30}
+                                        placeHolder={"Please Specify"}
+                                        id={remakeQuestionId}
+                                        value={
+                                          AnswerData.filter(
+                                            (d) =>
+                                              d.questionId === remakeQuestionId
+                                          ).length && AnswerData.length
+                                            ? AnswerData.filter(
+                                                (d) =>
+                                                  d.questionId ===
+                                                  remakeQuestionId
+                                              ).map((v, k) => v.other)[0]
+                                            : null
+                                        }
+                                        onChange={(e) => {
+                                          _handleInputChange(
+                                            e,
+                                            remakeQuestionId,
+                                            null,
+                                            ques.question_id,
+                                            otherOfQuestion(k2)
+                                          );
+                                        }}
+                                      />
+                                    </div>
+                                  ) : null}
                                 </div>
-                              ) : null}
-                            </div>
-                          )
-                        ) : ques.input_type_id === 4 ? (
-                          <ESInput
-                            maxLength={30}
-                            placeHolder={"Fill Your Answer"}
-                            id={remakeQuestionId}
-                            value={AnswerData.filter((d) => {
-                              return d.questionId === remakeQuestionId;
-                            }).map((v, k) => v.other)}
-                            onChange={(e) => {
-                              _handleInputChange(
-                                e,
-                                remakeQuestionId,
-                                null,
-                                ques.question_id
-                              );
-                            }}
-                          />
-                        ) : ques.input_type_id === 6 ? (
-                          <ESDatePicker
-                            quesId={remakeQuestionId}
-                            placeHolder={ques.question_name}
-                            startDate={
-                              AnswerData.filter(
-                                (d) => d.questionId === remakeQuestionId
-                              ).length && AnswerData.length
-                                ? AnswerData.filter(
+                              )
+                            ) : ques.input_type_id === 4 ? (
+                              <ESInput
+                                maxLength={30}
+                                placeHolder={"Fill Your Answer"}
+                                id={remakeQuestionId}
+                                value={AnswerData.filter((d) => {
+                                  return d.questionId === remakeQuestionId;
+                                }).map((v, k) => v.other)}
+                                onChange={(e) => {
+                                  _handleInputChange(
+                                    e,
+                                    remakeQuestionId,
+                                    null,
+                                    ques.question_id
+                                  );
+                                }}
+                              />
+                            ) : ques.input_type_id === 6 ? (
+                              <ESDatePicker
+                                quesId={remakeQuestionId}
+                                placeHolder={ques.question_name}
+                                startDate={
+                                  AnswerData.filter(
                                     (d) => d.questionId === remakeQuestionId
-                                  ).map((v, k) => new Date(v.other))[0]
-                                : null
-                            }
-                            _handleStartChange={_handleStartChange}
-                            keys={ques.question_id}
-                            type={ques.question_name}
-                          />
-                        ) : null}
-                      </div>
-                      <div>
-                        {AnswerData.map((v, k) => v.questionId).filter(
-                          (v) => v === remakeQuestionId
-                        )[0] === remakeQuestionId ? (
-                          <QuestionCardInfo info={"Answered"} media={media} />
-                        ) : (
-                          <QuestionCardInfo info={"Pending"} media={media} />
-                        )}
+                                  ).length && AnswerData.length
+                                    ? AnswerData.filter(
+                                        (d) => d.questionId === remakeQuestionId
+                                      ).map((v, k) => new Date(v.other))[0]
+                                    : null
+                                }
+                                _handleStartChange={_handleStartChange}
+                                keys={ques.question_id}
+                                type={ques.question_name}
+                              />
+                            ) : null}
+                          </div>
+                          <div>
+                            {AnswerData.map((v, k) => v.questionId).filter(
+                              (v) => v === remakeQuestionId
+                            )[0] === remakeQuestionId ? (
+                              <QuestionCardInfo
+                                info={"Answered"}
+                                media={media}
+                              />
+                            ) : (
+                              <QuestionCardInfo
+                                info={"Pending"}
+                                media={media}
+                              />
+                            )}
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              );
-            })}
+                  );
+                })}
+            </div>
+          </div>
         </div>
-      </div>
-      </div>
-    );
-  });
+      );
+    });
   return MultiplyQuestions;
 };
 
@@ -363,30 +360,6 @@ const TextAnswers = (props) => {
   );
 };
 
-export const Header = (props) => {
-  const { sectionName, buildingName, countryName } = props;
-  return (
-    <div className="d-flex py-2 px-3 flex-row justify-content-between align-items-baseline font-italic">
-      <div
-        style={{
-          color: Colors.SparkGreen,
-          fontSize: 18,
-          alignSelf: "flex-end",
-        }}
-      >
-        <div className="font-weight-bold">
-          {buildingName}
-        </div>
-
-        <span>{sectionName}</span>
-      </div>
-      <div>
-        <img src={EGA} style={{ width: 100, height: 40 }} alt="EGA logo" />
-        <img src={UNDP} style={{ width: 70 }} alt="EGA logo" />
-      </div>
-    </div>
-  );
-};
 // import React from "react";
 // import * as Colors from "../../../../config/Color.config";
 // import { NotAnswered, Percentage } from "../../../../helper/reportHelper";
