@@ -10,7 +10,8 @@ export const PostAnswer = (SurveyData, callback) => {
         Accept: "*/*",
         Authorization: `Bearer ${SurveyData.token}`
       },
-      body: JSON.stringify(SurveyData)
+      body: JSON.stringify(SurveyData),
+      signal:SurveyData.signal
     })
       .then(res => res.json())
       .then(data => callback(null, data))

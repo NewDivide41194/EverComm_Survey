@@ -34,7 +34,7 @@ console.log(BuildingOptions);
         style={{ fontSize: "18px" }}
       >
         <label style={{ fontWeight: "bold" }}>Types of View :</label>
-        <div className="pl-2">        
+        <label className="pl-2">        
           <ESRadio
           value={{option_choice_name:"all"}}
           name="type"
@@ -42,8 +42,8 @@ console.log(BuildingOptions);
           _handleRadioChange={_handleSelectChange}
           />
           All users
-        </div>
-        <div className="pl-2 ">
+        </label>
+        <label className="pl-2 ">
           <ESRadio
           value={{option_choice_name:"one"}}
           name="type"
@@ -51,7 +51,7 @@ console.log(BuildingOptions);
           _handleRadioChange={_handleSelectChange}
           />
           Only me
-        </div>
+        </label>
       </div>
 
       <div

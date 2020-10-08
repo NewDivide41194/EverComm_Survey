@@ -31,7 +31,8 @@ const QuestionContainer = (props) => {
   const surveyHeaderId = localStorage.getItem("SurveyHeaderId");
   const countryId = localStorage.getItem("countryId");
   const [autoSave, setAutoSave] = useState(false);
-
+  const abortController = new AbortController();
+  const signal = abortController.signal;
   const Ans = {
     other: "",
     optionChoiceId: null,
@@ -69,11 +70,11 @@ const QuestionContainer = (props) => {
     setAutoSave(true);
 
     PostAnswer(
-      { data: AnswerData, total, buildingType, token },
+      { data: AnswerData, total, buildingType, token,signal },
       (err, data) => {
         setTimeout(() => {
           setAutoSave(false);
-        }, 1500);
+        }, 1000);
       }
     );
   };
@@ -82,7 +83,12 @@ const QuestionContainer = (props) => {
     const interval = setInterval(() => {
       _handlePostAnswer();
     }, 30000);
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      return function cleanup() {
+        abortController.abort();
+      };
+    };
   });
 
   useEffect(() => {
@@ -162,7 +168,7 @@ const QuestionContainer = (props) => {
       ],
     });
   };
-
+  console.log("Answer", AnswerData);
   const isQuesId = (quesId) => {
     return AnswerData.filter((e) => e.questionId === quesId);
   };

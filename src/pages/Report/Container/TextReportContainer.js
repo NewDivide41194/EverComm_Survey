@@ -11,14 +11,14 @@ const TextContainer = (props) => {
   console.log("====>", reportData);
   const [section, setSection] = useState([]);
 
-  useEffect(() => {
-    console.log(
-      document.getElementById("1") && document.getElementById("1").clientHeight
-    );
-    if (document.getElementById("1")) {
-      document.getElementById("1").style.border = "1px solid gray";
-    }
-  }, []);
+  // useEffect(() => {
+  //   console.log(
+  //     document.getElementById("1") && document.getElementById("1").clientHeight
+  //   );
+  //   if (document.getElementById("1")) {
+  //     document.getElementById("1").style.border = "1px solid gray";
+  //   }
+  // }, []);
 
   const AnswerData = reportData[0].answers;
   const QuestionData = reportData[0].survey_sections.map((v) => v.questions);

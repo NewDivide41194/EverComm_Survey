@@ -9,6 +9,7 @@ export const QuestionFetch = (
     surveySectionId,
     countryId,
     token,
+    signal
   },
   callback
 ) => {
@@ -19,6 +20,7 @@ export const QuestionFetch = (
       Accept: "/",
       Authorization: `Bearer ${token}`,
     },
+    signal:signal,
     body: JSON.stringify({
       admin_id: userId,
       survey_header_id: surveyHeaderId,
