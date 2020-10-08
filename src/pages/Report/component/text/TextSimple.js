@@ -91,6 +91,7 @@ const TextSimple = (props) => {
                   isAnswer={AnswerData}
                   isQuestion={isQuestion}
                   keys={ques.question_id}
+                  disabled={true}
                 />
               ) : ques.input_type_id === 2 ? (
                 <div className="w-100">
@@ -101,6 +102,7 @@ const TextSimple = (props) => {
                     isAnswer={AnswerData}
                     isQuestion={isQuestion}
                     keys={ques.question_id}
+                    isDisable={true}
                   />
                   {otherAns(questionId, ques.question_id, otherOfQuestion(k2))
                     .length > 0 ? (
@@ -114,24 +116,28 @@ const TextSimple = (props) => {
                 </div>
               ) : ques.input_type_id === 5 ? (
                 ques.option_choices[0].option_choice_id === null ? (
-                  <ESDropDown
-                    quesId={questionId}
-                    subQuesId={null}
-                    options={ageOfBuildingOption}
-                    subQuesId={null}
-                    _handleSelect={_handleSelect}
-                    selectedOption={
-                      AnswerData.filter((d) => d.questionId === questionId)
-                        ? AnswerData.filter(
-                            (d) => d.questionId === questionId
-                          ).map((v, k) => v.other)
-                        : selectedOption
-                    }
-                    keys={ques.question_id}
+                  // <ESDropDown
+                  //   quesId={questionId}
+                  //   subQuesId={null}
+                  //   options={ageOfBuildingOption}
+                  //   subQuesId={null}
+                  //   _handleSelect={_handleSelect}
+                  //   selectedOption={
+                  //     AnswerData.filter((d) => d.questionId === questionId)
+                  //       ? AnswerData.filter(
+                  //           (d) => d.questionId === questionId
+                  //         ).map((v, k) => v.other)
+                  //       : selectedOption
+                  //   }
+                  //   keys={ques.question_id}
+                  // />
+                  <TextAnswers
+                      AnswerData={AnswerData}
+                      questionId={questionId}
                   />
                 ) : (
                   <div className="w-100">
-                    <ESDropDown
+                    {/* <ESDropDown
                       quesId={questionId}
                       subQuesId={null}
                       options={ques.option_choices.map((v, k) => ({
@@ -153,8 +159,16 @@ const TextSimple = (props) => {
                           : selectedOption
                       }
                       keys={ques.question_id}
+                    /> */}
+                    <TextAnswers
+                      AnswerData={AnswerData}
+                      questionId={questionId}
+                      options={
+                        AnswerData.filter( d => d.questionId === questionId)
+                        .map(v => ques.option_choices.filter(vv => vv.option_choice_id === v.optionChoiceId))
+                      }
                     />
-                    {otherAns(questionId, ques.question_id, otherOfQuestion(k2))
+                    {/* {otherAns(questionId, ques.question_id, otherOfQuestion(k2))
                       .length > 0 ? (
                       <div className="pt-2">
                         <TextAnswers
@@ -162,11 +176,12 @@ const TextSimple = (props) => {
                           questionId={questionId}
                         />
                       </div>
-                    ) : null}
+                    ) : null} */}
                   </div>
                 )
               ) : ques.input_type_id === 4 ? (
                 <ESInput
+                  disabled={true}
                   maxLength={30}
                   placeHolder={"Fill Your Answer"}
                   id={questionId}
@@ -179,6 +194,7 @@ const TextSimple = (props) => {
                 />
               ) : ques.input_type_id === 6 ? (
                 <ESDatePicker
+                  readOnly={true}
                   quesId={questionId}
                   startDate={
                     AnswerData.filter((d) => d.questionId === questionId)
@@ -198,6 +214,7 @@ const TextSimple = (props) => {
               ) : ques.input_type_id === 8 ? (
                 <div className="w-100">
                   <ESDatePicker
+                    readOnly={true}
                     quesId={questionId}
                     placeHolder={ques.question_name}
                     startDate={
@@ -227,26 +244,75 @@ const TextSimple = (props) => {
 export default withMedia(TextSimple);
 
 const TextAnswers = (props) => {
-  const { AnswerData, subQues, questionId } = props;
-  return (
-    <span
-      className="text-primary"
-      style={{
-        width: "100%",
-        wordWrap: "break-word",
-        display: "inline-block",
-      }}
-    >
-      {questionId
-        ? AnswerData.filter(
-            (d) => d.questionId === questionId && d.subQuestionId === null
-          ).map((v, k) => v.other)
-        : AnswerData.filter(
-            (d) => d.subQuestionId === subQues.sub_question_id
-          ).map((v, k) => v.other)}
-    </span>
-  );
+  const { AnswerData, subQues, questionId, options } = props;
+
+  const simpleAns = questionId
+  ? AnswerData.filter(
+      (d) => d.questionId === questionId && d.subQuestionId === null
+    ).map((v, k) => v.other)
+  : AnswerData.filter(
+      (d) => d.subQuestionId === subQues.sub_question_id
+    ).map((v, k) => v.other)
+
+  if(options !== undefined && options.length>0){
+    const temp = AnswerData.filter(f => f.questionId === questionId && f.subQuestionId === null).filter(
+      v => options[0].filter( vv => vv.option_choice_id === v.option_choice_id)
+    )
+   
+    const selectAns = options[0].filter(v => temp.map(vv => vv.optionChoiceId === v.option_choice_id ? v.option_choice_name : null))
+    .map(k => k.option_choice_name)[0]
+
+    return (
+      <span
+        className="text-primary"
+        style={{
+          width: "100%",
+          wordWrap: "break-word",
+          display: "inline-block",
+        }}
+      >
+       {selectAns !== "Other" ? selectAns : simpleAns}
+      </span>
+    );
+  }
+  else {
+    return (
+      <span
+        className="text-primary"
+        style={{
+          width: "100%",
+          wordWrap: "break-word",
+          display: "inline-block",
+        }}
+      >
+        {simpleAns}
+      </span>
+    );
+  }
+  
 };
+
+// const TextAnswers = (props) => {
+//   const { AnswerData, subQues, questionId } = props;
+//   return (
+//     <span
+//       className="text-primary"
+//       style={{
+//         width: "100%",
+//         wordWrap: "break-word",
+//         display: "inline-block",
+//       }}
+//     >
+//       {questionId
+//         ? AnswerData.filter(
+//             (d) => d.questionId === questionId && d.subQuestionId === null
+//           ).map((v, k) => v.other)
+//         : AnswerData.filter(
+//             (d) => d.subQuestionId === subQues.sub_question_id
+//           ).map((v, k) => v.other)}
+//     </span>
+//   );
+// };
 
 const QuestionCardInfo = (props) => {
   const { info, media } = props;

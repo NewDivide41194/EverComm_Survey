@@ -13,12 +13,14 @@ const ESDatePicker = (props) => {
     type,
     keys,
     isDate,
+    readOnly
   } = props;
 
   return (
     <div className="">
     { isDate === undefined ? 
         <DatePicker
+          readOnly={readOnly}
           className="form-control shadow-none border"
           selected={startDate}
           onChange={(date) => _handleStartChange(date, quesId,keys,type)}

@@ -30,8 +30,6 @@ const TextCompound = (props) => {
     surveyTitle,
   } = props;
 
-  console.log("AnswerData text >>>> ", AnswerData);
-
   const buildingId = localStorage.getItem("buildingId");
   const deviceIndexValue = amountOfDevice && Object.values(amountOfDevice[0]);
   const addedQuestionId = 1000;
@@ -93,8 +91,8 @@ const TextCompound = (props) => {
                         buildingId +
                         ques.question_id
                       : ques.question_id.toString();
-                  console.log("remake question >>> ", remakeQuestionId);
-                  console.log("amountOfDevice >> ", pageno);
+                  // console.log("remake question >>> ", remakeQuestionId);
+                  // console.log("amountOfDevice >> ", pageno);
                   return (
                     <div
                       className="d-flex flex-row flex-fill flex-wrap w-100 py-0"
@@ -129,6 +127,7 @@ const TextCompound = (props) => {
                                   vertical={
                                     ques.option_group_id === 10 ? true : false
                                   }
+                                  disabled={true}
                                 />
                               </div>
                             ) : ques.input_type_id === 2 ? (
@@ -141,6 +140,7 @@ const TextCompound = (props) => {
                                   subQuesId={undefined}
                                   isQuestion={isQuestion}
                                   keys={ques.question_id}
+                                  isDisable={true}
                                 />
                                 {otherAns(
                                   remakeQuestionId,
@@ -148,6 +148,7 @@ const TextCompound = (props) => {
                                   otherOfQuestion(k2)
                                 ).length > 0 ? (
                                   <ESInput
+                                    disabled={true}
                                     maxLength={30}
                                     placeHolder={"Please Specify"}
                                     id={remakeQuestionId}
@@ -167,25 +168,29 @@ const TextCompound = (props) => {
                               </div>
                             ) : ques.input_type_id === 5 ? (
                               ques.option_choices.length === 1 ? (
-                                <ESDropDown
-                                  quesId={remakeQuestionId}
-                                  options={deviceOption}
-                                  _handleSelect={_handleSelect}
-                                  selectedOption={
-                                    AnswerData.filter(
-                                      (d) => d.questionId === remakeQuestionId
-                                    )
-                                      ? AnswerData.filter(
-                                          (d) =>
-                                            d.questionId === remakeQuestionId
-                                        ).map((v, k) => v.other)
-                                      : selectedOption
-                                  }
-                                  keys={ques.question_id}
+                                // <ESDropDown
+                                //   quesId={remakeQuestionId}
+                                //   options={deviceOption}
+                                //   _handleSelect={_handleSelect}
+                                //   selectedOption={
+                                //     AnswerData.filter(
+                                //       (d) => d.questionId === remakeQuestionId
+                                //     )
+                                //       ? AnswerData.filter(
+                                //           (d) =>
+                                //             d.questionId === remakeQuestionId
+                                //         ).map((v, k) => v.other)
+                                //       : selectedOption
+                                //   }
+                                //   keys={ques.question_id}
+                                // />
+                                <TextAnswers
+                                  AnswerData={AnswerData}
+                                  questionId={remakeQuestionId}
                                 />
                               ) : (
                                 <div>
-                                  <ESDropDown
+                                  {/* <ESDropDown
                                     quesId={remakeQuestionId}
                                     subQuesId={null}
                                     options={ques.option_choices.map(
@@ -213,8 +218,16 @@ const TextCompound = (props) => {
                                         : selectedOption
                                     }
                                     keys={ques.question_id}
+                                  /> */}
+                                  <TextAnswers
+                                    AnswerData={AnswerData}
+                                    options={
+                                      AnswerData.filter( d => d.questionId === remakeQuestionId)
+                                      .map(v => ques.option_choices.filter(vv => vv.option_choice_id === v.optionChoiceId))
+                                    }
+                                    questionId={remakeQuestionId}
                                   />
-                                  {otherAns(
+                                  {/* {otherAns(
                                     remakeQuestionId,
                                     ques.question_id,
                                     otherOfQuestion(k2)
@@ -247,12 +260,13 @@ const TextCompound = (props) => {
                                         }}
                                       />
                                     </div>
-                                  ) : null}
+                                  ) : null} */}
                                 </div>
                               )
                             ) : ques.input_type_id === 4 ? (
                               <ESInput
                                 maxLength={30}
+                                disabled={true}
                                 placeHolder={"Fill Your Answer"}
                                 id={remakeQuestionId}
                                 value={AnswerData.filter((d) => {
@@ -269,6 +283,7 @@ const TextCompound = (props) => {
                               />
                             ) : ques.input_type_id === 6 ? (
                               <ESDatePicker
+                                readOnly={true}
                                 quesId={remakeQuestionId}
                                 placeHolder={ques.question_name}
                                 startDate={
@@ -339,25 +354,52 @@ const QuestionCardInfo = (props) => {
 };
 
 const TextAnswers = (props) => {
-  const { AnswerData, subQues, questionId } = props;
-  return (
-    <span
-      className="text-primary"
-      style={{
-        width: "100%",
-        wordWrap: "break-word",
-        display: "inline-block",
-      }}
-    >
-      {questionId
-        ? AnswerData.filter(
-            (d) => d.questionId === questionId && d.subQuestionId === null
-          ).map((v, k) => v.other)
-        : AnswerData.filter(
-            (d) => d.subQuestionId === subQues.sub_question_id
-          ).map((v, k) => v.other)}
-    </span>
-  );
+  const { AnswerData, subQues, questionId, options } = props;
+
+  const simpleAns = questionId
+  ? AnswerData.filter(
+      (d) => d.questionId === questionId && d.subQuestionId === null
+    ).map((v, k) => v.other)
+  : AnswerData.filter(
+      (d) => d.subQuestionId === subQues.sub_question_id
+    ).map((v, k) => v.other)
+
+  if(options !== undefined && options.length>0){
+    const temp = AnswerData.filter(f => f.questionId === questionId && f.subQuestionId === null).filter(
+      v => options[0].filter( vv => vv.option_choice_id === v.option_choice_id)
+    )
+   
+    const selectAns = options[0].filter(v => temp.map(vv => vv.optionChoiceId === v.option_choice_id ? v.option_choice_name : null))
+    .map(k => k.option_choice_name)[0]
+
+    return (
+      <span
+        className="text-primary"
+        style={{
+          width: "100%",
+          wordWrap: "break-word",
+          display: "inline-block",
+        }}
+      >
+       {selectAns !== "Other"? selectAns : simpleAns}
+      </span>
+    );
+  }
+  else {
+    return (
+      <span
+        className="text-primary"
+        style={{
+          width: "100%",
+          wordWrap: "break-word",
+          display: "inline-block",
+        }}
+      >
+        {simpleAns}
+      </span>
+    );
+  }
+  
 };
 
 // import React from "react";
