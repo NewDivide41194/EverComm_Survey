@@ -8,16 +8,17 @@ const BackCover = (props) => {
 
   return (
     <div
-      className="container border"
+      className="container"
       style={{
         width: "8.27in",
-        height: "14.66in",
+        height: "14in",
         backgroundColor: "",
       }}
     >
       <div className="text-left">
         <img
           src={Logo}
+          className="mt-3 ml-4"
           style={{
             height: "30px",
           }}
@@ -29,13 +30,9 @@ const BackCover = (props) => {
         style={{ paddingTop: "550px" }}
       >
         <h1
-          className="text-center"
+          className="text-center border-bottom pb-2"
           style={{
-            color: Colors.PrimaryColor,
-            bordertop: "0",
-            borderleft: "0",
-            borderright: "0",
-            borderBottom: "0.1px solid #cecece",
+            color: Colors.PrimaryColor,           
           }}
         >
           End Of {reportData.survey_name} Report

@@ -3,7 +3,6 @@ import { ESButton } from "../../../../tools/ES_Button";
 import { ESInput } from "../../../../tools/ES_Inputs";
 import { ESDropDownSample } from "../../../../tools/ES_DropDownSample";
 import ESCheckBox from "../../../../tools/ES_CheckBox";
-import { Link } from "react-router-dom";
 import * as Colors from "../../../../config/Color.config";
 
 const AddAccontForm = (props) => {
@@ -43,14 +42,9 @@ const AddAccontForm = (props) => {
     errClassName,
     isDisabled,
     edit,
-    span,
-    header,
-    handleIsEdit,
-    accountsetting,
     checkedList,
   } = props;
 
-  console.log("---------->",errClassName);
   const level =
     currentUserLevel != 1
       ? UserLevelOptions.filter((v) => v.value !== 1)
@@ -307,10 +301,6 @@ const SurveyHeaderList = (props) => {
   const { surveyList, handleCheckChange, checkedList, userLevel, currentUserLevel } = props;
   //console.log(checkedList);
   const level = Object.values(userLevel).map((v) => v);
-  const surveyListOption = surveyList.map((v) => ({
-    option_choice_id: v.survey_header_id,
-    option_choice_name: v.survey_name,
-  }));
 
   return (
     <div

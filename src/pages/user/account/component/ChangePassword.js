@@ -5,7 +5,6 @@ import { UpdatePassword } from "../../../../api/FetchUser";
 import * as Colors from "../../../../config/Color.config";
 import { useAlert } from "react-alert";
 import { _handleSignOut } from "../../../../helper/functions";
-import { LoginAPI } from "../../../../api/url";
 
 export const ChangePassword = (props) => {
   const [passwordData, setPasswordData] = useState({
@@ -14,38 +13,35 @@ export const ChangePassword = (props) => {
     confirmPassword: "",
   });
   const [isDisabled, setisDisabled] = useState(true);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState({
+    current: false,
+    new: false,
+    reEnter: false,
+  });
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
   const alert = useAlert();
   useEffect(() => {
-    document.getElementById("currentPassword").focus();
-    // if (
-    //   passwordData.currentPassword == "" 
-    //   // ||
-    //   // passwordData.newPassword === "" ||
-    //   // passwordData.confirmPassword === ""
-    // ) {
-    //   setisDisabled(true);
-    // } else {
-    //   setisDisabled(false);
-    // }
-  },[]);
-  const err = {};
+    document.getElementById("current").focus();
+  }, []);
 
-  const handleView = () => {
-    setVisible(!visible);
+  const handleView = (e) => {
+    const id=e.target.id
+    id === "current"
+      ? setVisible({ ...visible, current: !visible.current })
+      : id === "new"
+      ? setVisible({ ...visible, new: !visible.new })
+      : setVisible({ ...visible, reEnter: !visible.reEnter });
   };
   const _handlePwdChange = (e) => {
-    // setErr({});
     const id = e.target.id;
     const value = e.target.value;
-    if (id === "currentPassword") {
+    if (id === "current") {
       setPasswordData({ ...passwordData, currentPassword: value });
-    } else if (id === "newPassword") {
+    } else if (id === "new") {
       setPasswordData({ ...passwordData, newPassword: value });
     } else {
-      setisDisabled(false)
+      setisDisabled(false);
       setPasswordData({ ...passwordData, confirmPassword: value });
     }
   };
@@ -88,7 +84,7 @@ export const ChangePassword = (props) => {
     <div className="container">
       <div className="d-flex flex-row justify-content-center">
         <form
-          className="py-2 col-lg-4 col-sm-12"
+          className="py-2 col-lg-4 col-md-8" 
           style={{
             position: "absolute",
             top: "50%",
@@ -105,30 +101,33 @@ export const ChangePassword = (props) => {
             </h4>
           </div>
           <Password
+            visible={visible.current}
             placeHolder={"Current password"}
             value={passwordData.currentPassword}
-            id={"currentPassword"}
+            id={"current"}
             isDisabled={isDisabled}
-            handleView={handleView}
+            handleView={(e)=>handleView(e)}
             handlePwdChange={(e) => _handlePwdChange(e)}
           />
           <Password
+            visible={visible.new}
             placeHolder={"New password"}
             value={passwordData.newPassword}
-            id={"newPassword"}
+            id={"new"}
             isDisabled={isDisabled}
             handleView={handleView}
             handlePwdChange={_handlePwdChange}
           />
           <Password
+            visible={visible.reEnter}
             placeHolder={"Re-type new password"}
             value={passwordData.confirmPassword}
-            id={"confirmPassword"}
+            id={"reEnter"}
             isDisabled={isDisabled}
             handleView={handleView}
             handlePwdChange={_handlePwdChange}
           />
-          <div className="d-flex flex-row pt-3">
+          <div className="d-flex flex-row pt-3 w-100">
             <div className="flex-column w-50 pr-2">
               <ESButton
                 disabled={isDisabled}
@@ -161,31 +160,35 @@ const Password = (props) => {
     handlePwdChange,
     handleView,
     visible,
-    errStyle,
-    errClassName,
-    isDisabled,
     placeHolder,
     id,
     // err
   } = props;
-  const err = {};
-
   return (
     <div className="w-100 py-2 text-secondary">
-      {err.passwordErr === undefined ? null : (
-        <div
-          className={errClassName}
-          style={{ ...errStyle }}
-        >{`*${err.passwordErr}`}</div>
-      )}
       <ESInput
-        // disabled={isDisabled}
         id={id}
-        type={"text"}
+        type={visible ? "text" : "password"}
         placeHolder={placeHolder}
         value={value}
         onChange={(e) => handlePwdChange(e)}
       />
+      <span
+        style={{
+          float: "right",
+          marginTop: "-55px",
+          fontSize: "18px",
+          marginRight: "20px",
+          cursor: "pointer",
+        }}
+        onClick={(e)=>handleView(e)}
+      >
+        {visible ? (
+          <i className="fa fa-eye-slash py-4 text-secondary" id={id}/>
+        ) : (
+          <i className="fa fa-eye py-4 text-secondary" id={id}/>
+        )}
+      </span>
     </div>
   );
 };

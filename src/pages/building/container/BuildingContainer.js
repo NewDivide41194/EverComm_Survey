@@ -88,6 +88,7 @@ const BuildingContainer = (props) => {
 
   const _handleSubmit = (e) => {
     e.preventDefault();
+    setIsDisabled(true);
     BuildingFetch(
       {
         clientCompany,
@@ -107,12 +108,11 @@ const BuildingContainer = (props) => {
       (err, data) => {
         if (data.success === false) {
           alert.error(data.message);
-          setIsDisabled(isDisabled);
         } else {
           localStorage.setItem("buildingName", buildingName);
           localStorage.setItem("buildingId", data.payload.insertId);
           localStorage.setItem("buildingType", buildingType);
-          localStorage.setItem("bTypeId", buildingTypeId);
+          localStorage.setItem("bTypeId", buildingTypeId);          
           props.history.push(
             `/question/${userId}/${surveyHeaderId}/${buildingId}`
           );

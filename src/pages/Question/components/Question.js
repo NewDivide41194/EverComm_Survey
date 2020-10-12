@@ -35,7 +35,6 @@ const Question = (props) => {
     surveyData.length && surveyData[0].survey_header_id === 1
       ? total
       : surveyData.length && surveyData[0].survey_sections[0].questions.length;
-
   return (
     surveyData.length && (
       <div style={{ marginBottom: 32 }}>

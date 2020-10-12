@@ -37,7 +37,7 @@ const ESCheckbox = (props) => {
         }
         key={k3}
         onMouseOver={() =>
-          (document.getElementById(
+          disabled|| (document.getElementById(
             `${ans.option_choice_id + quesId} div`
           ).style.background = "rgb(211, 226, 237)")
         }
@@ -47,7 +47,7 @@ const ESCheckbox = (props) => {
           ).style.background = "none")
         }
         style={{
-          cursor: "pointer",
+          cursor: disabled||"pointer",
           fontSize: fontSize || 12,
         }}
       >
@@ -72,7 +72,7 @@ const ESCheckbox = (props) => {
             name={`${quesId}`}
           />
         </ThemeProvider>
-        {vertical || ans.option_choice_name}{" "}
+        {vertical || ans.option_choice_name}
       </label>
     ))
   ) : (
@@ -80,10 +80,10 @@ const ESCheckbox = (props) => {
       style={{ minHeight: 200 }}
       class="d-flex flex-row justify-content-center align-content-between flex-wrap"
     >
-      <div>{value.option_choice_name}</div>
+      <div className="w-100">{value.option_choice_name}</div>   
       <ThemeProvider theme={customTheme}>
         <Checkbox
-        disabled={disabled}
+          disabled={disabled}
           value={value.option_choice_name}
           checked={
             isAnswer

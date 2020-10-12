@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { ESButton } from "../../../../../src/tools/ES_Button.js";
 import * as Colors from "../../../../config/Color.config";
 import AddAccountForm from "./AddAccount";
@@ -52,19 +52,6 @@ const Account = (props) => {
     rowsPerPage,
     IsLoading
   } = props;
-
-  const header = {
-    fontSize: "25px",
-  };
-  const span = {
-    cursor: "pointer",
-    fontSize: "15px",
-  };
-
-  const [collapse, setCollapse] = useState(true);
-  const isCollapse = () => {
-    setCollapse(!collapse);
-  };
 
   const tableData = {
     columns: [

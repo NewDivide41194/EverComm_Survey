@@ -11,6 +11,7 @@ const CountryContainer = (props) => {
   const [country, setCountry] = useState("");
   const [organization, setOrganization] = useState("");
   const [sectionCount, setSectionCount] = useState(0);
+  const [disable,setDisable]=useState(false)
   const alert = useAlert();
 
   const CountryOptions = Countries.countries.map((v, k) => ({
@@ -41,6 +42,7 @@ const CountryContainer = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setDisable(true)
     if (organization === "") {
       alert.error("Please Fill Organization!");
     } else {
@@ -68,7 +70,7 @@ const CountryContainer = (props) => {
     localStorage.setItem("bTypeId", 1);
     localStorage.setItem("organization", organization);
   };
-// console.log(sectionCount);
+  // console.log(sectionCount);
   const pathData = [
     {
       title: "Survey Menu",
@@ -83,22 +85,23 @@ const CountryContainer = (props) => {
   ];
   return (
     <div className="container">
-      <div className="p-2"><ESNavigator pathData={pathData} /></div>
-      {countryList.length > 0 && countryList ? (
-        <CountryMenu
-          sectionCount={sectionCount}
-          countryList={countryList}
-          CountryOptions={CountryOptions}
-          country={country}
-          organization={organization}
-          handleCountrySelect={_handleCountrySelect}
-          handleSubmit={handleSubmit}
-          handleOrganization={handleOrganization}
-          handleSelectCountry={handleSelectCountry}
-          surveyHeaderId={surveyHeaderId}
-          surveyHeaderName={surveyHeaderName}
-        />
-      ) : null}
+      <div className="p-2">
+        <ESNavigator pathData={pathData} />
+      </div>
+      <CountryMenu
+        sectionCount={sectionCount}
+        countryList={countryList}
+        CountryOptions={CountryOptions}
+        country={country}
+        organization={organization}
+        handleCountrySelect={_handleCountrySelect}
+        handleSubmit={handleSubmit}
+        handleOrganization={handleOrganization}
+        handleSelectCountry={handleSelectCountry}
+        surveyHeaderId={surveyHeaderId}
+        surveyHeaderName={surveyHeaderName}
+        disable={disable}
+      />
     </div>
   );
 };

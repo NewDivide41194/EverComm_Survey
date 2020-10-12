@@ -46,9 +46,9 @@ const QuestionContainer = (props) => {
     countryId: parseInt(countryId),
     selected: false,
   };
-  const amountOfDevice = surveyData.length && surveyData[0].amountOfDevice;
+  const amountOfDevice = surveyData.length && surveyData[0].amountOfDevice?surveyData[0].amountOfDevice:[];
   const deviceAmounts =
-    amountOfDevice.length && Object.values(amountOfDevice[0]);
+    amountOfDevice.length>0 ? Object.values(amountOfDevice[0]):null;
   const questionslength =
     surveyData.length &&
     surveyData[0].survey_sections.map((v) => v.questions.length);

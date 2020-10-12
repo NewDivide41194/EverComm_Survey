@@ -34,13 +34,11 @@ const ReportContainer = (props) => {
   const [surveyData, setSurveyData] = useState([]);
   const [answerData, setAnswerData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const buildingId=localStorage.getItem("buildingId")
-  const buildingTypeId=localStorage.getItem("buildingTypeId")
+  const buildingId = localStorage.getItem("buildingId");
+  const buildingTypeId = localStorage.getItem("buildingTypeId");
   const [graph, setGraph] = useState(false);
+  const buildingName = localStorage.getItem("buildingName");
   useEffect(() => {
-    // const countryId = 48;
-    // surveyHeaderId === 10
-    //   ?
     setIsLoading(true);
     UserReportAnswers(
       {
@@ -135,7 +133,7 @@ const ReportContainer = (props) => {
   const categoriesData = BMS.map((v, k) => v.name);
   const componentGraphRef = useRef();
   const componentTextRef = useRef();
-  
+
   return isLoading ? (
     <ESLoading />
   ) : (
@@ -182,15 +180,17 @@ const ReportContainer = (props) => {
             <Cover
               reportData={reportData}
               viewType={userLevel === 2 ? null : viewType}
+              buildingName={buildingName}
             />
-            <br /> 
-            {reportData && reportData.length > 0 && (
-              <TextContainer
-                reportData={reportData}
-                answerData={answerData}
-                surveyData={surveyData}
-              />
-            )}
+            <br />
+            {reportData &&
+              reportData.length > 0 &&
+               <TextContainer
+                  reportData={reportData}
+                  answerData={answerData}
+                  surveyData={surveyData}
+                />
+            }
             <br />
             <BackCover reportData={reportData} />
           </div>

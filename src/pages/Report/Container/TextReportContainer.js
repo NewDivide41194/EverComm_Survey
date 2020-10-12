@@ -1,50 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import CompoundText from "../component/text/TextCompound";
 import EgovernmentReport, { Header } from "../component/text/TextGroup.js";
 import "../../../App.css";
 import TextSimple from "../component/text/TextSimple";
 import * as Colors from "../../../config/Color.config";
 import UNDP from "../../../assets/images/Logo.png";
+import {OtherAns,otherOfQuestion} from "../../../helper/questionHelper"
 
 const TextContainer = (props) => {
   const { reportData } = props;
   console.log("====>", reportData);
   const [section, setSection] = useState([]);
-
-  // useEffect(() => {
-  //   console.log(
-  //     document.getElementById("1") && document.getElementById("1").clientHeight
-  //   );
-  //   if (document.getElementById("1")) {
-  //     document.getElementById("1").style.border = "1px solid gray";
-  //   }
-  // }, []);
-
-  const AnswerData = reportData[0].answers;
-  const QuestionData = reportData[0].survey_sections.map((v) => v.questions);
-
-  const OtherAns = (remakeQuesId, QuesId, OptionId) => {
-    return AnswerData.filter(
-      (a) =>
-        a.keyValue === QuesId &&
-        a.optionChoiceId === OptionId &&
-        a.questionId === remakeQuesId
-    );
-  };
-
-  const otherOfQuestion = (index) => {
-    const isOther =
-      QuestionData &&
-      QuestionData.map((v, k) =>
-        v.option_choices === undefined ? [] : v.option_choices
-      )[index].filter((d) => d.option_choice_name === "Other");
-
-    return isOther.length > 0 ? isOther[0].option_choice_id : [];
-  };
   return reportData[0].survey_header_id === 1
     ? reportData[0].survey_sections.map((v, k) => (
         <div
-          className="container border"
+        key={k}
+          className="container"
           style={{
             width: "8.27in",
           }}
@@ -54,6 +25,7 @@ const TextContainer = (props) => {
               <ChillerHeader
                 sectionName={v.section_name}
                 buildingName={v.buildingName}
+                surveyName={reportData[0].survey_name}
               />
               <TextSimple
                 QuestionData={v.questions}
@@ -63,26 +35,31 @@ const TextContainer = (props) => {
                 sectionName={v.section_name}
                 surveyTitle={reportData[0].surveyTitle}
               />
+              <div className="page-break">.</div>
             </div>
           ) : (
             <div>
               <ChillerHeader
                 sectionName={v.section_name}
                 buildingName={v.buildingName}
+                surveyName={reportData[0].survey_name}
               />
               <CompoundText
                 QuestionData={v.questions}
                 AnswerData={reportData[0].answers}
+                otherOfQuestion={otherOfQuestion}
+                otherAns={OtherAns}
                 amountOfDevice={reportData[0].amountOfDevice}
                 pageno={k}
               />
+              <div className="page-break">.</div>
             </div>
           )}
         </div>
       ))
     : reportData[0].survey_sections.map((v, k) =>
         k > 0 ? (
-          <div>
+          <div key={k}>
             <EgovernmentReport
               id={k}
               sectionName={v.section_name}
@@ -127,7 +104,7 @@ const DataProvider = (props) => {
         QuestionData.map((ques, k2) => {
           const questionId = ques.question_id.toString();
           return (
-            <div className="px-3 row">
+            <div className="px-3 row" key={k2}>
               <div className="col-3">{ques && ques.question_name} :</div>
               <div className="col-7 text-primary">
                 {questionId
@@ -144,9 +121,9 @@ const DataProvider = (props) => {
 };
 
 export const ChillerHeader = (props) => {
-  const { sectionName, buildingName, countryName } = props;
+  const { sectionName, surveyName, countryName } = props;
   return (
-    <div className="d-flex py-2 px-3 flex-row justify-content-between align-items-baseline font-weight-bold">
+    <div className="d-flex px-3 flex-row justify-content-between align-items-center border-bottom">
       <div
         style={{
           color: Colors.PrimaryColor,
@@ -154,8 +131,8 @@ export const ChillerHeader = (props) => {
           alignSelf: "flex-end",
         }}
       >
-        <div className="font-weight-bold">{buildingName}</div>
-        <span>{sectionName}</span>
+        <div className="font-weight-bold">{surveyName}</div>
+        <i>{sectionName}</i>
       </div>
       <div>
         <img src={UNDP} style={{ width: 120 }} alt="EGA logo" />

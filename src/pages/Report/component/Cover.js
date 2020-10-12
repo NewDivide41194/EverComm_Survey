@@ -4,14 +4,14 @@ import moment from "moment";
 import Logo from "../../../assets/images/Logo.png";
 
 const Cover = (props) => {
-  const { reportData, startDate, endDate, viewType, media } = props;
+  const { reportData, buildingName} = props;
 
   return (
     <div
-      className="container border"
+      className="container"
       style={{
         width: "8.27in",
-        height: "15.66in",
+        height: "15in",
       }}
     >
       <img
@@ -26,24 +26,17 @@ const Cover = (props) => {
       {reportData && reportData.length
         ? reportData.map((v, k) => (
             <div
-              className="container-row mt-4"
               key={k}
               style={{ paddingTop: "550px" }}
             >
               <h1
-                className="text-center "
+                className="text-center border-bottom pb-2"
                 style={{ color: Colors.PrimaryColor }}
               >
                 Report for {v.survey_name}
-              </h1>
-              {startDate ? (
-                <h4 className="text-center text-secondary">
-                  From {moment(startDate).format("YYYY-MMM-DD")} to{" "}
-                  {moment(endDate).format("YYYY-MMM-DD")}
-                </h4>
-              ) : (
+              </h1>              
                 <h4 className="text-center text-secondary">Overall Report</h4>
-              )}
+                <h5 className="text-center text-secondary">Building: {buildingName}</h5>
             </div>
           ))
         : null}

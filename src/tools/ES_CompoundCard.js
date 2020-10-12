@@ -49,8 +49,10 @@ const QuestionCard = (props) => {
     .map((v, k) => ({ label: k + 1, value: k + 1 }));
 
   const pageDeviceIndex =
-    pageno === 0 ? 1 : 5 ? deviceIndexValue[0] : deviceIndexValue[pageno - 1];
+    pageno === 0||pageno==5 ? 1 : deviceIndexValue[pageno - 1];
   const QuestionCards = new Array(pageDeviceIndex).fill(null).map((v, k3) => {
+    console.log(pageno);
+    console.log(pageDeviceIndex);
 
     return (
       <div

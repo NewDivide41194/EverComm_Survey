@@ -13,7 +13,7 @@ const CountryMenu = (props) => {
     handleSubmit,
     organization,
     sectionCount,
-    // surveyHeaderId,
+    disable,
     surveyHeaderName,
     handleOrganization,
     countryList,
@@ -38,15 +38,22 @@ const CountryMenu = (props) => {
         </div>
       </div>
       <hr />
-      <div className="pb-2">
-        <h5 style={{ color: Colors.Gray }}>
-          ({sectionCount}) {sectionCount <= 1 ? "Survey" : "Surveys"}
-        </h5>
-      </div>
-      <CountryList
-        data={countryList}
-        handleSelectCountry={handleSelectCountry}
-      />
+
+      {countryList.length > 0 && countryList ? (
+        <div>
+          <div className="pb-2">
+            <h5 style={{ color: Colors.Gray }}>
+              ({sectionCount}) {sectionCount <= 1 ? "Survey" : "Surveys"}
+            </h5>
+          </div>
+          <CountryList
+            data={countryList}
+            handleSelectCountry={handleSelectCountry}
+          />
+        </div>
+      ) : (
+        <NoCountry />
+      )}
       <div
         className="modal fade"
         id="countryModal"
@@ -80,6 +87,7 @@ const CountryMenu = (props) => {
                 </div>
                 <div>
                   <ESDropDown
+                    disabled={disable}
                     id={"countryList"}
                     value={country}
                     options={CountryOptions}
@@ -94,6 +102,7 @@ const CountryMenu = (props) => {
                 </div>
                 <div>
                   <ESInput
+                    disabled={disable}
                     id={"Organization"}
                     type={"text"}
                     placeHolder={"Organization"}
@@ -107,7 +116,7 @@ const CountryMenu = (props) => {
             <div className="d-flex flex-row justify-content-center">
               <div className="py-3" style={{ width: 200 }}>
                 <ESButton
-                  //dataDismiss={"modal"}
+                  disabled={disable}
                   type={"submit"}
                   text={"CREATE SURVEY"}
                   id={"CreateSurvey"}
@@ -155,9 +164,6 @@ const CountryList = (props) => {
   );
 };
 
-// const data = [
-//     {country: 'Myanmar'},
-//     {country: 'Singapore'},
-//     {country: 'Malaysia'},
-//     {country: 'Taiwan'}
-// ]
+const NoCountry = () => {
+  return <div className="text-danger text-center">No organization yet!</div>;
+};

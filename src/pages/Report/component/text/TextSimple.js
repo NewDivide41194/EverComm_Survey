@@ -1,328 +1,129 @@
 import React from "react";
 import ESCheckBox from "../../../../tools/ES_CheckBox";
 import { ESRadio } from "../../../../tools/ES_Radio";
-import { ESDropDown } from "../../../../tools/ES_DropDown";
 
 import { withMedia } from "react-media-query-hoc";
 import { ESInput } from "../../../../tools/ES_Inputs";
-import ESDatePicker from "../../../../tools/ES_DatePicker";
 import * as Colors from "../../../../config/Color.config";
-import EGA from "../../../../assets/images/eGovernment/EGA.jpg";
-import UNDP from "../../../../assets/images/eGovernment/UNDP.jpeg";
+import TextAnswers from "./TextAnswers";
 
 const TextSimple = (props) => {
+
   const {
     QuestionData,
-    _handleRadioChange,
-    _handleCheckChange,
-    _handleInputChange,
-    _handleStartChange,
-    _handleSelect,
-    _handleEndChange,
-    _handleDateChange,
     isQuestion,
     media,
-    selectedOption,
+    otherOfQuestion,
     AnswerData,
-    startDate,
-    sectionName,
-    surveyTitle,
+    otherAns,
   } = props;
-  const countryName = localStorage.getItem("countryName");
-  const buildingName = localStorage.getItem("buildingName");
-  const ageOfBuildingOption = new Array(99)
-    .fill(null)
-    .map((v, k) => ({ label: k + 1, value: k + 1 }));
 
-  const otherAns = (remakeQuesId, QuesId, OptionId) => {
-    return AnswerData.filter(
-      (a) =>
-        a.keyValue === QuesId &&
-        a.optionChoiceId === OptionId &&
-        a.questionId === remakeQuesId
-    );
-  };
-
-  const otherOfQuestion = (index) => {
-    const isOther =
-      QuestionData &&
-      QuestionData.map((v, k) =>
-        v.option_choices === undefined ? [] : v.option_choices
-      )[index].filter((d) => d.option_choice_name === "Other");
-
-    return isOther.length > 0 ? isOther[0].option_choice_id : [];
-  };
-
-  return (
-    <div className="py-2">
-      {QuestionData &&
-        QuestionData.map((ques, k2) => {
-          const questionId = ques.question_id.toString();
-          return (
+  return QuestionData
+    ? QuestionData.map((ques, k2) => {
+        const questionId = ques.question_id.toString();
+        return (
+          <div
+            className="p-3"
+            key={k2}
+            id={ques.questionId}
+            style={{
+              fontSize: media.mobile ? "12px" : "15px",
+            }}
+          >
             <div
-              className="d-flex flex-row flex-fill flex-wrap w-100 p-3 mb-3 rounded bg-light border"
-              key={k2}
-              id={ques.questionId}
-              style={{
-                fontSize: media.mobile ? "12px" : "15px",
-              }}
+              className="d-flex flex-row flex-wrap w-100"
             >
-              <div
-                className="d-flex flex-row flex-wrap w-100"
-                key={k2}
-                style={{ fontSize: media.mobile ? "15px" : "18px" }}
-              >
-                <div className="d-flex flex-row pb-3 w-100  justify-content-between">
-                  {k2 + 1}. {ques.question_name}
-                  {AnswerData.map((v, k) => v.questionId).filter(
-                    (v) => v === questionId
-                  )[0] === questionId ? (
-                    <QuestionCardInfo info={"Answered"} media={media} />
-                  ) : (
-                    <QuestionCardInfo info={"Pending"} media={media} />
-                  )}
-                </div>
+              <div className="d-flex flex-row w-100 justify-content-between">
+                {k2 + 1}. {ques.question_name}
+                {AnswerData.map((v, k) => v.questionId).filter(
+                  (v) => v === questionId
+                )[0] === questionId ? (
+                  <QuestionCardInfo info={"Answered"} media={media} />
+                ) : (
+                  <QuestionCardInfo info={"Pending"} media={media} />
+                )}
               </div>
-              {ques.input_type_id === 1 ? (
-                <ESCheckBox
-                  quesId={questionId}
+            </div>
+            {ques.input_type_id === 1 ? (
+              <ESCheckBox
+                quesId={questionId}
+                value={ques.option_choices}
+                isAnswer={AnswerData}
+                isQuestion={isQuestion}
+                keys={ques.question_id}
+                disabled={true}
+              />
+            ) : ques.input_type_id === 2 ? (
+              <div className="w-100">
+                <ESRadio
                   value={ques.option_choices}
-                  _handleChange={_handleCheckChange}
+                  quesId={questionId}
                   isAnswer={AnswerData}
                   isQuestion={isQuestion}
                   keys={ques.question_id}
-                  disabled={true}
+                  isDisable={true}
                 />
-              ) : ques.input_type_id === 2 ? (
-                <div className="w-100">
-                  <ESRadio
-                    value={ques.option_choices}
-                    _handleRadioChange={_handleRadioChange}
-                    quesId={questionId}
-                    isAnswer={AnswerData}
-                    isQuestion={isQuestion}
-                    keys={ques.question_id}
-                    isDisable={true}
-                  />
-                  {otherAns(questionId, ques.question_id, otherOfQuestion(k2))
-                    .length > 0 ? (
-                    <div className="pt-2">
-                      <TextAnswers
-                        AnswerData={AnswerData}
-                        questionId={questionId}
-                      />
-                    </div>
-                  ) : null}
-                </div>
-              ) : ques.input_type_id === 5 ? (
-                ques.option_choices[0].option_choice_id === null ? (
-                  // <ESDropDown
-                  //   quesId={questionId}
-                  //   subQuesId={null}
-                  //   options={ageOfBuildingOption}
-                  //   subQuesId={null}
-                  //   _handleSelect={_handleSelect}
-                  //   selectedOption={
-                  //     AnswerData.filter((d) => d.questionId === questionId)
-                  //       ? AnswerData.filter(
-                  //           (d) => d.questionId === questionId
-                  //         ).map((v, k) => v.other)
-                  //       : selectedOption
-                  //   }
-                  //   keys={ques.question_id}
-                  // />
-                  <TextAnswers
-                      AnswerData={AnswerData}
-                      questionId={questionId}
-                  />
-                ) : (
-                  <div className="w-100">
-                    {/* <ESDropDown
-                      quesId={questionId}
-                      subQuesId={null}
-                      options={ques.option_choices.map((v, k) => ({
-                        value: v.option_choice_id,
-                        label: v.option_choice_name,
-                      }))}
-                      _handleSelect={_handleSelect}
-                      selectedOption={
-                        AnswerData.filter((d) => d.questionId === questionId)
-                          ? AnswerData.filter(
-                              (d) => d.questionId === questionId
-                            ).map(
-                              (v, k) =>
-                                ques.option_choices.filter(
-                                  (x, y) =>
-                                    x.option_choice_id === v.optionChoiceId
-                                )[0]
-                            )
-                          : selectedOption
-                      }
-                      keys={ques.question_id}
-                    /> */}
+                {otherAns(
+                  questionId,
+                  ques.question_id,
+                  otherOfQuestion(k2, QuestionData),
+                  AnswerData
+                ).length > 0 ? (
+                  <div className="pt-2">
                     <TextAnswers
                       AnswerData={AnswerData}
                       questionId={questionId}
-                      options={
-                        AnswerData.filter( d => d.questionId === questionId)
-                        .map(v => ques.option_choices.filter(vv => vv.option_choice_id === v.optionChoiceId))
-                      }
                     />
-                    {/* {otherAns(questionId, ques.question_id, otherOfQuestion(k2))
-                      .length > 0 ? (
-                      <div className="pt-2">
-                        <TextAnswers
-                          AnswerData={AnswerData}
-                          questionId={questionId}
-                        />
-                      </div>
-                    ) : null} */}
                   </div>
-                )
-              ) : ques.input_type_id === 4 ? (
-                <ESInput
-                  disabled={true}
-                  maxLength={30}
-                  placeHolder={"Fill Your Answer"}
-                  id={questionId}
-                  value={AnswerData.filter(
-                    (d) => d.questionId === questionId
-                  ).map((v, k) => v.other)}
-                  onChange={(e) => {
-                    _handleInputChange(e, questionId, ques.question_id);
-                  }}
-                />
-              ) : ques.input_type_id === 6 ? (
-                <ESDatePicker
-                  readOnly={true}
-                  quesId={questionId}
-                  startDate={
-                    AnswerData.filter((d) => d.questionId === questionId)
-                      .length && AnswerData.length
-                      ? AnswerData.filter(
-                          (d) => d.questionId === questionId
-                        ).map(
-                          (v, k) =>
-                            new Date(JSON.parse(v.other).YearOfManufacturing)
-                        )[0]
-                      : null
-                  }
-                  _handleEndChange={_handleEndChange}
-                  _handleStartChange={_handleStartChange}
-                  keys={ques.question_id}
-                />
-              ) : ques.input_type_id === 8 ? (
+                ) : null}
+              </div>
+            ) : ques.input_type_id === 5 ? (
+              ques.option_choices[0].option_choice_id === null ? (
+                <TextAnswers AnswerData={AnswerData} questionId={questionId} />
+              ) : (
                 <div className="w-100">
-                  <ESDatePicker
-                    readOnly={true}
-                    quesId={questionId}
-                    placeHolder={ques.question_name}
-                    startDate={
-                      startDate ||
-                      (AnswerData.filter((d) => d.questionId === questionId)
-                        .length &&
-                        AnswerData.length)
-                        ? AnswerData.filter(
-                            (d) => d.questionId === questionId
-                          ).map((v, k) => new Date(v.other))[0]
-                        : null
-                    }
-                    _handleDateChange={_handleDateChange}
-                    keys={ques.question_id}
-                    type={ques.question_name}
-                    isDate={true}
+                  <TextAnswers
+                    AnswerData={AnswerData}
+                    questionId={questionId}
+                    options={AnswerData.filter(
+                      (d) => d.questionId === questionId
+                    ).map((v) =>
+                      ques.option_choices.filter(
+                        (vv) => vv.option_choice_id === v.optionChoiceId
+                      )
+                    )}
                   />
                 </div>
-              ) : null}
-            </div>
-          );
-        })}
-    </div>
-  );
+              )
+            ) : ques.input_type_id === 4 ? (
+              <ESInput
+                disabled={true}
+                maxLength={30}
+                placeHolder={"Fill Your Answer"}
+                id={questionId}
+                value={AnswerData.filter(
+                  (d) => d.questionId === questionId
+                ).map((v, k) => v.other)}
+              />
+            ) : ques.input_type_id === 6 ? (
+              <TextAnswers
+                questionId={questionId}
+                AnswerData={AnswerData}
+                year
+              />
+            ) : null}
+          </div>
+        );
+      })
+    : null;
 };
 
 export default withMedia(TextSimple);
 
-const TextAnswers = (props) => {
-  const { AnswerData, subQues, questionId, options } = props;
-
-  const simpleAns = questionId
-  ? AnswerData.filter(
-      (d) => d.questionId === questionId && d.subQuestionId === null
-    ).map((v, k) => v.other)
-  : AnswerData.filter(
-      (d) => d.subQuestionId === subQues.sub_question_id
-    ).map((v, k) => v.other)
-
-  if(options !== undefined && options.length>0){
-    const temp = AnswerData.filter(f => f.questionId === questionId && f.subQuestionId === null).filter(
-      v => options[0].filter( vv => vv.option_choice_id === v.option_choice_id)
-    )
-   
-    const selectAns = options[0].filter(v => temp.map(vv => vv.optionChoiceId === v.option_choice_id ? v.option_choice_name : null))
-    .map(k => k.option_choice_name)[0]
-
-    return (
-      <span
-        className="text-primary"
-        style={{
-          width: "100%",
-          wordWrap: "break-word",
-          display: "inline-block",
-        }}
-      >
-       {selectAns !== "Other" ? selectAns : simpleAns}
-      </span>
-    );
-  }
-  else {
-    return (
-      <span
-        className="text-primary"
-        style={{
-          width: "100%",
-          wordWrap: "break-word",
-          display: "inline-block",
-        }}
-      >
-        {simpleAns}
-      </span>
-    );
-  }
-  
-};
-
-// const TextAnswers = (props) => {
-//   const { AnswerData, subQues, questionId } = props;
-//   return (
-//     <span
-//       className="text-primary"
-//       style={{
-//         width: "100%",
-//         wordWrap: "break-word",
-//         display: "inline-block",
-//       }}
-//     >
-//       {questionId
-//         ? AnswerData.filter(
-//             (d) => d.questionId === questionId && d.subQuestionId === null
-//           ).map((v, k) => v.other)
-//         : AnswerData.filter(
-//             (d) => d.subQuestionId === subQues.sub_question_id
-//           ).map((v, k) => v.other)}
-//     </span>
-//   );
-// };
-
-const QuestionCardInfo = (props) => {
+export const QuestionCardInfo = (props) => {
   const { info, media } = props;
   return (
     <div>
-      {/* {media.mobile || (
-        <span style={{ fontSize: 10 }} className="text-secondary pr-1">
-          {info}
-        </span>
-      )} */}
       <i
         className={`fa ${
           info === "Answered"

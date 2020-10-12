@@ -10,7 +10,7 @@ const DeviceAmount = (props) => {
     deviceData,
     _handleBack,
   } = props;
-
+console.log(isDisabled);
   const deviceOption = new Array(30)
     .fill(null)
     .map((v, k) => ({ label: k + 1, value: k + 1 }));

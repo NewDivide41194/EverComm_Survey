@@ -30,12 +30,17 @@ export const AddCountryFetch = (
 };
 
 export const GetCountry = ({userId,surveyHeaderId, token}, callback) => {
-    fetch(API.Get_Country(surveyHeaderId), {
+    fetch(API.Get_Country(surveyHeaderId),{
+        method:"POST",
         headers:{
             "Content-Type": "application/json",
             Accept: "*/*",
-            Authorization: `Bearer ${token}` 
-        }
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+            surveyHeaderId: surveyHeaderId,
+            userId: userId
+        })
     })
     .then(res => res.json())
     .then(data => callback(null,data))

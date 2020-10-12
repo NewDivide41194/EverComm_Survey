@@ -25,25 +25,25 @@ const ReportMenu = (props) => {
     building,
     _handleSelectBuilding
   } = props;
-  const userLevel = localStorage.getItem("userLevel");
-console.log(BuildingOptions);
+  
   return (
     <div className="container">
       <div
-        className="py-5 d-flex flex-row flex-fill flex-wrap justify-content-end"
+        className="d-flex flex-row flex-fill flex-wrap justify-content-end"
         style={{ fontSize: "18px" }}
       >
-        <label style={{ fontWeight: "bold" }}>Types of View :</label>
-        <label className="pl-2">        
+        <label style={{ fontWeight: "bold" }} className="py-1">Types of View :</label>
+        <label className="pl-2" style={{cursor:"pointer"}}>        
           <ESRadio
           value={{option_choice_name:"all"}}
           name="type"
+          isDisable={true}
           checked={viewType==="all"}
           _handleRadioChange={_handleSelectChange}
           />
           All users
         </label>
-        <label className="pl-2 ">
+        <label className="pl-2" style={{cursor:"pointer"}}>
           <ESRadio
           value={{option_choice_name:"one"}}
           name="type"
@@ -56,11 +56,11 @@ console.log(BuildingOptions);
 
       <div
         className="d-flex flex-row flex-fill flex-wrap justify-content-center"
-        style={{ marginTop: "8vh" }}
+        // style={{ marginTop: "5vh" }}
       >
         <div className="col-lg-5 col-sm-12 py-2">
           <h5 style={{ color: Colors.PrimaryColor }}>Select Survey Name</h5>
-          <div className="pt-3">
+          <div className="pt-2">
             <ESDropDown
               id={"id"}
               _handleSelect={_handleSelectSurvey}
@@ -73,7 +73,7 @@ console.log(BuildingOptions);
         {surveyId && surveyId == 10 && viewType === "one" && (
           <div className="w-100 row justify-content-center">
             <div className="col-lg-5 col-sm-12 py-2">
-              <h5 className="py-3" style={{ color: Colors.PrimaryColor }}>
+              <h5 style={{ color: Colors.PrimaryColor }}>
                 Select Country
               </h5>
               <ESDropDown
@@ -102,7 +102,7 @@ console.log(BuildingOptions);
             </div>
           </div>
         )}
-        <div className="w-100 row justify-content-center pt-5 pb-3">
+        <div className="w-100 row justify-content-center py-3">
           <div className="col-lg-3 col-12">
             <ESButton
               disabled={isDisable}
@@ -140,7 +140,7 @@ const ReportDetail = (props) => {
               key={k}
             >
               <div className="col-12">
-                <h4 style={{ color: Colors.PrimaryColor }}>Report Detail</h4>
+                <h5 style={{ color: Colors.PrimaryColor }}>Report Detail</h5>
                 <hr />
               </div>
               {v.amount_of_building.length != "" ? (
