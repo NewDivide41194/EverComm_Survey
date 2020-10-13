@@ -15,7 +15,6 @@ const LeftSideBar = (props) => {
   const createSurveyPath = `/admin/dashboard/createNewSurvey`;
   const surveyManagementPath = `/admin/dashboard/manageSurveyList/${userId}`;
   const userManagementPath = `/user/accountManagement/${userId}`;
-  const mainMenuPath = `/menu/${userId}`;
   const surveyMenuPath = `/surveyMenu/${userId}`;
   const reportMenuPath = `/reportMenu/${userId}`;
   const URL = window.location.pathname;

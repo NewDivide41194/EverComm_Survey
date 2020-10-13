@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { MenuInfoFetch } from "../../../api/FetchMenuInfo";
-import * as Colors from "../../../config/Color.config";
+import React from "react";
+
 import ESTable from "../../../tools/ES_Table";
 
 const SurveyTable = (props) => {

@@ -56,7 +56,7 @@ const NavBar = (props) => {
         alt="logo"
         onClick={_handleMenu}
       /> */}
-        <div></div>
+        <div/>
         <div className="dropdown">
           {props.location.pathname !== "/" &&
             props.location.pathname !== "/register" && (

@@ -24,16 +24,6 @@ const SurveyManagementContainer = () => {
     data: surveyListData,
   };
 
-  //   const actionButtons = (
-  //     <div className="row px-3" style={{ fontSize: 13, color: "darkred" }}>
-  //       {`${
-  //         !isEdit
-  //           ? 'Click "+ Add User" button to add new account'
-  //           : "*Select a row to edit"
-  //       }`}
-  //     </div>
-  //   );
-  console.log("--------->", surveyListData);
 const handleEdit=()=>{
   console.log("edit");
 }

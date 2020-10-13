@@ -3,7 +3,6 @@ import Surveylist from "../component/Surveylist";
 import { ESButton } from "../../../tools/ES_Button";
 import * as Colors from "../../../config/Color.config";
 import { SurveyListFetch } from "../../../api/FetchSurveyList";
-import { Building_Type } from "../../../api/url";
 import { ESNavigator } from "../../../tools/ES_Text";
 
 const SurveylistContainer = (props) => {

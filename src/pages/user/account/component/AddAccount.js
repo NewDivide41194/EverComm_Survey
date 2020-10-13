@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { ESButton } from "../../../../tools/ES_Button";
 import { ESInput } from "../../../../tools/ES_Inputs";
 import { ESDropDownSample } from "../../../../tools/ES_DropDownSample";
@@ -228,13 +228,14 @@ const AddAccontForm = (props) => {
                   fontSize: "18px",
                   marginRight: "20px",
                   cursor: "pointer",
+                  color:Colors.Gray
                 }}
                 onClick={handleView}
               >
                 {visible ? (
-                  <i className="fa fa-eye-slash py-4 text-secondary" />
+                  <i className="fa fa-eye-slash py-4" />
                 ) : (
-                  <i className="fa fa-eye py-4 text-secondary" />
+                  <i className="fa fa-eye py-4" />
                 )}{" "}
               </span>
             </div>

@@ -18,7 +18,7 @@ const ESGroupQuestionCard = (props) => {
     sectionName,
     surveyTitle,
     isHeader,
-    id
+    id,
   } = props;
   const subQues =
     QuestionData.length > 0 &&
@@ -237,9 +237,6 @@ const SubQuestionInput = (props) => {
     _handleRadioChange,
     questionId,
     AnswerData,
-    _handleInputChange,
-    _handleSelect,
-    selectedOption,
   } = props;
   return ques.sub_questions.map((subQues, k3) => (
     <div
@@ -251,7 +248,7 @@ const SubQuestionInput = (props) => {
       ) : (
         <div className="w-25">{subQues.sub_question_name}</div>
       )}
-      <div className="w-75 text-primary">
+      <div className="w-75" style={{ color: Colors.PrimaryColor }}>
         {subQues.input_type_id === 2 || subQues.input_type_id === 15 ? (
           <div>
             <ESRadio
@@ -306,11 +303,11 @@ const TextAnswers = (props) => {
   const { AnswerData, subQues, questionId } = props;
   return (
     <span
-      className="text-primary"
       style={{
         width: "100%",
         wordWrap: "break-word",
         display: "inline-block",
+        color: Colors.PrimaryColor,
       }}
     >
       {questionId
@@ -327,13 +324,14 @@ const TextAnswers = (props) => {
 export const Header = (props) => {
   const { sectionName, surveyTitle, countryName } = props;
   return (
-    <div className="d-flex px-3 flex-row justify-content-between align-items-baseline font-italic">
+    <div className="d-flex px-3 flex-row justify-content-between font-italic">
       <div
         style={{
           color: Colors.SparkGreen,
           fontSize: 18,
           alignSelf: "flex-end",
         }}
+        className="w-50"
       >
         <div className="font-weight-bold">
           {surveyTitle} in {countryName}

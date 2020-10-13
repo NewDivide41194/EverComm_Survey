@@ -106,7 +106,7 @@ const DataProvider = (props) => {
           return (
             <div className="px-3 row" key={k2}>
               <div className="col-3">{ques && ques.question_name} :</div>
-              <div className="col-7 text-primary">
+              <div className="col-7" style={{color:Colors.PrimaryColor}}>
                 {questionId
                   ? AnswerData.filter((d) => d.questionId === questionId).map(
                       (v, k) => v.other

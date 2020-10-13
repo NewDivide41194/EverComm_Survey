@@ -7,22 +7,13 @@ export const ESDropDownBuilding =(props) => {
     options,
     quesId,
     _handleSelect,
-    // selectedOption,
     disabled,
     notClearable,
     id,
     defaultValue,
     keys,
-    // onInputChange,
     placeHolder
   } = props;
-
-  // const AnsSelected =
-  //   selectedOption &&
-  //   selectedOption.map((v, k) => ({
-  //     value: v.option_choice_id,
-  //     label: v.option_choice_name,
-  //   }));
 
   const customStyles = {
     option: (provided, state) => ({
@@ -32,7 +23,6 @@ export const ESDropDownBuilding =(props) => {
       padding: 10
     }),
   };
-  
 
   return (
       <CreatableSelect
@@ -51,10 +41,6 @@ export const ESDropDownBuilding =(props) => {
         },
       })}
       className="w-100"
-      
-      // value={
-
-      // }
       onChange={(e) => _handleSelect(quesId||id, e,keys)}
       // onInputChange={onInputChange}
       // value={selectedOption}

@@ -1,18 +1,14 @@
 import React from "react";
 import { ESButton } from "../../../tools/ES_Button";
-import { ESDropDown } from "../../../tools/ES_DropDown";
 import { ESInput } from "../../../tools/ES_Inputs";
 import * as Colors from "../../../config/Color.config";
 
 const AddSurveySectinsForm = (props) => {
   const {
     _handleSectionChange,
-    isDisabled,
     _handleSubmit,
-    deviceData,
     noOfSurvey,
     _handleBack,
-    value,
     surveySections
   } = props;
 

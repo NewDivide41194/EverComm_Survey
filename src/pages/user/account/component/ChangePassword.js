@@ -180,13 +180,14 @@ const Password = (props) => {
           fontSize: "18px",
           marginRight: "20px",
           cursor: "pointer",
+          color:Colors.Gray
         }}
         onClick={(e)=>handleView(e)}
       >
         {visible ? (
-          <i className="fa fa-eye-slash py-4 text-secondary" id={id}/>
+          <i className="fa fa-eye-slash py-4" id={id}/>
         ) : (
-          <i className="fa fa-eye py-4 text-secondary" id={id}/>
+          <i className="fa fa-eye py-4" id={id}/>
         )}
       </span>
     </div>

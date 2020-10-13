@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import QuestionCard from "../../../tools/ES_CompoundCard";
 import { ESButton } from "../../../tools/ES_Button";
 import { withMedia } from "react-media-query-hoc";

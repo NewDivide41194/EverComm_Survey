@@ -9,8 +9,6 @@ const useStyles = makeStyles((theme) => ({
     width:"100%"
   },
   textField: {
-    // marginLeft: theme.spacing(1),
-    // marginRight: theme.spacing(1),
     paddingRight:"10px",
     width: "50%",
   },

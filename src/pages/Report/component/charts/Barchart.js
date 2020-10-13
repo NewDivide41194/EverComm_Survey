@@ -3,7 +3,6 @@ import { ResponsiveBar } from '@nivo/bar'
 
 
 const Bar = ({ data,reverse,axisLeft,layout,margin,legends,axisBottom}) => (
-    
     <ResponsiveBar
         data={data}
         keys={[ 'value']}

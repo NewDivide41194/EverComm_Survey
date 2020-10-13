@@ -1,9 +1,8 @@
 import React,{ useState } from "react";
-import { ESButton } from "../../../tools/ES_Button";
 import * as Colors from "../../../config/Color.config";
 
 const SurveyMenu = (props) => {
-  const { handleChoose, id, header, amountOfSurvey, handleReset, countryCount, surveyAmount } = props;
+  const { handleChoose, id, header, amountOfSurvey, countryCount, surveyAmount } = props;
   const [isHover,setIsHover]=useState(false);
 
   const _handleMouseOver = () => {
@@ -59,10 +58,6 @@ const SurveyMenu = (props) => {
         } 
         </div>
       </div>
-
-      {/* <div className='align-self-center'>
-          <ESButton id={id} small text={"Reset Answers"} onClick={()=>handleReset(id)}/>
-        </div> */}
     </div>
   );
 };

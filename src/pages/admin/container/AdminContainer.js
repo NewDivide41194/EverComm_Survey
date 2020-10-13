@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Admin from "../components/Survey";
 import Survey from "../components/Survey";
 import { AddNewSurvey } from "../../../api/admin/FetchSurvey";
 import { useAlert } from "react-alert";

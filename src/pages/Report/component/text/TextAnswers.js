@@ -1,4 +1,5 @@
 import React from "react";
+import * as Colors from "../../../../config/Color.config"
 const TextAnswers = (props) => {
   const { AnswerData, subQues, questionId, options, year } = props;
 
@@ -34,11 +35,11 @@ const TextAnswers = (props) => {
 
     return (
       <span
-        className="text-primary"
         style={{
           width: "100%",
           wordWrap: "break-word",
           display: "inline-block",
+          color:Colors.PrimaryColor
         }}
       >
         {selectAns !== "Other" ? selectAns : simpleAns}
@@ -47,11 +48,11 @@ const TextAnswers = (props) => {
   } else {
     return (
       <span
-        className="text-primary"
         style={{
           width: "100%",
           wordWrap: "break-word",
           display: "inline-block",
+          color:Colors.PrimaryColor
         }}
       >
         {yearAns || simpleAns}

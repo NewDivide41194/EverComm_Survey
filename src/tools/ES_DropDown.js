@@ -8,7 +8,6 @@ export const ESDropDown = (props) => {
     quesId,
     _handleSelect,
     selectedOption,
-    value,
     disabled,
     notClearable,
     id,
@@ -25,15 +24,7 @@ export const ESDropDown = (props) => {
   }));
   const customStyles = {
     control: provided => ({
-      ...provided,
-    
-      // height: 10,
-      // margin: 0,
-      // marginLeft: 0,
-      // border: `2px solid ${Colors.SecondaryColor}` ,
-      // fontSize: 13,
-      // backgroundColor: 'white',
-      // outline: 'none'            
+      ...provided          
   }),
   option: (provided, state) => ({
       ...provided,

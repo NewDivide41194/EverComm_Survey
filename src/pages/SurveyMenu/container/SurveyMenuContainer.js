@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SurveyMenu from "../component/SurveyMenu";
 import { MenuInfoFetch } from "../../../api/FetchMenuInfo";
-import { GetCountry } from "../../../api/FetchCountry";
 import { TrancateAns } from "../../../api/FetchTrancate";
 import Loading from "../../../assets/images/loading1.gif";
 import * as Colors from "../../../config/Color.config";

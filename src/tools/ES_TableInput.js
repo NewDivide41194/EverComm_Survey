@@ -1,6 +1,6 @@
 import React from "react";
 import { ESTextArea } from "./ES_TextArea";
-
+import * as Colors from "../config/Color.config"
 export const ESTableInput = (props) => {
   const {
     AnswerData,
@@ -38,8 +38,8 @@ export const ESTableInput = (props) => {
                   <td key={k1}>
                     {reportText ? (
                         <span
-                          className="text-primary text-left"
-                          
+                          className="text-left"
+                          style={{color:Colors.PrimaryColor}}
                         >
                           {AnswerData.filter(
                             (d) => d.questionId === remakeQuestionId

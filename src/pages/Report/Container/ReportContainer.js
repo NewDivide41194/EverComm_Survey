@@ -12,6 +12,7 @@ import BackCover from "../component/BackCover";
 import { ChartTheme1 } from "../../../config/Color.config";
 import TextContainer from "./TextReportContainer";
 import ESLoading from "../../../tools/ES_Loading";
+import * as Colors from "../../../config/Color.config"
 
 const ReportContainer = (props) => {
   const [reportData, setReportData] = useState([]);
@@ -138,7 +139,7 @@ const ReportContainer = (props) => {
     <ESLoading />
   ) : (
     <div className="container">
-      <h3 className="text-primary">Report</h3>
+      <h3 style={{color:Colors.PrimaryColor}}>Report</h3>
       <ul className="nav nav-tabs" role="tablist">
         <li className="nav-item">
           <a
@@ -218,6 +219,7 @@ const ReportContainer = (props) => {
 
 export default ReportContainer;
 
+{/*HIDE GRAPH REPORT*/}
 const GraphReport = (props) => {
   const {
     componentGraphRef,

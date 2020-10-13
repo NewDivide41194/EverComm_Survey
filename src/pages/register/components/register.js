@@ -166,13 +166,14 @@ const Register = (props) => {
                   fontSize: "18px",
                   marginRight: "20px",
                   cursor: "pointer",
+                  color:Colors.Gray
                 }}
                 onClick={handleView}
               >
                 {visible ? (
-                  <i className="fa fa-eye-slash py-4 text-secondary" />
+                  <i className="fa fa-eye-slash py-4" />
                 ) : (
-                  <i className="fa fa-eye py-4 text-secondary" />
+                  <i className="fa fa-eye py-4" />
                 )}
               </span>
             </div>
