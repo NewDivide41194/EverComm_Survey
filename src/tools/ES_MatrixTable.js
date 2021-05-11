@@ -18,7 +18,7 @@ const ESMatrix = (props) => {
   } = props;
 
   return (
-    <table className="table table-bordered table-striped">
+    <table className="table table-bordered table-striped table-sm">
       <thead>
         {categories ? (
           <tr className="text-center">

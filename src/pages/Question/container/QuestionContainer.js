@@ -46,9 +46,12 @@ const QuestionContainer = (props) => {
     countryId: parseInt(countryId),
     selected: false,
   };
-  const amountOfDevice = surveyData.length && surveyData[0].amountOfDevice?surveyData[0].amountOfDevice:[];
+  const amountOfDevice =
+    surveyData.length && surveyData[0].amountOfDevice
+      ? surveyData[0].amountOfDevice
+      : [];
   const deviceAmounts =
-    amountOfDevice.length>0 ? Object.values(amountOfDevice[0]):null;
+    amountOfDevice.length > 0 ? Object.values(amountOfDevice[0]) : null;
   const questionslength =
     surveyData.length &&
     surveyData[0].survey_sections.map((v) => v.questions.length);
@@ -70,7 +73,7 @@ const QuestionContainer = (props) => {
     setAutoSave(true);
 
     PostAnswer(
-      { data: AnswerData, total, buildingType, token,signal },
+      { data: AnswerData, total, buildingType, token, signal },
       (err, data) => {
         setTimeout(() => {
           setAutoSave(false);
@@ -272,7 +275,7 @@ const QuestionContainer = (props) => {
     setIsAnswer(AnswerData.map((v, k) => v.optionChoiceId));
   };
   const handleSelect = (quesId, e, keys, subQuesId) => {
-    console.log('e >>> ', e);
+    console.log("e >>> ", e);
     setSelectedOption(e);
     // console.log("Handle Select", quesId, e, keys, subQuesId);
     if (e !== null && typeof e.label == "string") {
@@ -284,7 +287,7 @@ const QuestionContainer = (props) => {
         keyValue: keys,
         subQuestionId: subQuesId || null,
       };
-      console.log('select answer >> ', SelectAnswer)
+      console.log("select answer >> ", SelectAnswer);
       if (subQuesId === null) {
         if (isQuesId(quesId).length >= 1) {
           AnswerData.splice(isQuesIdIndex(quesId), 1, SelectAnswer);
@@ -309,7 +312,7 @@ const QuestionContainer = (props) => {
         keyValue: keys,
         subQuestionId: subQuesId || null,
       };
-      
+
       if (subQuesId === null) {
         if (isQuesId(quesId).length >= 1) {
           AnswerData.splice(isQuesIdIndex(quesId), 1, SelectAnswer);

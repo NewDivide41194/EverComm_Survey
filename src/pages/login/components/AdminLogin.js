@@ -19,16 +19,9 @@ const UserLogin = (props) => {
 
   return (
     <div className="container">
-      <div className="row justify-content-center">
-      <form
-        className="col-lg-3 col-md-8"
-        style={{
-          position: "absolute",
-          top: "50%",
-          transform:"translateY(-50%)"
-        }}
-      >
-        <div className="form-group text-center m-0 text-secondary">
+      <form className="row justify-content-center">
+     
+        <div className="form-group text-secondary">
           <i className="fas fa-user-lock fa-3x pb-4"></i>
           <h4>Login Your Account</h4>
           <div className="py-3 text-left">
@@ -101,7 +94,6 @@ const UserLogin = (props) => {
           </div>
         </div>
       </form>
-      </div>
     
     </div>
   );

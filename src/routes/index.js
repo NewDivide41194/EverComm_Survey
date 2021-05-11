@@ -2,7 +2,7 @@ import QuestionContainer from "../pages/Question/container/QuestionContainer";
 import ReportMenuContainer from "../pages/ReportMenu/Container/ReportMenuContainer";
 import RegisterContainer from "../pages/register/container/registerContainer";
 import AdminContainer from "../pages/admin/container/AdminContainer";
-import MenuContainer from "../pages/Menu/constainer/MenuContainer";
+import MenuContainer from "../pages/Menu/container/MenuContainer";
 import BuildingContainer from "../pages/building/container/BuildingContainer";
 import AccountContainer from "../pages/user/account/container/AccountContainer";
 import SurveylistContainer from "../pages/surveylist/container/SurveylistContainer";
